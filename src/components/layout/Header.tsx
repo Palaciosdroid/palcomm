@@ -26,7 +26,7 @@ export default function Header() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-white/90 backdrop-blur-md shadow-soft"
+            ? "bg-white/95 backdrop-blur-md shadow-soft"
             : "bg-transparent"
         }`}
       >
@@ -34,10 +34,10 @@ export default function Header() {
           <div className="flex items-center justify-between h-18 md:h-20">
             {/* Logo */}
             <a href="#" className="flex items-center gap-2">
-              <span className={`text-xl md:text-2xl font-light tracking-tight transition-colors duration-300 ${
-                isScrolled ? "text-[#3d2c1e]" : "text-[#3d2c1e]"
+              <span className={`text-xl md:text-2xl font-bold tracking-tight transition-colors duration-300 ${
+                isScrolled ? "text-[#2d2420]" : "text-white"
               }`}>
-                Angstfrei<span className="text-[#daaf7a] font-normal">-Tag</span>
+                Angstfrei<span className="text-[#daaf7a]">-Tag</span>
               </span>
             </a>
 
@@ -48,7 +48,7 @@ export default function Header() {
                   key={item.name}
                   href={item.href}
                   className={`transition-colors duration-300 text-sm font-medium tracking-wide hover:text-[#daaf7a] ${
-                    isScrolled ? "text-[#5c4a3a]" : "text-[#5c4a3a]"
+                    isScrolled ? "text-[#5c4a3a]" : "text-white/90"
                   }`}
                 >
                   {item.name}
@@ -63,7 +63,7 @@ export default function Header() {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={`md:hidden p-2 transition-colors duration-300 ${
-                isScrolled ? "text-[#3d2c1e]" : "text-[#3d2c1e]"
+                isScrolled ? "text-[#2d2420]" : "text-white"
               }`}
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -96,7 +96,7 @@ export default function Header() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 + index * 0.05 }}
-                  className="text-[#3d2c1e] text-2xl font-light tracking-wide hover:text-[#daaf7a] transition-colors"
+                  className="text-[#2d2420] text-2xl font-medium tracking-wide hover:text-[#daaf7a] transition-colors"
                 >
                   {item.name}
                 </motion.a>
