@@ -30,7 +30,7 @@ export default function SocialProofSection() {
           <p className="text-[#daaf7a] text-sm uppercase tracking-widest mb-4">
             Gemeinsam stark
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-[#2d2420] mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2d2420] mb-6">
             Werde Teil unserer{" "}
             <span className="text-gradient font-normal">Community</span>
           </h2>
@@ -63,7 +63,7 @@ export default function SocialProofSection() {
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ type: "spring", stiffness: 100, delay: index * 0.1 + 0.2 }}
-                  className="text-3xl md:text-4xl font-light text-[#2d2420] mb-2"
+                  className="text-3xl md:text-4xl font-bold text-[#2d2420] mb-2"
                 >
                   {stat.value}
                 </motion.p>

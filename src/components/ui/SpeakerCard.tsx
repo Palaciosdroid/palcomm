@@ -47,7 +47,7 @@ export default function SpeakerCard({
 
         {/* Content */}
         <div className={`text-center ${featured ? "md:text-left md:flex-1" : ""}`}>
-          <h3 className={`font-normal text-[#2d2420] mb-1 ${featured ? "text-xl md:text-2xl" : "text-lg"}`}>
+          <h3 className={`font-bold text-[#2d2420] mb-1 ${featured ? "text-xl md:text-2xl" : "text-lg"}`}>
             {name}
           </h3>
           <p className="text-[#daaf7a] text-sm mb-2 font-medium">{title}</p>

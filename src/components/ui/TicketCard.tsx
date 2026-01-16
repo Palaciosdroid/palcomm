@@ -63,7 +63,7 @@ export default function TicketCard({
 
         {/* Header */}
         <div className="text-center mb-8 pt-3">
-          <h3 className="text-xl font-normal text-[#2d2420] mb-2">{name}</h3>
+          <h3 className="text-xl font-bold text-[#2d2420] mb-2">{name}</h3>
           <p className="text-[#8b7b6b] text-sm">{description}</p>
         </div>
 

@@ -26,7 +26,7 @@ export default function TicketsSection() {
           <p className="text-[#daaf7a] text-sm uppercase tracking-widest mb-4">
             Deine Investition
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-[#2d2420] mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2d2420] mb-6">
             Wähle deinen <span className="text-gradient font-normal">Weg</span>
           </h2>
           <p className="text-[#6b5b4f] max-w-xl mx-auto text-lg leading-relaxed">

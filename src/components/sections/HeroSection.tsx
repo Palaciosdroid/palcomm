@@ -8,7 +8,7 @@ import Button from "../ui/Button";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#fdfcfa] via-[#f5f0e8] to-[#fdfcfa]">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0a1628] via-[#1a2d4a] to-[#0a1628]">
       {/* Organic Background Shapes */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Floating organic blobs */}
@@ -16,13 +16,14 @@ export default function HeroSection() {
           animate={{
             y: [0, -30, 0],
             rotate: [0, 5, 0],
+            scale: [1, 1.1, 1],
           }}
           transition={{
             duration: 12,
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute top-20 right-[10%] w-72 h-72 md:w-96 md:h-96 blob bg-gradient-to-br from-[#daaf7a]/20 to-[#c4a484]/10 blur-2xl"
+          className="absolute -top-20 -right-20 w-[500px] h-[500px] blob bg-gradient-to-br from-[#daaf7a]/20 to-[#daaf7a]/5 blur-3xl"
         />
         <motion.div
           animate={{
@@ -35,12 +36,12 @@ export default function HeroSection() {
             ease: "easeInOut",
             delay: 2,
           }}
-          className="absolute bottom-40 left-[5%] w-64 h-64 md:w-80 md:h-80 blob-2 bg-gradient-to-tr from-[#a8b5a0]/15 to-[#d4a5a5]/10 blur-2xl"
+          className="absolute -bottom-20 -left-20 w-[400px] h-[400px] blob-2 bg-gradient-to-tr from-[#1a3a5c]/50 to-[#daaf7a]/10 blur-3xl"
         />
         <motion.div
           animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.5, 0.3],
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.4, 0.2],
           }}
           transition={{
             duration: 10,
@@ -48,13 +49,14 @@ export default function HeroSection() {
             ease: "easeInOut",
             delay: 1,
           }}
-          className="absolute top-1/3 left-1/4 w-40 h-40 rounded-full bg-[#b8a9c9]/10 blur-3xl"
+          className="absolute top-1/3 left-1/4 w-64 h-64 rounded-full bg-[#daaf7a]/10 blur-3xl"
         />
 
-        {/* Subtle decorative circles */}
-        <div className="absolute top-1/4 right-1/3 w-2 h-2 rounded-full bg-[#daaf7a]/40" />
-        <div className="absolute top-1/2 right-1/4 w-3 h-3 rounded-full bg-[#c4a484]/30" />
-        <div className="absolute bottom-1/3 left-1/3 w-2 h-2 rounded-full bg-[#a8b5a0]/40" />
+        {/* Subtle star-like dots */}
+        <div className="absolute top-1/4 right-1/3 w-1 h-1 rounded-full bg-white/30" />
+        <div className="absolute top-1/2 right-1/4 w-1.5 h-1.5 rounded-full bg-[#daaf7a]/50" />
+        <div className="absolute bottom-1/3 left-1/3 w-1 h-1 rounded-full bg-white/20" />
+        <div className="absolute top-2/3 right-1/2 w-1 h-1 rounded-full bg-[#daaf7a]/30" />
       </div>
 
       {/* Content */}
@@ -64,10 +66,10 @@ export default function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-8"
+            transition={{ duration: 0.6 }}
+            className="mb-6"
           >
-            <span className="inline-block px-5 py-2.5 rounded-full bg-white/80 backdrop-blur-sm border border-[#daaf7a]/20 text-[#5c4a3a] text-sm font-medium tracking-wide shadow-soft">
+            <span className="inline-block px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-[#daaf7a] text-sm font-semibold uppercase tracking-wider">
               {eventDetails.name}
             </span>
           </motion.div>
@@ -76,8 +78,8 @@ export default function HeroSection() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-            className="text-[#6b5b4f] text-lg md:text-xl mb-6 font-light"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-white/70 text-lg md:text-xl mb-4"
           >
             {eventDetails.slogan}
           </motion.p>
@@ -86,20 +88,20 @@ export default function HeroSection() {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="text-4xl md:text-5xl lg:text-6xl font-light text-[#2d2420] mb-8 leading-tight tracking-tight"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
           >
             Entdecke die Kraft,
             <br />
-            <span className="text-gradient font-normal">angstfrei zu leben</span>
+            <span className="text-gradient">angstfrei zu leben</span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            className="text-[#6b5b4f] text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-white/60 text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"
           >
             Ein Tag voller Inspiration, Transformation und Gemeinschaft.
             Lerne von den besten Experten, wie du deine Ängste überwinden
@@ -110,20 +112,16 @@ export default function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-            className="flex flex-wrap justify-center gap-6 md:gap-8 mb-12"
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex flex-wrap justify-center gap-6 md:gap-8 mb-10"
           >
-            <div className="flex items-center gap-2.5 text-[#5c4a3a]">
-              <div className="w-10 h-10 rounded-full bg-[#daaf7a]/10 flex items-center justify-center">
-                <Calendar className="w-5 h-5 text-[#daaf7a]" />
-              </div>
-              <span className="font-medium">{eventDetails.date}</span>
+            <div className="flex items-center gap-2 text-white/80">
+              <Calendar className="w-5 h-5 text-[#daaf7a]" />
+              <span>{eventDetails.date}</span>
             </div>
-            <div className="flex items-center gap-2.5 text-[#5c4a3a]">
-              <div className="w-10 h-10 rounded-full bg-[#daaf7a]/10 flex items-center justify-center">
-                <MapPin className="w-5 h-5 text-[#daaf7a]" />
-              </div>
-              <span className="font-medium">{eventDetails.location}</span>
+            <div className="flex items-center gap-2 text-white/80">
+              <MapPin className="w-5 h-5 text-[#daaf7a]" />
+              <span>{eventDetails.location}</span>
             </div>
           </motion.div>
 
@@ -131,8 +129,8 @@ export default function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-            className="flex justify-center mb-12"
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="flex justify-center mb-10"
           >
             <CountdownTimer targetDate={eventDetails.countdownTarget} />
           </motion.div>
@@ -141,7 +139,7 @@ export default function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.6, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Button variant="primary" size="lg" href="#tickets">
@@ -156,12 +154,13 @@ export default function HeroSection() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.6, delay: 0.8 }}
             className="mt-10"
           >
-            <p className="text-[#8b7b6b] text-sm">
-              Bereits über <span className="text-[#daaf7a] font-medium">2.500 Menschen</span> haben ihr Leben verändert
-            </p>
+            <span className="inline-flex items-center gap-2 text-[#daaf7a] text-sm">
+              <span className="w-2 h-2 bg-[#daaf7a] rounded-full animate-pulse" />
+              Bereits über 2.500 Menschen haben ihr Leben verändert
+            </span>
           </motion.div>
         </div>
       </div>
@@ -181,17 +180,17 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 8, 0] }}
         transition={{
-          opacity: { delay: 1.2, duration: 0.6 },
-          y: { delay: 1.2, duration: 2, repeat: Infinity, ease: "easeInOut" },
+          opacity: { delay: 1, duration: 0.5 },
+          y: { delay: 1, duration: 1.5, repeat: Infinity },
         }}
-        className="absolute bottom-24 left-1/2 -translate-x-1/2"
+        className="absolute bottom-28 left-1/2 -translate-x-1/2"
       >
         <a
           href="#social-proof"
-          className="flex flex-col items-center gap-2 text-[#8b7b6b] hover:text-[#daaf7a] transition-colors duration-300"
+          className="flex flex-col items-center gap-2 text-white/40 hover:text-white/60 transition-colors"
         >
-          <span className="text-xs tracking-widest uppercase">Entdecken</span>
-          <ArrowDown className="w-4 h-4" />
+          <span className="text-xs uppercase tracking-wider">Mehr erfahren</span>
+          <ArrowDown className="w-5 h-5" />
         </a>
       </motion.div>
     </section>

@@ -23,21 +23,21 @@ export default function Button({
   fullWidth = false,
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center justify-center font-medium rounded-full transition-all duration-500 cursor-pointer";
+    "inline-flex items-center justify-center font-semibold rounded-full transition-all duration-300 cursor-pointer";
 
   const variants = {
     primary:
-      "bg-gradient-to-r from-[#daaf7a] to-[#c4a484] text-white hover:shadow-xl hover:shadow-[#daaf7a]/20 hover:-translate-y-0.5",
+      "bg-gradient-to-r from-[#daaf7a] to-[#c4a484] text-white hover:shadow-lg hover:shadow-[#daaf7a]/30 hover:scale-105",
     secondary:
-      "bg-white/80 backdrop-blur-sm text-[#5c4a3a] border border-[#daaf7a]/20 hover:bg-white hover:border-[#daaf7a]/40 hover:-translate-y-0.5 shadow-soft",
+      "bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20 hover:scale-105",
     outline:
       "bg-transparent border-2 border-[#daaf7a]/40 text-[#5c4a3a] hover:bg-[#daaf7a]/10 hover:border-[#daaf7a]",
   };
 
   const sizes = {
     sm: "px-5 py-2.5 text-sm",
-    md: "px-7 py-3.5 text-base",
-    lg: "px-9 py-4 text-lg",
+    md: "px-6 py-3 text-base",
+    lg: "px-8 py-4 text-lg",
   };
 
   const classes = `${baseStyles} ${variants[variant]} ${sizes[size]} ${fullWidth ? "w-full" : ""} ${className}`;
@@ -49,7 +49,7 @@ export default function Button({
       href={href}
       onClick={onClick}
       className={classes}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.98 }}
     >
       {children}
