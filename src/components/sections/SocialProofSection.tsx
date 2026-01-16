@@ -1,37 +1,42 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Users, Mic, Star, Award } from "lucide-react";
+import { Users, Mic, Heart, Sparkles } from "lucide-react";
 import { stats } from "@/lib/data";
 
 const iconMap: Record<string, React.ReactNode> = {
-  "Teilnehmer": <Users className="w-8 h-8" />,
-  "Weltklasse-Speaker": <Mic className="w-8 h-8" />,
-  "Vorträge": <Star className="w-8 h-8" />,
-  "Zufriedenheit": <Award className="w-8 h-8" />,
+  "Teilnehmer": <Users className="w-6 h-6" />,
+  "Weltklasse-Speaker": <Mic className="w-6 h-6" />,
+  "Vorträge": <Sparkles className="w-6 h-6" />,
+  "Zufriedenheit": <Heart className="w-6 h-6" />,
 };
 
 export default function SocialProofSection() {
   return (
-    <section id="social-proof" className="relative py-20 md:py-28 bg-[#f5f7fa] overflow-hidden">
+    <section id="social-proof" className="relative py-24 md:py-32 bg-[#fdfcfa] overflow-hidden">
       {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#daaf7a] to-transparent" />
+      <div className="absolute top-0 left-1/4 w-64 h-64 blob bg-gradient-to-br from-[#daaf7a]/5 to-transparent blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 blob-2 bg-gradient-to-tr from-[#a8b5a0]/5 to-transparent blur-3xl" />
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-8">
         {/* Section Title */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12 md:mb-16"
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16 md:mb-20"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#0a1628] mb-4">
-            Werde Teil einer{" "}
-            <span className="text-gradient">grossen Community</span>
+          <p className="text-[#daaf7a] text-sm uppercase tracking-widest mb-4">
+            Gemeinsam stark
+          </p>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-[#2d2420] mb-6">
+            Werde Teil unserer{" "}
+            <span className="text-gradient font-normal">Community</span>
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Tausende Menschen haben bereits mit dem Angstfrei-Tag ihr Leben verändert.
-            Sei auch du dabei!
+          <p className="text-[#6b5b4f] max-w-xl mx-auto text-lg leading-relaxed">
+            Tausende Menschen haben bereits ihren Weg zur Angstfreiheit begonnen.
+            Lass dich inspirieren und wachse mit uns.
           </p>
         </motion.div>
 
@@ -43,70 +48,55 @@ export default function SocialProofSection() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group"
             >
-              <div className="relative bg-white rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 text-center border border-gray-100 hover:border-[#daaf7a]/30">
+              <div className="relative bg-white rounded-3xl p-6 md:p-8 shadow-soft hover:shadow-warm transition-all duration-500 text-center border border-[#daaf7a]/10 hover:border-[#daaf7a]/20">
                 {/* Icon */}
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[#0a1628] to-[#1a2d4a] text-[#daaf7a] mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-[#daaf7a]/10 to-[#c4a484]/5 text-[#daaf7a] mb-5 group-hover:scale-105 transition-transform duration-500">
                   {iconMap[stat.label]}
                 </div>
 
                 {/* Value */}
                 <motion.p
-                  initial={{ scale: 0.5 }}
-                  whileInView={{ scale: 1 }}
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
-                  transition={{ type: "spring", stiffness: 200, delay: index * 0.1 + 0.2 }}
-                  className="text-4xl md:text-5xl font-bold text-[#0a1628] mb-2"
+                  transition={{ type: "spring", stiffness: 100, delay: index * 0.1 + 0.2 }}
+                  className="text-3xl md:text-4xl font-light text-[#2d2420] mb-2"
                 >
                   {stat.value}
                 </motion.p>
 
                 {/* Label */}
-                <p className="text-gray-500 font-medium">{stat.label}</p>
-
-                {/* Hover Glow */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#daaf7a]/0 to-[#ffd700]/0 group-hover:from-[#daaf7a]/5 group-hover:to-[#ffd700]/5 transition-all duration-300" />
+                <p className="text-[#8b7b6b] text-sm tracking-wide">{stat.label}</p>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Trust Badges */}
+        {/* Trust Element */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="mt-12 md:mt-16 flex flex-wrap justify-center gap-4 md:gap-8 items-center"
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="mt-16 md:mt-20 text-center"
         >
-          <div className="flex items-center gap-2 text-gray-500">
-            <div className="flex -space-x-2">
-              {[...Array(4)].map((_, i) => (
+          <div className="inline-flex flex-col sm:flex-row items-center gap-6 px-8 py-5 rounded-full bg-white shadow-soft border border-[#daaf7a]/10">
+            <div className="flex -space-x-3">
+              {[...Array(5)].map((_, i) => (
                 <div
                   key={i}
-                  className="w-8 h-8 rounded-full bg-gradient-to-br from-[#1a2d4a] to-[#0a1628] border-2 border-white"
-                />
+                  className="w-10 h-10 rounded-full bg-gradient-to-br from-[#f5f0e8] to-[#e8dfd3] border-2 border-white flex items-center justify-center text-[#daaf7a] text-xs font-medium"
+                >
+                  {["M", "S", "T", "L", "A"][i]}
+                </div>
               ))}
             </div>
-            <span className="text-sm">
-              <strong className="text-[#0a1628]">500+</strong> Anmeldungen diesen Monat
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className="w-5 h-5 text-[#daaf7a] fill-[#daaf7a]"
-                />
-              ))}
-            </div>
-            <span className="text-sm text-gray-500">
-              <strong className="text-[#0a1628]">4.9/5</strong> Bewertung
-            </span>
+            <p className="text-[#5c4a3a] text-sm">
+              <span className="font-medium text-[#daaf7a]">+127 neue Anmeldungen</span> in den letzten 7 Tagen
+            </p>
           </div>
         </motion.div>
       </div>

@@ -23,7 +23,7 @@ export default function TestimonialCard({
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="relative bg-white rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100"
+      className="relative bg-white rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-[#daaf7a]/10"
     >
       {/* Quote Icon */}
       <div className="absolute -top-4 left-6">
@@ -33,18 +33,18 @@ export default function TestimonialCard({
       </div>
 
       {/* Quote Text */}
-      <p className="text-gray-600 leading-relaxed mb-6 pt-2">
+      <p className="text-[#6b5b4f] leading-relaxed mb-6 pt-2">
         &ldquo;{quote}&rdquo;
       </p>
 
       {/* Author */}
       <div className="flex items-center gap-3">
-        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#1a2d4a] to-[#0a1628] flex items-center justify-center">
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#1a2d4a] to-[#2d2420] flex items-center justify-center">
           <User className="w-6 h-6 text-white/60" />
         </div>
         <div>
-          <p className="font-semibold text-[#0a1628]">{name}</p>
-          <p className="text-sm text-gray-500">{role}</p>
+          <p className="font-semibold text-[#2d2420]">{name}</p>
+          <p className="text-sm text-[#8b7b6b]">{role}</p>
         </div>
       </div>
 

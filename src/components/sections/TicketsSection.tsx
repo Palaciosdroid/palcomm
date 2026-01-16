@@ -1,48 +1,50 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, Clock } from "lucide-react";
+import { Shield, Heart, Mail } from "lucide-react";
 import { tickets } from "@/lib/data";
 import TicketCard from "../ui/TicketCard";
 
 export default function TicketsSection() {
   return (
-    <section id="tickets" className="relative py-20 md:py-28 bg-[#f5f7fa] overflow-hidden">
-      {/* Background Decoration */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#0a1628]/5 via-transparent to-[#daaf7a]/5" />
+    <section id="tickets" className="relative py-24 md:py-32 bg-gradient-to-b from-[#fdfcfa] to-[#f5f0e8] overflow-hidden">
+      {/* Organic Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-0 w-96 h-96 blob bg-gradient-to-br from-[#daaf7a]/5 to-transparent blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-80 h-80 blob-2 bg-gradient-to-tl from-[#d4a5a5]/5 to-transparent blur-3xl" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12 md:mb-16"
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16 md:mb-20"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-[#0a1628] text-[#daaf7a] text-sm font-semibold uppercase tracking-wider mb-4">
-            Tickets
-          </span>
-          <h2 className="text-3xl md:text-5xl font-bold text-[#0a1628] mb-4">
-            Sichere dir deinen <span className="text-gradient">Platz</span>
+          <p className="text-[#daaf7a] text-sm uppercase tracking-widest mb-4">
+            Deine Investition
+          </p>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-[#2d2420] mb-6">
+            Wähle deinen <span className="text-gradient font-normal">Weg</span>
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Wähle das Ticket, das am besten zu dir passt.
-            Alle Tickets beinhalten Zugang zu allen Vorträgen.
+          <p className="text-[#6b5b4f] max-w-xl mx-auto text-lg leading-relaxed">
+            Jedes Ticket öffnet dir die Tür zu einem Tag voller Transformation.
+            Welcher Weg passt am besten zu dir?
           </p>
 
-          {/* Urgency Banner */}
+          {/* Gentle Urgency Note */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#daaf7a]/10 border border-[#daaf7a]/30 text-[#0a1628]"
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="mt-8 inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white shadow-soft border border-[#daaf7a]/10"
           >
-            <Clock className="w-4 h-4 text-[#daaf7a]" />
-            <span className="text-sm font-medium">
-              Frühbucherpreis nur noch bis <strong>31. August 2026</strong>!
+            <div className="w-2 h-2 rounded-full bg-[#daaf7a] animate-pulse" />
+            <span className="text-[#5c4a3a] text-sm">
+              Frühbucherpreis bis <span className="font-medium text-[#daaf7a]">31. August 2026</span>
             </span>
           </motion.div>
         </motion.div>
@@ -69,45 +71,43 @@ export default function TicketsSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="mt-12 md:mt-16"
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="mt-16 md:mt-20"
         >
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 text-gray-500 text-sm">
-            <div className="flex items-center gap-2">
-              <Shield className="w-5 h-5 text-[#daaf7a]" />
-              <span>100% sichere Bezahlung</span>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+            <div className="flex items-center gap-3 text-[#6b5b4f]">
+              <div className="w-10 h-10 rounded-full bg-[#daaf7a]/10 flex items-center justify-center">
+                <Shield className="w-5 h-5 text-[#daaf7a]" />
+              </div>
+              <span className="text-sm">Sichere Bezahlung</span>
             </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-[#daaf7a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>14 Tage Geld-zurück-Garantie</span>
+            <div className="flex items-center gap-3 text-[#6b5b4f]">
+              <div className="w-10 h-10 rounded-full bg-[#daaf7a]/10 flex items-center justify-center">
+                <Heart className="w-5 h-5 text-[#daaf7a]" />
+              </div>
+              <span className="text-sm">14 Tage Geld-zurück</span>
             </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-[#daaf7a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              <span>Sofortige Bestätigung per E-Mail</span>
+            <div className="flex items-center gap-3 text-[#6b5b4f]">
+              <div className="w-10 h-10 rounded-full bg-[#daaf7a]/10 flex items-center justify-center">
+                <Mail className="w-5 h-5 text-[#daaf7a]" />
+              </div>
+              <span className="text-sm">Sofortige Bestätigung</span>
             </div>
           </div>
         </motion.div>
 
-        {/* FAQ Teaser */}
+        {/* Contact Note */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
           className="mt-12 text-center"
         >
-          <p className="text-gray-500">
-            Fragen?{" "}
-            <a href="#" className="text-[#daaf7a] hover:underline font-medium">
-              Kontaktiere uns
-            </a>{" "}
-            oder lies unsere{" "}
-            <a href="#" className="text-[#daaf7a] hover:underline font-medium">
-              FAQ
+          <p className="text-[#8b7b6b] text-sm">
+            Fragen? Wir sind für dich da.{" "}
+            <a href="#" className="text-[#daaf7a] hover:underline underline-offset-4 transition-colors">
+              Schreib uns
             </a>
           </p>
         </motion.div>

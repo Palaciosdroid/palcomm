@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, Sparkles, Crown } from "lucide-react";
+import { Check, Sparkles, Star } from "lucide-react";
 import Button from "./Button";
 
 interface TicketCardProps {
@@ -30,64 +30,64 @@ export default function TicketCard({
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.15 }}
+      transition={{ duration: 0.6, delay: index * 0.15 }}
       className={`relative ${highlighted ? "md:-mt-4 md:mb-4" : ""}`}
     >
-      {/* Highlighted Glow Effect */}
+      {/* Highlighted Soft Glow */}
       {highlighted && (
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#daaf7a] to-[#ffd700] rounded-3xl blur opacity-30" />
+        <div className="absolute -inset-1 bg-gradient-to-r from-[#daaf7a]/20 to-[#c4a484]/20 rounded-[2rem] blur-xl" />
       )}
 
       <div
-        className={`relative h-full bg-white rounded-2xl p-6 md:p-8 transition-all duration-300 hover:shadow-2xl
+        className={`relative h-full bg-white rounded-3xl p-6 md:p-8 transition-all duration-500
         ${highlighted
-          ? "border-2 border-[#daaf7a] shadow-xl shadow-orange-500/10"
-          : "border border-gray-200 hover:border-[#daaf7a]/50"
+          ? "border-2 border-[#daaf7a]/40 shadow-warm"
+          : "border border-[#daaf7a]/10 shadow-soft hover:shadow-warm hover:border-[#daaf7a]/20"
         }`}
       >
         {/* Badge */}
         {badge && (
           <div className="absolute -top-3 left-1/2 -translate-x-1/2">
             <span
-              className={`inline-flex items-center gap-1 px-4 py-1 rounded-full text-sm font-semibold
+              className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium
               ${highlighted
-                ? "bg-gradient-to-r from-[#daaf7a] to-[#ffd700] text-[#0a1628]"
-                : "bg-[#0a1628] text-white"
+                ? "bg-gradient-to-r from-[#daaf7a] to-[#c4a484] text-white"
+                : "bg-[#f5f0e8] text-[#5c4a3a]"
               }`}
             >
-              {highlighted ? <Sparkles className="w-4 h-4" /> : <Crown className="w-4 h-4" />}
+              {highlighted ? <Sparkles className="w-3.5 h-3.5" /> : <Star className="w-3.5 h-3.5" />}
               {badge}
             </span>
           </div>
         )}
 
         {/* Header */}
-        <div className="text-center mb-6 pt-2">
-          <h3 className="text-xl font-bold text-[#0a1628] mb-2">{name}</h3>
-          <p className="text-gray-500 text-sm">{description}</p>
+        <div className="text-center mb-8 pt-3">
+          <h3 className="text-xl font-normal text-[#2d2420] mb-2">{name}</h3>
+          <p className="text-[#8b7b6b] text-sm">{description}</p>
         </div>
 
         {/* Price */}
-        <div className="text-center mb-6">
+        <div className="text-center mb-8">
           <div className="flex items-baseline justify-center gap-1">
-            <span className="text-sm text-gray-500">{currency}</span>
-            <span className={`text-5xl font-bold ${highlighted ? "text-gradient" : "text-[#0a1628]"}`}>
+            <span className="text-sm text-[#8b7b6b]">{currency}</span>
+            <span className={`text-4xl md:text-5xl font-light ${highlighted ? "text-gradient" : "text-[#2d2420]"}`}>
               {price}
             </span>
-            <span className="text-gray-500">.–</span>
+            <span className="text-[#8b7b6b]">.–</span>
           </div>
         </div>
 
         {/* Features */}
-        <ul className="space-y-3 mb-8">
+        <ul className="space-y-4 mb-8">
           {features.map((feature, i) => (
             <li key={i} className="flex items-start gap-3">
               <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5
-                ${highlighted ? "bg-[#daaf7a]/20" : "bg-gray-100"}`}
+                ${highlighted ? "bg-[#daaf7a]/15" : "bg-[#f5f0e8]"}`}
               >
-                <Check className={`w-3 h-3 ${highlighted ? "text-[#daaf7a]" : "text-[#0a1628]"}`} />
+                <Check className={`w-3 h-3 ${highlighted ? "text-[#daaf7a]" : "text-[#c4a484]"}`} />
               </div>
-              <span className="text-gray-600 text-sm">{feature}</span>
+              <span className="text-[#5c4a3a] text-sm leading-relaxed">{feature}</span>
             </li>
           ))}
         </ul>
@@ -98,15 +98,8 @@ export default function TicketCard({
           fullWidth
           href="#"
         >
-          Jetzt sichern
+          Auswählen
         </Button>
-
-        {/* Urgency Note */}
-        {highlighted && (
-          <p className="text-center text-xs text-[#daaf7a] mt-4 font-medium">
-            Nur noch wenige Plätze verfügbar!
-          </p>
-        )}
       </div>
     </motion.div>
   );

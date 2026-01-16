@@ -38,10 +38,10 @@ const benefits = [
 
 export default function WhyAttendSection() {
   return (
-    <section className="relative py-20 md:py-28 bg-[#f5f7fa] overflow-hidden">
+    <section className="relative py-20 md:py-28 bg-[#f5f0e8] overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-bl from-[#daaf7a]/10 to-transparent rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-[#0a1628]/5 to-transparent rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-[#2d2420]/5 to-transparent rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6">
         {/* Section Header */}
@@ -51,14 +51,14 @@ export default function WhyAttendSection() {
           viewport={{ once: true }}
           className="text-center mb-12 md:mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-[#0a1628] text-[#daaf7a] text-sm font-semibold uppercase tracking-wider mb-4">
+          <span className="inline-block px-4 py-2 rounded-full bg-[#2d2420] text-[#daaf7a] text-sm font-semibold uppercase tracking-wider mb-4">
             Deine Vorteile
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold text-[#0a1628] mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#2d2420] mb-4">
             Weshalb sollte ich{" "}
             <span className="text-gradient">teilnehmen</span>?
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-[#6b5b4f] max-w-2xl mx-auto">
             Der Angstfrei-Tag gibt dir die Werkzeuge, die du brauchst,
             um dein Leben nachhaltig zu verändern.
           </p>
@@ -75,17 +75,17 @@ export default function WhyAttendSection() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group"
             >
-              <div className="relative h-full bg-white rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#daaf7a]/30">
+              <div className="relative h-full bg-white rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-[#daaf7a]/10 hover:border-[#daaf7a]/30">
                 {/* Icon */}
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-[#0a1628] to-[#1a2d4a] text-[#daaf7a] mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-[#2d2420] to-[#1a2d4a] text-[#daaf7a] mb-4 group-hover:scale-110 transition-transform duration-300">
                   <benefit.icon className="w-7 h-7" />
                 </div>
 
                 {/* Content */}
-                <h3 className="text-xl font-bold text-[#0a1628] mb-2 group-hover:text-[#daaf7a] transition-colors">
+                <h3 className="text-xl font-bold text-[#2d2420] mb-2 group-hover:text-[#daaf7a] transition-colors">
                   {benefit.title}
                 </h3>
-                <p className="text-gray-600">{benefit.description}</p>
+                <p className="text-[#6b5b4f]">{benefit.description}</p>
 
                 {/* Hover Decoration */}
                 <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-[#daaf7a]/0 to-transparent rounded-tr-2xl rounded-bl-full group-hover:from-[#daaf7a]/10 transition-colors duration-300" />

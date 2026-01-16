@@ -19,13 +19,13 @@ export default function WorkshopsSection() {
           viewport={{ once: true }}
           className="text-center mb-12 md:mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-[#0a1628] text-[#daaf7a] text-sm font-semibold uppercase tracking-wider mb-4">
+          <span className="inline-block px-4 py-2 rounded-full bg-[#2d2420] text-[#daaf7a] text-sm font-semibold uppercase tracking-wider mb-4">
             Vertiefung
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold text-[#0a1628] mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#2d2420] mb-4">
             Intensive <span className="text-gradient">Workshops</span>
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-[#6b5b4f] max-w-2xl mx-auto">
             Vertiefe dein Wissen in unseren exklusiven Workshops mit
             persönlicher Betreuung durch unsere Experten.
           </p>
@@ -40,10 +40,10 @@ export default function WorkshopsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-[#daaf7a]/30 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="group relative bg-white rounded-2xl overflow-hidden border border-[#daaf7a]/10 hover:border-[#daaf7a]/30 shadow-lg hover:shadow-xl transition-all duration-300"
             >
               {/* Image Placeholder */}
-              <div className="relative h-48 md:h-56 bg-gradient-to-br from-[#0a1628] to-[#1a2d4a] overflow-hidden">
+              <div className="relative h-48 md:h-56 bg-gradient-to-br from-[#2d2420] to-[#1a2d4a] overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-6xl text-white/10 font-bold">
                     {index + 1}
@@ -54,7 +54,7 @@ export default function WorkshopsSection() {
 
                 {/* Price Badge */}
                 <div className="absolute top-4 right-4">
-                  <span className="px-3 py-1 rounded-full bg-white/90 text-[#0a1628] font-bold text-sm">
+                  <span className="px-3 py-1 rounded-full bg-white/90 text-[#2d2420] font-bold text-sm">
                     CHF {workshop.price}.–
                   </span>
                 </div>
@@ -62,12 +62,12 @@ export default function WorkshopsSection() {
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-[#0a1628] mb-2 group-hover:text-[#daaf7a] transition-colors">
+                <h3 className="text-xl font-bold text-[#2d2420] mb-2 group-hover:text-[#daaf7a] transition-colors">
                   {workshop.title}
                 </h3>
 
                 {/* Meta */}
-                <div className="flex flex-wrap gap-4 mb-4 text-sm text-gray-500">
+                <div className="flex flex-wrap gap-4 mb-4 text-sm text-[#8b7b6b]">
                   <div className="flex items-center gap-1">
                     <User className="w-4 h-4 text-[#daaf7a]" />
                     <span>{workshop.instructor}</span>
@@ -79,7 +79,7 @@ export default function WorkshopsSection() {
                 </div>
 
                 {/* Description */}
-                <p className="text-gray-600 mb-6">{workshop.description}</p>
+                <p className="text-[#6b5b4f] mb-6">{workshop.description}</p>
 
                 {/* CTA */}
                 <a
@@ -101,7 +101,7 @@ export default function WorkshopsSection() {
           viewport={{ once: true }}
           className="mt-12 text-center"
         >
-          <p className="text-gray-500 mb-6">
+          <p className="text-[#8b7b6b] mb-6">
             Workshops können separat oder zusammen mit dem Tagesticket gebucht werden.
           </p>
           <Button variant="outline" href="#tickets">

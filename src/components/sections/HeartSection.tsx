@@ -6,7 +6,7 @@ import Button from "../ui/Button";
 
 export default function HeartSection() {
   return (
-    <section className="relative py-20 md:py-28 bg-gradient-to-br from-[#0a1628] via-[#1a2d4a] to-[#0a1628] overflow-hidden">
+    <section className="relative py-20 md:py-28 bg-gradient-to-br from-[#2d2420] via-[#1a2d4a] to-[#2d2420] overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0">
         <motion.div
@@ -113,7 +113,7 @@ export default function HeartSection() {
 
               {/* Center Content */}
               <div className="absolute inset-24 rounded-full bg-gradient-to-br from-[#daaf7a] to-[#ffd700] flex items-center justify-center">
-                <Heart className="w-16 h-16 text-[#0a1628]" />
+                <Heart className="w-16 h-16 text-[#2d2420]" />
               </div>
 
               {/* Floating Elements */}

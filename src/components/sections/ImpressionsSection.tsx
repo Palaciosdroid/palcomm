@@ -15,13 +15,13 @@ export default function ImpressionsSection() {
           viewport={{ once: true }}
           className="text-center mb-12 md:mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-[#0a1628] text-[#daaf7a] text-sm font-semibold uppercase tracking-wider mb-4">
+          <span className="inline-block px-4 py-2 rounded-full bg-[#2d2420] text-[#daaf7a] text-sm font-semibold uppercase tracking-wider mb-4">
             Impressionen
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold text-[#0a1628] mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#2d2420] mb-4">
             Einblicke in <span className="text-gradient">vergangene Events</span>
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-[#6b5b4f] max-w-2xl mx-auto">
             So sieht der Angstfrei-Tag aus – erlebe die einzigartige Atmosphäre.
           </p>
         </motion.div>
@@ -41,7 +41,7 @@ export default function ImpressionsSection() {
             >
               {/* Placeholder Image */}
               <div
-                className={`w-full bg-gradient-to-br from-[#1a2d4a] to-[#0a1628] ${
+                className={`w-full bg-gradient-to-br from-[#1a2d4a] to-[#2d2420] ${
                   index === 0 || index === 5 ? "h-64 md:h-full" : "h-48 md:h-64"
                 }`}
               >
@@ -51,7 +51,7 @@ export default function ImpressionsSection() {
               </div>
 
               {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#2d2420]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <p className="text-white text-sm">{image.alt}</p>
                 </div>
@@ -72,7 +72,7 @@ export default function ImpressionsSection() {
         >
           <a
             href="#"
-            className="inline-flex items-center gap-2 text-[#daaf7a] hover:text-[#0a1628] transition-colors font-medium"
+            className="inline-flex items-center gap-2 text-[#daaf7a] hover:text-[#2d2420] transition-colors font-medium"
           >
             <span>Mehr auf Instagram</span>
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

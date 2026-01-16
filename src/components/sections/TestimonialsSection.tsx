@@ -31,10 +31,10 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section className="relative py-20 md:py-28 bg-[#f5f7fa] overflow-hidden">
+    <section className="relative py-20 md:py-28 bg-[#f5f0e8] overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-[#daaf7a]/10 rounded-full blur-3xl" />
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-64 h-64 bg-[#0a1628]/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-64 h-64 bg-[#2d2420]/5 rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6">
         {/* Section Header */}
@@ -44,13 +44,13 @@ export default function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mb-12 md:mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-[#0a1628] text-[#daaf7a] text-sm font-semibold uppercase tracking-wider mb-4">
+          <span className="inline-block px-4 py-2 rounded-full bg-[#2d2420] text-[#daaf7a] text-sm font-semibold uppercase tracking-wider mb-4">
             Erfahrungen
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold text-[#0a1628] mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#2d2420] mb-4">
             Was unsere <span className="text-gradient">Teilnehmer</span> sagen
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-[#6b5b4f] max-w-2xl mx-auto">
             Lies, was andere über ihre Erfahrungen beim Angstfrei-Tag berichten.
           </p>
         </motion.div>
@@ -96,7 +96,7 @@ export default function TestimonialsSection() {
               onClick={handlePrev}
               className="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow"
             >
-              <ChevronLeft className="w-5 h-5 text-[#0a1628]" />
+              <ChevronLeft className="w-5 h-5 text-[#2d2420]" />
             </button>
 
             {/* Dots */}
@@ -121,7 +121,7 @@ export default function TestimonialsSection() {
               onClick={handleNext}
               className="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow"
             >
-              <ChevronRight className="w-5 h-5 text-[#0a1628]" />
+              <ChevronRight className="w-5 h-5 text-[#2d2420]" />
             </button>
           </div>
         </div>

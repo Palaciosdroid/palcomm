@@ -32,14 +32,14 @@ export default function MobileStickyCTA() {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white/95 backdrop-blur-md border-t border-gray-200 shadow-lg md:hidden"
+          className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white/95 backdrop-blur-md border-t border-[#daaf7a]/15 shadow-lg md:hidden"
         >
           <div className="flex items-center justify-between gap-4">
             <div className="flex-1">
-              <p className="text-sm font-semibold text-[#0a1628]">
+              <p className="text-sm font-semibold text-[#2d2420]">
                 Ab CHF 99.–
               </p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-[#8b7b6b]">
                 Nur noch wenige Plätze!
               </p>
             </div>
