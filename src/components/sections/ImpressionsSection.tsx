@@ -15,7 +15,7 @@ export default function ImpressionsSection() {
           viewport={{ once: true }}
           className="text-center mb-12 md:mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-[#0a1628] text-[#f5a623] text-sm font-semibold uppercase tracking-wider mb-4">
+          <span className="inline-block px-4 py-2 rounded-full bg-[#0a1628] text-[#daaf7a] text-sm font-semibold uppercase tracking-wider mb-4">
             Impressionen
           </span>
           <h2 className="text-3xl md:text-5xl font-bold text-[#0a1628] mb-4">
@@ -58,7 +58,7 @@ export default function ImpressionsSection() {
               </div>
 
               {/* Hover Scale Effect */}
-              <div className="absolute inset-0 bg-[#f5a623]/0 group-hover:bg-[#f5a623]/10 transition-colors duration-300" />
+              <div className="absolute inset-0 bg-[#daaf7a]/0 group-hover:bg-[#daaf7a]/10 transition-colors duration-300" />
             </motion.div>
           ))}
         </div>
@@ -72,7 +72,7 @@ export default function ImpressionsSection() {
         >
           <a
             href="#"
-            className="inline-flex items-center gap-2 text-[#f5a623] hover:text-[#0a1628] transition-colors font-medium"
+            className="inline-flex items-center gap-2 text-[#daaf7a] hover:text-[#0a1628] transition-colors font-medium"
           >
             <span>Mehr auf Instagram</span>
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

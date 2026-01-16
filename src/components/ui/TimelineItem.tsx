@@ -34,14 +34,14 @@ export default function TimelineItem({
         <div
           className={`w-4 h-4 rounded-full flex-shrink-0 relative z-10
           ${isKeynote
-            ? "bg-gradient-to-r from-[#f5a623] to-[#ffd700]"
+            ? "bg-gradient-to-r from-[#daaf7a] to-[#ffd700]"
             : isBreak
               ? "bg-gray-300"
               : "bg-[#1a2d4a]"
           }`}
         >
           {isKeynote && (
-            <div className="absolute inset-0 bg-[#f5a623] rounded-full animate-ping opacity-50" />
+            <div className="absolute inset-0 bg-[#daaf7a] rounded-full animate-ping opacity-50" />
           )}
         </div>
         <div className="w-0.5 flex-1 bg-gray-200 mt-2" />
@@ -62,12 +62,12 @@ export default function TimelineItem({
         >
           {/* Time */}
           <div className="flex items-center gap-2 mb-2">
-            <Clock className={`w-4 h-4 ${isKeynote ? "text-[#f5a623]" : "text-gray-400"}`} />
-            <span className={`text-sm font-medium ${isKeynote ? "text-[#f5a623]" : "text-gray-500"}`}>
+            <Clock className={`w-4 h-4 ${isKeynote ? "text-[#daaf7a]" : "text-gray-400"}`} />
+            <span className={`text-sm font-medium ${isKeynote ? "text-[#daaf7a]" : "text-gray-500"}`}>
               {time}
             </span>
             {isKeynote && (
-              <span className="ml-2 text-xs bg-[#f5a623]/20 text-[#f5a623] px-2 py-0.5 rounded-full">
+              <span className="ml-2 text-xs bg-[#daaf7a]/20 text-[#daaf7a] px-2 py-0.5 rounded-full">
                 Keynote
               </span>
             )}
@@ -82,7 +82,7 @@ export default function TimelineItem({
           {speaker && (
             <div className="flex items-center gap-2 mt-2">
               {isKeynote ? (
-                <Mic className="w-4 h-4 text-[#f5a623]" />
+                <Mic className="w-4 h-4 text-[#daaf7a]" />
               ) : (
                 <User className="w-4 h-4 text-gray-400" />
               )}

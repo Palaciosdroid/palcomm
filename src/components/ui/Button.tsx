@@ -27,11 +27,11 @@ export default function Button({
 
   const variants = {
     primary:
-      "bg-gradient-to-r from-[#f5a623] to-[#ffd700] text-[#0a1628] hover:shadow-lg hover:shadow-orange-500/30 hover:scale-105",
+      "bg-gradient-to-r from-[#daaf7a] to-[#ffd700] text-[#0a1628] hover:shadow-lg hover:shadow-orange-500/30 hover:scale-105",
     secondary:
       "bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20 hover:scale-105",
     outline:
-      "bg-transparent border-2 border-[#f5a623] text-[#f5a623] hover:bg-[#f5a623] hover:text-[#0a1628]",
+      "bg-transparent border-2 border-[#daaf7a] text-[#daaf7a] hover:bg-[#daaf7a] hover:text-[#0a1628]",
   };
 
   const sizes = {

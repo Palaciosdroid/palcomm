@@ -19,7 +19,7 @@ export default function ProgramSection() {
           viewport={{ once: true }}
           className="text-center mb-12 md:mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-[#0a1628] text-[#f5a623] text-sm font-semibold uppercase tracking-wider mb-4">
+          <span className="inline-block px-4 py-2 rounded-full bg-[#0a1628] text-[#daaf7a] text-sm font-semibold uppercase tracking-wider mb-4">
             Programm 2026
           </span>
           <h2 className="text-3xl md:text-5xl font-bold text-[#0a1628] mb-4">
@@ -33,11 +33,11 @@ export default function ProgramSection() {
           {/* Event Info Badges */}
           <div className="flex flex-wrap justify-center gap-4">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f5f7fa] text-[#0a1628]">
-              <Calendar className="w-4 h-4 text-[#f5a623]" />
+              <Calendar className="w-4 h-4 text-[#daaf7a]" />
               <span className="font-medium">{program.date}</span>
             </div>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f5f7fa] text-[#0a1628]">
-              <MapPin className="w-4 h-4 text-[#f5a623]" />
+              <MapPin className="w-4 h-4 text-[#daaf7a]" />
               <span className="font-medium">{program.location}</span>
             </div>
           </div>
@@ -66,7 +66,7 @@ export default function ProgramSection() {
         >
           <a
             href="#"
-            className="inline-flex items-center gap-2 text-[#f5a623] hover:text-[#0a1628] transition-colors font-medium"
+            className="inline-flex items-center gap-2 text-[#daaf7a] hover:text-[#0a1628] transition-colors font-medium"
           >
             <span>Programm als PDF herunterladen</span>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

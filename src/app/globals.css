@@ -4,7 +4,7 @@
   /* Primärfarben */
   --primary-dark: #0a1628;
   --primary-blue: #1a2d4a;
-  --accent-orange: #f5a623;
+  --accent-gold: #daaf7a;
   --accent-yellow: #ffd700;
 
   /* Neutrale Farben */
@@ -25,7 +25,7 @@
   --color-foreground: var(--foreground);
   --color-primary-dark: var(--primary-dark);
   --color-primary-blue: var(--primary-blue);
-  --color-accent-orange: var(--accent-orange);
+  --color-accent-gold: var(--accent-gold);
   --color-accent-yellow: var(--accent-yellow);
   --color-light-gray: var(--light-gray);
   --color-text-dark: var(--text-dark);
@@ -71,7 +71,7 @@ body {
 
 /* Text gradient utility */
 .text-gradient {
-  background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-yellow));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

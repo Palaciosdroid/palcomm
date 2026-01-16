@@ -15,7 +15,7 @@ export default function SocialProofSection() {
   return (
     <section id="social-proof" className="relative py-20 md:py-28 bg-[#f5f7fa] overflow-hidden">
       {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#f5a623] to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#daaf7a] to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         {/* Section Title */}
@@ -46,9 +46,9 @@ export default function SocialProofSection() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group"
             >
-              <div className="relative bg-white rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 text-center border border-gray-100 hover:border-[#f5a623]/30">
+              <div className="relative bg-white rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 text-center border border-gray-100 hover:border-[#daaf7a]/30">
                 {/* Icon */}
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[#0a1628] to-[#1a2d4a] text-[#f5a623] mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[#0a1628] to-[#1a2d4a] text-[#daaf7a] mb-4 group-hover:scale-110 transition-transform duration-300">
                   {iconMap[stat.label]}
                 </div>
 
@@ -67,7 +67,7 @@ export default function SocialProofSection() {
                 <p className="text-gray-500 font-medium">{stat.label}</p>
 
                 {/* Hover Glow */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#f5a623]/0 to-[#ffd700]/0 group-hover:from-[#f5a623]/5 group-hover:to-[#ffd700]/5 transition-all duration-300" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#daaf7a]/0 to-[#ffd700]/0 group-hover:from-[#daaf7a]/5 group-hover:to-[#ffd700]/5 transition-all duration-300" />
               </div>
             </motion.div>
           ))}
@@ -100,7 +100,7 @@ export default function SocialProofSection() {
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
-                  className="w-5 h-5 text-[#f5a623] fill-[#f5a623]"
+                  className="w-5 h-5 text-[#daaf7a] fill-[#daaf7a]"
                 />
               ))}
             </div>

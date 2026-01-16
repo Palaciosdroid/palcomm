@@ -19,19 +19,19 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <h3 className="text-2xl font-bold mb-4">
-              Angstfrei<span className="text-[#f5a623]">-Tag</span>
+              Angstfrei<span className="text-[#daaf7a]">-Tag</span>
             </h3>
             <p className="text-white/60 text-sm mb-4">
               {eventDetails.slogan}
             </p>
             <div className="flex gap-4">
-              <a href="#" className="text-white/60 hover:text-[#f5a623] transition-colors">
+              <a href="#" className="text-white/60 hover:text-[#daaf7a] transition-colors">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="text-white/60 hover:text-[#f5a623] transition-colors">
+              <a href="#" className="text-white/60 hover:text-[#daaf7a] transition-colors">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="text-white/60 hover:text-[#f5a623] transition-colors">
+              <a href="#" className="text-white/60 hover:text-[#daaf7a] transition-colors">
                 <Youtube className="w-5 h-5" />
               </a>
             </div>
@@ -79,15 +79,15 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Event Info</h4>
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-white/60 text-sm">
-                <Calendar className="w-4 h-4 text-[#f5a623]" />
+                <Calendar className="w-4 h-4 text-[#daaf7a]" />
                 {eventDetails.date}
               </li>
               <li className="flex items-center gap-2 text-white/60 text-sm">
-                <MapPin className="w-4 h-4 text-[#f5a623]" />
+                <MapPin className="w-4 h-4 text-[#daaf7a]" />
                 {eventDetails.location}
               </li>
               <li className="flex items-center gap-2 text-white/60 text-sm">
-                <Mail className="w-4 h-4 text-[#f5a623]" />
+                <Mail className="w-4 h-4 text-[#daaf7a]" />
                 info@angstfrei-tag.ch
               </li>
             </ul>

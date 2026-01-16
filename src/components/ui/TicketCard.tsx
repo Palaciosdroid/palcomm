@@ -35,14 +35,14 @@ export default function TicketCard({
     >
       {/* Highlighted Glow Effect */}
       {highlighted && (
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f5a623] to-[#ffd700] rounded-3xl blur opacity-30" />
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#daaf7a] to-[#ffd700] rounded-3xl blur opacity-30" />
       )}
 
       <div
         className={`relative h-full bg-white rounded-2xl p-6 md:p-8 transition-all duration-300 hover:shadow-2xl
         ${highlighted
-          ? "border-2 border-[#f5a623] shadow-xl shadow-orange-500/10"
-          : "border border-gray-200 hover:border-[#f5a623]/50"
+          ? "border-2 border-[#daaf7a] shadow-xl shadow-orange-500/10"
+          : "border border-gray-200 hover:border-[#daaf7a]/50"
         }`}
       >
         {/* Badge */}
@@ -51,7 +51,7 @@ export default function TicketCard({
             <span
               className={`inline-flex items-center gap-1 px-4 py-1 rounded-full text-sm font-semibold
               ${highlighted
-                ? "bg-gradient-to-r from-[#f5a623] to-[#ffd700] text-[#0a1628]"
+                ? "bg-gradient-to-r from-[#daaf7a] to-[#ffd700] text-[#0a1628]"
                 : "bg-[#0a1628] text-white"
               }`}
             >
@@ -83,9 +83,9 @@ export default function TicketCard({
           {features.map((feature, i) => (
             <li key={i} className="flex items-start gap-3">
               <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5
-                ${highlighted ? "bg-[#f5a623]/20" : "bg-gray-100"}`}
+                ${highlighted ? "bg-[#daaf7a]/20" : "bg-gray-100"}`}
               >
-                <Check className={`w-3 h-3 ${highlighted ? "text-[#f5a623]" : "text-[#0a1628]"}`} />
+                <Check className={`w-3 h-3 ${highlighted ? "text-[#daaf7a]" : "text-[#0a1628]"}`} />
               </div>
               <span className="text-gray-600 text-sm">{feature}</span>
             </li>
@@ -103,7 +103,7 @@ export default function TicketCard({
 
         {/* Urgency Note */}
         {highlighted && (
-          <p className="text-center text-xs text-[#f5a623] mt-4 font-medium">
+          <p className="text-center text-xs text-[#daaf7a] mt-4 font-medium">
             Nur noch wenige Plätze verfügbar!
           </p>
         )}

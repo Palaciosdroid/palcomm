@@ -33,7 +33,7 @@ export default function TestimonialsSection() {
   return (
     <section className="relative py-20 md:py-28 bg-[#f5f7fa] overflow-hidden">
       {/* Decorative Elements */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-[#f5a623]/10 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-[#daaf7a]/10 rounded-full blur-3xl" />
       <div className="absolute top-1/2 right-0 -translate-y-1/2 w-64 h-64 bg-[#0a1628]/5 rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6">
@@ -44,7 +44,7 @@ export default function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mb-12 md:mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-[#0a1628] text-[#f5a623] text-sm font-semibold uppercase tracking-wider mb-4">
+          <span className="inline-block px-4 py-2 rounded-full bg-[#0a1628] text-[#daaf7a] text-sm font-semibold uppercase tracking-wider mb-4">
             Erfahrungen
           </span>
           <h2 className="text-3xl md:text-5xl font-bold text-[#0a1628] mb-4">
@@ -110,7 +110,7 @@ export default function TestimonialsSection() {
                   }}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
                     index === currentIndex
-                      ? "w-8 bg-[#f5a623]"
+                      ? "w-8 bg-[#daaf7a]"
                       : "bg-gray-300 hover:bg-gray-400"
                   }`}
                 />

@@ -34,7 +34,7 @@ export default function Header() {
             {/* Logo */}
             <a href="#" className="flex items-center gap-2">
               <span className="text-xl md:text-2xl font-bold text-white">
-                Angstfrei<span className="text-[#f5a623]">-Tag</span>
+                Angstfrei<span className="text-[#daaf7a]">-Tag</span>
               </span>
             </a>
 

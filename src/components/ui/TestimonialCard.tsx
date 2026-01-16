@@ -27,7 +27,7 @@ export default function TestimonialCard({
     >
       {/* Quote Icon */}
       <div className="absolute -top-4 left-6">
-        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#f5a623] to-[#ffd700] flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#daaf7a] to-[#ffd700] flex items-center justify-center">
           <Quote className="w-4 h-4 text-white" />
         </div>
       </div>
@@ -49,7 +49,7 @@ export default function TestimonialCard({
       </div>
 
       {/* Decorative Element */}
-      <div className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-[#f5a623]/5 to-transparent rounded-bl-2xl rounded-tr-2xl" />
+      <div className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-[#daaf7a]/5 to-transparent rounded-bl-2xl rounded-tr-2xl" />
     </motion.div>
   );
 }

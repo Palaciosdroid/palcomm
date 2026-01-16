@@ -19,7 +19,7 @@ export default function WorkshopsSection() {
           viewport={{ once: true }}
           className="text-center mb-12 md:mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-[#0a1628] text-[#f5a623] text-sm font-semibold uppercase tracking-wider mb-4">
+          <span className="inline-block px-4 py-2 rounded-full bg-[#0a1628] text-[#daaf7a] text-sm font-semibold uppercase tracking-wider mb-4">
             Vertiefung
           </span>
           <h2 className="text-3xl md:text-5xl font-bold text-[#0a1628] mb-4">
@@ -40,7 +40,7 @@ export default function WorkshopsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-[#f5a623]/30 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-[#daaf7a]/30 shadow-lg hover:shadow-xl transition-all duration-300"
             >
               {/* Image Placeholder */}
               <div className="relative h-48 md:h-56 bg-gradient-to-br from-[#0a1628] to-[#1a2d4a] overflow-hidden">
@@ -50,7 +50,7 @@ export default function WorkshopsSection() {
                   </span>
                 </div>
                 {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-[#f5a623]/0 group-hover:bg-[#f5a623]/10 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-[#daaf7a]/0 group-hover:bg-[#daaf7a]/10 transition-colors duration-300" />
 
                 {/* Price Badge */}
                 <div className="absolute top-4 right-4">
@@ -62,18 +62,18 @@ export default function WorkshopsSection() {
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-[#0a1628] mb-2 group-hover:text-[#f5a623] transition-colors">
+                <h3 className="text-xl font-bold text-[#0a1628] mb-2 group-hover:text-[#daaf7a] transition-colors">
                   {workshop.title}
                 </h3>
 
                 {/* Meta */}
                 <div className="flex flex-wrap gap-4 mb-4 text-sm text-gray-500">
                   <div className="flex items-center gap-1">
-                    <User className="w-4 h-4 text-[#f5a623]" />
+                    <User className="w-4 h-4 text-[#daaf7a]" />
                     <span>{workshop.instructor}</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4 text-[#f5a623]" />
+                    <Clock className="w-4 h-4 text-[#daaf7a]" />
                     <span>{workshop.duration}</span>
                   </div>
                 </div>
@@ -84,7 +84,7 @@ export default function WorkshopsSection() {
                 {/* CTA */}
                 <a
                   href="#"
-                  className="inline-flex items-center gap-2 text-[#f5a623] font-medium group-hover:gap-3 transition-all"
+                  className="inline-flex items-center gap-2 text-[#daaf7a] font-medium group-hover:gap-3 transition-all"
                 >
                   Mehr erfahren
                   <ArrowRight className="w-4 h-4" />
