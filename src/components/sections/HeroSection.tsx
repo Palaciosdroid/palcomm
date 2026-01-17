@@ -36,7 +36,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8 }}
           className="px-8 py-14 md:px-20 md:py-20 text-center rounded-3xl"
           style={{
-            background: "rgba(255, 255, 255, 0.5)",
+            background: "rgba(255, 255, 255, 0.25)",
             backdropFilter: "blur(16px)",
             WebkitBackdropFilter: "blur(16px)",
             boxShadow: "0 8px 32px rgba(0, 0, 0, 0.06)"
