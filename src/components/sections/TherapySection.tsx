@@ -3,30 +3,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import {
-  User,
-  Baby,
-  Users,
-  Brain,
-  Heart,
-  ChevronDown,
-} from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { therapyContent } from "@/lib/data";
 
-const targetIconMap: { [key: string]: React.ReactNode } = {
-  user: <User className="w-5 h-5" />,
-  baby: <Baby className="w-5 h-5" />,
-  users: <Users className="w-5 h-5" />,
-  brain: <Brain className="w-5 h-5" />,
-  heart: <Heart className="w-5 h-5" />,
-};
-
 export default function TherapySection() {
+  const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
   const [expandedTopic, setExpandedTopic] = useState<string | null>(null);
-
-  const toggleTopic = (id: string) => {
-    setExpandedTopic(expandedTopic === id ? null : id);
-  };
 
   return (
     <section id="therapieangebot" className="section-padding bg-cream-50">
@@ -54,33 +36,68 @@ export default function TherapySection() {
           {therapyContent.intro}
         </motion.p>
 
-        {/* Zielgruppen - kompakt mit Icons */}
+        {/* Zielgruppen - mit Bildern */}
         <motion.h3
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-2xl md:text-3xl text-center mb-8"
+          className="text-2xl md:text-3xl text-center mb-10"
           style={{ fontFamily: "Playfair Display, Georgia, serif" }}
         >
           {therapyContent.targetGroupsTitle}
         </motion.h3>
 
-        <div className="flex flex-wrap justify-center gap-3 mb-20">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-20">
           {therapyContent.targetGroups.map((group, index) => (
             <motion.div
               key={group.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="flex items-center gap-2 px-5 py-3 bg-white rounded-full border border-sage-200 shadow-sm"
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+              className="bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-medium transition-all duration-300 cursor-pointer"
+              onClick={() => setExpandedGroup(expandedGroup === group.id ? null : group.id)}
             >
-              <div className="text-brand">
-                {targetIconMap[group.icon]}
+              {/* Bild */}
+              <div className="relative h-40 bg-sage-100">
+                <Image
+                  src={group.image}
+                  alt={group.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
-              <span className="text-sm font-medium text-text-dark">
-                {group.title}
-              </span>
+
+              {/* Content */}
+              <div className="p-5">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-lg font-medium text-text-dark">
+                    {group.title}
+                  </h4>
+                  <motion.div
+                    animate={{ rotate: expandedGroup === group.id ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ChevronDown className="w-5 h-5 text-text-light" />
+                  </motion.div>
+                </div>
+
+                {/* Expandable Description */}
+                <AnimatePresence>
+                  {expandedGroup === group.id && (
+                    <motion.p
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-text-light text-sm leading-relaxed mt-3 overflow-hidden"
+                    >
+                      {group.description}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -105,7 +122,7 @@ export default function TherapySection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.06 }}
               className="bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-medium transition-all duration-300 cursor-pointer"
-              onClick={() => toggleTopic(topic.id)}
+              onClick={() => setExpandedTopic(expandedTopic === topic.id ? null : topic.id)}
             >
               {/* Bild */}
               <div className="relative h-36 bg-sage-100">
