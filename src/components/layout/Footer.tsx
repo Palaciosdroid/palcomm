@@ -23,13 +23,13 @@ export default function Footer() {
             <div className="flex flex-col leading-tight mb-3">
               <span
                 className="text-xl font-medium text-brand"
-                style={{ fontFamily: "Cormorant Garamond, Georgia, serif" }}
+                style={{ fontFamily: "Playfair Display, Georgia, serif" }}
               >
                 {practiceInfo.name.split(" ")[0]}
               </span>
               <span
                 className="text-base text-brand-light"
-                style={{ fontFamily: "Cormorant Garamond, Georgia, serif" }}
+                style={{ fontFamily: "Playfair Display, Georgia, serif" }}
               >
                 {practiceInfo.name.split(" ")[1]}
               </span>

@@ -49,10 +49,8 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-5xl md:text-6xl lg:text-7xl mb-10"
             style={{
-              fontFamily: "Cormorant Garamond, Georgia, serif",
+              fontFamily: "Playfair Display, Georgia, serif",
               fontStyle: "italic",
-              fontWeight: 500,
-              letterSpacing: "0.02em",
               color: "#3d4a3a"
             }}
           >
@@ -81,11 +79,11 @@ export default function HeroSection() {
             Professionell und{" "}
             <span
               style={{
-                fontFamily: "Cormorant Garamond, Georgia, serif",
+                fontFamily: "Playfair Display, Georgia, serif",
                 fontStyle: "italic",
-                fontWeight: 600,
-                letterSpacing: "0.02em",
-                color: "#89715c"
+                fontWeight: 500,
+                letterSpacing: "0.05em",
+                color: "#3d4a3a"
               }}
             >
               Kompetent
