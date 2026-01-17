@@ -35,13 +35,13 @@ export default function Header() {
             <a href="#" className="flex items-center">
               <div className="flex flex-col leading-tight">
                 <span
-                  className="text-xl font-medium text-sage-600"
+                  className="text-xl font-medium text-brand"
                   style={{ fontFamily: "Playfair Display, Georgia, serif" }}
                 >
                   Hypnose
                 </span>
                 <span
-                  className="text-base -mt-0.5 text-sage-500"
+                  className="text-base -mt-0.5 text-brand-light"
                   style={{ fontFamily: "Playfair Display, Georgia, serif" }}
                 >
                   Enza

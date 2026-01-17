@@ -13,7 +13,7 @@ export default function WelcomeSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl text-center mb-6"
+          className="text-3xl md:text-4xl text-center mb-8"
           style={{ fontFamily: "Playfair Display, Georgia, serif" }}
         >
           {welcomeContent.title}
@@ -25,7 +25,7 @@ export default function WelcomeSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-text-medium text-center text-lg leading-relaxed mb-16 max-w-2xl mx-auto"
+          className="text-text-medium text-center text-lg md:text-xl leading-relaxed mb-16 max-w-2xl mx-auto"
         >
           {welcomeContent.intro}
         </motion.p>
@@ -73,8 +73,8 @@ export default function WelcomeSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <p className="text-text-medium leading-relaxed mb-6">
-              <span className="text-sage-600 font-medium">Mein Name ist </span>
+            <p className="text-text-medium text-lg leading-relaxed mb-6">
+              <span className="text-brand font-medium">Mein Name ist </span>
               <span className="text-text-dark font-medium">Enza Gasser-Piscitelli</span>
               , ich bin verheiratet und Mutter von 2 erwachsenen Söhnen und
               praktiziere Homöo. Meine Eltern waren Italiener (Mein Vater(*) und
@@ -86,18 +86,15 @@ export default function WelcomeSection() {
           </motion.div>
         </div>
 
-        {/* Quote */}
+        {/* Quote - Grösser und besser lesbar */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-20 text-center"
+          className="mt-24 text-center py-12 px-6 bg-sage-100/50 rounded-2xl"
         >
-          <p
-            className="text-xl md:text-2xl text-text-light italic max-w-2xl mx-auto"
-            style={{ fontFamily: "Playfair Display, Georgia, serif" }}
-          >
+          <p className="quote-text max-w-2xl mx-auto">
             {welcomeContent.quote}
           </p>
         </motion.div>
