@@ -1,55 +1,50 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { certificatesContent } from "@/lib/data";
 
 export default function CertificatesSection() {
+  // Duplicate certificates for seamless infinite scroll
+  const duplicatedCerts = [...certificatesContent.certificates, ...certificatesContent.certificates];
+
   return (
-    <section className="section-padding gradient-sage">
-      <div className="max-w-5xl mx-auto px-6 md:px-8">
-        {/* Certificates Grid */}
+    <section className="py-16 md:py-24 gradient-sage overflow-hidden">
+      {/* Infinite Scroll Container */}
+      <div className="relative">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="grid md:grid-cols-3 gap-8"
+          className="flex gap-6 md:gap-8"
+          animate={{
+            x: [0, -50 * certificatesContent.certificates.length + "%"],
+          }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 30,
+              ease: "linear",
+            },
+          }}
         >
-          {certificatesContent.certificates.map((cert, index) => (
-            <motion.div
-              key={cert.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex flex-col items-center"
+          {duplicatedCerts.map((cert, index) => (
+            <div
+              key={`${cert.id}-${index}`}
+              className="flex-shrink-0"
             >
-              {/* Certificate Image Placeholder */}
-              <div className="w-full aspect-[4/3] bg-white rounded-lg shadow-card border border-sage-100 flex items-center justify-center mb-4 overflow-hidden">
-                {/* Placeholder for certificate image */}
-                <div className="text-center p-6">
-                  <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-sage-100 flex items-center justify-center">
-                    <svg
-                      className="w-8 h-8 text-sage-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-                      />
-                    </svg>
-                  </div>
-                  <p className="text-xs text-text-muted">{cert.title}</p>
+              {/* Certificate Card - auto height based on image */}
+              <div className="h-64 md:h-80 lg:h-96 bg-white rounded-2xl shadow-card border border-sage-100 overflow-hidden hover:shadow-medium transition-shadow duration-300">
+                <div className="relative h-full w-auto">
+                  <Image
+                    src={cert.image}
+                    alt={cert.title}
+                    width={400}
+                    height={500}
+                    className="h-full w-auto object-contain p-3"
+                    style={{ maxWidth: 'none' }}
+                  />
                 </div>
               </div>
-
-              {/* Certificate Info */}
-              <p className="text-sm text-text-light text-center">{cert.issuer}</p>
-            </motion.div>
+            </div>
           ))}
         </motion.div>
       </div>

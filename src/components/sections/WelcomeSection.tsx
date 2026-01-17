@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { welcomeContent } from "@/lib/data";
 
 export default function WelcomeSection() {
@@ -45,23 +46,14 @@ export default function WelcomeSection() {
               <div className="absolute -inset-4 bg-sage-100 rounded-[60%_40%_50%_50%] -rotate-6" />
 
               {/* Image Container */}
-              <div className="relative w-64 h-80 md:w-72 md:h-96 portrait-frame bg-sage-200">
-                {/* Placeholder for portrait image */}
-                <div className="w-full h-full flex items-center justify-center text-sage-400">
-                  <svg
-                    className="w-24 h-24"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1}
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                    />
-                  </svg>
-                </div>
+              <div className="relative w-64 h-80 md:w-72 md:h-96 portrait-frame overflow-hidden">
+                <Image
+                  src={welcomeContent.image}
+                  alt="Enza Gasser-Piscitelli"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 256px, 288px"
+                />
               </div>
             </div>
           </motion.div>
