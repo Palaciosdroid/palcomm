@@ -26,12 +26,12 @@ export default function CertificatesSection() {
               className="flex flex-col items-center"
             >
               {/* Certificate Image */}
-              <div className="w-full aspect-[3/4] bg-white rounded-lg shadow-card border border-sage-100 overflow-hidden relative hover:shadow-medium transition-shadow duration-300">
+              <div className="w-full aspect-[4/5] bg-white rounded-2xl shadow-card border border-sage-100 overflow-hidden relative hover:shadow-medium transition-shadow duration-300">
                 <Image
                   src={cert.image}
                   alt={cert.title}
                   fill
-                  className="object-cover"
+                  className="object-contain p-2"
                   sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
                 />
               </div>
