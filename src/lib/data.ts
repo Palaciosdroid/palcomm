@@ -109,21 +109,28 @@ export const certificatesContent = {
   certificates: [
     {
       id: 1,
-      title: "Diplom Hypnosetherapeutin NGH",
-      issuer: "Enza Gasser-Piscitelli",
+      title: "Diplom Hypnosetherapeutin",
       image: "/images/diplom-1.jpg",
     },
     {
       id: 2,
       title: "National Guild of Hypnotists",
-      issuer: "Certified Hypnotherapist",
       image: "/images/diplom-2.jpg",
     },
     {
       id: 3,
       title: "Verband Schweizer Hypnosetherapeut:innen",
-      issuer: "Enza Gasser – Piscitelli",
       image: "/images/diplom-3.jpg",
+    },
+    {
+      id: 4,
+      title: "Weiterbildung Zertifikat",
+      image: "/images/diplom-4.jpg",
+    },
+    {
+      id: 5,
+      title: "Zusatzqualifikation",
+      image: "/images/diplom-5.jpg",
     },
   ],
 };
