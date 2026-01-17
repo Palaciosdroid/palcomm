@@ -6,7 +6,24 @@ import { heroContent } from "@/lib/data";
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background */}
+      {/* Gradient Background Fallback (visible until video loads) */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(ellipse at 30% 20%, rgba(168, 181, 160, 0.6) 0%, transparent 50%),
+            radial-gradient(ellipse at 70% 60%, rgba(139, 152, 130, 0.5) 0%, transparent 45%),
+            radial-gradient(ellipse at 90% 30%, rgba(201, 212, 197, 0.7) 0%, transparent 40%),
+            radial-gradient(ellipse at 10% 80%, rgba(160, 175, 150, 0.4) 0%, transparent 50%),
+            linear-gradient(180deg, #b8c4a8 0%, #9aab8a 30%, #c2cdb5 60%, #a8b898 100%)
+          `
+        }}
+      />
+
+      {/* Blur overlay for dreamy effect */}
+      <div className="absolute inset-0 backdrop-blur-[2px]" />
+
+      {/* Video Background (loads over gradient) */}
       <video
         autoPlay
         muted
@@ -18,11 +35,11 @@ export default function HeroSection() {
         <source src="/videos/nature-bg.mp4" type="video/mp4" />
       </video>
 
-      {/* Subtle Overlay for better readability */}
-      <div className="absolute inset-0 bg-white/10" />
+      {/* Subtle light overlay */}
+      <div className="absolute inset-0 bg-white/5" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-8 pt-32 pb-20">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-8 pt-32 pb-32">
         {/* Glass Card */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -72,17 +89,17 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Wave Divider */}
+      {/* Organic Wave Divider */}
       <div className="absolute bottom-0 left-0 right-0">
         <svg
-          viewBox="0 0 1440 80"
+          viewBox="0 0 1440 120"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className="w-full h-auto"
           preserveAspectRatio="none"
         >
           <path
-            d="M0 40C360 80 720 0 1080 40C1260 60 1380 50 1440 40V80H0V80Z"
+            d="M0 60C180 100 360 20 540 60C720 100 900 40 1080 70C1200 90 1320 50 1440 60V120H0V60Z"
             fill="#fdfcfa"
           />
         </svg>
