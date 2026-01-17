@@ -1,15 +1,11 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
-import SocialProofSection from "@/components/sections/SocialProofSection";
-import SpeakerSection from "@/components/sections/SpeakerSection";
-import ProgramSection from "@/components/sections/ProgramSection";
-import WhyAttendSection from "@/components/sections/WhyAttendSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
-import HeartSection from "@/components/sections/HeartSection";
-import ImpressionsSection from "@/components/sections/ImpressionsSection";
-import TicketsSection from "@/components/sections/TicketsSection";
-import MobileStickyCTA from "@/components/ui/MobileStickyCTA";
+import WelcomeSection from "@/components/sections/WelcomeSection";
+import PhilosophySection from "@/components/sections/PhilosophySection";
+import TherapySection from "@/components/sections/TherapySection";
+import CertificatesSection from "@/components/sections/CertificatesSection";
+import ContactSection from "@/components/sections/ContactSection";
 
 export default function Home() {
   return (
@@ -19,35 +15,23 @@ export default function Home() {
       {/* Hero Section */}
       <HeroSection />
 
-      {/* Social Proof / Stats */}
-      <SocialProofSection />
+      {/* Herzlich Willkommen */}
+      <WelcomeSection />
 
-      {/* Speaker Grid */}
-      <SpeakerSection />
+      {/* Philosophie der Hypnose */}
+      <PhilosophySection />
 
-      {/* Program Timeline */}
-      <ProgramSection />
+      {/* Therapieangebot */}
+      <TherapySection />
 
-      {/* Why Attend */}
-      <WhyAttendSection />
+      {/* Diplome & Zertifikate */}
+      <CertificatesSection />
 
-      {/* Testimonials */}
-      <TestimonialsSection />
-
-      {/* Heart of the Event */}
-      <HeartSection />
-
-      {/* Impressions Gallery */}
-      <ImpressionsSection />
-
-      {/* Tickets */}
-      <TicketsSection />
+      {/* Kontaktformular */}
+      <ContactSection />
 
       {/* Footer */}
       <Footer />
-
-      {/* Mobile Sticky CTA */}
-      <MobileStickyCTA />
     </main>
   );
 }
