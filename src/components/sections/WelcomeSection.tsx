@@ -15,7 +15,7 @@ export default function WelcomeSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-3xl md:text-4xl text-center mb-8"
-          style={{ fontFamily: "Playfair Display, Georgia, serif" }}
+          style={{ fontFamily: "Cormorant Garamond, Georgia, serif" }}
         >
           {welcomeContent.title}
         </motion.h2>
@@ -51,7 +51,7 @@ export default function WelcomeSection() {
                   src={welcomeContent.image}
                   alt="Enza Gasser-Piscitelli"
                   fill
-                  className="object-cover"
+                  className="object-cover object-top"
                   sizes="(max-width: 768px) 256px, 288px"
                 />
               </div>

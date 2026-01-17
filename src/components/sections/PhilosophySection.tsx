@@ -14,7 +14,7 @@ export default function PhilosophySection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-2xl md:text-3xl text-center mb-8"
-          style={{ fontFamily: "Playfair Display, Georgia, serif" }}
+          style={{ fontFamily: "Cormorant Garamond, Georgia, serif" }}
         >
           {philosophyContent.title}
         </motion.h2>
@@ -67,7 +67,7 @@ export default function PhilosophySection() {
           {/* Quote Text */}
           <p
             className="text-xl md:text-2xl text-text-dark leading-relaxed mb-6 relative z-10"
-            style={{ fontFamily: "Playfair Display, Georgia, serif" }}
+            style={{ fontFamily: "Cormorant Garamond, Georgia, serif" }}
           >
             «{philosophyContent.quote.text}»
           </p>

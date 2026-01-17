@@ -23,7 +23,7 @@ export default function TherapySection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-3xl md:text-4xl text-center mb-6"
-          style={{ fontFamily: "Playfair Display, Georgia, serif" }}
+          style={{ fontFamily: "Cormorant Garamond, Georgia, serif" }}
         >
           {therapyContent.title}
         </motion.h2>
