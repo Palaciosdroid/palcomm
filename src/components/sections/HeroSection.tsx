@@ -101,17 +101,30 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Organic Wave Divider */}
+      {/* Layered Organic Wave Divider */}
       <div className="absolute bottom-0 left-0 right-0">
         <svg
-          viewBox="0 0 1440 120"
+          viewBox="0 0 1440 150"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className="w-full h-auto"
           preserveAspectRatio="none"
         >
+          {/* Back layer - subtle */}
           <path
-            d="M0 60C180 100 360 20 540 60C720 100 900 40 1080 70C1200 90 1320 50 1440 60V120H0V60Z"
+            d="M0 80C240 120 480 40 720 80C960 120 1200 60 1440 90V150H0V80Z"
+            fill="#f4f6f3"
+            opacity="0.5"
+          />
+          {/* Middle layer */}
+          <path
+            d="M0 100C200 60 400 120 600 90C800 60 1000 110 1200 80C1320 65 1400 85 1440 100V150H0V100Z"
+            fill="#faf8f5"
+            opacity="0.7"
+          />
+          {/* Front layer - main */}
+          <path
+            d="M0 110C180 130 360 95 540 115C720 135 900 100 1080 120C1260 140 1380 110 1440 125V150H0V110Z"
             fill="#fdfcfa"
           />
         </svg>
