@@ -109,9 +109,10 @@ export default function TherapySection() {
                 </div>
 
                 {/* Expandable Description */}
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                   {expandedGroup === group.id && (
                     <motion.p
+                      key={group.id}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -138,7 +139,7 @@ export default function TherapySection() {
           {therapyContent.topicsTitle}
         </motion.h3>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="flex flex-wrap justify-center gap-4">
           {therapyContent.topics.map((topic, index) => (
             <motion.div
               key={topic.id}
@@ -147,7 +148,7 @@ export default function TherapySection() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
               whileHover={{ y: -4 }}
-              className="flex flex-col items-center gap-3 p-5 bg-white rounded-xl border border-sage-200 hover:border-brand hover:shadow-soft transition-all duration-300 cursor-pointer group"
+              className="flex flex-col items-center gap-3 p-5 bg-white rounded-xl border border-sage-200 hover:border-brand hover:shadow-soft transition-all duration-300 cursor-pointer group w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)] lg:w-[calc(25%-0.75rem)]"
               onClick={() => setExpandedTopic(prev => prev === topic.id ? null : topic.id)}
             >
               <div className="w-12 h-12 rounded-full bg-sage-100 group-hover:bg-brand/10 flex items-center justify-center text-sage-600 group-hover:text-brand transition-colors duration-300">
@@ -158,9 +159,10 @@ export default function TherapySection() {
               </span>
 
               {/* Expandable Description */}
-              <AnimatePresence>
+              <AnimatePresence mode="wait">
                 {expandedTopic === topic.id && (
                   <motion.p
+                    key={topic.id}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}

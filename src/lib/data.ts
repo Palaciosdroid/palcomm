@@ -238,7 +238,7 @@ export const footerContent = {
   links: [
     { name: "Impressum", href: "#impressum" },
     { name: "Datenschutz", href: "#datenschutz" },
-    { name: "Ethikkodex VSH", href: "#ethikkodex" },
+    { name: "Ethikkodex VSH", href: "https://verband-schweizer-hypnosetherapeuten.ch/vsh-ethik/", external: true },
   ],
   socialLinks: [
     { name: "Facebook", href: "#", icon: "facebook" },

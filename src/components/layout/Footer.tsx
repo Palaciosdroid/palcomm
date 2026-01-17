@@ -102,6 +102,7 @@ export default function Footer() {
                 <a
                   key={link.name}
                   href={link.href}
+                  {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className="hover:text-sage-600 transition-colors duration-200"
                 >
                   {link.name}
