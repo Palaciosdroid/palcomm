@@ -19,6 +19,14 @@ export default function HeroSection() {
         Dein Browser unterstützt keine Videos.
       </video>
 
+      {/* Dark gradient overlay for navigation readability */}
+      <div
+        className="absolute inset-x-0 top-0 h-32 z-[5]"
+        style={{
+          background: "linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)"
+        }}
+      />
+
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-8 pt-32 pb-32">
         {/* Semi-transparent Glass Card */}
