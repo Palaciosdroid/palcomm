@@ -5,37 +5,46 @@ import Image from "next/image";
 import { certificatesContent } from "@/lib/data";
 
 export default function CertificatesSection() {
+  // Duplicate certificates for seamless infinite scroll
+  const duplicatedCerts = [...certificatesContent.certificates, ...certificatesContent.certificates];
+
   return (
-    <section className="section-padding gradient-sage">
-      <div className="max-w-6xl mx-auto px-6 md:px-8">
-        {/* Certificates Grid - responsive for 5 items */}
+    <section className="py-16 md:py-24 gradient-sage overflow-hidden">
+      {/* Infinite Scroll Container */}
+      <div className="relative">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8"
+          className="flex gap-6 md:gap-8"
+          animate={{
+            x: [0, -50 * certificatesContent.certificates.length + "%"],
+          }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 30,
+              ease: "linear",
+            },
+          }}
         >
-          {certificatesContent.certificates.map((cert, index) => (
-            <motion.div
-              key={cert.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex flex-col items-center"
+          {duplicatedCerts.map((cert, index) => (
+            <div
+              key={`${cert.id}-${index}`}
+              className="flex-shrink-0"
             >
-              {/* Certificate Image */}
-              <div className="w-full aspect-[4/5] bg-white rounded-2xl shadow-card border border-sage-100 overflow-hidden relative hover:shadow-medium transition-shadow duration-300">
-                <Image
-                  src={cert.image}
-                  alt={cert.title}
-                  fill
-                  className="object-contain p-2"
-                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                />
+              {/* Certificate Card - auto height based on image */}
+              <div className="h-64 md:h-80 lg:h-96 bg-white rounded-2xl shadow-card border border-sage-100 overflow-hidden hover:shadow-medium transition-shadow duration-300">
+                <div className="relative h-full w-auto">
+                  <Image
+                    src={cert.image}
+                    alt={cert.title}
+                    width={400}
+                    height={500}
+                    className="h-full w-auto object-contain p-3"
+                    style={{ maxWidth: 'none' }}
+                  />
+                </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </motion.div>
       </div>
