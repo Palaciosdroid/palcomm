@@ -67,7 +67,7 @@ export default function Header() {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={`md:hidden p-2 transition-colors duration-300 ${
-                isScrolled ? "text-brand" : "text-white"
+                isScrolled || isMobileMenuOpen ? "text-brand" : "text-white"
               }`}
               aria-label="Menu"
             >

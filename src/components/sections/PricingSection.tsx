@@ -115,13 +115,14 @@ export default function PricingSection() {
                 <span className="font-medium text-text-dark">Bar</span>
               </div>
               {/* Twint */}
-              <div className="flex items-center gap-3 px-5 py-3 bg-[#00A0E4]/10 rounded-xl">
-                <svg viewBox="0 0 32 32" className="w-7 h-7" fill="none">
-                  <rect width="32" height="32" rx="6" fill="#00A0E4"/>
-                  <path d="M8 11h6v10H8z" fill="white"/>
-                  <path d="M18 11h6v10h-6z" fill="white"/>
-                </svg>
-                <span className="font-medium text-text-dark">Twint</span>
+              <div className="flex items-center gap-3 px-4 py-2 bg-black rounded-xl">
+                <Image
+                  src="/images/twint-logo.svg"
+                  alt="Twint"
+                  width={80}
+                  height={32}
+                  className="h-8 w-auto"
+                />
               </div>
             </div>
           </div>
