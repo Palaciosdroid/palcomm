@@ -36,7 +36,7 @@ export default function HeroSection() {
       </video>
 
       {/* Subtle light overlay */}
-      <div className="absolute inset-0 bg-white/5" />
+      <div className="absolute inset-0 bg-white/5 z-[2]" />
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-8 pt-32 pb-32">
@@ -47,7 +47,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8 }}
           className="px-8 py-14 md:px-20 md:py-20 text-center rounded-3xl"
           style={{
-            background: "rgba(255, 255, 255, 0.75)",
+            background: "rgba(255, 255, 255, 0.5)",
             backdropFilter: "blur(16px)",
             WebkitBackdropFilter: "blur(16px)",
             boxShadow: "0 8px 32px rgba(0, 0, 0, 0.06)"
@@ -102,7 +102,7 @@ export default function HeroSection() {
       </div>
 
       {/* Layered Organic Wave Divider */}
-      <div className="absolute bottom-0 left-0 right-0">
+      <div className="absolute bottom-0 left-0 right-0 z-[5]">
         <svg
           viewBox="0 0 1440 150"
           fill="none"
