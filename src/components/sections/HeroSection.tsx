@@ -40,22 +40,29 @@ export default function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-8 pt-32 pb-32">
-        {/* Glass Card */}
+        {/* Semi-transparent Glass Card */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="glass-card px-8 py-12 md:px-16 md:py-16 text-center"
+          className="px-8 py-14 md:px-20 md:py-20 text-center rounded-3xl"
+          style={{
+            background: "rgba(255, 255, 255, 0.75)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.06)"
+          }}
         >
           {/* Main Title */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl md:text-5xl lg:text-6xl text-text-dark mb-8"
+            className="text-5xl md:text-6xl lg:text-7xl mb-10"
             style={{
               fontFamily: "Playfair Display, Georgia, serif",
-              fontStyle: "italic"
+              fontStyle: "italic",
+              color: "#3d4a3a"
             }}
           >
             {heroContent.title}
@@ -66,22 +73,27 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-text-medium text-lg md:text-xl leading-relaxed mb-6 max-w-2xl mx-auto"
+            className="text-xl md:text-2xl leading-relaxed mb-10 max-w-2xl mx-auto"
+            style={{ color: "#5a6657" }}
           >
             &laquo;{heroContent.description}&raquo;
           </motion.p>
 
-          {/* Subtitle */}
+          {/* Subtitle - grösser und leserlicher */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-text-dark text-lg font-medium"
+            className="text-xl md:text-2xl font-semibold"
+            style={{ color: "#3d4a3a" }}
           >
             Professionell und{" "}
             <span
-              style={{ fontFamily: "Playfair Display, Georgia, serif", fontStyle: "italic" }}
-              className="text-brand"
+              style={{
+                fontFamily: "Playfair Display, Georgia, serif",
+                fontStyle: "italic",
+                color: "#89715c"
+              }}
             >
               Kompetent
             </span>

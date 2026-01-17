@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 import { navigation, practiceInfo } from "@/lib/data";
 
 export default function Header() {
@@ -33,29 +34,29 @@ export default function Header() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <a href="#" className="flex items-center">
-              <div className="flex flex-col leading-tight">
-                <span
-                  className="text-xl font-medium text-brand"
-                  style={{ fontFamily: "Playfair Display, Georgia, serif" }}
-                >
-                  Hypnose
-                </span>
-                <span
-                  className="text-base -mt-0.5 text-brand-light"
-                  style={{ fontFamily: "Playfair Display, Georgia, serif" }}
-                >
-                  Enza
-                </span>
-              </div>
+              <Image
+                src="/images/logo.svg"
+                alt={practiceInfo.name}
+                width={160}
+                height={65}
+                className={`h-14 md:h-16 w-auto transition-all duration-500 ${
+                  isScrolled ? "" : "brightness-0 invert"
+                }`}
+                priority
+              />
             </a>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-10">
-              {navigation.map((item) => (
+              {navigation.map((item, index) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-sm font-medium text-text-medium hover:text-sage-600 transition-colors duration-200"
+                  className={`text-base font-medium transition-colors duration-300 ${
+                    isScrolled
+                      ? "text-text-medium hover:text-brand"
+                      : "text-white/90 hover:text-white"
+                  } ${index === 0 ? "text-brand" : ""}`}
                 >
                   {item.name}
                 </a>
@@ -65,13 +66,15 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-sage-600"
+              className={`md:hidden p-2 transition-colors duration-300 ${
+                isScrolled ? "text-brand" : "text-white"
+              }`}
               aria-label="Menu"
             >
               {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
+                <X className="w-7 h-7" />
               ) : (
-                <Menu className="w-6 h-6" />
+                <Menu className="w-7 h-7" />
               )}
             </button>
           </div>
@@ -86,7 +89,7 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-cream-50 pt-24"
+            className="fixed inset-0 z-40 bg-cream-50 pt-28"
           >
             <motion.nav
               initial={{ opacity: 0, y: 20 }}
@@ -102,7 +105,7 @@ export default function Header() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 + index * 0.05 }}
-                  className="text-text-dark text-xl font-medium hover:text-sage-600 transition-colors"
+                  className="text-text-dark text-2xl font-medium hover:text-brand transition-colors"
                 >
                   {item.name}
                 </motion.a>
