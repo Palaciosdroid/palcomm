@@ -64,42 +64,60 @@ export const therapyContent = {
   title: "Therapieangebot",
   intro:
     "Dein Unterbewusstsein vergisst nie, denn Du kannst Deine Gefühle, Emotionen, Ängste und Glaubenssätze ändern. Du verdienst es in Einklang des Lebens zu kommen.",
-  categories: [
+
+  // Zielgruppen mit Bildern
+  targetGroupsTitle: "Für wen ist Hypnosetherapie?",
+  targetGroups: [
     {
       id: "erwachsene",
       title: "Erwachsene",
-      icon: "user",
+      image: "/images/zielgruppe-erwachsene.jpg",
       description:
-        "Individualbezogen – Ich bearbeite mit Dir bewusst Deine negativen Muster/Gefühle, das auch Deine Angstmechanismen auslösen, welche den Lebensalltag erschweren (Eifersucht, Lernen).",
+        "Wiederkehrende, oft belastende Kreisen negativer Gedanken, das durch Stress, Angststörungen ausgelöst wird und sich wie eine Endlosschleife anfühlt.",
     },
     {
       id: "kinder",
-      title: "Kinder",
-      icon: "baby",
+      title: "Kinder und Jugendliche",
+      image: "/images/zielgruppe-kinder.jpg",
       description:
-        "Fantasievolle, geistige Wachstumsprozesse (auch Prüfungsangst selbst) wie beispielsweise Gefühle, Schulangst, Magersucht, ADHS alles bei gewünschte Abnehung.",
+        "Lernschwierigkeiten, Überforderung durch Stoff, Leistungsdruck, Schulangst, Mobbing, ADHS oder eine generelle Überlastung.",
     },
     {
       id: "eltern",
       title: "Eltern",
-      icon: "users",
+      image: "/images/zielgruppe-eltern.jpg",
       description:
-        "Lieben wie man sich sonstige Komplexität möglich, auch alle Eltern wollen das Beste für ihr Kind, oft sind das Dinge die man selber nicht kontrollieren oder verstehen kann. Elternpart mit, seit dem Vertrauen ihr mich treu empfehlen.",
+        "Alle Eltern wollen das Beste für ihr Kind. Oft sind das Dinge die man selber nicht kontrollieren oder verstehen kann.",
     },
     {
       id: "stress",
-      title: "Stresssituationen",
-      icon: "brain",
+      title: "Menschen in Stresssituationen",
+      image: "/images/zielgruppe-stress.jpg",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquam erat, sed diam voluptua. Ut enim ad minim veniam, quis nostrud exercitation.",
+        "Burnout-Prävention, Überforderung im Beruf oder Alltag, Erschöpfungszustände und chronische Anspannung.",
     },
     {
       id: "senioren",
       title: "Senioren",
-      icon: "heart",
+      image: "/images/zielgruppe-senioren.jpg",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquam erat, sed diam voluptua. Ut enim ad minim veniam, quis nostrud exercitation.",
+        "Lebensübergänge meistern, Ängste im Alter, Schlafprobleme und Unterstützung bei Veränderungsprozessen.",
     },
+  ],
+
+  // Themenspezifisch mit Icons
+  topicsTitle: "Themenspezifisch",
+  topics: [
+    { id: "phobien", title: "Phobien", icon: "bug" },
+    { id: "aengste", title: "Ängste", icon: "alert-triangle" },
+    { id: "selbstbewusstsein", title: "Selbstbewusstsein stärken", icon: "sun" },
+    { id: "sucht", title: "Sucht", icon: "cigarette" },
+    { id: "blockaden", title: "Blockaden lösen", icon: "unlock" },
+    { id: "konzentration", title: "Konzentration & Schlaf", icon: "moon" },
+    { id: "schmerzen", title: "Schmerzen", icon: "heart-pulse" },
+    { id: "gewicht", title: "Gewichtsreduktion", icon: "scale" },
+    { id: "allergien", title: "Allergien", icon: "flower" },
+    { id: "sport", title: "Sporthypnose", icon: "trophy" },
   ],
 };
 
