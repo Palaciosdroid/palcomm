@@ -81,7 +81,7 @@ export default function TherapySection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
               className="bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-medium transition-all duration-300 cursor-pointer"
-              onClick={() => setExpandedGroup(expandedGroup === group.id ? null : group.id)}
+              onClick={() => setExpandedGroup(prev => prev === group.id ? null : group.id)}
             >
               {/* Bild */}
               <div className="relative h-40 bg-sage-100">
@@ -148,7 +148,7 @@ export default function TherapySection() {
               transition={{ duration: 0.4, delay: index * 0.05 }}
               whileHover={{ y: -4 }}
               className="flex flex-col items-center gap-3 p-5 bg-white rounded-xl border border-sage-200 hover:border-brand hover:shadow-soft transition-all duration-300 cursor-pointer group"
-              onClick={() => setExpandedTopic(expandedTopic === topic.id ? null : topic.id)}
+              onClick={() => setExpandedTopic(prev => prev === topic.id ? null : topic.id)}
             >
               <div className="w-12 h-12 rounded-full bg-sage-100 group-hover:bg-brand/10 flex items-center justify-center text-sage-600 group-hover:text-brand transition-colors duration-300">
                 {topicIconMap[topic.icon]}

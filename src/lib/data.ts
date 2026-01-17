@@ -212,17 +212,17 @@ export const contactContent = {
   privacyText: "Datenschutz",
 };
 
-// Therapie-Hinweise
+// Therapie-Hinweise (längster Text in der Mitte)
 export const therapyDisclaimer = {
   title: "Wichtige Hinweise",
   items: [
     {
-      title: "Laufende Behandlung",
-      text: "Falls du dich aktuell in psychotherapeutischer oder psychiatrischer Behandlung befindest, informiere mich bitte darüber. Eine Zusammenarbeit erfolgt nur mit dem Einverständnis deines behandelnden Therapeuten oder Arztes.",
-    },
-    {
       title: "Komplementäre Therapie",
       text: "Hypnosetherapie kann ergänzend zur ärztlichen oder therapeutischen Behandlung eingesetzt werden – als achtsame Begleitung auf deinem Weg zu mehr Bewusstsein, Vertrauen und innerer Balance.",
+    },
+    {
+      title: "Laufende Behandlung",
+      text: "Falls du dich aktuell in psychotherapeutischer oder psychiatrischer Behandlung befindest, informiere mich bitte darüber. Eine Zusammenarbeit erfolgt nur mit dem Einverständnis deines behandelnden Therapeuten oder Arztes.",
     },
     {
       title: "Kein Heilversprechen",
