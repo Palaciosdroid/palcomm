@@ -27,7 +27,7 @@ export default function TicketsSection() {
             Deine Investition
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2d2420] mb-6">
-            Wähle deinen <span className="text-gradient font-normal">Weg</span>
+            AFT Tickets <span className="text-gradient font-normal">2026</span>
           </h2>
           <p className="text-[#6b5b4f] max-w-xl mx-auto text-lg leading-relaxed">
             Jedes Ticket öffnet dir die Tür zu einem Tag voller Transformation.
@@ -50,7 +50,7 @@ export default function TicketsSection() {
         </motion.div>
 
         {/* Tickets Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
           {tickets.map((ticket, index) => (
             <TicketCard
               key={ticket.id}

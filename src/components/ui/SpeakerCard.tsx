@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { User } from "lucide-react";
+import { User, HelpCircle } from "lucide-react";
 
 interface SpeakerCardProps {
   name: string;
@@ -10,6 +10,7 @@ interface SpeakerCardProps {
   image: string;
   featured?: boolean;
   index?: number;
+  isSurprise?: boolean;
 }
 
 export default function SpeakerCard({
@@ -18,6 +19,7 @@ export default function SpeakerCard({
   topic,
   featured = false,
   index = 0,
+  isSurprise = false,
 }: SpeakerCardProps) {
   return (
     <motion.div
@@ -34,14 +36,22 @@ export default function SpeakerCard({
       >
         {/* Image Container */}
         <div
-          className={`relative mx-auto ${featured ? "md:mx-0 w-28 h-28 md:w-36 md:h-36" : "w-20 h-20 md:w-24 md:h-24"} mb-5 ${featured ? "md:mb-0" : ""}`}
+          className={`relative mx-auto ${featured ? "md:mx-0 w-28 h-28 md:w-36 md:h-36" : "w-24 h-24 md:w-28 md:h-28"} mb-5 ${featured ? "md:mb-0" : ""}`}
         >
           {/* Soft glow on hover */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#daaf7a]/20 to-[#c4a484]/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl scale-110" />
 
           {/* Avatar circle */}
-          <div className="relative w-full h-full rounded-full bg-gradient-to-br from-[#f5f0e8] to-[#e8dfd3] flex items-center justify-center overflow-hidden border-2 border-[#daaf7a]/20 group-hover:border-[#daaf7a]/40 transition-colors duration-500">
-            <User className="w-10 h-10 text-[#c4a484]" />
+          <div className={`relative w-full h-full rounded-full flex items-center justify-center overflow-hidden border-2 transition-colors duration-500 ${
+            isSurprise
+              ? "bg-gradient-to-br from-[#daaf7a] to-[#c4a484] border-[#daaf7a]/40 group-hover:border-[#daaf7a]/60"
+              : "bg-gradient-to-br from-[#f5f0e8] to-[#e8dfd3] border-[#daaf7a]/20 group-hover:border-[#daaf7a]/40"
+          }`}>
+            {isSurprise ? (
+              <HelpCircle className="w-12 h-12 text-white" />
+            ) : (
+              <User className="w-10 h-10 text-[#c4a484]" />
+            )}
           </div>
         </div>
 

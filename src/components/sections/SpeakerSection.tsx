@@ -1,13 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { speakers } from "@/lib/data";
+import { speakers, workshopLeader } from "@/lib/data";
 import SpeakerCard from "../ui/SpeakerCard";
 
 export default function SpeakerSection() {
-  const featuredSpeaker = speakers.find((s) => s.featured);
-  const otherSpeakers = speakers.filter((s) => !s.featured);
-
   return (
     <section id="speaker" className="relative py-24 md:py-32 bg-gradient-to-b from-[#f5f0e8] to-[#fdfcfa] overflow-hidden">
       {/* Organic Background Elements */}
@@ -34,43 +31,51 @@ export default function SpeakerSection() {
           className="text-center mb-16 md:mb-20"
         >
           <p className="text-[#daaf7a] text-sm uppercase tracking-widest mb-4">
-            Deine Begleiter
+            Programm 2026
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#2d2420] mb-6">
-            Inspirierende <span className="text-gradient font-normal">Speaker</span>
+            Dich erwartet <span className="text-gradient font-normal">mitunter je ein Vortrag von:</span>
           </h2>
-          <p className="text-[#6b5b4f] max-w-xl mx-auto text-lg leading-relaxed">
-            Lerne von Menschen, die selbst den Weg zur Angstfreiheit gegangen sind
-            und ihr Wissen mit Herz und Leidenschaft teilen.
-          </p>
         </motion.div>
 
-        {/* Featured Speaker */}
-        {featuredSpeaker && (
-          <div className="mb-12 md:mb-16">
-            <SpeakerCard
-              name={featuredSpeaker.name}
-              title={featuredSpeaker.title}
-              topic={featuredSpeaker.topic}
-              image={featuredSpeaker.image}
-              featured={true}
-              index={0}
-            />
-          </div>
-        )}
-
-        {/* Speaker Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          {otherSpeakers.map((speaker, index) => (
+        {/* Speaker Grid - 3 speakers */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 mb-16 md:mb-20">
+          {speakers.map((speaker, index) => (
             <SpeakerCard
               key={speaker.id}
               name={speaker.name}
               title={speaker.title}
               topic={speaker.topic}
               image={speaker.image}
-              index={index + 1}
+              index={index}
+              isSurprise={"isSurprise" in speaker && speaker.isSurprise}
             />
           ))}
+        </div>
+
+        {/* Workshop Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-12"
+        >
+          <p className="text-[#6b5b4f] text-lg mb-2">Sowie ein</p>
+          <h3 className="text-2xl md:text-3xl font-bold text-[#2d2420]">
+            <span className="text-gradient">Workshop</span> von:
+          </h3>
+        </motion.div>
+
+        {/* Workshop Leader */}
+        <div className="max-w-sm mx-auto">
+          <SpeakerCard
+            name={workshopLeader.name}
+            title={workshopLeader.title}
+            topic={workshopLeader.topic}
+            image={workshopLeader.image}
+            index={3}
+          />
         </div>
       </div>
 

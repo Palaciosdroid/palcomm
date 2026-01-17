@@ -6,7 +6,6 @@ import SpeakerSection from "@/components/sections/SpeakerSection";
 import ProgramSection from "@/components/sections/ProgramSection";
 import WhyAttendSection from "@/components/sections/WhyAttendSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
-import WorkshopsSection from "@/components/sections/WorkshopsSection";
 import HeartSection from "@/components/sections/HeartSection";
 import ImpressionsSection from "@/components/sections/ImpressionsSection";
 import TicketsSection from "@/components/sections/TicketsSection";
@@ -34,9 +33,6 @@ export default function Home() {
 
       {/* Testimonials */}
       <TestimonialsSection />
-
-      {/* Workshops */}
-      <WorkshopsSection />
 
       {/* Heart of the Event */}
       <HeartSection />
