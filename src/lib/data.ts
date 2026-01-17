@@ -26,7 +26,7 @@ export const navigation = [
 export const heroContent = {
   title: "Hypnosetherapie",
   description:
-    "Beginne Dein Leben frei, harmonisch und unbeschwert zu Leben. Bei der Reise begleite ich Dich demütig und vertrauensvoll auf Dein Wohlbefinden.",
+    "Beginne Dein Leben frei, harmonisch und unbeschwert zu leben. Bei der Reise begleite ich Dich demütig und vertrauensvoll auf Dein Wohlbefinden.",
   subtitle: "Professionell und Kompetent",
   ctaText: "Termin Buchen",
   ctaLink: "#kontakt",
