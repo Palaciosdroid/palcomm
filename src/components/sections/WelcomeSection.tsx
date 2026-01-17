@@ -49,7 +49,7 @@ export default function WelcomeSection() {
               <div className="relative w-64 h-80 md:w-72 md:h-96 portrait-frame overflow-hidden">
                 <Image
                   src={welcomeContent.image}
-                  alt="Enza Gasser-Piscitelli"
+                  alt="Enza Gasser-Fiorini"
                   fill
                   className="object-cover object-top"
                   sizes="(max-width: 768px) 256px, 288px"
@@ -67,13 +67,12 @@ export default function WelcomeSection() {
           >
             <p className="text-text-medium text-lg leading-relaxed mb-6">
               <span className="text-brand font-medium">Mein Name ist </span>
-              <span className="text-text-dark font-medium">Enza Gasser-Piscitelli</span>
-              , ich bin verheiratet und Mutter von 2 erwachsenen Söhnen und
-              praktiziere Homöo. Meine Eltern waren Italiener (Mein Vater(*) und
-              meine Mutter waren gelernte Angestellte). Ich wuchs zweisprachig mit
-              einer stark 12jährigen Schwester in Bern auf. Von meiner Familie habe
-              ich die Wertschätzung und respektvoller Umgang mit Menschen, Tiere und
-              Umwelt mitgegeben.
+              <span className="text-text-dark font-medium">Enza Gasser-Fiorini</span>
+              , ich bin verheiratet und Mutter von 2 erwachsenen Söhne und zweifache
+              Nonna. Meine Eltern waren Italiener (Rom/Apulien) und zudem geprägte
+              Kriegskinder. Ich wuchs zweisprachig mit einer acht Jahren älteren
+              Schwester in Bern auf. Uns wurde die Wertschätzung und respektvollen
+              Umgang mit Menschen, Tiere und Umwelt mitgegeben.
             </p>
           </motion.div>
         </div>

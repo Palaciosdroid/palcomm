@@ -2,7 +2,7 @@
 export const practiceInfo = {
   name: "Hypnose Enza",
   tagline: "Hypnosetherapie",
-  fullName: "Enza Gasser-Piscitelli",
+  fullName: "Enza Gasser-Fiorini",
   subtitle: "Professionell und Kompetent",
   phone: "+41 79 416 22 23",
   email: "enzagasser@gmail.com",
@@ -26,7 +26,7 @@ export const navigation = [
 export const heroContent = {
   title: "Hypnosetherapie",
   description:
-    "Beginne Dein Leben frei, harmonisch und unbeschwert zu Leben. Bei der Reise begleite ich Dich damit und vertrauensvoll auf Dein Wohlbefinden.",
+    "Beginne Dein Leben frei, harmonisch und unbeschwert zu Leben. Bei der Reise begleite ich Dich demütig und vertrauensvoll auf Dein Wohlbefinden.",
   subtitle: "Professionell und Kompetent",
   ctaText: "Termin Buchen",
   ctaLink: "#kontakt",
@@ -38,22 +38,22 @@ export const welcomeContent = {
   intro:
     "Gerne stehe ich Dir achtsam, empathisch zur Seite, begleite Dich in einem geschützten Rahmen, und gebe Dir die nötige Unterstützung um Deine starken Ressourcen zu verankern.",
   aboutTitle: "Über mich",
-  aboutText: `Mein Name ist Enza Gasser-Piscitelli, ich bin verheiratet und Mutter von 2 erwachsenen Söhnen und praktiziere Homöo. Meine Eltern waren Italiener (Mein Vater(*) und meine Mutter waren gelernte Angestellte). Ich wuchs zweisprachig mit einer stark 12jährigen Schwester in Bern auf. Von meiner Familie habe ich die Wertschätzung und respektvoller Umgang mit Menschen, Tiere und Umwelt mitgegeben.`,
+  aboutText: `Mein Name ist Enza Gasser-Fiorini, ich bin verheiratet und Mutter von 2 erwachsenen Söhne und zweifache Nonna. Meine Eltern waren Italiener (Rom/Apulien) und zudem geprägte Kriegskinder. Ich wuchs zweisprachig mit einer acht Jahren älteren Schwester in Bern auf. Uns wurde die Wertschätzung und respektvollen Umgang mit Menschen, Tiere und Umwelt mitgegeben.`,
   image: "/images/portrait.jpg",
   quote:
-    "Vertraue auf Dein Unterbewusstsein, damit Du mit Deinen Gefühlen wieder frei wirst...",
+    "Vertraue auf Dein Unterbewusstsein, damit Du mit Deinen Gefühlen wieder frei wirst…",
 };
 
 // Philosophie-Sektion
 export const philosophyContent = {
   title: "Was ist die Philosophie der Hypnose?",
-  text: `Sind Deine Gefühle, Ängste und Glaubenssätze wirklich berechtigt, Dich zu blockieren? Hypnose ist ein sanfter, geistiger Zustand des Unterbewusstseins. Mit der Imagination suchen wir auf Deiner Reise neue Ressourcen die Dich Dein Unterbewusstsein positiv stärken.
+  text: `Sind Deine Gefühle, Ängste und Glaubensätze wirklich berechtigt Dich zu blockieren? Hypnose ist ein sanfter, geistiger Zustand des Unterbewusstseins. Mit der Imagination suchen wir auf Deiner Reise neue Ressourcen die Dich Dein Unterbewusstsein positiv stärken.
 
 Die Lösungsorientierte Methode nach Gabriel Palacios Hypnoseexperte hilft Dir dabei die Blockaden nachhaltig zu befreien.`,
   ctaText: "Termin Buchen",
   ctaLink: "#kontakt",
   quote: {
-    text: "Das Leben kann nur verstanden werden muss aber vorwärts gelebt werden...",
+    text: "Das Leben kann nur verstanden werden muss aber vorwärts gelebt werden…",
     author: "Søren Kierkegaard",
     role: "Dänischer Philosoph",
   },
@@ -63,7 +63,7 @@ Die Lösungsorientierte Methode nach Gabriel Palacios Hypnoseexperte hilft Dir d
 export const therapyContent = {
   title: "Therapieangebot",
   intro:
-    "Dein Unterbewusstsein vergisst nie, denn Du kannst Deine Gefühle, Emotionen, Ängste und Glaubenssätze ändern. Du verdienst es in Einklang des Lebens zu kommen.",
+    "Dein Unterbewusstsein vergisst nie, denn Du kannst Deine Gefühle, Emotionen, Ängste und Glaubensätze ändern. Du verdienst es in Einklang des Lebens zu kommen.",
 
   // Zielgruppen mit Bildern
   targetGroupsTitle: "Für wen ist Hypnosetherapie?",
@@ -76,7 +76,7 @@ export const therapyContent = {
     },
     {
       id: "kinder",
-      title: "Kinder und Jugendliche",
+      title: "Kinder",
       image: "/images/zielgruppe-kinder.jpg",
       description: "Lernschwierigkeiten, Überforderung durch Stoff, Leistungsdruck, Schulangst, Mobbing, ADHS oder eine generelle Überlastung.",
     },
@@ -218,11 +218,11 @@ export const therapyDisclaimer = {
   items: [
     {
       title: "Komplementäre Therapie",
-      text: "Hypnosetherapie kann ergänzend zur ärztlichen oder therapeutischen Behandlung eingesetzt werden – als achtsame Begleitung auf deinem Weg zu mehr Bewusstsein, Vertrauen und innerer Balance.",
+      text: "Hypnosetherapie kann ergänzend zur ärztlichen oder therapeutischen Behandlung eingesetzt werden – als achtsame Begleitung auf Deinem Weg zu mehr Bewusstsein, Vertrauen und innerer Balance.",
     },
     {
       title: "Laufende Behandlung",
-      text: "Falls du dich aktuell in psychotherapeutischer oder psychiatrischer Behandlung befindest, informiere mich bitte darüber. Eine Zusammenarbeit erfolgt nur mit dem Einverständnis deines behandelnden Therapeuten oder Arztes.",
+      text: "Falls Du Dich aktuell in psychotherapeutischer oder psychiatrischer Behandlung befindest, informiere mich bitte darüber. Eine Zusammenarbeit erfolgt nur mit dem Einverständnis Deines behandelnden Therapeuten oder Arztes.",
     },
     {
       title: "Kein Heilversprechen",
