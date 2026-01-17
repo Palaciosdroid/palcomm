@@ -23,7 +23,7 @@ export default function HeroSection() {
       <div
         className="absolute inset-x-0 top-0 h-32 z-[5]"
         style={{
-          background: "linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)"
+          background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)"
         }}
       />
 
