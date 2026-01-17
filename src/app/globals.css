@@ -345,3 +345,15 @@ a {
   object-fit: cover;
   z-index: 1;
 }
+
+/* Safe area for sticky CTA on mobile */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Extra padding at bottom for sticky CTA */
+@media (max-width: 768px) {
+  main {
+    padding-bottom: 80px;
+  }
+}
