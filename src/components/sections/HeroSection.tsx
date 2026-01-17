@@ -79,10 +79,10 @@ export default function HeroSection() {
             Professionell und{" "}
             <span
               style={{
-                fontFamily: "Playfair Display, Georgia, serif",
+                fontFamily: "Noto Serif, Georgia, serif",
                 fontStyle: "italic",
-                fontWeight: 500,
-                letterSpacing: "0.05em",
+                fontWeight: 700,
+                letterSpacing: "0.03em",
                 color: "#3d4a3a"
               }}
             >

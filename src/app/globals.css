@@ -2,9 +2,9 @@
 
 :root {
   /* Brand-Farbe (Logo) */
-  --brand: #89715c;
-  --brand-light: #a08a77;
-  --brand-dark: #6d5a4a;
+  --brand: #8c836c;
+  --brand-light: #a69d88;
+  --brand-dark: #706857;
 
   /* Sanfte Salbei-Töne */
   --sage-100: #f4f6f3;
@@ -200,7 +200,7 @@ h4, h5, h6 {
 }
 
 .btn-secondary:hover {
-  background: rgba(137, 113, 92, 0.08);
+  background: rgba(140, 131, 108, 0.08);
   border-color: var(--brand);
 }
 
@@ -317,7 +317,7 @@ h4, h5, h6 {
 .input-soft:focus {
   outline: none;
   border-color: var(--brand-light);
-  box-shadow: 0 0 0 3px rgba(137, 113, 92, 0.1);
+  box-shadow: 0 0 0 3px rgba(140, 131, 108, 0.1);
 }
 
 .input-soft::placeholder {
