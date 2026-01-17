@@ -38,7 +38,7 @@ export const welcomeContent = {
   intro:
     "Gerne stehe ich Dir achtsam, empathisch zur Seite, begleite Dich in einem geschützten Rahmen, und gebe Dir die nötige Unterstützung um Deine starken Ressourcen zu verankern.",
   aboutTitle: "Über mich",
-  aboutText: `Mein Name ist Enza Gasser-Fiorini, ich bin verheiratet und Mutter von 2 erwachsenen Söhne und zweifache Nonna. Meine Eltern waren Italiener (Rom/Apulien) und zudem geprägte Kriegskinder. Ich wuchs zweisprachig mit einer acht Jahren älteren Schwester in Bern auf. Uns wurde die Wertschätzung und respektvollen Umgang mit Menschen, Tiere und Umwelt mitgegeben.`,
+  aboutText: `Mein Name ist Enza Gasser-Fiorini, ich bin verheiratet und Mutter von 2 erwachsenen Söhnen und zweifache Nonna. Meine Eltern waren Italiener (Rom/Apulien) und zudem geprägte Kriegskinder. Ich wuchs zweisprachig mit einer acht Jahren älteren Schwester in Bern auf. Uns wurde die Wertschätzung und respektvollen Umgang mit Menschen, Tieren und Umwelt mitgegeben.`,
   image: "/images/portrait.jpg",
   quote:
     "Vertraue auf Dein Unterbewusstsein, damit Du mit Deinen Gefühlen wieder frei wirst…",

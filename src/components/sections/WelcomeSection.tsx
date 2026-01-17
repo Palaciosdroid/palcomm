@@ -68,11 +68,11 @@ export default function WelcomeSection() {
             <p className="text-text-medium text-lg leading-relaxed mb-6">
               <span className="text-brand font-medium">Mein Name ist </span>
               <span className="text-text-dark font-medium">Enza Gasser-Fiorini</span>
-              , ich bin verheiratet und Mutter von 2 erwachsenen Söhne und zweifache
+              , ich bin verheiratet und Mutter von 2 erwachsenen Söhnen und zweifache
               Nonna. Meine Eltern waren Italiener (Rom/Apulien) und zudem geprägte
               Kriegskinder. Ich wuchs zweisprachig mit einer acht Jahren älteren
               Schwester in Bern auf. Uns wurde die Wertschätzung und respektvollen
-              Umgang mit Menschen, Tiere und Umwelt mitgegeben.
+              Umgang mit Menschen, Tieren und Umwelt mitgegeben.
             </p>
           </motion.div>
         </div>
