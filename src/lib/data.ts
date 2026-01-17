@@ -5,7 +5,7 @@ export const practiceInfo = {
   fullName: "Enza Gasser-Piscitelli",
   subtitle: "Professionell und Kompetent",
   phone: "+41 79 123 45 67",
-  email: "info@hypnose-enza.ch",
+  email: "enzagasser@gmail.com",
   website: "hypnose-enza.ch",
   address: {
     street: "Musterstrasse 12",
@@ -212,17 +212,36 @@ export const contactContent = {
   privacyText: "Datenschutz",
 };
 
+// Therapie-Hinweise
+export const therapyDisclaimer = {
+  title: "Wichtige Hinweise",
+  items: [
+    {
+      title: "Laufende Behandlung",
+      text: "Falls du dich aktuell in psychotherapeutischer oder psychiatrischer Behandlung befindest, informiere mich bitte darüber. Eine Zusammenarbeit erfolgt nur mit dem Einverständnis deines behandelnden Therapeuten oder Arztes.",
+    },
+    {
+      title: "Komplementäre Therapie",
+      text: "Hypnosetherapie kann ergänzend zur ärztlichen oder therapeutischen Behandlung eingesetzt werden – als achtsame Begleitung auf deinem Weg zu mehr Bewusstsein, Vertrauen und innerer Balance.",
+    },
+    {
+      title: "Kein Heilversprechen",
+      text: "In meiner Praxis werden ausdrücklich keine Garantien oder Heilversprechen abgegeben. Jeder Mensch ist einzigartig und die Ergebnisse können individuell variieren.",
+    },
+  ],
+};
+
 // Footer
 export const footerContent = {
   copyright: "Enza Gasser",
-  email: "info@hypnose-enza.ch",
+  email: "enzagasser@gmail.com",
   links: [
     { name: "Impressum", href: "#impressum" },
     { name: "Datenschutz", href: "#datenschutz" },
+    { name: "Ethikkodex VSH", href: "#ethikkodex" },
   ],
   socialLinks: [
     { name: "Facebook", href: "#", icon: "facebook" },
     { name: "Instagram", href: "#", icon: "instagram" },
-    { name: "LinkedIn", href: "#", icon: "linkedin" },
   ],
 };

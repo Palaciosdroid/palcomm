@@ -7,6 +7,7 @@ import TherapySection from "@/components/sections/TherapySection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import CertificatesSection from "@/components/sections/CertificatesSection";
 import PricingSection from "@/components/sections/PricingSection";
+import DisclaimerSection from "@/components/sections/DisclaimerSection";
 import ContactSection from "@/components/sections/ContactSection";
 import StickyCTA from "@/components/ui/StickyCTA";
 
@@ -35,6 +36,9 @@ export default function Home() {
 
       {/* Konditionen/Preise */}
       <PricingSection />
+
+      {/* Wichtige Hinweise */}
+      <DisclaimerSection />
 
       {/* Kontaktformular */}
       <ContactSection />
