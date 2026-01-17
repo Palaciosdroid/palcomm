@@ -65,59 +65,79 @@ export const therapyContent = {
   intro:
     "Dein Unterbewusstsein vergisst nie, denn Du kannst Deine Gefühle, Emotionen, Ängste und Glaubenssätze ändern. Du verdienst es in Einklang des Lebens zu kommen.",
 
-  // Zielgruppen mit Bildern
+  // Zielgruppen (einfache Liste mit Icons)
   targetGroupsTitle: "Für wen ist Hypnosetherapie?",
   targetGroups: [
-    {
-      id: "erwachsene",
-      title: "Erwachsene",
-      image: "/images/zielgruppe-erwachsene.jpg",
-      description:
-        "Wiederkehrende, oft belastende Kreisen negativer Gedanken, das durch Stress, Angststörungen ausgelöst wird und sich wie eine Endlosschleife anfühlt.",
-    },
-    {
-      id: "kinder",
-      title: "Kinder und Jugendliche",
-      image: "/images/zielgruppe-kinder.jpg",
-      description:
-        "Lernschwierigkeiten, Überforderung durch Stoff, Leistungsdruck, Schulangst, Mobbing, ADHS oder eine generelle Überlastung.",
-    },
-    {
-      id: "eltern",
-      title: "Eltern",
-      image: "/images/zielgruppe-eltern.jpg",
-      description:
-        "Alle Eltern wollen das Beste für ihr Kind. Oft sind das Dinge die man selber nicht kontrollieren oder verstehen kann.",
-    },
-    {
-      id: "stress",
-      title: "Menschen in Stresssituationen",
-      image: "/images/zielgruppe-stress.jpg",
-      description:
-        "Burnout-Prävention, Überforderung im Beruf oder Alltag, Erschöpfungszustände und chronische Anspannung.",
-    },
-    {
-      id: "senioren",
-      title: "Senioren",
-      image: "/images/zielgruppe-senioren.jpg",
-      description:
-        "Lebensübergänge meistern, Ängste im Alter, Schlafprobleme und Unterstützung bei Veränderungsprozessen.",
-    },
+    { id: "erwachsene", title: "Erwachsene", icon: "user" },
+    { id: "kinder", title: "Kinder und Jugendliche", icon: "baby" },
+    { id: "eltern", title: "Eltern", icon: "users" },
+    { id: "stress", title: "Menschen in Stresssituationen", icon: "brain" },
+    { id: "senioren", title: "Senioren", icon: "heart" },
   ],
 
-  // Themenspezifisch mit Icons
+  // Themenspezifisch mit Bildern
   topicsTitle: "Themenspezifisch",
   topics: [
-    { id: "phobien", title: "Phobien", icon: "bug" },
-    { id: "aengste", title: "Ängste", icon: "alert-triangle" },
-    { id: "selbstbewusstsein", title: "Selbstbewusstsein stärken", icon: "sun" },
-    { id: "sucht", title: "Sucht", icon: "cigarette" },
-    { id: "blockaden", title: "Blockaden lösen", icon: "unlock" },
-    { id: "konzentration", title: "Konzentration & Schlaf", icon: "moon" },
-    { id: "schmerzen", title: "Schmerzen", icon: "heart-pulse" },
-    { id: "gewicht", title: "Gewichtsreduktion", icon: "scale" },
-    { id: "allergien", title: "Allergien", icon: "flower" },
-    { id: "sport", title: "Sporthypnose", icon: "trophy" },
+    {
+      id: "phobien",
+      title: "Phobien",
+      image: "/images/thema-phobien.jpg",
+      description: "Angst vor Spinnen, Höhenangst oder übersteigerte Angst vor bestimmten Tieren und Situationen.",
+    },
+    {
+      id: "aengste",
+      title: "Ängste",
+      image: "/images/thema-aengste.jpg",
+      description: "Wiederkehrende, oft belastende Kreisen negativer Gedanken, die durch Stress und Angststörungen ausgelöst werden.",
+    },
+    {
+      id: "selbstbewusstsein",
+      title: "Selbstbewusstsein stärken",
+      image: "/images/thema-selbstbewusstsein.jpg",
+      description: "Dein Selbstbewusstsein positiv beeinflussen, negative Denkmuster durchbrechen und Dein Selbstbild mit starken Ressourcen verankern.",
+    },
+    {
+      id: "sucht",
+      title: "Sucht",
+      image: "/images/thema-sucht.jpg",
+      description: "Raucherentwöhnung, Esssucht oder andere Abhängigkeiten nachhaltig überwinden.",
+    },
+    {
+      id: "blockaden",
+      title: "Blockaden lösen",
+      image: "/images/thema-blockaden.jpg",
+      description: "Mentale Blockaden und Hindernisse erkennen und auflösen für mehr Freiheit im Leben.",
+    },
+    {
+      id: "konzentration",
+      title: "Konzentration & Schlaf",
+      image: "/images/thema-schlaf.jpg",
+      description: "Konzentrationsschwierigkeiten, Schlaflosigkeit und innere Unruhe behandeln.",
+    },
+    {
+      id: "schmerzen",
+      title: "Schmerzen",
+      image: "/images/thema-schmerzen.jpg",
+      description: "Chronische Schmerzen lindern und einen besseren Umgang mit Schmerzempfindungen entwickeln.",
+    },
+    {
+      id: "gewicht",
+      title: "Gewichtsreduktion",
+      image: "/images/thema-gewicht.jpg",
+      description: "Nachhaltig abnehmen durch Veränderung der Essgewohnheiten im Unterbewusstsein.",
+    },
+    {
+      id: "allergien",
+      title: "Allergien",
+      image: "/images/thema-allergien.jpg",
+      description: "Desensibilisierung und Linderung von allergischen Reaktionen durch Hypnosetherapie.",
+    },
+    {
+      id: "sport",
+      title: "Sporthypnose",
+      image: "/images/thema-sport.jpg",
+      description: "Mentale Stärke für Sportler - Leistungsblockaden lösen und Fokus verbessern.",
+    },
   ],
 };
 
