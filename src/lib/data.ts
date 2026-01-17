@@ -4,7 +4,7 @@ export const practiceInfo = {
   tagline: "Hypnosetherapie",
   fullName: "Enza Gasser-Piscitelli",
   subtitle: "Professionell und Kompetent",
-  phone: "+41 79 123 45 67",
+  phone: "+41 79 416 22 23",
   email: "enzagasser@gmail.com",
   website: "hypnose-enza.ch",
   address: {

@@ -38,7 +38,7 @@ export default function PricingSection() {
             </div>
           </div>
           <a
-            href="tel:+41791234567"
+            href="tel:+41794162223"
             className="btn-secondary text-sm whitespace-nowrap"
           >
             Jetzt anrufen
@@ -106,23 +106,22 @@ export default function PricingSection() {
           </div>
 
           {/* Payment Methods */}
-          <div className="flex items-start gap-4 mb-6">
-            <div className="w-10 h-10 rounded-full bg-sage-100 flex items-center justify-center flex-shrink-0">
-              <Banknote className="w-5 h-5 text-sage-600" />
-            </div>
-            <div>
-              <p className="font-medium text-text-dark">Bezahlung nach jeder Sitzung</p>
-              <div className="flex items-center gap-3 mt-2">
-                <span className="text-sm text-text-light">Bar</span>
-                <span className="text-text-muted">oder</span>
-                <div className="flex items-center gap-1">
-                  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
-                    <rect width="24" height="24" rx="4" fill="#00A0E4"/>
-                    <path d="M6 8h12v8H6z" fill="white"/>
-                    <path d="M8 10h3v4H8zM13 10h3v4h-3z" fill="#00A0E4"/>
-                  </svg>
-                  <span className="text-sm text-text-light">Twint</span>
-                </div>
+          <div className="mb-8">
+            <p className="font-medium text-text-dark mb-4">Bezahlung nach jeder Sitzung</p>
+            <div className="flex flex-wrap gap-4">
+              {/* Bar */}
+              <div className="flex items-center gap-3 px-5 py-3 bg-sage-50 rounded-xl">
+                <Banknote className="w-6 h-6 text-sage-600" />
+                <span className="font-medium text-text-dark">Bar</span>
+              </div>
+              {/* Twint */}
+              <div className="flex items-center gap-3 px-5 py-3 bg-[#00A0E4]/10 rounded-xl">
+                <svg viewBox="0 0 32 32" className="w-7 h-7" fill="none">
+                  <rect width="32" height="32" rx="6" fill="#00A0E4"/>
+                  <path d="M8 11h6v10H8z" fill="white"/>
+                  <path d="M18 11h6v10h-6z" fill="white"/>
+                </svg>
+                <span className="font-medium text-text-dark">Twint</span>
               </div>
             </div>
           </div>

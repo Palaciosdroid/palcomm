@@ -6,7 +6,7 @@ import { welcomeContent } from "@/lib/data";
 
 export default function WelcomeSection() {
   return (
-    <section id="ueber-mich" className="section-padding bg-cream-50">
+    <section id="ueber-mich" className="relative section-padding pb-28 bg-cream-50">
       <div className="max-w-4xl mx-auto px-6 md:px-8">
         {/* Section Title */}
         <motion.h2
@@ -90,6 +90,22 @@ export default function WelcomeSection() {
             {welcomeContent.quote}
           </p>
         </motion.div>
+      </div>
+
+      {/* Wave Divider */}
+      <div className="absolute bottom-0 left-0 right-0">
+        <svg
+          viewBox="0 0 1440 80"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-auto"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0 40C240 70 480 20 720 50C960 80 1200 30 1440 60V80H0V40Z"
+            fill="#e5ebe3"
+          />
+        </svg>
       </div>
     </section>
   );
