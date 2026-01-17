@@ -3,8 +3,33 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ChevronDown } from "lucide-react";
+import {
+  ChevronDown,
+  Bug,
+  CloudLightning,
+  Sun,
+  CigaretteOff,
+  Unlock,
+  MoonStar,
+  HeartPulse,
+  Scale,
+  Flower2,
+  Trophy,
+} from "lucide-react";
 import { therapyContent } from "@/lib/data";
+
+const topicIconMap: { [key: string]: React.ReactNode } = {
+  spider: <Bug className="w-6 h-6" />,
+  "cloud-lightning": <CloudLightning className="w-6 h-6" />,
+  sun: <Sun className="w-6 h-6" />,
+  "cigarette-off": <CigaretteOff className="w-6 h-6" />,
+  unlock: <Unlock className="w-6 h-6" />,
+  "moon-star": <MoonStar className="w-6 h-6" />,
+  "heart-pulse": <HeartPulse className="w-6 h-6" />,
+  scale: <Scale className="w-6 h-6" />,
+  "flower-2": <Flower2 className="w-6 h-6" />,
+  trophy: <Trophy className="w-6 h-6" />,
+};
 
 export default function TherapySection() {
   const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
@@ -102,7 +127,7 @@ export default function TherapySection() {
           ))}
         </div>
 
-        {/* Themenspezifisch - mit Bildern */}
+        {/* Themenspezifisch - mit Icons */}
         <motion.h3
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -113,57 +138,39 @@ export default function TherapySection() {
           {therapyContent.topicsTitle}
         </motion.h3>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
           {therapyContent.topics.map((topic, index) => (
             <motion.div
               key={topic.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.06 }}
-              className="bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-medium transition-all duration-300 cursor-pointer"
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              whileHover={{ y: -4 }}
+              className="flex flex-col items-center gap-3 p-5 bg-white rounded-xl border border-sage-200 hover:border-brand hover:shadow-soft transition-all duration-300 cursor-pointer group"
               onClick={() => setExpandedTopic(expandedTopic === topic.id ? null : topic.id)}
             >
-              {/* Bild */}
-              <div className="relative h-36 bg-sage-100">
-                <Image
-                  src={topic.image}
-                  alt={topic.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
+              <div className="w-12 h-12 rounded-full bg-sage-100 group-hover:bg-brand/10 flex items-center justify-center text-sage-600 group-hover:text-brand transition-colors duration-300">
+                {topicIconMap[topic.icon]}
               </div>
+              <span className="text-sm text-center font-medium text-text-dark">
+                {topic.title}
+              </span>
 
-              {/* Content */}
-              <div className="p-4">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-base font-medium text-text-dark">
-                    {topic.title}
-                  </h4>
-                  <motion.div
-                    animate={{ rotate: expandedTopic === topic.id ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
+              {/* Expandable Description */}
+              <AnimatePresence>
+                {expandedTopic === topic.id && (
+                  <motion.p
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-text-light text-xs leading-relaxed text-center overflow-hidden"
                   >
-                    <ChevronDown className="w-4 h-4 text-text-light" />
-                  </motion.div>
-                </div>
-
-                {/* Expandable Description */}
-                <AnimatePresence>
-                  {expandedTopic === topic.id && (
-                    <motion.p
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="text-text-light text-sm leading-relaxed mt-3 overflow-hidden"
-                    >
-                      {topic.description}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-              </div>
+                    {topic.description}
+                  </motion.p>
+                )}
+              </AnimatePresence>
             </motion.div>
           ))}
         </div>

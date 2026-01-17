@@ -100,67 +100,67 @@ export const therapyContent = {
     },
   ],
 
-  // Themenspezifisch mit Bildern
+  // Themenspezifisch mit Icons
   topicsTitle: "Themenspezifisch",
   topics: [
     {
       id: "phobien",
       title: "Phobien",
-      image: "/images/thema-phobien.jpg",
+      icon: "spider",
       description: "Angst vor Spinnen, Höhenangst, Flugangst oder übersteigerte Angst vor bestimmten Tieren und Situationen überwinden.",
     },
     {
       id: "aengste",
       title: "Ängste",
-      image: "/images/thema-aengste.jpg",
+      icon: "cloud-lightning",
       description: "Panikattacken, soziale Ängste, Zukunftsangst oder generalisierte Angststörungen nachhaltig behandeln.",
     },
     {
       id: "selbstbewusstsein",
       title: "Selbstbewusstsein stärken",
-      image: "/images/thema-selbstbewusstsein.jpg",
+      icon: "sun",
       description: "Dein Selbstbewusstsein positiv beeinflussen, negative Denkmuster durchbrechen und Dein Selbstbild mit starken Ressourcen verankern.",
     },
     {
       id: "sucht",
       title: "Sucht",
-      image: "/images/thema-sucht.jpg",
+      icon: "cigarette-off",
       description: "Raucherentwöhnung, Esssucht oder andere Abhängigkeiten nachhaltig überwinden.",
     },
     {
       id: "blockaden",
       title: "Blockaden lösen",
-      image: "/images/thema-blockaden.jpg",
+      icon: "unlock",
       description: "Mentale Blockaden und Hindernisse erkennen und auflösen für mehr Freiheit im Leben.",
     },
     {
       id: "konzentration",
       title: "Konzentration & Schlaf",
-      image: "/images/thema-schlaf.jpg",
+      icon: "moon-star",
       description: "Konzentrationsschwierigkeiten, Schlaflosigkeit und innere Unruhe behandeln.",
     },
     {
       id: "schmerzen",
       title: "Schmerzen",
-      image: "/images/thema-schmerzen.jpg",
+      icon: "heart-pulse",
       description: "Chronische Schmerzen lindern und einen besseren Umgang mit Schmerzempfindungen entwickeln.",
     },
     {
       id: "gewicht",
       title: "Gewichtsreduktion",
-      image: "/images/thema-gewicht.jpg",
+      icon: "scale",
       description: "Nachhaltig abnehmen durch Veränderung der Essgewohnheiten im Unterbewusstsein.",
     },
     {
       id: "allergien",
       title: "Allergien",
-      image: "/images/thema-allergien.jpg",
+      icon: "flower-2",
       description: "Desensibilisierung und Linderung von allergischen Reaktionen durch Hypnosetherapie.",
     },
     {
       id: "sport",
       title: "Sporthypnose",
-      image: "/images/thema-sport.jpg",
+      icon: "trophy",
       description: "Mentale Stärke für Sportler - Leistungsblockaden lösen und Fokus verbessern.",
     },
   ],
