@@ -76,7 +76,7 @@ export const therapyContent = {
     },
     {
       id: "kinder",
-      title: "Kinder",
+      title: "Kinder und Jugendliche",
       image: "/images/zielgruppe-kinder.jpg",
       description: "Lernschwierigkeiten, Überforderung durch Stoff, Leistungsdruck, Schulangst, Mobbing, ADHS oder eine generelle Überlastung.",
     },
