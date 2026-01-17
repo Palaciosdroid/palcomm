@@ -107,13 +107,13 @@ export const therapyContent = {
       id: "phobien",
       title: "Phobien",
       image: "/images/thema-phobien.jpg",
-      description: "Angst vor Spinnen, Höhenangst oder übersteigerte Angst vor bestimmten Tieren und Situationen.",
+      description: "Angst vor Spinnen, Höhenangst, Flugangst oder übersteigerte Angst vor bestimmten Tieren und Situationen überwinden.",
     },
     {
       id: "aengste",
       title: "Ängste",
       image: "/images/thema-aengste.jpg",
-      description: "Wiederkehrende, oft belastende Kreisen negativer Gedanken, die durch Stress und Angststörungen ausgelöst werden.",
+      description: "Panikattacken, soziale Ängste, Zukunftsangst oder generalisierte Angststörungen nachhaltig behandeln.",
     },
     {
       id: "selbstbewusstsein",
