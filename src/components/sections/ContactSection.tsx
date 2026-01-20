@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { contactContent } from "@/lib/data";
+import { Phone, Mail } from "lucide-react";
+import { contactContent, practiceInfo } from "@/lib/data";
 
 export default function ContactSection() {
   return (
@@ -13,11 +14,35 @@ export default function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl text-center mb-12"
+          className="text-4xl md:text-5xl text-center mb-8"
           style={{ fontFamily: "Playfair Display, Georgia, serif" }}
         >
           {contactContent.title}
         </motion.h2>
+
+        {/* Direct Contact Info */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.05 }}
+          className="flex flex-col sm:flex-row justify-center items-center gap-6 mb-12"
+        >
+          <a
+            href={`tel:${practiceInfo.phone.replace(/\s/g, '')}`}
+            className="flex items-center gap-2 text-text-medium hover:text-brand transition-colors"
+          >
+            <Phone className="w-5 h-5" />
+            <span>{practiceInfo.phone}</span>
+          </a>
+          <a
+            href={`mailto:${practiceInfo.email}`}
+            className="flex items-center gap-2 text-text-medium hover:text-brand transition-colors"
+          >
+            <Mail className="w-5 h-5" />
+            <span>{practiceInfo.email}</span>
+          </a>
+        </motion.div>
 
         {/* Contact Form */}
         <motion.form
