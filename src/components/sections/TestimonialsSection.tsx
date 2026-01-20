@@ -50,7 +50,7 @@ export default function TestimonialsSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-text-medium text-center mb-12"
         >
-          Was meine Klienten sagen
+          Was meine Klient:innen sagen
         </motion.p>
 
         {/* Testimonials Grid */}
