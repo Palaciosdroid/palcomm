@@ -26,10 +26,29 @@ export default function WelcomeSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-text-medium text-center text-lg md:text-xl leading-relaxed mb-16 max-w-2xl mx-auto"
+          className="text-text-medium text-center text-lg md:text-xl leading-relaxed mb-6 max-w-2xl mx-auto"
         >
           {welcomeContent.intro}
         </motion.p>
+
+        {/* Rainbow Inclusivity Badge - zentriert unter Intro */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex items-center justify-center gap-3 mb-16"
+        >
+          <div
+            className="w-6 h-6 rounded-full flex-shrink-0"
+            style={{
+              background: "linear-gradient(180deg, #E40303 0%, #FF8C00 20%, #FFED00 40%, #008026 60%, #24408E 80%, #732982 100%)"
+            }}
+          />
+          <span className="text-text-medium text-sm italic">
+            Alle sind willkommen
+          </span>
+        </motion.div>
 
         {/* Portrait and Bio */}
         <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
@@ -65,7 +84,7 @@ export default function WelcomeSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <p className="text-text-medium text-lg leading-relaxed mb-6">
+            <p className="text-text-medium text-lg leading-relaxed">
               <span className="text-brand font-medium">Mein Name ist </span>
               <span className="text-text-dark font-medium">Enza Gasser-Fiorini</span>
               , ich bin verheiratet und Mutter von 2 erwachsenen Söhnen und zweifache
@@ -74,19 +93,6 @@ export default function WelcomeSection() {
               Schwester in Bern auf. Uns wurde die Wertschätzung und respektvollen
               Umgang mit Menschen, Tieren und Umwelt mitgegeben.
             </p>
-
-            {/* Rainbow Inclusivity Badge */}
-            <div className="flex items-center gap-3 mt-4">
-              <div
-                className="w-8 h-8 rounded-full flex-shrink-0"
-                style={{
-                  background: "linear-gradient(180deg, #E40303 0%, #FF8C00 20%, #FFED00 40%, #008026 60%, #24408E 80%, #732982 100%)"
-                }}
-              />
-              <span className="text-text-medium text-sm italic">
-                Alle sind willkommen
-              </span>
-            </div>
           </motion.div>
         </div>
 

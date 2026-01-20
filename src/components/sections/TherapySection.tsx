@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import {
   Bug,
@@ -30,6 +31,8 @@ const topicIconMap: { [key: string]: React.ReactNode } = {
 };
 
 export default function TherapySection() {
+  const [expandedTopic, setExpandedTopic] = useState<string | null>(null);
+
   return (
     <section id="therapieangebot" className="section-padding bg-cream-50">
       <div className="max-w-5xl mx-auto px-6 md:px-8">
@@ -121,7 +124,8 @@ export default function TherapySection() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
               whileHover={{ y: -4 }}
-              className="flex flex-col items-center gap-3 p-5 bg-white rounded-xl border border-sage-200 hover:border-brand hover:shadow-soft transition-all duration-300 group w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)]"
+              className="flex flex-col items-center gap-3 p-5 bg-white rounded-xl border border-sage-200 hover:border-brand hover:shadow-soft transition-all duration-300 cursor-pointer group w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)]"
+              onClick={() => setExpandedTopic(prev => prev === topic.id ? null : topic.id)}
             >
               <div className="w-12 h-12 rounded-full bg-sage-100 group-hover:bg-brand/10 flex items-center justify-center text-sage-600 group-hover:text-brand transition-colors duration-300">
                 {topicIconMap[topic.icon]}
@@ -129,6 +133,22 @@ export default function TherapySection() {
               <span className="text-sm text-center font-medium text-text-dark">
                 {topic.title}
               </span>
+
+              {/* Expandable Description */}
+              <AnimatePresence mode="wait">
+                {expandedTopic === topic.id && (
+                  <motion.p
+                    key={topic.id}
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-text-light text-xs leading-relaxed text-center overflow-hidden"
+                  >
+                    {topic.description}
+                  </motion.p>
+                )}
+              </AnimatePresence>
             </motion.div>
           ))}
         </div>
