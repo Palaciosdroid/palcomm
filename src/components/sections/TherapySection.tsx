@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import {
-  ChevronDown,
   Bug,
   CloudLightning,
   Sun,
@@ -32,9 +30,6 @@ const topicIconMap: { [key: string]: React.ReactNode } = {
 };
 
 export default function TherapySection() {
-  const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
-  const [expandedTopic, setExpandedTopic] = useState<string | null>(null);
-
   return (
     <section id="therapieangebot" className="section-padding bg-cream-50">
       <div className="max-w-5xl mx-auto px-6 md:px-8">
@@ -61,7 +56,7 @@ export default function TherapySection() {
           {therapyContent.intro}
         </motion.p>
 
-        {/* Zielgruppen - mit Bildern */}
+        {/* Zielgruppen - mit Bildern, immer offen */}
         <motion.h3
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -80,8 +75,7 @@ export default function TherapySection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-medium transition-all duration-300 cursor-pointer"
-              onClick={() => setExpandedGroup(prev => prev === group.id ? null : group.id)}
+              className="bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-medium transition-all duration-300"
             >
               {/* Bild */}
               <div className="relative h-40 bg-sage-100">
@@ -94,41 +88,20 @@ export default function TherapySection() {
                 />
               </div>
 
-              {/* Content */}
+              {/* Content - immer offen */}
               <div className="p-5">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-lg font-medium text-text-dark">
-                    {group.title}
-                  </h4>
-                  <motion.div
-                    animate={{ rotate: expandedGroup === group.id ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <ChevronDown className="w-5 h-5 text-text-light" />
-                  </motion.div>
-                </div>
-
-                {/* Expandable Description */}
-                <AnimatePresence mode="wait">
-                  {expandedGroup === group.id && (
-                    <motion.p
-                      key={group.id}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="text-text-light text-sm leading-relaxed mt-3 overflow-hidden"
-                    >
-                      {group.description}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
+                <h4 className="text-lg font-medium text-text-dark mb-2">
+                  {group.title}
+                </h4>
+                <p className="text-text-light text-sm leading-relaxed">
+                  {group.description}
+                </p>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Themenspezifisch - mit Icons */}
+        {/* Themenspezifisch - mit Icons, 3 Spalten */}
         <motion.h3
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -148,8 +121,7 @@ export default function TherapySection() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
               whileHover={{ y: -4 }}
-              className="flex flex-col items-center gap-3 p-5 bg-white rounded-xl border border-sage-200 hover:border-brand hover:shadow-soft transition-all duration-300 cursor-pointer group w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)] lg:w-[calc(25%-0.75rem)]"
-              onClick={() => setExpandedTopic(prev => prev === topic.id ? null : topic.id)}
+              className="flex flex-col items-center gap-3 p-5 bg-white rounded-xl border border-sage-200 hover:border-brand hover:shadow-soft transition-all duration-300 group w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)]"
             >
               <div className="w-12 h-12 rounded-full bg-sage-100 group-hover:bg-brand/10 flex items-center justify-center text-sage-600 group-hover:text-brand transition-colors duration-300">
                 {topicIconMap[topic.icon]}
@@ -157,22 +129,6 @@ export default function TherapySection() {
               <span className="text-sm text-center font-medium text-text-dark">
                 {topic.title}
               </span>
-
-              {/* Expandable Description */}
-              <AnimatePresence mode="wait">
-                {expandedTopic === topic.id && (
-                  <motion.p
-                    key={topic.id}
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="text-text-light text-xs leading-relaxed text-center overflow-hidden"
-                  >
-                    {topic.description}
-                  </motion.p>
-                )}
-              </AnimatePresence>
             </motion.div>
           ))}
         </div>

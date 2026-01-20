@@ -74,6 +74,19 @@ export default function WelcomeSection() {
               Schwester in Bern auf. Uns wurde die Wertschätzung und respektvollen
               Umgang mit Menschen, Tieren und Umwelt mitgegeben.
             </p>
+
+            {/* Rainbow Inclusivity Badge */}
+            <div className="flex items-center gap-3 mt-4">
+              <div
+                className="w-8 h-8 rounded-full flex-shrink-0"
+                style={{
+                  background: "linear-gradient(180deg, #E40303 0%, #FF8C00 20%, #FFED00 40%, #008026 60%, #24408E 80%, #732982 100%)"
+                }}
+              />
+              <span className="text-text-medium text-sm italic">
+                Alle sind willkommen
+              </span>
+            </div>
           </motion.div>
         </div>
 
