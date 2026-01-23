@@ -130,7 +130,7 @@ export default function TherapySection() {
               <div className="w-12 h-12 rounded-full bg-sage-100 group-hover:bg-brand/10 flex items-center justify-center text-sage-600 group-hover:text-brand transition-colors duration-300">
                 {topicIconMap[topic.icon]}
               </div>
-              <span className="text-sm text-center font-medium text-text-dark">
+              <span className="text-base text-center font-medium text-text-dark">
                 {topic.title}
               </span>
 
@@ -143,7 +143,7 @@ export default function TherapySection() {
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="text-text-light text-xs leading-relaxed text-center overflow-hidden"
+                    className="text-text-light text-sm leading-relaxed text-center overflow-hidden"
                   >
                     {topic.description}
                   </motion.p>
