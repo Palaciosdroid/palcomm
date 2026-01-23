@@ -5,7 +5,7 @@ import { philosophyContent } from "@/lib/data";
 
 export default function PhilosophySection() {
   return (
-    <section className="section-padding gradient-sage-reverse">
+    <section className="relative section-padding pb-28 bg-sage-200">
       <div className="max-w-3xl mx-auto px-6 md:px-8">
         {/* Section Title */}
         <motion.h2
@@ -13,7 +13,7 @@ export default function PhilosophySection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-2xl md:text-3xl text-center mb-8"
+          className="text-4xl md:text-5xl text-center mb-8"
           style={{ fontFamily: "Playfair Display, Georgia, serif" }}
         >
           {philosophyContent.title}
@@ -81,6 +81,23 @@ export default function PhilosophySection() {
             <span>{philosophyContent.quote.role}</span>
           </div>
         </motion.div>
+      </div>
+
+      {/* Wave Divider */}
+      <div className="absolute -bottom-px left-0 right-0">
+        <svg
+          viewBox="0 0 1440 80"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-auto block"
+          preserveAspectRatio="none"
+          style={{ marginBottom: "-1px" }}
+        >
+          <path
+            d="M0 50C200 20 400 70 600 40C800 10 1000 60 1200 30C1350 10 1440 40 1440 40V80H0V50Z"
+            fill="#fdfcfa"
+          />
+        </svg>
       </div>
     </section>
   );

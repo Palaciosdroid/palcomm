@@ -34,12 +34,20 @@ export default function Footer() {
                 {practiceInfo.name.split(" ")[1]}
               </span>
             </div>
-            <a
-              href={`mailto:${footerContent.email}`}
-              className="text-sm text-sage-600 hover:text-sage-700 transition-colors"
-            >
-              {footerContent.email}
-            </a>
+            <div className="flex flex-col gap-1">
+              <a
+                href={`tel:${practiceInfo.phone.replace(/\s/g, '')}`}
+                className="text-sm text-sage-600 hover:text-sage-700 transition-colors"
+              >
+                {practiceInfo.phone}
+              </a>
+              <a
+                href={`mailto:${footerContent.email}`}
+                className="text-sm text-sage-600 hover:text-sage-700 transition-colors"
+              >
+                {footerContent.email}
+              </a>
+            </div>
           </motion.div>
 
           {/* Social Icons */}
@@ -102,6 +110,7 @@ export default function Footer() {
                 <a
                   key={link.name}
                   href={link.href}
+                  {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className="hover:text-sage-600 transition-colors duration-200"
                 >
                   {link.name}
