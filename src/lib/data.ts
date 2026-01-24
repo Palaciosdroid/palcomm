@@ -3,7 +3,7 @@ export const practiceInfo = {
   name: "Hypnose Enza",
   tagline: "Hypnosetherapie",
   fullName: "Enza Gasser-Fiorini",
-  subtitle: "Professionell und Kompetent",
+  subtitle: "Professionell und kompetent",
   phone: "+41 79 416 22 23",
   email: "enzagasser@gmail.com",
   website: "hypnose-enza.ch",
@@ -27,7 +27,7 @@ export const heroContent = {
   title: "Hypnosetherapie",
   description:
     "Beginne, Dein Leben frei, harmonisch und unbeschwert zu leben. Auf dieser Reise begleite ich Dich achtsam und vertrauensvoll in Richtung Deines Wohlbefindens.",
-  subtitle: "Professionell und Kompetent",
+  subtitle: "Professionell und kompetent",
   ctaText: "Termin Buchen",
   ctaLink: "#kontakt",
 };
