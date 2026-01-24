@@ -124,7 +124,7 @@ export default function TherapySection() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
               whileHover={{ y: -4 }}
-              className="flex flex-col items-center gap-3 p-5 bg-white rounded-xl border border-sage-200 hover:border-brand hover:shadow-soft transition-all duration-300 cursor-pointer group w-full min-[400px]:w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)]"
+              className="flex flex-col items-center gap-3 p-4 min-[400px]:p-5 bg-white rounded-xl border border-sage-200 hover:border-brand hover:shadow-soft transition-all duration-300 cursor-pointer group w-full min-[400px]:w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)] overflow-hidden"
               onClick={() => setExpandedTopic(prev => prev === topic.id ? null : topic.id)}
             >
               <div className="w-12 h-12 rounded-full bg-sage-100 group-hover:bg-brand/10 flex items-center justify-center text-sage-600 group-hover:text-brand transition-colors duration-300">
