@@ -41,7 +41,7 @@ export const welcomeContent = {
   aboutText: `Mein Name ist Enza Gasser-Fiorini, ich bin verheiratet und Mutter von 2 erwachsenen Söhnen und zweifache Nonna. Meine Eltern waren Italiener (Rom/Apulien) und zudem geprägte Kriegskinder. Ich wuchs zweisprachig mit einer acht Jahren älteren Schwester in Bern auf. Uns wurde die Wertschätzung und respektvollen Umgang mit Menschen, Tieren und Umwelt mitgegeben.`,
   image: "/images/portrait.jpg",
   quote:
-    "„Vertraue auf Dein Unterbewusstsein, damit Du mit Deinen Gefühlen wieder frei wirst…"",
+    "Vertraue auf Dein Unterbewusstsein, damit Du mit Deinen Gefühlen wieder frei wirst…",
 };
 
 // Philosophie-Sektion
@@ -53,7 +53,7 @@ Die Lösungsorientierte Methode nach Gabriel Palacios Hypnoseexperte hilft Dir d
   ctaText: "Termin Buchen",
   ctaLink: "#kontakt",
   quote: {
-    text: "„Das Leben kann nur verstanden werden, muss aber vorwärts gelebt werden…"",
+    text: "Das Leben kann nur verstanden werden, muss aber vorwärts gelebt werden…",
     author: "Søren Kierkegaard",
     role: "Dänischer Philosoph",
   },
