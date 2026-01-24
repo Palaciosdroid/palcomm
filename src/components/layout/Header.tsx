@@ -30,7 +30,7 @@ export default function Header() {
             : "bg-transparent py-5"
         }`}
       >
-        <div className="max-w-5xl mx-auto px-6 md:px-8">
+        <div className="max-w-5xl mx-auto px-4 min-[400px]:px-6 md:px-8">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <a href="#" className="flex items-center">
@@ -39,7 +39,7 @@ export default function Header() {
                 alt={practiceInfo.name}
                 width={160}
                 height={65}
-                className={`h-14 md:h-16 w-auto transition-all duration-500 ${
+                className={`h-12 min-[400px]:h-14 md:h-16 w-auto transition-all duration-500 ${
                   isScrolled ? "" : "brightness-0 invert"
                 }`}
                 priority
