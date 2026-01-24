@@ -26,7 +26,7 @@ export const navigation = [
 export const heroContent = {
   title: "Hypnosetherapie",
   description:
-    "Beginne Dein Leben frei, harmonisch und unbeschwert zu leben. Bei der Reise begleite ich Dich demütig und vertrauensvoll auf Dein Wohlbefinden.",
+    "Beginne, Dein Leben frei, harmonisch und unbeschwert zu leben. Auf dieser Reise begleite ich Dich achtsam und vertrauensvoll in Richtung Deines Wohlbefindens.",
   subtitle: "Professionell und Kompetent",
   ctaText: "Termin Buchen",
   ctaLink: "#kontakt",
@@ -36,12 +36,12 @@ export const heroContent = {
 export const welcomeContent = {
   title: "Herzlich willkommen",
   intro:
-    "Gerne stehe ich Dir achtsam, empathisch zur Seite, begleite Dich in einem geschützten Rahmen, und gebe Dir die nötige Unterstützung um Deine starken Ressourcen zu verankern.",
+    "Gerne stehe ich Dir achtsam und empathisch zur Seite, begleite Dich in einem geschützten Rahmen und unterstütze Dich dabei, Deine starken Ressourcen zu verankern.",
   aboutTitle: "Über mich",
   aboutText: `Mein Name ist Enza Gasser-Fiorini, ich bin verheiratet und Mutter von 2 erwachsenen Söhnen und zweifache Nonna. Meine Eltern waren Italiener (Rom/Apulien) und zudem geprägte Kriegskinder. Ich wuchs zweisprachig mit einer acht Jahren älteren Schwester in Bern auf. Uns wurde die Wertschätzung und respektvollen Umgang mit Menschen, Tieren und Umwelt mitgegeben.`,
   image: "/images/portrait.jpg",
   quote:
-    "Vertraue auf Dein Unterbewusstsein, damit Du mit Deinen Gefühlen wieder frei wirst…",
+    „Vertraue auf Dein Unterbewusstsein, damit Du mit Deinen Gefühlen wieder frei wirst…",
 };
 
 // Philosophie-Sektion
@@ -53,7 +53,7 @@ Die Lösungsorientierte Methode nach Gabriel Palacios Hypnoseexperte hilft Dir d
   ctaText: "Termin Buchen",
   ctaLink: "#kontakt",
   quote: {
-    text: "Das Leben kann nur verstanden werden muss aber vorwärts gelebt werden…",
+    text: „Das Leben kann nur verstanden werden, muss aber vorwärts gelebt werden…",
     author: "Søren Kierkegaard",
     role: "Dänischer Philosoph",
   },
@@ -63,7 +63,7 @@ Die Lösungsorientierte Methode nach Gabriel Palacios Hypnoseexperte hilft Dir d
 export const therapyContent = {
   title: "Therapieangebot",
   intro:
-    "Dein Unterbewusstsein vergisst nie, denn Du kannst Deine Gefühle, Emotionen, Ängste und Glaubensätze ändern. Du verdienst es in Einklang des Lebens zu kommen.",
+    "Dein Unterbewusstsein vergisst nie, denn Du kannst Deine Gefühle, Emotionen, Ängste und Glaubensätze ändern. Du verdienst es, in Einklang mit dem Leben zu kommen.",
 
   // Zielgruppen mit Bildern
   targetGroupsTitle: "Für wen ist Hypnosetherapie?",
