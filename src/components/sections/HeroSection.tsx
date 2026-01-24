@@ -76,18 +76,7 @@ export default function HeroSection() {
             className="text-xl md:text-2xl font-semibold"
             style={{ color: "#3d4a3a" }}
           >
-            Professionell und{" "}
-            <span
-              style={{
-                fontFamily: "Noto Serif, Georgia, serif",
-                fontStyle: "italic",
-                fontWeight: 700,
-                letterSpacing: "0.03em",
-                color: "#3d4a3a"
-              }}
-            >
-              Kompetent
-            </span>
+            Professionell und kompetent
           </motion.p>
         </motion.div>
       </div>
