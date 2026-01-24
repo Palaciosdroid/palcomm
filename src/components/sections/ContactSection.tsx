@@ -1,10 +1,25 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Phone, Mail } from "lucide-react";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Phone, Mail, CheckCircle } from "lucide-react";
 import { contactContent, practiceInfo } from "@/lib/data";
 
 export default function ContactSection() {
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    // Check for success parameter in URL
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("success") === "true") {
+      setShowSuccess(true);
+      // Clean up URL without reload
+      window.history.replaceState({}, "", window.location.pathname + "#kontakt");
+      // Auto-hide after 10 seconds
+      setTimeout(() => setShowSuccess(false), 10000);
+    }
+  }, []);
+
   return (
     <section id="kontakt" className="section-padding bg-cream-50">
       <div className="max-w-2xl mx-auto px-6 md:px-8">
@@ -19,6 +34,26 @@ export default function ContactSection() {
         >
           {contactContent.title}
         </motion.h2>
+
+        {/* Success Message */}
+        <AnimatePresence>
+          {showSuccess && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="mb-8 p-6 bg-green-50 border border-green-200 rounded-2xl flex items-center gap-4"
+            >
+              <CheckCircle className="w-8 h-8 text-green-600 flex-shrink-0" />
+              <div>
+                <p className="font-medium text-green-800">Nachricht gesendet!</p>
+                <p className="text-green-700 text-sm">
+                  Vielen Dank für Deine Anfrage. Ich melde mich so schnell wie möglich bei Dir.
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Direct Contact Info */}
         <motion.div
@@ -58,7 +93,8 @@ export default function ContactSection() {
           <input type="hidden" name="_subject" value="Neue Kontaktanfrage – Hypnose Enza" />
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value={`${process.env.NEXT_PUBLIC_SITE_URL || 'https://hypnose-enza.ch'}/#kontakt`} />
+          <input type="hidden" name="_next" value={`${process.env.NEXT_PUBLIC_SITE_URL || 'https://hypnose-enza.ch'}/?success=true#kontakt`} />
+
           {/* Name Row */}
           <div className="grid md:grid-cols-2 gap-5">
             <div>
