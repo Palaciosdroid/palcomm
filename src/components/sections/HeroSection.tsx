@@ -76,7 +76,7 @@ export default function HeroSection() {
             className="text-lg min-[400px]:text-xl md:text-2xl font-semibold"
             style={{ color: "#3d4a3a" }}
           >
-            Professionell und kompetent
+            Professionell und Kompetent
           </motion.p>
         </motion.div>
       </div>
