@@ -15,7 +15,7 @@ export default function HeroSection() {
         poster="/images/hero-fallback.jpg"
         className="absolute inset-0 z-0 w-full h-full object-cover"
       >
-        <source src="/videos/nature-bg.mp4" type="video/mp4" />
+        <source src={process.env.NEXT_PUBLIC_HERO_VIDEO_URL || "/videos/nature-bg.mp4"} type="video/mp4" />
         Dein Browser unterstützt keine Videos.
       </video>
 
