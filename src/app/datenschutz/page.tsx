@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Datenschutzerklärung | Hypnose Enza",
@@ -9,7 +11,9 @@ export const metadata: Metadata = {
 
 export default function DatenschutzPage() {
   return (
-    <main className="min-h-screen bg-cream-50 py-20 px-6 md:px-8">
+    <>
+      <Header />
+      <main className="min-h-screen bg-cream-50 pt-32 pb-20 px-6 md:px-8">
       <div className="max-w-3xl mx-auto">
         <Link
           href="/"
@@ -158,5 +162,7 @@ export default function DatenschutzPage() {
         </div>
       </div>
     </main>
+    <Footer />
+    </>
   );
 }
