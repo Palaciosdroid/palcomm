@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
-import { footerContent, practiceInfo, navigation } from "@/lib/data";
+import Link from "next/link";
+import { footerContent, practiceInfo } from "@/lib/data";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -107,14 +108,25 @@ export default function Footer() {
             <p>&copy; {currentYear} {footerContent.copyright}</p>
             <div className="flex gap-6">
               {footerContent.links.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="hover:text-sage-600 transition-colors duration-200"
-                >
-                  {link.name}
-                </a>
+                link.external ? (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-sage-600 transition-colors duration-200"
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="hover:text-sage-600 transition-colors duration-200"
+                  >
+                    {link.name}
+                  </Link>
+                )
               ))}
             </div>
           </div>

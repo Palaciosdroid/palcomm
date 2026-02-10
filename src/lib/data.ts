@@ -8,8 +8,8 @@ export const practiceInfo = {
   email: "enzagasser@gmail.com",
   website: "hypnose-enza.ch",
   address: {
-    street: "Musterstrasse 12",
-    city: "3000 Bern",
+    street: "",
+    city: "3072 Ostermundigen",
     country: "Schweiz",
   },
 };
@@ -236,8 +236,8 @@ export const footerContent = {
   copyright: "Enza Gasser",
   email: "enzagasser@gmail.com",
   links: [
-    { name: "Impressum", href: "#impressum" },
-    { name: "Datenschutz", href: "#datenschutz" },
+    { name: "Impressum", href: "/impressum" },
+    { name: "Datenschutz", href: "/datenschutz" },
     { name: "Ethikkodex VSH", href: "https://verband-schweizer-hypnosetherapeuten.ch/vsh-ethik/", external: true },
   ],
   socialLinks: [
