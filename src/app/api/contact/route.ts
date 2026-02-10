@@ -18,9 +18,12 @@ export async function POST(request: NextRequest) {
 
     const recipientEmail = process.env.CONTACT_EMAIL || "enzagasser@gmail.com";
 
+    console.log("Sending email to:", recipientEmail);
+    console.log("From:", process.env.RESEND_FROM_EMAIL || "Hypnose Enza <noreply@resend.dev>");
+
     // Send email to practitioner
-    await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL || "Hypnose Enza <noreply@resend.dev>",
+    const { data, error: resendError } = await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL || "Hypnose Enza <onboarding@resend.dev>",
       to: recipientEmail,
       replyTo: email,
       subject: `Neue Kontaktanfrage von ${vorname} ${nachname}`,
@@ -114,6 +117,15 @@ export async function POST(request: NextRequest) {
       `,
     });
 
+    if (resendError) {
+      console.error("Resend error:", resendError);
+      return NextResponse.json(
+        { error: `Resend Fehler: ${resendError.message}` },
+        { status: 500 }
+      );
+    }
+
+    console.log("Email sent successfully:", data);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Contact form error:", error);
