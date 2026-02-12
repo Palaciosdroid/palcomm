@@ -1,7 +1,14 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy initialization to avoid build-time errors
+function getResend() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY is not configured");
+  }
+  return new Resend(apiKey);
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,6 +29,7 @@ export async function POST(request: NextRequest) {
     console.log("From:", process.env.RESEND_FROM_EMAIL || "Hypnose Enza <noreply@resend.dev>");
 
     // Send email to practitioner
+    const resend = getResend();
     const { data, error: resendError } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL || "Hypnose Enza <onboarding@resend.dev>",
       to: recipientEmail,

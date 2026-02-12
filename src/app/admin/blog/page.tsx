@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { OutputData } from '@editorjs/editorjs';
 import { BlogPost, getAllPosts, savePost, deletePost, createNewPost, generateSlug } from '@/lib/blog';
+import { Loader2, LogOut } from 'lucide-react';
+import AdminLogin from '@/components/admin/AdminLogin';
 
 const Editor = dynamic(() => import('@/components/blog/Editor'), { ssr: false });
 
@@ -14,10 +16,27 @@ export default function AdminBlogPage() {
   const [excerpt, setExcerpt] = useState('');
   const [content, setContent] = useState<OutputData | undefined>(undefined);
   const [showEditor, setShowEditor] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
+  // Check authentication status
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        const res = await fetch('/api/admin/auth');
+        const data = await res.json();
+        setIsAuthenticated(data.authenticated);
+      } catch {
+        setIsAuthenticated(false);
+      }
+    }
+    checkAuth();
+  }, []);
 
   useEffect(() => {
-    setPosts(getAllPosts());
-  }, []);
+    if (isAuthenticated) {
+      setPosts(getAllPosts());
+    }
+  }, [isAuthenticated]);
 
   const handleSave = () => {
     if (!title.trim()) {
@@ -80,19 +99,47 @@ export default function AdminBlogPage() {
     setShowEditor(true);
   };
 
+  const handleLogout = async () => {
+    await fetch('/api/admin/auth', { method: 'DELETE' });
+    setIsAuthenticated(false);
+  };
+
+  // Show loading while checking auth
+  if (isAuthenticated === null) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
+      </div>
+    );
+  }
+
+  // Show login if not authenticated
+  if (!isAuthenticated) {
+    return <AdminLogin onLogin={() => setIsAuthenticated(true)} />;
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-5xl mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Blog Verwaltung</h1>
-          {!showEditor && (
+          <div className="flex gap-3">
+            {!showEditor && (
+              <button
+                onClick={handleNewPost}
+                className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition"
+              >
+                + Neuer Beitrag
+              </button>
+            )}
             <button
-              onClick={handleNewPost}
-              className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition"
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-red-600 border rounded-lg bg-white"
+              title="Abmelden"
             >
-              + Neuer Beitrag
+              <LogOut className="w-4 h-4" />
             </button>
-          )}
+          </div>
         </div>
 
         {showEditor ? (
@@ -196,9 +243,13 @@ export default function AdminBlogPage() {
           </div>
         )}
 
-        <div className="mt-8 text-center">
+        <div className="mt-8 flex justify-center gap-4">
+          <a href="/admin" className="text-gray-500 hover:text-gray-700">
+            ← Zurück zur Website-Bearbeitung
+          </a>
+          <span className="text-gray-300">|</span>
           <a href="/" className="text-gray-500 hover:text-gray-700">
-            ← Zurück zur Startseite
+            Zur Startseite
           </a>
         </div>
       </div>

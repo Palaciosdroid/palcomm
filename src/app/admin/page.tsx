@@ -3,8 +3,16 @@
 import { useState, useEffect } from 'react';
 import { defaultContent, saveContent } from '@/lib/content';
 import type { SiteContent, SectionKey } from '@/types/content';
-import { Save, RotateCcw, ChevronDown, ChevronRight, Check, ExternalLink, Loader2 } from 'lucide-react';
+import { Save, RotateCcw, ChevronDown, ChevronRight, Check, ExternalLink, Loader2, LogOut } from 'lucide-react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import AdminLogin from '@/components/admin/AdminLogin';
+
+// Dynamic import for RichTextEditor to avoid SSR issues
+const RichTextEditor = dynamic(() => import('@/components/admin/RichTextEditor'), {
+  ssr: false,
+  loading: () => <div className="h-32 bg-gray-100 rounded-lg animate-pulse" />,
+});
 
 // Section Labels auf Deutsch
 const sectionLabels: Record<SectionKey, string> = {
@@ -22,6 +30,15 @@ const sectionLabels: Record<SectionKey, string> = {
   footer: 'Footer',
 };
 
+// Fields that should use the rich text editor
+const richTextFields = new Set([
+  'description',
+  'intro',
+  'aboutText',
+  'text',
+  'quote',
+]);
+
 export default function AdminPage() {
   const [content, setContent] = useState<SiteContent>(defaultContent);
   const [isLoading, setIsLoading] = useState(true);
@@ -29,9 +46,26 @@ export default function AdminPage() {
   const [expandedSections, setExpandedSections] = useState<Set<SectionKey>>(new Set(['hero']));
   const [saved, setSaved] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
+  // Check authentication status
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        const res = await fetch('/api/admin/auth');
+        const data = await res.json();
+        setIsAuthenticated(data.authenticated);
+      } catch {
+        setIsAuthenticated(false);
+      }
+    }
+    checkAuth();
+  }, []);
 
   // Content von API laden
   useEffect(() => {
+    if (!isAuthenticated) return;
+
     async function loadContent() {
       try {
         const res = await fetch('/api/content');
@@ -46,7 +80,7 @@ export default function AdminPage() {
       }
     }
     loadContent();
-  }, []);
+  }, [isAuthenticated]);
 
   const toggleSection = (key: SectionKey) => {
     setExpandedSections(prev => {
@@ -118,6 +152,25 @@ export default function AdminPage() {
     }
   };
 
+  const handleLogout = async () => {
+    await fetch('/api/admin/auth', { method: 'DELETE' });
+    setIsAuthenticated(false);
+  };
+
+  // Show loading while checking auth
+  if (isAuthenticated === null) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
+      </div>
+    );
+  }
+
+  // Show login if not authenticated
+  if (!isAuthenticated) {
+    return <AdminLogin onLogin={() => setIsAuthenticated(true)} />;
+  }
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -184,6 +237,13 @@ export default function AdminPage() {
                   Speichern
                 </>
               )}
+            </button>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-red-600 border rounded-lg"
+              title="Abmelden"
+            >
+              <LogOut className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -355,21 +415,41 @@ function FieldRenderer({ data, path, onChange, sectionKey, fieldLabel }: FieldRe
     );
   }
 
-  // String handling - lange Texte als Textarea
+  // String handling
   if (typeof data === 'string') {
+    const fieldName = path[path.length - 1];
+    const isRichTextField = richTextFields.has(fieldName);
+    const isUrl = fieldName?.includes('href') ||
+                  fieldName?.includes('link') ||
+                  fieldName?.includes('Link') ||
+                  fieldName?.includes('image') ||
+                  fieldName?.includes('phone');
+
+    // Use rich text editor for specific fields
+    if (isRichTextField && !isUrl) {
+      return (
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            {fieldLabel}
+          </label>
+          <RichTextEditor
+            value={data}
+            onChange={(value) => onChange(path, value)}
+            placeholder={`${fieldLabel} eingeben...`}
+          />
+        </div>
+      );
+    }
+
+    // Regular text input for short texts
     const isLongText = data.length > 100 || data.includes('\n');
-    const isUrl = path[path.length - 1]?.includes('href') ||
-                  path[path.length - 1]?.includes('link') ||
-                  path[path.length - 1]?.includes('Link') ||
-                  path[path.length - 1]?.includes('image') ||
-                  path[path.length - 1]?.includes('phone');
 
     return (
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
           {fieldLabel}
         </label>
-        {isLongText ? (
+        {isLongText && !isUrl ? (
           <textarea
             value={data}
             onChange={(e) => onChange(path, e.target.value)}
@@ -378,7 +458,7 @@ function FieldRenderer({ data, path, onChange, sectionKey, fieldLabel }: FieldRe
           />
         ) : (
           <input
-            type={isUrl ? 'text' : 'text'}
+            type="text"
             value={data}
             onChange={(e) => onChange(path, e.target.value)}
             className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 ${
