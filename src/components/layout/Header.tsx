@@ -4,9 +4,19 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
-import { navigation, practiceInfo } from "@/lib/data";
+import { navigation as defaultNavigation, practiceInfo as defaultPracticeInfo } from "@/lib/data";
+import type { NavigationItem, PracticeInfo } from "@/types/content";
 
-export default function Header() {
+interface HeaderProps {
+  content?: {
+    navigation: NavigationItem[];
+    practiceInfo: PracticeInfo;
+  };
+}
+
+export default function Header({ content }: HeaderProps) {
+  const navigation = content?.navigation || defaultNavigation;
+  const practiceInfo = content?.practiceInfo || defaultPracticeInfo;
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 

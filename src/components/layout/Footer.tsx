@@ -3,9 +3,17 @@
 import { motion } from "framer-motion";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 import Link from "next/link";
-import { footerContent, practiceInfo } from "@/lib/data";
+import { footerContent as defaultFooterContent, practiceInfo as defaultPracticeInfo } from "@/lib/data";
+import type { FooterContent, PracticeInfo } from "@/types/content";
 
-export default function Footer() {
+interface FooterProps {
+  content?: FooterContent;
+  practiceInfo?: PracticeInfo;
+}
+
+export default function Footer({ content, practiceInfo }: FooterProps) {
+  const footerContent = content || defaultFooterContent;
+  const info = practiceInfo || defaultPracticeInfo;
   const currentYear = new Date().getFullYear();
 
   return (
@@ -26,21 +34,21 @@ export default function Footer() {
                 className="text-xl font-medium text-brand"
                 style={{ fontFamily: "Playfair Display, Georgia, serif" }}
               >
-                {practiceInfo.name.split(" ")[0]}
+                {info.name.split(" ")[0]}
               </span>
               <span
                 className="text-base text-brand-light"
                 style={{ fontFamily: "Playfair Display, Georgia, serif" }}
               >
-                {practiceInfo.name.split(" ")[1]}
+                {info.name.split(" ")[1]}
               </span>
             </div>
             <div className="flex flex-col gap-1">
               <a
-                href={`tel:${practiceInfo.phone.replace(/\s/g, '')}`}
+                href={`tel:${info.phone.replace(/\s/g, '')}`}
                 className="text-sm text-sage-600 hover:text-sage-700 transition-colors"
               >
-                {practiceInfo.phone}
+                {info.phone}
               </a>
               <a
                 href={`mailto:${footerContent.email}`}

@@ -15,7 +15,8 @@ import {
   Flower2,
   Trophy,
 } from "lucide-react";
-import { therapyContent } from "@/lib/data";
+import { therapyContent as defaultTherapyContent } from "@/lib/data";
+import type { TherapyContent } from "@/types/content";
 
 const topicIconMap: { [key: string]: React.ReactNode } = {
   spider: <Bug className="w-6 h-6" />,
@@ -30,7 +31,12 @@ const topicIconMap: { [key: string]: React.ReactNode } = {
   trophy: <Trophy className="w-6 h-6" />,
 };
 
-export default function TherapySection() {
+interface TherapySectionProps {
+  content?: TherapyContent;
+}
+
+export default function TherapySection({ content }: TherapySectionProps) {
+  const data = content || defaultTherapyContent;
   const [expandedTopic, setExpandedTopic] = useState<string | null>(null);
 
   return (
@@ -45,7 +51,7 @@ export default function TherapySection() {
           className="text-4xl md:text-5xl text-center mb-6"
           style={{ fontFamily: "Playfair Display, Georgia, serif" }}
         >
-          {therapyContent.title}
+          {data.title}
         </motion.h2>
 
         {/* Intro */}
@@ -56,7 +62,7 @@ export default function TherapySection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-text-medium text-center text-lg leading-relaxed mb-16 max-w-2xl mx-auto"
         >
-          {therapyContent.intro}
+          {data.intro}
         </motion.p>
 
         {/* Zielgruppen - mit Bildern, immer offen */}
@@ -67,11 +73,11 @@ export default function TherapySection() {
           className="text-2xl md:text-3xl text-center mb-10"
           style={{ fontFamily: "Playfair Display, Georgia, serif" }}
         >
-          {therapyContent.targetGroupsTitle}
+          {data.targetGroupsTitle}
         </motion.h3>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-20">
-          {therapyContent.targetGroups.map((group, index) => (
+          {data.targetGroups.map((group, index) => (
             <motion.div
               key={group.id}
               initial={{ opacity: 0, y: 20 }}
@@ -112,11 +118,11 @@ export default function TherapySection() {
           className="text-2xl md:text-3xl text-center mb-10"
           style={{ fontFamily: "Playfair Display, Georgia, serif" }}
         >
-          {therapyContent.topicsTitle}
+          {data.topicsTitle}
         </motion.h3>
 
         <div className="flex flex-wrap justify-center gap-4">
-          {therapyContent.topics.map((topic, index) => (
+          {data.topics.map((topic, index) => (
             <motion.div
               key={topic.id}
               initial={{ opacity: 0, scale: 0.9 }}

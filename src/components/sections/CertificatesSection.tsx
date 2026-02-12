@@ -2,11 +2,17 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { certificatesContent } from "@/lib/data";
+import { certificatesContent as defaultCertificatesContent } from "@/lib/data";
+import type { CertificatesContent } from "@/types/content";
 
-export default function CertificatesSection() {
+interface CertificatesSectionProps {
+  content?: CertificatesContent;
+}
+
+export default function CertificatesSection({ content }: CertificatesSectionProps) {
+  const data = content || defaultCertificatesContent;
   // Duplicate certificates for seamless infinite scroll
-  const duplicatedCerts = [...certificatesContent.certificates, ...certificatesContent.certificates];
+  const duplicatedCerts = [...data.certificates, ...data.certificates];
 
   return (
     <section className="py-16 md:py-24 gradient-sage overflow-hidden">
@@ -15,7 +21,7 @@ export default function CertificatesSection() {
         <motion.div
           className="flex gap-6 md:gap-8"
           animate={{
-            x: [0, -50 * certificatesContent.certificates.length + "%"],
+            x: [0, -50 * data.certificates.length + "%"],
           }}
           transition={{
             x: {

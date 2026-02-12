@@ -1,9 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { heroContent } from "@/lib/data";
+import { heroContent as defaultHeroContent } from "@/lib/data";
+import type { HeroContent } from "@/types/content";
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  content?: HeroContent;
+}
+
+export default function HeroSection({ content }: HeroSectionProps) {
+  const data = content || defaultHeroContent;
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden isolate bg-sage-300">
       {/* Video Background */}
@@ -54,7 +61,7 @@ export default function HeroSection() {
               color: "#3d4a3a"
             }}
           >
-            {heroContent.title}
+            {data.title}
           </motion.h1>
 
           {/* Description */}
@@ -65,7 +72,7 @@ export default function HeroSection() {
             className="text-base min-[400px]:text-xl md:text-2xl leading-relaxed mb-6 min-[400px]:mb-10 max-w-2xl mx-auto"
             style={{ color: "#5a6657" }}
           >
-            &laquo;{heroContent.description}&raquo;
+            &laquo;{data.description}&raquo;
           </motion.p>
 
           {/* Subtitle */}
@@ -76,7 +83,7 @@ export default function HeroSection() {
             className="text-lg min-[400px]:text-xl md:text-2xl font-semibold"
             style={{ color: "#3d4a3a" }}
           >
-            Professionell und Kompetent
+            {data.subtitle}
           </motion.p>
         </motion.div>
       </div>

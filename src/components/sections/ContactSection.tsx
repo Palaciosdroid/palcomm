@@ -3,9 +3,17 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, Mail, CheckCircle, Loader2 } from "lucide-react";
-import { contactContent, practiceInfo } from "@/lib/data";
+import { contactContent as defaultContactContent, practiceInfo as defaultPracticeInfo } from "@/lib/data";
+import type { ContactContent, PracticeInfo } from "@/types/content";
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  content?: ContactContent;
+  practiceInfo?: PracticeInfo;
+}
+
+export default function ContactSection({ content, practiceInfo }: ContactSectionProps) {
+  const data = content || defaultContactContent;
+  const info = practiceInfo || defaultPracticeInfo;
   const [showSuccess, setShowSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -61,7 +69,7 @@ export default function ContactSection() {
           className="text-4xl md:text-5xl text-center mb-8"
           style={{ fontFamily: "Playfair Display, Georgia, serif" }}
         >
-          {contactContent.title}
+          {data.title}
         </motion.h2>
 
         {/* Success Message */}
@@ -108,18 +116,18 @@ export default function ContactSection() {
           className="flex flex-col sm:flex-row justify-center items-center gap-6 mb-12"
         >
           <a
-            href={`tel:${practiceInfo.phone.replace(/\s/g, '')}`}
+            href={`tel:${info.phone.replace(/\s/g, '')}`}
             className="flex items-center gap-2 text-text-medium hover:text-brand transition-colors"
           >
             <Phone className="w-5 h-5" />
-            <span>{practiceInfo.phone}</span>
+            <span>{info.phone}</span>
           </a>
           <a
-            href={`mailto:${practiceInfo.email}`}
+            href={`mailto:${info.email}`}
             className="flex items-center gap-2 text-text-medium hover:text-brand transition-colors"
           >
             <Mail className="w-5 h-5" />
-            <span>{practiceInfo.email}</span>
+            <span>{info.email}</span>
           </a>
         </motion.div>
 
@@ -140,7 +148,7 @@ export default function ContactSection() {
                 name="vorname"
                 value={formData.vorname}
                 onChange={handleChange}
-                placeholder={contactContent.fields.firstName}
+                placeholder={data.fields.firstName}
                 className="input-soft"
                 required
               />
@@ -151,7 +159,7 @@ export default function ContactSection() {
                 name="nachname"
                 value={formData.nachname}
                 onChange={handleChange}
-                placeholder={contactContent.fields.lastName}
+                placeholder={data.fields.lastName}
                 className="input-soft"
                 required
               />
@@ -165,7 +173,7 @@ export default function ContactSection() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder={contactContent.fields.email}
+              placeholder={data.fields.email}
               className="input-soft"
               required
             />
@@ -178,7 +186,7 @@ export default function ContactSection() {
               name="telefon"
               value={formData.telefon}
               onChange={handleChange}
-              placeholder={contactContent.fields.phone}
+              placeholder={data.fields.phone}
               className="input-soft"
             />
           </div>
@@ -190,7 +198,7 @@ export default function ContactSection() {
               value={formData.nachricht}
               onChange={handleChange}
               rows={5}
-              placeholder={contactContent.fields.message}
+              placeholder={data.fields.message}
               className="input-soft resize-none"
               required
             />
@@ -209,7 +217,7 @@ export default function ContactSection() {
                   Wird gesendet...
                 </>
               ) : (
-                contactContent.submitText
+                data.submitText
               )}
             </button>
           </div>

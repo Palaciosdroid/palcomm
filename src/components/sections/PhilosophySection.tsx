@@ -1,9 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { philosophyContent } from "@/lib/data";
+import { philosophyContent as defaultPhilosophyContent } from "@/lib/data";
+import type { PhilosophyContent } from "@/types/content";
 
-export default function PhilosophySection() {
+interface PhilosophySectionProps {
+  content?: PhilosophyContent;
+}
+
+export default function PhilosophySection({ content }: PhilosophySectionProps) {
+  const data = content || defaultPhilosophyContent;
+  const paragraphs = data.text.split('\n\n').filter(p => p.trim());
+
   return (
     <section className="relative section-padding pb-28 bg-sage-200">
       <div className="max-w-3xl mx-auto px-6 md:px-8">
@@ -16,7 +24,7 @@ export default function PhilosophySection() {
           className="text-4xl md:text-5xl text-center mb-8"
           style={{ fontFamily: "Playfair Display, Georgia, serif" }}
         >
-          {philosophyContent.title}
+          {data.title}
         </motion.h2>
 
         {/* Philosophy Text */}
@@ -27,17 +35,11 @@ export default function PhilosophySection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-center mb-10"
         >
-          <p className="text-text-medium leading-relaxed mb-6">
-            Sind Deine Gefühle, Ängste und Glaubenssätze wirklich berechtigt, Dich
-            zu blockieren? Hypnose ist ein sanfter, geistiger Zustand des
-            Unterbewusstseins. Mit der Imagination suchen wir auf Deiner Reise neue
-            Ressourcen die Dich Dein Unterbewusstsein positiv stärken.
-          </p>
-          <p className="text-text-medium leading-relaxed">
-            Die Lösungsorientierte Methode nach{" "}
-            <span className="text-sage-600 font-medium">Gabriel Palacios</span>{" "}
-            Hypnoseexperte hilft Dir dabei die Blockaden nachhaltig zu befreien.
-          </p>
+          {paragraphs.map((paragraph, index) => (
+            <p key={index} className="text-text-medium leading-relaxed mb-6 last:mb-0">
+              {paragraph}
+            </p>
+          ))}
         </motion.div>
 
         {/* CTA Button */}
@@ -48,8 +50,8 @@ export default function PhilosophySection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex justify-center mb-20"
         >
-          <a href={philosophyContent.ctaLink} className="btn-secondary">
-            {philosophyContent.ctaText}
+          <a href={data.ctaLink} className="btn-secondary">
+            {data.ctaText}
           </a>
         </motion.div>
 
@@ -69,16 +71,16 @@ export default function PhilosophySection() {
             className="text-xl md:text-2xl text-text-dark leading-relaxed mb-6 relative z-10"
             style={{ fontFamily: "Playfair Display, Georgia, serif" }}
           >
-            «{philosophyContent.quote.text}»
+            «{data.quote.text}»
           </p>
 
           {/* Author */}
           <div className="text-sm text-text-light">
             <span className="font-medium text-text-medium">
-              {philosophyContent.quote.author}
+              {data.quote.author}
             </span>
             <span className="mx-2">·</span>
-            <span>{philosophyContent.quote.role}</span>
+            <span>{data.quote.role}</span>
           </div>
         </motion.div>
       </div>
