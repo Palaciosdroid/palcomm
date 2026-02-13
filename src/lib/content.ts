@@ -13,7 +13,7 @@ export const defaultContent: SiteContent = {
     fullName: "Enza Gasser-Fiorini",
     subtitle: "Professionell und kompetent",
     phone: "+41 79 416 22 23",
-    email: "enzagasser@gmail.com",
+    email: "hypnoseenza@gmail.com",
     website: "hypnose-enza.ch",
     address: {
       street: "",
@@ -186,7 +186,7 @@ export const defaultContent: SiteContent = {
   },
   footer: {
     copyright: "Enza Gasser",
-    email: "enzagasser@gmail.com",
+    email: "hypnoseenza@gmail.com",
     links: [
       { name: "Impressum", href: "/impressum" },
       { name: "Datenschutz", href: "/datenschutz" },

@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const recipientEmail = process.env.CONTACT_EMAIL || "enzagasser@gmail.com";
+    const recipientEmail = process.env.CONTACT_EMAIL || "hypnoseenza@gmail.com";
 
     console.log("Sending email to:", recipientEmail);
     console.log("From:", process.env.RESEND_FROM_EMAIL || "Hypnose Enza <noreply@resend.dev>");

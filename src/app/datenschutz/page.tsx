@@ -45,7 +45,7 @@ export default function DatenschutzPage() {
                 Enza Gasser-Fiorini<br />
                 3072 Ostermundigen<br />
                 Schweiz<br />
-                E-Mail: <a href="mailto:enzagasser@gmail.com" className="text-brand hover:underline">enzagasser@gmail.com</a><br />
+                E-Mail: <a href="mailto:hypnoseenza@gmail.com" className="text-brand hover:underline">hypnoseenza@gmail.com</a><br />
                 Telefon: <a href="tel:+41794162223" className="text-brand hover:underline">+41 79 416 22 23</a>
               </p>
             </div>

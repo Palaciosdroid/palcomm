@@ -65,8 +65,8 @@ export default function ImpressumPage() {
           <section>
             <h3 className="text-lg font-medium text-text-dark mb-2">E-Mail:</h3>
             <p>
-              <a href="mailto:enzagasser@gmail.com" className="text-brand hover:underline">
-                enzagasser@gmail.com
+              <a href="mailto:hypnoseenza@gmail.com" className="text-brand hover:underline">
+                hypnoseenza@gmail.com
               </a>
             </p>
           </section>
