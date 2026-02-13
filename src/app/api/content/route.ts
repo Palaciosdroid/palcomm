@@ -6,6 +6,10 @@ import { defaultContent } from '@/lib/content';
 // Redis Client (lazy initialization)
 let redis: Redis | null = null;
 
+// Content version - increment when critical defaults change (email, phone, etc.)
+const CONTENT_VERSION = 2;
+const VERSION_KEY = 'site:content:version';
+
 function getRedis(): Redis | null {
   if (!process.env.REDIS_URL) {
     return null;
@@ -31,9 +35,25 @@ export async function GET() {
     // Wenn Redis verfügbar, von dort laden
     if (redisClient) {
       try {
+        // Check version - reset practiceInfo if version changed
+        const storedVersion = await redisClient.get(VERSION_KEY);
+        const currentVersion = storedVersion ? parseInt(storedVersion, 10) : 0;
+
         const stored = await redisClient.get(CONTENT_KEY);
         if (stored) {
-          return NextResponse.json(JSON.parse(stored));
+          let content = JSON.parse(stored);
+
+          // Version changed - reset practiceInfo and footer to defaults
+          if (currentVersion < CONTENT_VERSION) {
+            content.practiceInfo = defaultContent.practiceInfo;
+            content.footer = defaultContent.footer;
+            // Save updated content and version
+            await redisClient.set(CONTENT_KEY, JSON.stringify(content));
+            await redisClient.set(VERSION_KEY, CONTENT_VERSION.toString());
+            cachedContent = content;
+          }
+
+          return NextResponse.json(content);
         }
       } catch (redisError) {
         console.error('Redis GET error:', redisError);
