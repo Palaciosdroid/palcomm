@@ -1,88 +1,12 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import type { HeroContent } from '@/types/content';
+import EditableBlock from '../EditableBlock';
 
 interface HeroSectionEditorProps {
   content: HeroContent;
   onChange: (data: Partial<HeroContent>) => void;
-}
-
-function EditableField({
-  value,
-  onChange,
-  className = '',
-  multiline = false,
-  as: Component = 'p',
-}: {
-  value: string;
-  onChange: (value: string) => void;
-  className?: string;
-  multiline?: boolean;
-  as?: 'h1' | 'h2' | 'h3' | 'p' | 'span';
-}) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(value);
-
-  const handleSave = () => {
-    onChange(editValue);
-    setIsEditing(false);
-  };
-
-  if (isEditing) {
-    return (
-      <div className="relative">
-        {multiline ? (
-          <textarea
-            value={editValue}
-            onChange={(e) => setEditValue(e.target.value)}
-            onBlur={handleSave}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                handleSave();
-              }
-              if (e.key === 'Escape') {
-                setEditValue(value);
-                setIsEditing(false);
-              }
-            }}
-            className={`w-full bg-white/90 border-2 border-blue-500 rounded-lg p-3 focus:outline-none min-h-[100px] ${className}`}
-            autoFocus
-          />
-        ) : (
-          <input
-            type="text"
-            value={editValue}
-            onChange={(e) => setEditValue(e.target.value)}
-            onBlur={handleSave}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleSave();
-              }
-              if (e.key === 'Escape') {
-                setEditValue(value);
-                setIsEditing(false);
-              }
-            }}
-            className={`w-full bg-white/90 border-2 border-blue-500 rounded-lg p-2 focus:outline-none text-center ${className}`}
-            autoFocus
-          />
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <Component
-      className={`${className} cursor-pointer hover:outline hover:outline-2 hover:outline-blue-400 hover:outline-offset-2 hover:rounded transition-all`}
-      onClick={() => setIsEditing(true)}
-      title="Klicken zum Bearbeiten"
-    >
-      {value}
-    </Component>
-  );
 }
 
 export default function HeroSectionEditor({ content, onChange }: HeroSectionEditorProps) {
@@ -124,31 +48,46 @@ export default function HeroSectionEditor({ content, onChange }: HeroSectionEdit
         >
           {/* Main Title */}
           <div className="mb-6 min-[400px]:mb-10">
-            <EditableField
+            <EditableBlock
               value={content.title}
               onChange={(value) => onChange({ title: value })}
               as="h1"
               className="text-4xl min-[400px]:text-5xl md:text-6xl lg:text-7xl font-serif italic text-[#3d4a3a]"
+              allowHeadings={false}
+              allowLists={false}
+              allowQuotes={false}
+              allowAlignment={true}
+              placeholder="Titel eingeben..."
             />
           </div>
 
           {/* Description */}
           <div className="mb-6 min-[400px]:mb-10">
-            <EditableField
+            <EditableBlock
               value={content.description}
               onChange={(value) => onChange({ description: value })}
               as="p"
-              multiline
               className="text-base min-[400px]:text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto text-[#5a6657]"
+              allowHeadings={false}
+              allowLists={true}
+              allowQuotes={false}
+              allowAlignment={true}
+              placeholder="Beschreibung eingeben..."
+              minHeight="80px"
             />
           </div>
 
           {/* Subtitle */}
-          <EditableField
+          <EditableBlock
             value={content.subtitle}
             onChange={(value) => onChange({ subtitle: value })}
             as="p"
             className="text-lg min-[400px]:text-xl md:text-2xl font-semibold text-[#3d4a3a]"
+            allowHeadings={false}
+            allowLists={false}
+            allowQuotes={false}
+            allowAlignment={true}
+            placeholder="Untertitel eingeben..."
           />
         </motion.div>
       </div>

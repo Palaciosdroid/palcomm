@@ -1,62 +1,14 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Mail } from 'lucide-react';
 import type { ContactContent, PracticeInfo } from '@/types/content';
+import EditableBlock from '../EditableBlock';
 
 interface ContactSectionEditorProps {
   content: ContactContent;
   practiceInfo: PracticeInfo;
   onChange: (data: Partial<ContactContent>) => void;
-}
-
-function EditableField({
-  value,
-  onChange,
-  className = '',
-}: {
-  value: string;
-  onChange: (value: string) => void;
-  className?: string;
-}) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(value);
-
-  const handleSave = () => {
-    onChange(editValue);
-    setIsEditing(false);
-  };
-
-  if (isEditing) {
-    return (
-      <input
-        type="text"
-        value={editValue}
-        onChange={(e) => setEditValue(e.target.value)}
-        onBlur={handleSave}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') handleSave();
-          if (e.key === 'Escape') {
-            setEditValue(value);
-            setIsEditing(false);
-          }
-        }}
-        className={`bg-white border-2 border-blue-500 rounded-lg p-2 focus:outline-none ${className}`}
-        autoFocus
-      />
-    );
-  }
-
-  return (
-    <span
-      className={`${className} cursor-pointer hover:outline hover:outline-2 hover:outline-blue-400 hover:outline-offset-2 hover:rounded transition-all`}
-      onClick={() => setIsEditing(true)}
-      title="Klicken zum Bearbeiten"
-    >
-      {value}
-    </span>
-  );
 }
 
 export default function ContactSectionEditor({ content, practiceInfo, onChange }: ContactSectionEditorProps) {
@@ -71,10 +23,16 @@ export default function ContactSectionEditor({ content, practiceInfo, onChange }
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <EditableField
+          <EditableBlock
             value={content.title}
             onChange={(value) => onChange({ title: value })}
+            as="h2"
             className="text-4xl md:text-5xl font-playfair"
+            allowHeadings={true}
+            allowLists={false}
+            allowQuotes={false}
+            allowAlignment={true}
+            placeholder="Titel eingeben..."
           />
         </motion.div>
 
@@ -107,54 +65,90 @@ export default function ContactSectionEditor({ content, practiceInfo, onChange }
           {/* Name Row */}
           <div className="grid md:grid-cols-2 gap-5">
             <div>
-              <EditableField
+              <EditableBlock
                 value={content.fields.firstName}
                 onChange={(value) => onChange({ fields: { ...content.fields, firstName: value } })}
+                as="div"
                 className="input-soft w-full"
+                allowHeadings={false}
+                allowLists={false}
+                allowQuotes={false}
+                allowAlignment={false}
+                placeholder="Vorname..."
               />
             </div>
             <div>
-              <EditableField
+              <EditableBlock
                 value={content.fields.lastName}
                 onChange={(value) => onChange({ fields: { ...content.fields, lastName: value } })}
+                as="div"
                 className="input-soft w-full"
+                allowHeadings={false}
+                allowLists={false}
+                allowQuotes={false}
+                allowAlignment={false}
+                placeholder="Nachname..."
               />
             </div>
           </div>
 
           {/* Email */}
           <div>
-            <EditableField
+            <EditableBlock
               value={content.fields.email}
               onChange={(value) => onChange({ fields: { ...content.fields, email: value } })}
+              as="div"
               className="input-soft w-full"
+              allowHeadings={false}
+              allowLists={false}
+              allowQuotes={false}
+              allowAlignment={false}
+              placeholder="E-Mail..."
             />
           </div>
 
           {/* Phone */}
           <div>
-            <EditableField
+            <EditableBlock
               value={content.fields.phone}
               onChange={(value) => onChange({ fields: { ...content.fields, phone: value } })}
+              as="div"
               className="input-soft w-full"
+              allowHeadings={false}
+              allowLists={false}
+              allowQuotes={false}
+              allowAlignment={false}
+              placeholder="Telefon..."
             />
           </div>
 
           {/* Message */}
           <div>
-            <EditableField
+            <EditableBlock
               value={content.fields.message}
               onChange={(value) => onChange({ fields: { ...content.fields, message: value } })}
+              as="div"
               className="input-soft w-full"
+              allowHeadings={false}
+              allowLists={false}
+              allowQuotes={false}
+              allowAlignment={false}
+              placeholder="Nachricht..."
             />
           </div>
 
           {/* Submit Button */}
           <div className="pt-2">
-            <EditableField
+            <EditableBlock
               value={content.submitText}
               onChange={(value) => onChange({ submitText: value })}
+              as="span"
               className="btn-primary"
+              allowHeadings={false}
+              allowLists={false}
+              allowQuotes={false}
+              allowAlignment={false}
+              placeholder="Button-Text..."
             />
           </div>
         </motion.div>

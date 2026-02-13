@@ -1,77 +1,13 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
 import type { TestimonialsContent } from '@/types/content';
+import EditableBlock from '../EditableBlock';
 
 interface TestimonialsSectionEditorProps {
   content: TestimonialsContent;
   onChange: (data: Partial<TestimonialsContent>) => void;
-}
-
-function EditableField({
-  value,
-  onChange,
-  className = '',
-  multiline = false,
-}: {
-  value: string;
-  onChange: (value: string) => void;
-  className?: string;
-  multiline?: boolean;
-}) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(value);
-
-  const handleSave = () => {
-    onChange(editValue);
-    setIsEditing(false);
-  };
-
-  if (isEditing) {
-    return multiline ? (
-      <textarea
-        value={editValue}
-        onChange={(e) => setEditValue(e.target.value)}
-        onBlur={handleSave}
-        onKeyDown={(e) => {
-          if (e.key === 'Escape') {
-            setEditValue(value);
-            setIsEditing(false);
-          }
-        }}
-        className={`w-full bg-white border-2 border-blue-500 rounded-lg p-3 focus:outline-none min-h-[80px] ${className}`}
-        autoFocus
-      />
-    ) : (
-      <input
-        type="text"
-        value={editValue}
-        onChange={(e) => setEditValue(e.target.value)}
-        onBlur={handleSave}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') handleSave();
-          if (e.key === 'Escape') {
-            setEditValue(value);
-            setIsEditing(false);
-          }
-        }}
-        className={`w-full bg-white border-2 border-blue-500 rounded-lg p-2 focus:outline-none ${className}`}
-        autoFocus
-      />
-    );
-  }
-
-  return (
-    <div
-      className={`${className} cursor-pointer hover:outline hover:outline-2 hover:outline-blue-400 hover:outline-offset-2 hover:rounded transition-all`}
-      onClick={() => setIsEditing(true)}
-      title="Klicken zum Bearbeiten"
-    >
-      {value}
-    </div>
-  );
 }
 
 export default function TestimonialsSectionEditor({ content, onChange }: TestimonialsSectionEditorProps) {
@@ -92,10 +28,16 @@ export default function TestimonialsSectionEditor({ content, onChange }: Testimo
           transition={{ duration: 0.6 }}
           className="text-center mb-4"
         >
-          <EditableField
+          <EditableBlock
             value={content.title}
             onChange={(value) => onChange({ title: value })}
+            as="h2"
             className="text-4xl md:text-5xl font-serif"
+            allowHeadings={true}
+            allowLists={false}
+            allowQuotes={false}
+            allowAlignment={true}
+            placeholder="Titel eingeben..."
           />
         </motion.div>
 
@@ -106,10 +48,16 @@ export default function TestimonialsSectionEditor({ content, onChange }: Testimo
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-center mb-12"
         >
-          <EditableField
+          <EditableBlock
             value={content.subtitle}
             onChange={(value) => onChange({ subtitle: value })}
+            as="p"
             className="text-text-medium"
+            allowHeadings={false}
+            allowLists={false}
+            allowQuotes={false}
+            allowAlignment={true}
+            placeholder="Untertitel eingeben..."
           />
         </motion.div>
 
@@ -139,24 +87,42 @@ export default function TestimonialsSectionEditor({ content, onChange }: Testimo
               </div>
 
               {/* Text */}
-              <EditableField
+              <EditableBlock
                 value={testimonial.text}
                 onChange={(value) => updateTestimonial(index, 'text', value)}
-                multiline
+                as="p"
                 className="text-text-medium text-sm leading-relaxed mb-4"
+                allowHeadings={false}
+                allowLists={false}
+                allowQuotes={false}
+                allowAlignment={false}
+                placeholder="Testimonial-Text..."
+                minHeight="80px"
               />
 
               {/* Author */}
               <div className="border-t border-sage-100 pt-4">
-                <EditableField
+                <EditableBlock
                   value={testimonial.author}
                   onChange={(value) => updateTestimonial(index, 'author', value)}
+                  as="div"
                   className="font-medium text-text-dark text-sm"
+                  allowHeadings={false}
+                  allowLists={false}
+                  allowQuotes={false}
+                  allowAlignment={false}
+                  placeholder="Name..."
                 />
-                <EditableField
+                <EditableBlock
                   value={testimonial.location}
                   onChange={(value) => updateTestimonial(index, 'location', value)}
+                  as="div"
                   className="text-text-light text-xs"
+                  allowHeadings={false}
+                  allowLists={false}
+                  allowQuotes={false}
+                  allowAlignment={false}
+                  placeholder="Ort..."
                 />
               </div>
             </motion.div>

@@ -1,78 +1,14 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import type { WelcomeContent, PracticeInfo } from '@/types/content';
+import EditableBlock from '../EditableBlock';
 
 interface WelcomeSectionEditorProps {
   content: WelcomeContent;
   practiceInfo: PracticeInfo;
   onChange: (data: Partial<WelcomeContent>) => void;
-}
-
-function EditableField({
-  value,
-  onChange,
-  className = '',
-  multiline = false,
-}: {
-  value: string;
-  onChange: (value: string) => void;
-  className?: string;
-  multiline?: boolean;
-}) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(value);
-
-  const handleSave = () => {
-    onChange(editValue);
-    setIsEditing(false);
-  };
-
-  if (isEditing) {
-    return multiline ? (
-      <textarea
-        value={editValue}
-        onChange={(e) => setEditValue(e.target.value)}
-        onBlur={handleSave}
-        onKeyDown={(e) => {
-          if (e.key === 'Escape') {
-            setEditValue(value);
-            setIsEditing(false);
-          }
-        }}
-        className={`w-full bg-white border-2 border-blue-500 rounded-lg p-3 focus:outline-none min-h-[100px] ${className}`}
-        autoFocus
-      />
-    ) : (
-      <input
-        type="text"
-        value={editValue}
-        onChange={(e) => setEditValue(e.target.value)}
-        onBlur={handleSave}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') handleSave();
-          if (e.key === 'Escape') {
-            setEditValue(value);
-            setIsEditing(false);
-          }
-        }}
-        className={`w-full bg-white border-2 border-blue-500 rounded-lg p-2 focus:outline-none ${className}`}
-        autoFocus
-      />
-    );
-  }
-
-  return (
-    <div
-      className={`${className} cursor-pointer hover:outline hover:outline-2 hover:outline-blue-400 hover:outline-offset-2 hover:rounded transition-all`}
-      onClick={() => setIsEditing(true)}
-      title="Klicken zum Bearbeiten"
-    >
-      {value}
-    </div>
-  );
 }
 
 export default function WelcomeSectionEditor({ content, practiceInfo, onChange }: WelcomeSectionEditorProps) {
@@ -87,10 +23,16 @@ export default function WelcomeSectionEditor({ content, practiceInfo, onChange }
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <EditableField
+          <EditableBlock
             value={content.title}
             onChange={(value) => onChange({ title: value })}
+            as="h2"
             className="text-4xl md:text-5xl font-serif"
+            allowHeadings={true}
+            allowLists={false}
+            allowQuotes={false}
+            allowAlignment={true}
+            placeholder="Titel eingeben..."
           />
         </motion.div>
 
@@ -102,11 +44,17 @@ export default function WelcomeSectionEditor({ content, practiceInfo, onChange }
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-center mb-6"
         >
-          <EditableField
+          <EditableBlock
             value={content.intro}
             onChange={(value) => onChange({ intro: value })}
-            multiline
+            as="p"
             className="text-text-medium text-lg md:text-xl leading-relaxed max-w-2xl mx-auto"
+            allowHeadings={false}
+            allowLists={true}
+            allowQuotes={false}
+            allowAlignment={true}
+            placeholder="Einleitung eingeben..."
+            minHeight="80px"
           />
         </motion.div>
 
@@ -160,11 +108,17 @@ export default function WelcomeSectionEditor({ content, practiceInfo, onChange }
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <EditableField
+            <EditableBlock
               value={content.aboutText}
               onChange={(value) => onChange({ aboutText: value })}
-              multiline
+              as="div"
               className="text-text-medium text-lg leading-relaxed"
+              allowHeadings={true}
+              allowLists={true}
+              allowQuotes={true}
+              allowAlignment={true}
+              placeholder="Über mich Text eingeben..."
+              minHeight="150px"
             />
           </motion.div>
         </div>
@@ -177,11 +131,17 @@ export default function WelcomeSectionEditor({ content, practiceInfo, onChange }
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-24 text-center py-12 px-6 bg-sage-100/50 rounded-2xl"
         >
-          <EditableField
+          <EditableBlock
             value={content.quote}
             onChange={(value) => onChange({ quote: value })}
-            multiline
+            as="div"
             className="quote-text max-w-2xl mx-auto"
+            allowHeadings={false}
+            allowLists={false}
+            allowQuotes={true}
+            allowAlignment={true}
+            placeholder="Zitat eingeben..."
+            minHeight="60px"
           />
         </motion.div>
       </div>

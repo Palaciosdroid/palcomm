@@ -1,81 +1,15 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import type { PhilosophyContent } from '@/types/content';
+import EditableBlock from '../EditableBlock';
 
 interface PhilosophySectionEditorProps {
   content: PhilosophyContent;
   onChange: (data: Partial<PhilosophyContent>) => void;
 }
 
-function EditableField({
-  value,
-  onChange,
-  className = '',
-  multiline = false,
-}: {
-  value: string;
-  onChange: (value: string) => void;
-  className?: string;
-  multiline?: boolean;
-}) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(value);
-
-  const handleSave = () => {
-    onChange(editValue);
-    setIsEditing(false);
-  };
-
-  if (isEditing) {
-    return multiline ? (
-      <textarea
-        value={editValue}
-        onChange={(e) => setEditValue(e.target.value)}
-        onBlur={handleSave}
-        onKeyDown={(e) => {
-          if (e.key === 'Escape') {
-            setEditValue(value);
-            setIsEditing(false);
-          }
-        }}
-        className={`w-full bg-white border-2 border-blue-500 rounded-lg p-3 focus:outline-none min-h-[150px] ${className}`}
-        autoFocus
-      />
-    ) : (
-      <input
-        type="text"
-        value={editValue}
-        onChange={(e) => setEditValue(e.target.value)}
-        onBlur={handleSave}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') handleSave();
-          if (e.key === 'Escape') {
-            setEditValue(value);
-            setIsEditing(false);
-          }
-        }}
-        className={`w-full bg-white border-2 border-blue-500 rounded-lg p-2 focus:outline-none text-center ${className}`}
-        autoFocus
-      />
-    );
-  }
-
-  return (
-    <div
-      className={`${className} cursor-pointer hover:outline hover:outline-2 hover:outline-blue-400 hover:outline-offset-2 hover:rounded transition-all`}
-      onClick={() => setIsEditing(true)}
-      title="Klicken zum Bearbeiten"
-    >
-      {value}
-    </div>
-  );
-}
-
 export default function PhilosophySectionEditor({ content, onChange }: PhilosophySectionEditorProps) {
-  const paragraphs = content.text.split('\n\n').filter(p => p.trim());
-
   return (
     <section className="relative section-padding pb-28 bg-sage-200">
       <div className="max-w-3xl mx-auto px-6 md:px-8">
@@ -87,10 +21,16 @@ export default function PhilosophySectionEditor({ content, onChange }: Philosoph
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <EditableField
+          <EditableBlock
             value={content.title}
             onChange={(value) => onChange({ title: value })}
+            as="h2"
             className="text-4xl md:text-5xl font-serif"
+            allowHeadings={true}
+            allowLists={false}
+            allowQuotes={false}
+            allowAlignment={true}
+            placeholder="Titel eingeben..."
           />
         </motion.div>
 
@@ -102,11 +42,17 @@ export default function PhilosophySectionEditor({ content, onChange }: Philosoph
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-center mb-10"
         >
-          <EditableField
+          <EditableBlock
             value={content.text}
             onChange={(value) => onChange({ text: value })}
-            multiline
+            as="div"
             className="text-text-medium leading-relaxed"
+            allowHeadings={true}
+            allowLists={true}
+            allowQuotes={true}
+            allowAlignment={true}
+            placeholder="Philosophie-Text eingeben..."
+            minHeight="150px"
           />
         </motion.div>
 
@@ -119,10 +65,16 @@ export default function PhilosophySectionEditor({ content, onChange }: Philosoph
           className="flex justify-center mb-20"
         >
           <div className="flex items-center gap-2">
-            <EditableField
+            <EditableBlock
               value={content.ctaText}
               onChange={(value) => onChange({ ctaText: value })}
+              as="span"
               className="btn-secondary"
+              allowHeadings={false}
+              allowLists={false}
+              allowQuotes={false}
+              allowAlignment={false}
+              placeholder="Button-Text..."
             />
           </div>
         </motion.div>
@@ -137,24 +89,42 @@ export default function PhilosophySectionEditor({ content, onChange }: Philosoph
         >
           <div className="quote-mark absolute top-4 left-8 select-none">&ldquo;</div>
 
-          <EditableField
+          <EditableBlock
             value={content.quote.text}
             onChange={(value) => onChange({ quote: { ...content.quote, text: value } })}
-            multiline
+            as="div"
             className="text-xl md:text-2xl text-text-dark leading-relaxed mb-6 relative z-10 font-serif"
+            allowHeadings={false}
+            allowLists={false}
+            allowQuotes={false}
+            allowAlignment={true}
+            placeholder="Zitat eingeben..."
+            minHeight="80px"
           />
 
-          <div className="text-sm text-text-light">
-            <EditableField
+          <div className="text-sm text-text-light flex items-center justify-center gap-2 flex-wrap">
+            <EditableBlock
               value={content.quote.author}
               onChange={(value) => onChange({ quote: { ...content.quote, author: value } })}
-              className="font-medium text-text-medium inline"
+              as="span"
+              className="font-medium text-text-medium"
+              allowHeadings={false}
+              allowLists={false}
+              allowQuotes={false}
+              allowAlignment={false}
+              placeholder="Autor..."
             />
-            <span className="mx-2">&middot;</span>
-            <EditableField
+            <span>&middot;</span>
+            <EditableBlock
               value={content.quote.role}
               onChange={(value) => onChange({ quote: { ...content.quote, role: value } })}
-              className="inline"
+              as="span"
+              className=""
+              allowHeadings={false}
+              allowLists={false}
+              allowQuotes={false}
+              allowAlignment={false}
+              placeholder="Rolle..."
             />
           </div>
         </motion.div>

@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import {
@@ -8,6 +7,7 @@ import {
   HeartPulse, Scale, Flower2, Trophy,
 } from 'lucide-react';
 import type { TherapyContent } from '@/types/content';
+import EditableBlock from '../EditableBlock';
 
 const topicIconMap: { [key: string]: React.ReactNode } = {
   spider: <Bug className="w-6 h-6" />,
@@ -25,70 +25,6 @@ const topicIconMap: { [key: string]: React.ReactNode } = {
 interface TherapySectionEditorProps {
   content: TherapyContent;
   onChange: (data: Partial<TherapyContent>) => void;
-}
-
-function EditableField({
-  value,
-  onChange,
-  className = '',
-  multiline = false,
-}: {
-  value: string;
-  onChange: (value: string) => void;
-  className?: string;
-  multiline?: boolean;
-}) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(value);
-
-  const handleSave = () => {
-    onChange(editValue);
-    setIsEditing(false);
-  };
-
-  if (isEditing) {
-    return multiline ? (
-      <textarea
-        value={editValue}
-        onChange={(e) => setEditValue(e.target.value)}
-        onBlur={handleSave}
-        onKeyDown={(e) => {
-          if (e.key === 'Escape') {
-            setEditValue(value);
-            setIsEditing(false);
-          }
-        }}
-        className={`w-full bg-white border-2 border-blue-500 rounded-lg p-3 focus:outline-none min-h-[80px] ${className}`}
-        autoFocus
-      />
-    ) : (
-      <input
-        type="text"
-        value={editValue}
-        onChange={(e) => setEditValue(e.target.value)}
-        onBlur={handleSave}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') handleSave();
-          if (e.key === 'Escape') {
-            setEditValue(value);
-            setIsEditing(false);
-          }
-        }}
-        className={`w-full bg-white border-2 border-blue-500 rounded-lg p-2 focus:outline-none ${className}`}
-        autoFocus
-      />
-    );
-  }
-
-  return (
-    <div
-      className={`${className} cursor-pointer hover:outline hover:outline-2 hover:outline-blue-400 hover:outline-offset-2 hover:rounded transition-all`}
-      onClick={() => setIsEditing(true)}
-      title="Klicken zum Bearbeiten"
-    >
-      {value}
-    </div>
-  );
 }
 
 export default function TherapySectionEditor({ content, onChange }: TherapySectionEditorProps) {
@@ -115,10 +51,16 @@ export default function TherapySectionEditor({ content, onChange }: TherapySecti
           transition={{ duration: 0.6 }}
           className="text-center mb-6"
         >
-          <EditableField
+          <EditableBlock
             value={content.title}
             onChange={(value) => onChange({ title: value })}
+            as="h2"
             className="text-4xl md:text-5xl font-serif"
+            allowHeadings={true}
+            allowLists={false}
+            allowQuotes={false}
+            allowAlignment={true}
+            placeholder="Titel eingeben..."
           />
         </motion.div>
 
@@ -130,11 +72,17 @@ export default function TherapySectionEditor({ content, onChange }: TherapySecti
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-center mb-16"
         >
-          <EditableField
+          <EditableBlock
             value={content.intro}
             onChange={(value) => onChange({ intro: value })}
-            multiline
+            as="p"
             className="text-text-medium text-lg leading-relaxed max-w-2xl mx-auto"
+            allowHeadings={false}
+            allowLists={true}
+            allowQuotes={false}
+            allowAlignment={true}
+            placeholder="Einleitung eingeben..."
+            minHeight="80px"
           />
         </motion.div>
 
@@ -145,10 +93,16 @@ export default function TherapySectionEditor({ content, onChange }: TherapySecti
           viewport={{ once: true }}
           className="text-center mb-10"
         >
-          <EditableField
+          <EditableBlock
             value={content.targetGroupsTitle}
             onChange={(value) => onChange({ targetGroupsTitle: value })}
+            as="h3"
             className="text-2xl md:text-3xl font-serif"
+            allowHeadings={true}
+            allowLists={false}
+            allowQuotes={false}
+            allowAlignment={true}
+            placeholder="Titel eingeben..."
           />
         </motion.div>
 
@@ -167,16 +121,28 @@ export default function TherapySectionEditor({ content, onChange }: TherapySecti
                 <Image src={group.image} alt={group.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
               </div>
               <div className="p-5">
-                <EditableField
+                <EditableBlock
                   value={group.title}
                   onChange={(value) => updateTargetGroup(index, 'title', value)}
+                  as="h4"
                   className="text-lg font-medium text-text-dark mb-2"
+                  allowHeadings={false}
+                  allowLists={false}
+                  allowQuotes={false}
+                  allowAlignment={false}
+                  placeholder="Titel..."
                 />
-                <EditableField
+                <EditableBlock
                   value={group.description}
                   onChange={(value) => updateTargetGroup(index, 'description', value)}
-                  multiline
+                  as="p"
                   className="text-text-light text-sm leading-relaxed"
+                  allowHeadings={false}
+                  allowLists={true}
+                  allowQuotes={false}
+                  allowAlignment={false}
+                  placeholder="Beschreibung..."
+                  minHeight="60px"
                 />
               </div>
             </motion.div>
@@ -190,10 +156,16 @@ export default function TherapySectionEditor({ content, onChange }: TherapySecti
           viewport={{ once: true }}
           className="text-center mb-10"
         >
-          <EditableField
+          <EditableBlock
             value={content.topicsTitle}
             onChange={(value) => onChange({ topicsTitle: value })}
+            as="h3"
             className="text-2xl md:text-3xl font-serif"
+            allowHeadings={true}
+            allowLists={false}
+            allowQuotes={false}
+            allowAlignment={true}
+            placeholder="Titel eingeben..."
           />
         </motion.div>
 
@@ -211,16 +183,28 @@ export default function TherapySectionEditor({ content, onChange }: TherapySecti
               <div className="w-12 h-12 rounded-full bg-sage-100 flex items-center justify-center text-sage-600">
                 {topicIconMap[topic.icon]}
               </div>
-              <EditableField
+              <EditableBlock
                 value={topic.title}
                 onChange={(value) => updateTopic(index, 'title', value)}
+                as="h5"
                 className="text-base text-center font-medium text-text-dark"
+                allowHeadings={false}
+                allowLists={false}
+                allowQuotes={false}
+                allowAlignment={false}
+                placeholder="Titel..."
               />
-              <EditableField
+              <EditableBlock
                 value={topic.description}
                 onChange={(value) => updateTopic(index, 'description', value)}
-                multiline
+                as="p"
                 className="text-text-light text-sm leading-relaxed text-center"
+                allowHeadings={false}
+                allowLists={false}
+                allowQuotes={false}
+                allowAlignment={false}
+                placeholder="Beschreibung..."
+                minHeight="50px"
               />
             </motion.div>
           ))}

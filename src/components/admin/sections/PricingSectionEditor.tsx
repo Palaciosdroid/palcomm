@@ -1,78 +1,14 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Clock, Banknote, Phone, Car, Info, AlertCircle, Percent } from 'lucide-react';
 import Image from 'next/image';
 import type { PricingContent } from '@/types/content';
+import EditableBlock from '../EditableBlock';
 
 interface PricingSectionEditorProps {
   content: PricingContent;
   onChange: (data: Partial<PricingContent>) => void;
-}
-
-function EditableField({
-  value,
-  onChange,
-  className = '',
-  multiline = false,
-}: {
-  value: string;
-  onChange: (value: string) => void;
-  className?: string;
-  multiline?: boolean;
-}) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(value);
-
-  const handleSave = () => {
-    onChange(editValue);
-    setIsEditing(false);
-  };
-
-  if (isEditing) {
-    return multiline ? (
-      <textarea
-        value={editValue}
-        onChange={(e) => setEditValue(e.target.value)}
-        onBlur={handleSave}
-        onKeyDown={(e) => {
-          if (e.key === 'Escape') {
-            setEditValue(value);
-            setIsEditing(false);
-          }
-        }}
-        className={`w-full bg-white border-2 border-blue-500 rounded-lg p-3 focus:outline-none min-h-[60px] ${className}`}
-        autoFocus
-      />
-    ) : (
-      <input
-        type="text"
-        value={editValue}
-        onChange={(e) => setEditValue(e.target.value)}
-        onBlur={handleSave}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') handleSave();
-          if (e.key === 'Escape') {
-            setEditValue(value);
-            setIsEditing(false);
-          }
-        }}
-        className={`bg-white border-2 border-blue-500 rounded-lg p-2 focus:outline-none ${className}`}
-        autoFocus
-      />
-    );
-  }
-
-  return (
-    <span
-      className={`${className} cursor-pointer hover:outline hover:outline-2 hover:outline-blue-400 hover:outline-offset-2 hover:rounded transition-all`}
-      onClick={() => setIsEditing(true)}
-      title="Klicken zum Bearbeiten"
-    >
-      {value}
-    </span>
-  );
 }
 
 export default function PricingSectionEditor({ content, onChange }: PricingSectionEditorProps) {
@@ -87,10 +23,16 @@ export default function PricingSectionEditor({ content, onChange }: PricingSecti
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <EditableField
+          <EditableBlock
             value={content.title}
             onChange={(value) => onChange({ title: value })}
+            as="h2"
             className="text-4xl md:text-5xl font-serif"
+            allowHeadings={true}
+            allowLists={false}
+            allowQuotes={false}
+            allowAlignment={true}
+            placeholder="Titel eingeben..."
           />
         </motion.div>
 
@@ -107,22 +49,40 @@ export default function PricingSectionEditor({ content, onChange }: PricingSecti
               <Phone className="w-6 h-6 text-brand" />
             </div>
             <div>
-              <EditableField
+              <EditableBlock
                 value={content.freeConsultation.title}
                 onChange={(value) => onChange({ freeConsultation: { ...content.freeConsultation, title: value } })}
-                className="font-medium text-text-dark block"
+                as="div"
+                className="font-medium text-text-dark"
+                allowHeadings={false}
+                allowLists={false}
+                allowQuotes={false}
+                allowAlignment={false}
+                placeholder="Titel..."
               />
-              <EditableField
+              <EditableBlock
                 value={content.freeConsultation.subtitle}
                 onChange={(value) => onChange({ freeConsultation: { ...content.freeConsultation, subtitle: value } })}
+                as="div"
                 className="text-sm text-text-medium"
+                allowHeadings={false}
+                allowLists={false}
+                allowQuotes={false}
+                allowAlignment={false}
+                placeholder="Untertitel..."
               />
             </div>
           </div>
-          <EditableField
+          <EditableBlock
             value={content.freeConsultation.buttonText}
             onChange={(value) => onChange({ freeConsultation: { ...content.freeConsultation, buttonText: value } })}
+            as="span"
             className="btn-secondary text-sm whitespace-nowrap"
+            allowHeadings={false}
+            allowLists={false}
+            allowQuotes={false}
+            allowAlignment={false}
+            placeholder="Button-Text..."
           />
         </motion.div>
 
@@ -136,10 +96,16 @@ export default function PricingSectionEditor({ content, onChange }: PricingSecti
         >
           {/* Price */}
           <div className="text-center mb-8">
-            <EditableField
+            <EditableBlock
               value={content.hourlyRate}
               onChange={(value) => onChange({ hourlyRate: value })}
+              as="div"
               className="text-3xl md:text-4xl font-medium text-text-dark"
+              allowHeadings={false}
+              allowLists={false}
+              allowQuotes={false}
+              allowAlignment={true}
+              placeholder="Preis eingeben..."
             />
           </div>
 
@@ -152,15 +118,27 @@ export default function PricingSectionEditor({ content, onChange }: PricingSecti
                 <Clock className="w-5 h-5 text-sage-600" />
               </div>
               <div>
-                <EditableField
+                <EditableBlock
                   value={content.firstSession.title}
                   onChange={(value) => onChange({ firstSession: { ...content.firstSession, title: value } })}
+                  as="div"
                   className="font-medium text-text-dark"
+                  allowHeadings={false}
+                  allowLists={false}
+                  allowQuotes={false}
+                  allowAlignment={false}
+                  placeholder="Titel..."
                 />
-                <EditableField
+                <EditableBlock
                   value={content.firstSession.duration}
                   onChange={(value) => onChange({ firstSession: { ...content.firstSession, duration: value } })}
+                  as="div"
                   className="text-sm text-text-light"
+                  allowHeadings={false}
+                  allowLists={false}
+                  allowQuotes={false}
+                  allowAlignment={false}
+                  placeholder="Dauer..."
                 />
               </div>
             </div>
@@ -170,15 +148,27 @@ export default function PricingSectionEditor({ content, onChange }: PricingSecti
                 <Clock className="w-5 h-5 text-sage-600" />
               </div>
               <div>
-                <EditableField
+                <EditableBlock
                   value={content.followUpSession.title}
                   onChange={(value) => onChange({ followUpSession: { ...content.followUpSession, title: value } })}
+                  as="div"
                   className="font-medium text-text-dark"
+                  allowHeadings={false}
+                  allowLists={false}
+                  allowQuotes={false}
+                  allowAlignment={false}
+                  placeholder="Titel..."
                 />
-                <EditableField
+                <EditableBlock
                   value={content.followUpSession.duration}
                   onChange={(value) => onChange({ followUpSession: { ...content.followUpSession, duration: value } })}
+                  as="div"
                   className="text-sm text-text-light"
+                  allowHeadings={false}
+                  allowLists={false}
+                  allowQuotes={false}
+                  allowAlignment={false}
+                  placeholder="Dauer..."
                 />
               </div>
             </div>
@@ -188,17 +178,29 @@ export default function PricingSectionEditor({ content, onChange }: PricingSecti
           <div className="bg-sage-50 rounded-xl p-5 mb-8">
             <div className="flex items-center gap-3 mb-3">
               <Percent className="w-5 h-5 text-brand" />
-              <EditableField
+              <EditableBlock
                 value={content.discount.title}
                 onChange={(value) => onChange({ discount: { ...content.discount, title: value } })}
+                as="span"
                 className="font-medium text-text-dark"
+                allowHeadings={false}
+                allowLists={false}
+                allowQuotes={false}
+                allowAlignment={false}
+                placeholder="Titel..."
               />
             </div>
-            <EditableField
+            <EditableBlock
               value={content.discount.description}
               onChange={(value) => onChange({ discount: { ...content.discount, description: value } })}
-              multiline
+              as="div"
               className="text-sm text-text-medium"
+              allowHeadings={false}
+              allowLists={true}
+              allowQuotes={false}
+              allowAlignment={false}
+              placeholder="Beschreibung..."
+              minHeight="50px"
             />
           </div>
 
@@ -222,15 +224,27 @@ export default function PricingSectionEditor({ content, onChange }: PricingSecti
               <Car className="w-5 h-5 text-sage-600" />
             </div>
             <div>
-              <EditableField
+              <EditableBlock
                 value={content.houseVisits.title}
                 onChange={(value) => onChange({ houseVisits: { ...content.houseVisits, title: value } })}
+                as="div"
                 className="font-medium text-text-dark"
+                allowHeadings={false}
+                allowLists={false}
+                allowQuotes={false}
+                allowAlignment={false}
+                placeholder="Titel..."
               />
-              <EditableField
+              <EditableBlock
                 value={content.houseVisits.cost}
                 onChange={(value) => onChange({ houseVisits: { ...content.houseVisits, cost: value } })}
+                as="div"
                 className="text-sm text-text-light"
+                allowHeadings={false}
+                allowLists={false}
+                allowQuotes={false}
+                allowAlignment={false}
+                placeholder="Kosten..."
               />
             </div>
           </div>
@@ -246,32 +260,60 @@ export default function PricingSectionEditor({ content, onChange }: PricingSecti
         >
           <div className="flex items-start gap-3 p-4 bg-cream-100 rounded-xl">
             <Info className="w-5 h-5 text-text-medium flex-shrink-0 mt-0.5" />
-            <p className="text-sm text-text-medium">
-              <EditableField
+            <div className="text-sm text-text-medium flex flex-wrap items-center gap-1">
+              <EditableBlock
                 value={content.cancellation.title}
                 onChange={(value) => onChange({ cancellation: { ...content.cancellation, title: value } })}
-                className="font-medium inline"
-              />: <EditableField
+                as="span"
+                className="font-medium"
+                allowHeadings={false}
+                allowLists={false}
+                allowQuotes={false}
+                allowAlignment={false}
+                placeholder="Titel..."
+              />
+              <span>:</span>
+              <EditableBlock
                 value={content.cancellation.text}
                 onChange={(value) => onChange({ cancellation: { ...content.cancellation, text: value } })}
-                className="inline"
+                as="span"
+                className=""
+                allowHeadings={false}
+                allowLists={false}
+                allowQuotes={false}
+                allowAlignment={false}
+                placeholder="Text..."
               />
-            </p>
+            </div>
           </div>
 
           <div className="flex items-start gap-3 p-4 bg-cream-100 rounded-xl">
             <AlertCircle className="w-5 h-5 text-text-medium flex-shrink-0 mt-0.5" />
-            <p className="text-sm text-text-medium">
-              <EditableField
+            <div className="text-sm text-text-medium flex flex-wrap items-center gap-1">
+              <EditableBlock
                 value={content.insurance.title}
                 onChange={(value) => onChange({ insurance: { ...content.insurance, title: value } })}
-                className="font-medium inline"
-              />: <EditableField
+                as="span"
+                className="font-medium"
+                allowHeadings={false}
+                allowLists={false}
+                allowQuotes={false}
+                allowAlignment={false}
+                placeholder="Titel..."
+              />
+              <span>:</span>
+              <EditableBlock
                 value={content.insurance.text}
                 onChange={(value) => onChange({ insurance: { ...content.insurance, text: value } })}
-                className="inline"
+                as="span"
+                className=""
+                allowHeadings={false}
+                allowLists={false}
+                allowQuotes={false}
+                allowAlignment={false}
+                placeholder="Text..."
               />
-            </p>
+            </div>
           </div>
         </motion.div>
 
@@ -283,10 +325,16 @@ export default function PricingSectionEditor({ content, onChange }: PricingSecti
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-10 text-center"
         >
-          <EditableField
+          <EditableBlock
             value={content.ctaText}
             onChange={(value) => onChange({ ctaText: value })}
+            as="span"
             className="btn-primary"
+            allowHeadings={false}
+            allowLists={false}
+            allowQuotes={false}
+            allowAlignment={false}
+            placeholder="Button-Text..."
           />
         </motion.div>
       </div>
