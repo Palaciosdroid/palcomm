@@ -2,51 +2,32 @@
 
 import { useState, useEffect } from 'react';
 import { defaultContent, saveContent } from '@/lib/content';
-import type { SiteContent, SectionKey } from '@/types/content';
-import { Save, RotateCcw, ChevronDown, ChevronRight, Check, ExternalLink, Loader2, LogOut } from 'lucide-react';
+import type { SiteContent } from '@/types/content';
+import { Save, RotateCcw, Check, Eye, Loader2, LogOut, Settings } from 'lucide-react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import AdminLogin from '@/components/admin/AdminLogin';
 
-// Dynamic import for RichTextEditor to avoid SSR issues
-const RichTextEditor = dynamic(() => import('@/components/admin/RichTextEditor'), {
-  ssr: false,
-  loading: () => <div className="h-32 bg-gray-100 rounded-lg animate-pulse" />,
-});
-
-// Section Labels auf Deutsch
-const sectionLabels: Record<SectionKey, string> = {
-  practiceInfo: 'Praxis-Informationen',
-  navigation: 'Navigation',
-  hero: 'Hero-Sektion',
-  welcome: 'Willkommen / Über mich',
-  philosophy: 'Philosophie',
-  therapy: 'Therapieangebot',
-  certificates: 'Zertifikate',
-  testimonials: 'Kundenstimmen',
-  pricing: 'Konditionen',
-  disclaimer: 'Wichtige Hinweise',
-  contact: 'Kontakt',
-  footer: 'Footer',
-};
-
-// Fields that should use the rich text editor
-const richTextFields = new Set([
-  'description',
-  'intro',
-  'aboutText',
-  'text',
-  'quote',
-]);
+// Import all section components for visual editing
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import HeroSectionEditor from '@/components/admin/sections/HeroSectionEditor';
+import WelcomeSectionEditor from '@/components/admin/sections/WelcomeSectionEditor';
+import PhilosophySectionEditor from '@/components/admin/sections/PhilosophySectionEditor';
+import TherapySectionEditor from '@/components/admin/sections/TherapySectionEditor';
+import TestimonialsSectionEditor from '@/components/admin/sections/TestimonialsSectionEditor';
+import CertificatesSectionEditor from '@/components/admin/sections/CertificatesSectionEditor';
+import PricingSectionEditor from '@/components/admin/sections/PricingSectionEditor';
+import DisclaimerSectionEditor from '@/components/admin/sections/DisclaimerSectionEditor';
+import ContactSectionEditor from '@/components/admin/sections/ContactSectionEditor';
 
 export default function AdminPage() {
   const [content, setContent] = useState<SiteContent>(defaultContent);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  const [expandedSections, setExpandedSections] = useState<Set<SectionKey>>(new Set(['hero']));
   const [saved, setSaved] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [showSettings, setShowSettings] = useState(false);
 
   // Check authentication status
   useEffect(() => {
@@ -82,30 +63,12 @@ export default function AdminPage() {
     loadContent();
   }, [isAuthenticated]);
 
-  const toggleSection = (key: SectionKey) => {
-    setExpandedSections(prev => {
-      const next = new Set(prev);
-      if (next.has(key)) {
-        next.delete(key);
-      } else {
-        next.add(key);
-      }
-      return next;
-    });
-  };
-
-  const handleChange = (sectionKey: SectionKey, path: string[], value: unknown) => {
-    const newContent = JSON.parse(JSON.stringify(content)) as SiteContent;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let current: any = newContent[sectionKey];
-
-    for (let i = 0; i < path.length - 1; i++) {
-      current = current[path[i]];
-    }
-    current[path[path.length - 1]] = value;
-
+  const updateContent = (section: keyof SiteContent, data: Partial<SiteContent[keyof SiteContent]>) => {
+    const newContent = {
+      ...content,
+      [section]: { ...content[section], ...data },
+    };
     setContent(newContent);
-    // Auch lokal speichern für sofortige Vorschau
     saveContent(newContent);
     setHasChanges(true);
     setSaved(false);
@@ -114,7 +77,6 @@ export default function AdminPage() {
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      // Über API speichern (persistent)
       const res = await fetch('/api/content', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -122,7 +84,6 @@ export default function AdminPage() {
       });
 
       if (res.ok) {
-        // Auch lokal speichern
         saveContent(content);
         setSaved(true);
         setHasChanges(false);
@@ -141,7 +102,6 @@ export default function AdminPage() {
       setContent(defaultContent);
       saveContent(defaultContent);
 
-      // Auch auf Server zurücksetzen
       await fetch('/api/content', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -180,36 +140,48 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b sticky top-0 z-50">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-xl font-semibold text-gray-900">Website bearbeiten</h1>
-            <p className="text-sm text-gray-500">Alle Texte und Inhalte anpassen</p>
+    <div className="min-h-screen">
+      {/* Fixed Admin Toolbar */}
+      <div className="fixed top-0 left-0 right-0 z-[100] bg-white/95 backdrop-blur-sm border-b shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div>
+              <h1 className="text-lg font-semibold text-gray-900">Visueller Editor</h1>
+              <p className="text-xs text-gray-500">Klicke auf Texte zum Bearbeiten</p>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
+
+          <div className="flex items-center gap-2">
             <Link
               href="/"
               target="_blank"
-              className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
+              className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border rounded-lg hover:bg-gray-50"
             >
-              <ExternalLink className="w-4 h-4" />
+              <Eye className="w-4 h-4" />
               Vorschau
             </Link>
+
             <Link
               href="/admin/blog"
-              className="text-sm text-gray-600 hover:text-gray-900 px-3 py-2"
+              className="text-sm text-gray-600 hover:text-gray-900 px-3 py-2 border rounded-lg hover:bg-gray-50"
             >
               Blog
             </Link>
+
+            <button
+              onClick={() => setShowSettings(!showSettings)}
+              className={`flex items-center gap-2 px-3 py-2 text-sm border rounded-lg ${showSettings ? 'bg-blue-50 text-blue-600 border-blue-200' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'}`}
+            >
+              <Settings className="w-4 h-4" />
+            </button>
+
             <button
               onClick={handleReset}
-              className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border rounded-lg"
+              className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border rounded-lg hover:bg-gray-50"
             >
               <RotateCcw className="w-4 h-4" />
-              Zurücksetzen
             </button>
+
             <button
               onClick={handleSave}
               disabled={!hasChanges || isSaving}
@@ -238,6 +210,7 @@ export default function AdminPage() {
                 </>
               )}
             </button>
+
             <button
               onClick={handleLogout}
               className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-red-600 border rounded-lg"
@@ -247,260 +220,108 @@ export default function AdminPage() {
             </button>
           </div>
         </div>
-      </header>
 
-      {/* Content */}
-      <main className="max-w-5xl mx-auto px-4 py-8">
-        <div className="space-y-4">
-          {(Object.keys(sectionLabels) as SectionKey[]).map((sectionKey) => (
-            <SectionEditor
-              key={sectionKey}
-              sectionKey={sectionKey}
-              label={sectionLabels[sectionKey]}
-              data={content[sectionKey]}
-              isExpanded={expandedSections.has(sectionKey)}
-              onToggle={() => toggleSection(sectionKey)}
-              onChange={(path, value) => handleChange(sectionKey, path, value)}
-            />
-          ))}
-        </div>
+        {/* Settings Panel */}
+        {showSettings && (
+          <div className="border-t bg-gray-50 px-4 py-4">
+            <div className="max-w-7xl mx-auto">
+              <h3 className="text-sm font-medium text-gray-900 mb-3">Praxis-Informationen</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div>
+                  <label className="block text-xs text-gray-500 mb-1">Name</label>
+                  <input
+                    type="text"
+                    value={content.practiceInfo.name}
+                    onChange={(e) => updateContent('practiceInfo', { name: e.target.value })}
+                    className="w-full px-3 py-2 text-sm border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs text-gray-500 mb-1">Telefon</label>
+                  <input
+                    type="text"
+                    value={content.practiceInfo.phone}
+                    onChange={(e) => updateContent('practiceInfo', { phone: e.target.value })}
+                    className="w-full px-3 py-2 text-sm border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs text-gray-500 mb-1">E-Mail</label>
+                  <input
+                    type="email"
+                    value={content.practiceInfo.email}
+                    onChange={(e) => updateContent('practiceInfo', { email: e.target.value })}
+                    className="w-full px-3 py-2 text-sm border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs text-gray-500 mb-1">Stadt</label>
+                  <input
+                    type="text"
+                    value={content.practiceInfo.address.city}
+                    onChange={(e) => updateContent('practiceInfo', { address: { ...content.practiceInfo.address, city: e.target.value } })}
+                    className="w-full px-3 py-2 text-sm border rounded-lg"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Visual Website Preview with Inline Editing */}
+      <main className={`min-h-screen ${showSettings ? 'pt-32' : 'pt-16'}`}>
+        <Header content={{ navigation: content.navigation, practiceInfo: content.practiceInfo }} />
+
+        <HeroSectionEditor
+          content={content.hero}
+          onChange={(data) => updateContent('hero', data)}
+        />
+
+        <WelcomeSectionEditor
+          content={content.welcome}
+          practiceInfo={content.practiceInfo}
+          onChange={(data) => updateContent('welcome', data)}
+        />
+
+        <PhilosophySectionEditor
+          content={content.philosophy}
+          onChange={(data) => updateContent('philosophy', data)}
+        />
+
+        <TherapySectionEditor
+          content={content.therapy}
+          onChange={(data) => updateContent('therapy', data)}
+        />
+
+        <TestimonialsSectionEditor
+          content={content.testimonials}
+          onChange={(data) => updateContent('testimonials', data)}
+        />
+
+        <CertificatesSectionEditor
+          content={content.certificates}
+          onChange={(data) => updateContent('certificates', data)}
+        />
+
+        <PricingSectionEditor
+          content={content.pricing}
+          onChange={(data) => updateContent('pricing', data)}
+        />
+
+        <DisclaimerSectionEditor
+          content={content.disclaimer}
+          onChange={(data) => updateContent('disclaimer', data)}
+        />
+
+        <ContactSectionEditor
+          content={content.contact}
+          practiceInfo={content.practiceInfo}
+          onChange={(data) => updateContent('contact', data)}
+        />
+
+        <Footer content={content.footer} practiceInfo={content.practiceInfo} />
       </main>
     </div>
   );
-}
-
-interface SectionEditorProps {
-  sectionKey: SectionKey;
-  label: string;
-  data: SiteContent[SectionKey];
-  isExpanded: boolean;
-  onToggle: () => void;
-  onChange: (path: string[], value: unknown) => void;
-}
-
-function SectionEditor({ sectionKey, label, data, isExpanded, onToggle, onChange }: SectionEditorProps) {
-  return (
-    <div className="bg-white rounded-xl border shadow-sm overflow-hidden">
-      <button
-        onClick={onToggle}
-        className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
-      >
-        <span className="font-medium text-gray-900">{label}</span>
-        {isExpanded ? (
-          <ChevronDown className="w-5 h-5 text-gray-400" />
-        ) : (
-          <ChevronRight className="w-5 h-5 text-gray-400" />
-        )}
-      </button>
-
-      {isExpanded && (
-        <div className="px-6 pb-6 border-t">
-          <div className="pt-4 space-y-4">
-            <FieldRenderer
-              data={data}
-              path={[]}
-              onChange={onChange}
-              sectionKey={sectionKey}
-            />
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-interface FieldRendererProps {
-  data: unknown;
-  path: string[];
-  onChange: (path: string[], value: unknown) => void;
-  sectionKey: SectionKey;
-  fieldLabel?: string;
-}
-
-// Deutsche Labels für Felder
-const fieldLabels: Record<string, string> = {
-  name: 'Name',
-  title: 'Titel',
-  text: 'Text',
-  description: 'Beschreibung',
-  intro: 'Einleitung',
-  subtitle: 'Untertitel',
-  phone: 'Telefon',
-  email: 'E-Mail',
-  website: 'Website',
-  street: 'Strasse',
-  city: 'Stadt',
-  country: 'Land',
-  href: 'Link',
-  image: 'Bild-URL',
-  icon: 'Icon',
-  ctaText: 'Button-Text',
-  ctaLink: 'Button-Link',
-  quote: 'Zitat',
-  author: 'Autor',
-  role: 'Rolle',
-  location: 'Ort',
-  rating: 'Bewertung',
-  firstName: 'Vorname',
-  lastName: 'Nachname',
-  message: 'Nachricht',
-  submitText: 'Senden-Button',
-  privacyText: 'Datenschutz-Text',
-  successTitle: 'Erfolgs-Titel',
-  successMessage: 'Erfolgs-Nachricht',
-  copyright: 'Copyright',
-  tagline: 'Tagline',
-  fullName: 'Voller Name',
-  aboutTitle: 'Über-Titel',
-  aboutText: 'Über-Text',
-  targetGroupsTitle: 'Zielgruppen-Titel',
-  topicsTitle: 'Themen-Titel',
-  hourlyRate: 'Stundensatz',
-  duration: 'Dauer',
-  methods: 'Zahlungsmethoden',
-  cost: 'Kosten',
-  buttonText: 'Button-Text',
-  external: 'Externer Link',
-};
-
-function FieldRenderer({ data, path, onChange, sectionKey, fieldLabel }: FieldRendererProps) {
-  if (data === null || data === undefined) {
-    return null;
-  }
-
-  // Array handling
-  if (Array.isArray(data)) {
-    return (
-      <div className="space-y-3">
-        {fieldLabel && (
-          <label className="block text-sm font-medium text-gray-700">{fieldLabel}</label>
-        )}
-        {data.map((item, index) => (
-          <div key={index} className="pl-4 border-l-2 border-gray-200">
-            <div className="text-xs text-gray-400 mb-2">#{index + 1}</div>
-            <FieldRenderer
-              data={item}
-              path={[...path, String(index)]}
-              onChange={onChange}
-              sectionKey={sectionKey}
-            />
-          </div>
-        ))}
-      </div>
-    );
-  }
-
-  // Object handling
-  if (typeof data === 'object') {
-    return (
-      <div className="space-y-4">
-        {Object.entries(data).map(([key, value]) => {
-          // Skip id fields
-          if (key === 'id') return null;
-
-          const label = fieldLabels[key] || key;
-
-          return (
-            <FieldRenderer
-              key={key}
-              data={value}
-              path={[...path, key]}
-              onChange={onChange}
-              sectionKey={sectionKey}
-              fieldLabel={label}
-            />
-          );
-        })}
-      </div>
-    );
-  }
-
-  // String handling
-  if (typeof data === 'string') {
-    const fieldName = path[path.length - 1];
-    const isRichTextField = richTextFields.has(fieldName);
-    const isUrl = fieldName?.includes('href') ||
-                  fieldName?.includes('link') ||
-                  fieldName?.includes('Link') ||
-                  fieldName?.includes('image') ||
-                  fieldName?.includes('phone');
-
-    // Use rich text editor for specific fields
-    if (isRichTextField && !isUrl) {
-      return (
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            {fieldLabel}
-          </label>
-          <RichTextEditor
-            value={data}
-            onChange={(value) => onChange(path, value)}
-            placeholder={`${fieldLabel} eingeben...`}
-          />
-        </div>
-      );
-    }
-
-    // Regular text input for short texts
-    const isLongText = data.length > 100 || data.includes('\n');
-
-    return (
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          {fieldLabel}
-        </label>
-        {isLongText && !isUrl ? (
-          <textarea
-            value={data}
-            onChange={(e) => onChange(path, e.target.value)}
-            rows={4}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-y text-gray-900"
-          />
-        ) : (
-          <input
-            type="text"
-            value={data}
-            onChange={(e) => onChange(path, e.target.value)}
-            className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 ${
-              isUrl ? 'font-mono text-sm' : ''
-            }`}
-          />
-        )}
-      </div>
-    );
-  }
-
-  // Number handling
-  if (typeof data === 'number') {
-    return (
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          {fieldLabel}
-        </label>
-        <input
-          type="number"
-          value={data}
-          onChange={(e) => onChange(path, Number(e.target.value))}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-        />
-      </div>
-    );
-  }
-
-  // Boolean handling
-  if (typeof data === 'boolean') {
-    return (
-      <div className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          checked={data}
-          onChange={(e) => onChange(path, e.target.checked)}
-          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-        />
-        <label className="text-sm font-medium text-gray-700">{fieldLabel}</label>
-      </div>
-    );
-  }
-
-  return null;
 }
