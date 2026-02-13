@@ -4,6 +4,9 @@
 import type { SiteContent, SectionKey } from '@/types/content';
 
 const STORAGE_KEY = 'site_content';
+const CONTENT_VERSION_KEY = 'site_content_version';
+// Increment this version when critical defaults change (e.g., email, phone)
+const CURRENT_VERSION = 2;
 
 // Default Content (aus data.ts übernommen)
 export const defaultContent: SiteContent = {
@@ -206,6 +209,24 @@ export function getContent(): SiteContent {
   }
 
   try {
+    // Check version - reset practiceInfo if version changed
+    const storedVersion = localStorage.getItem(CONTENT_VERSION_KEY);
+    const currentVersion = storedVersion ? parseInt(storedVersion, 10) : 0;
+
+    if (currentVersion < CURRENT_VERSION) {
+      // Version changed - reset practiceInfo to get new email/phone
+      localStorage.setItem(CONTENT_VERSION_KEY, CURRENT_VERSION.toString());
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        // Keep user content but reset practiceInfo to defaults
+        parsed.practiceInfo = defaultContent.practiceInfo;
+        parsed.footer = defaultContent.footer;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+        return deepMerge(defaultContent, parsed);
+      }
+    }
+
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       const parsed = JSON.parse(stored);
