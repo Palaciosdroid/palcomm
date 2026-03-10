@@ -18,6 +18,11 @@ export default function BlogPostPage() {
       const foundPost = getPostBySlug(params.slug as string);
       setPost(foundPost || null);
       setLoading(false);
+
+      // Dynamisch Titel setzen für SEO
+      if (foundPost) {
+        document.title = `${foundPost.title} | Hypnose Enza`;
+      }
     }
   }, [params.slug]);
 

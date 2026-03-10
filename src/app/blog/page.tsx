@@ -6,6 +6,9 @@ import { BlogPost, getPublishedPosts } from '@/lib/blog';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
+// Metadata wird im Head gesetzt (client component limitation)
+// Für statische metadata siehe: generateMetadata in page.tsx (server component)
+
 export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
 
