@@ -1,0 +1,9 @@
+export { default as HeroSectionEditor } from './HeroSectionEditor';
+export { default as WelcomeSectionEditor } from './WelcomeSectionEditor';
+export { default as PhilosophySectionEditor } from './PhilosophySectionEditor';
+export { default as TherapySectionEditor } from './TherapySectionEditor';
+export { default as TestimonialsSectionEditor } from './TestimonialsSectionEditor';
+export { default as CertificatesSectionEditor } from './CertificatesSectionEditor';
+export { default as PricingSectionEditor } from './PricingSectionEditor';
+export { default as DisclaimerSectionEditor } from './DisclaimerSectionEditor';
+export { default as ContactSectionEditor } from './ContactSectionEditor';

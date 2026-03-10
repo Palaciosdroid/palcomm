@@ -3,8 +3,30 @@
 import { motion } from "framer-motion";
 import { Clock, Banknote, Phone, Car, Info, AlertCircle, Percent } from "lucide-react";
 import Image from "next/image";
+import type { PricingContent } from "@/types/content";
 
-export default function PricingSection() {
+const defaultPricing: PricingContent = {
+  title: "Konditionen",
+  freeConsultation: { title: "Kostenloses Kennenlerngespräch", subtitle: "15 Min. telefonisch – unverbindlich", phone: "tel:+41794162223", buttonText: "Jetzt anrufen" },
+  hourlyRate: "150 CHF / Stunde",
+  firstSession: { title: "Erstsitzung + Anamnese", duration: "ca. 1.5 – 2 Stunden" },
+  followUpSession: { title: "Folgesitzungen", duration: "ca. 1 – 1.5 Stunden" },
+  discount: { title: "20% Ermässigung", description: "für Kinder & Jugendliche (6–18 Jahre), Studierende, IV-Bezüger und Pensionierte" },
+  payment: { title: "Bezahlung nach jeder Sitzung", methods: ["Bar", "TWINT"] },
+  houseVisits: { title: "Hausbesuche möglich", cost: "zzgl. CHF 1.50 pro Kilometer Anfahrt" },
+  cancellation: { title: "Terminabsage", text: "Bitte spätestens 24 Stunden vorher absagen, andernfalls wird die Sitzung verrechnet." },
+  insurance: { title: "Krankenkasse", text: "Die Hypnosetherapie ist in der Schweiz noch nicht von allen Krankenkassen anerkannt. Die EGK beteiligt sich bereits an den Kosten." },
+  ctaText: "Termin vereinbaren",
+  ctaLink: "#kontakt",
+};
+
+interface PricingSectionProps {
+  content?: PricingContent;
+}
+
+export default function PricingSection({ content }: PricingSectionProps) {
+  const data = content || defaultPricing;
+
   return (
     <section className="section-padding bg-cream-50">
       <div className="max-w-4xl mx-auto px-6 md:px-8">
@@ -17,7 +39,7 @@ export default function PricingSection() {
           className="text-4xl md:text-5xl text-center mb-12"
           style={{ fontFamily: "Playfair Display, Georgia, serif" }}
         >
-          Konditionen
+          {data.title}
         </motion.h2>
 
         {/* Free Consultation Banner */}
@@ -33,15 +55,15 @@ export default function PricingSection() {
               <Phone className="w-6 h-6 text-brand" />
             </div>
             <div>
-              <p className="font-medium text-text-dark">Kostenloses Kennenlerngespräch</p>
-              <p className="text-sm text-text-medium">15 Min. telefonisch – unverbindlich</p>
+              <p className="font-medium text-text-dark">{data.freeConsultation.title}</p>
+              <p className="text-sm text-text-medium">{data.freeConsultation.subtitle}</p>
             </div>
           </div>
           <a
-            href="tel:+41794162223"
+            href={data.freeConsultation.phone}
             className="btn-secondary text-sm whitespace-nowrap"
           >
-            Jetzt anrufen
+            {data.freeConsultation.buttonText}
           </a>
         </motion.div>
 
@@ -74,9 +96,9 @@ export default function PricingSection() {
                 <Clock className="w-5 h-5 text-sage-600" />
               </div>
               <div>
-                <p className="font-medium text-text-dark">Erstsitzung + Anamnese</p>
+                <p className="font-medium text-text-dark">{data.firstSession.title}</p>
                 <p className="text-sm text-text-light">
-                  ca. 1.5 – 2 Stunden
+                  {data.firstSession.duration}
                 </p>
               </div>
             </div>
@@ -86,9 +108,9 @@ export default function PricingSection() {
                 <Clock className="w-5 h-5 text-sage-600" />
               </div>
               <div>
-                <p className="font-medium text-text-dark">Folgesitzungen</p>
+                <p className="font-medium text-text-dark">{data.followUpSession.title}</p>
                 <p className="text-sm text-text-light">
-                  ca. 1 – 1.5 Stunden
+                  {data.followUpSession.duration}
                 </p>
               </div>
             </div>
@@ -98,10 +120,10 @@ export default function PricingSection() {
           <div className="bg-sage-50 rounded-xl p-5 mb-8">
             <div className="flex items-center gap-3 mb-3">
               <Percent className="w-5 h-5 text-brand" />
-              <p className="font-medium text-text-dark">20% Ermässigung</p>
+              <p className="font-medium text-text-dark">{data.discount.title}</p>
             </div>
             <p className="text-sm text-text-medium">
-              für Kinder & Jugendliche (6–18 Jahre), Studierende, IV-Bezüger und Pensionierte
+              {data.discount.description}
             </p>
           </div>
 
@@ -133,9 +155,9 @@ export default function PricingSection() {
               <Car className="w-5 h-5 text-sage-600" />
             </div>
             <div>
-              <p className="font-medium text-text-dark">Hausbesuche möglich</p>
+              <p className="font-medium text-text-dark">{data.houseVisits.title}</p>
               <p className="text-sm text-text-light">
-                zzgl. CHF 1.50 pro Kilometer Anfahrt
+                {data.houseVisits.cost}
               </p>
             </div>
           </div>
@@ -153,8 +175,7 @@ export default function PricingSection() {
           <div className="flex items-start gap-3 p-4 bg-cream-100 rounded-xl">
             <Info className="w-5 h-5 text-text-medium flex-shrink-0 mt-0.5" />
             <p className="text-sm text-text-medium">
-              <span className="font-medium">Terminabsage:</span> Bitte spätestens 24 Stunden vorher absagen,
-              andernfalls wird die Sitzung verrechnet.
+              <span className="font-medium">{data.cancellation.title}:</span> {data.cancellation.text}
             </p>
           </div>
 
@@ -162,8 +183,7 @@ export default function PricingSection() {
           <div className="flex items-start gap-3 p-4 bg-cream-100 rounded-xl">
             <AlertCircle className="w-5 h-5 text-text-medium flex-shrink-0 mt-0.5" />
             <p className="text-sm text-text-medium">
-              <span className="font-medium">Krankenkasse:</span> Die Hypnosetherapie ist in der Schweiz noch
-              nicht von allen Krankenkassen anerkannt. Die EGK beteiligt sich bereits an den Kosten.
+              <span className="font-medium">{data.insurance.title}:</span> {data.insurance.text}
             </p>
           </div>
         </motion.div>
@@ -176,8 +196,8 @@ export default function PricingSection() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-10 text-center"
         >
-          <a href="#kontakt" className="btn-primary">
-            Termin vereinbaren
+          <a href={data.ctaLink} className="btn-primary">
+            {data.ctaText}
           </a>
         </motion.div>
       </div>

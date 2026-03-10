@@ -1,9 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { heroContent } from "@/lib/data";
+import { heroContent as defaultHeroContent } from "@/lib/data";
+import type { HeroContent } from "@/types/content";
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  content?: HeroContent;
+}
+
+export default function HeroSection({ content }: HeroSectionProps) {
+  const data = content || defaultHeroContent;
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden isolate bg-sage-300">
       {/* Video Background */}
@@ -15,7 +22,7 @@ export default function HeroSection() {
         poster="/images/hero-fallback.jpg"
         className="absolute inset-0 z-0 w-full h-full object-cover"
       >
-        <source src="/videos/nature-bg.mp4" type="video/mp4" />
+        <source src={process.env.NEXT_PUBLIC_HERO_VIDEO_URL || "/videos/nature-bg.mp4"} type="video/mp4" />
         Dein Browser unterstützt keine Videos.
       </video>
 
@@ -28,13 +35,13 @@ export default function HeroSection() {
       />
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-8 pt-32 pb-32">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 min-[400px]:px-6 md:px-8 pt-24 min-[400px]:pt-32 pb-24 min-[400px]:pb-32">
         {/* Semi-transparent Glass Card */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="px-8 py-14 md:px-20 md:py-20 text-center rounded-3xl"
+          className="px-5 py-10 min-[400px]:px-8 min-[400px]:py-14 md:px-20 md:py-20 text-center rounded-2xl min-[400px]:rounded-3xl"
           style={{
             background: "rgba(255, 255, 255, 0.38)",
             backdropFilter: "blur(16px)",
@@ -47,14 +54,14 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl md:text-6xl lg:text-7xl mb-10"
+            className="text-4xl min-[400px]:text-5xl md:text-6xl lg:text-7xl mb-6 min-[400px]:mb-10"
             style={{
               fontFamily: "Playfair Display, Georgia, serif",
               fontStyle: "italic",
               color: "#3d4a3a"
             }}
           >
-            {heroContent.title}
+            {data.title}
           </motion.h1>
 
           {/* Description */}
@@ -62,10 +69,10 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl leading-relaxed mb-10 max-w-2xl mx-auto"
+            className="text-base min-[400px]:text-xl md:text-2xl leading-relaxed mb-6 min-[400px]:mb-10 max-w-2xl mx-auto"
             style={{ color: "#5a6657" }}
           >
-            &laquo;{heroContent.description}&raquo;
+            &laquo;{data.description}&raquo;
           </motion.p>
 
           {/* Subtitle */}
@@ -73,21 +80,10 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-xl md:text-2xl font-semibold"
+            className="text-lg min-[400px]:text-xl md:text-2xl font-semibold"
             style={{ color: "#3d4a3a" }}
           >
-            Professionell und{" "}
-            <span
-              style={{
-                fontFamily: "Noto Serif, Georgia, serif",
-                fontStyle: "italic",
-                fontWeight: 700,
-                letterSpacing: "0.03em",
-                color: "#3d4a3a"
-              }}
-            >
-              Kompetent
-            </span>
+            {data.subtitle}
           </motion.p>
         </motion.div>
       </div>

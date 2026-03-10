@@ -1,10 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
-import { footerContent, practiceInfo, navigation } from "@/lib/data";
+import { Facebook, Instagram } from "lucide-react";
+import Link from "next/link";
+import { footerContent as defaultFooterContent, practiceInfo as defaultPracticeInfo } from "@/lib/data";
+import type { FooterContent, PracticeInfo } from "@/types/content";
 
-export default function Footer() {
+// Social Media URLs aus ENV-Variablen
+const FACEBOOK_URL = process.env.NEXT_PUBLIC_FACEBOOK_URL;
+const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL;
+
+interface FooterProps {
+  content?: FooterContent;
+  practiceInfo?: PracticeInfo;
+}
+
+export default function Footer({ content, practiceInfo }: FooterProps) {
+  const footerContent = content || defaultFooterContent;
+  const info = practiceInfo || defaultPracticeInfo;
   const currentYear = new Date().getFullYear();
 
   return (
@@ -25,21 +38,21 @@ export default function Footer() {
                 className="text-xl font-medium text-brand"
                 style={{ fontFamily: "Playfair Display, Georgia, serif" }}
               >
-                {practiceInfo.name.split(" ")[0]}
+                {info.name.split(" ")[0]}
               </span>
               <span
                 className="text-base text-brand-light"
                 style={{ fontFamily: "Playfair Display, Georgia, serif" }}
               >
-                {practiceInfo.name.split(" ")[1]}
+                {info.name.split(" ")[1]}
               </span>
             </div>
             <div className="flex flex-col gap-1">
               <a
-                href={`tel:${practiceInfo.phone.replace(/\s/g, '')}`}
+                href={`tel:${info.phone.replace(/\s/g, '')}`}
                 className="text-sm text-sage-600 hover:text-sage-700 transition-colors"
               >
-                {practiceInfo.phone}
+                {info.phone}
               </a>
               <a
                 href={`mailto:${footerContent.email}`}
@@ -51,35 +64,38 @@ export default function Footer() {
           </motion.div>
 
           {/* Social Icons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="flex gap-3"
-          >
-            <a
-              href="#"
-              className="w-10 h-10 rounded-full bg-sage-100 flex items-center justify-center text-sage-500 hover:text-sage-700 hover:bg-sage-200 transition-all duration-300"
-              aria-label="Facebook"
+          {(FACEBOOK_URL || INSTAGRAM_URL) && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="flex gap-3"
             >
-              <Facebook className="w-4 h-4" />
-            </a>
-            <a
-              href="#"
-              className="w-10 h-10 rounded-full bg-sage-100 flex items-center justify-center text-sage-500 hover:text-sage-700 hover:bg-sage-200 transition-all duration-300"
-              aria-label="Instagram"
-            >
-              <Instagram className="w-4 h-4" />
-            </a>
-            <a
-              href="#"
-              className="w-10 h-10 rounded-full bg-sage-100 flex items-center justify-center text-sage-500 hover:text-sage-700 hover:bg-sage-200 transition-all duration-300"
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="w-4 h-4" />
-            </a>
-          </motion.div>
+              {FACEBOOK_URL && (
+                <a
+                  href={FACEBOOK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-sage-100 flex items-center justify-center text-sage-500 hover:text-sage-700 hover:bg-sage-200 transition-all duration-300"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="w-4 h-4" />
+                </a>
+              )}
+              {INSTAGRAM_URL && (
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-sage-100 flex items-center justify-center text-sage-500 hover:text-sage-700 hover:bg-sage-200 transition-all duration-300"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-4 h-4" />
+                </a>
+              )}
+            </motion.div>
+          )}
 
           {/* Certificates Badges */}
           <motion.div
@@ -107,14 +123,25 @@ export default function Footer() {
             <p>&copy; {currentYear} {footerContent.copyright}</p>
             <div className="flex gap-6">
               {footerContent.links.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="hover:text-sage-600 transition-colors duration-200"
-                >
-                  {link.name}
-                </a>
+                link.external ? (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-sage-600 transition-colors duration-200"
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="hover:text-sage-600 transition-colors duration-200"
+                  >
+                    {link.name}
+                  </Link>
+                )
               ))}
             </div>
           </div>

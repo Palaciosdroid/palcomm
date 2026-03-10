@@ -1,10 +1,62 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Phone, Mail } from "lucide-react";
-import { contactContent, practiceInfo } from "@/lib/data";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Phone, Mail, CheckCircle, Loader2 } from "lucide-react";
+import { contactContent as defaultContactContent, practiceInfo as defaultPracticeInfo } from "@/lib/data";
+import type { ContactContent, PracticeInfo } from "@/types/content";
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  content?: ContactContent;
+  practiceInfo?: PracticeInfo;
+}
+
+export default function ContactSection({ content, practiceInfo }: ContactSectionProps) {
+  const data = content || defaultContactContent;
+  const info = practiceInfo || defaultPracticeInfo;
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const [formData, setFormData] = useState({
+    vorname: "",
+    nachname: "",
+    email: "",
+    telefon: "",
+    nachricht: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Fehler beim Senden");
+      }
+
+      setShowSuccess(true);
+      setFormData({ vorname: "", nachname: "", email: "", telefon: "", nachricht: "" });
+      setTimeout(() => setShowSuccess(false), 10000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Ein Fehler ist aufgetreten");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <section id="kontakt" className="section-padding bg-cream-50">
       <div className="max-w-2xl mx-auto px-6 md:px-8">
@@ -17,8 +69,43 @@ export default function ContactSection() {
           className="text-4xl md:text-5xl text-center mb-8"
           style={{ fontFamily: "Playfair Display, Georgia, serif" }}
         >
-          {contactContent.title}
+          {data.title}
         </motion.h2>
+
+        {/* Success Message */}
+        <AnimatePresence>
+          {showSuccess && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="mb-8 p-6 bg-green-50 border border-green-200 rounded-2xl flex items-center gap-4"
+            >
+              <CheckCircle className="w-8 h-8 text-green-600 flex-shrink-0" />
+              <div>
+                <p className="font-medium text-green-800">Nachricht gesendet!</p>
+                <p className="text-green-700 text-sm">
+                  Vielen Dank für Deine Anfrage. Ich melde mich so schnell wie möglich bei Dir.
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Error Message */}
+        <AnimatePresence>
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="mb-8 p-6 bg-red-50 border border-red-200 rounded-2xl"
+            >
+              <p className="font-medium text-red-800">Fehler</p>
+              <p className="text-red-700 text-sm">{error}</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Direct Contact Info */}
         <motion.div
@@ -29,43 +116,39 @@ export default function ContactSection() {
           className="flex flex-col sm:flex-row justify-center items-center gap-6 mb-12"
         >
           <a
-            href={`tel:${practiceInfo.phone.replace(/\s/g, '')}`}
+            href={`tel:${info.phone.replace(/\s/g, '')}`}
             className="flex items-center gap-2 text-text-medium hover:text-brand transition-colors"
           >
             <Phone className="w-5 h-5" />
-            <span>{practiceInfo.phone}</span>
+            <span>{info.phone}</span>
           </a>
           <a
-            href={`mailto:${practiceInfo.email}`}
+            href={`mailto:${info.email}`}
             className="flex items-center gap-2 text-text-medium hover:text-brand transition-colors"
           >
             <Mail className="w-5 h-5" />
-            <span>{practiceInfo.email}</span>
+            <span>{info.email}</span>
           </a>
         </motion.div>
 
-        {/* Contact Form - FormSubmit.co */}
+        {/* Contact Form */}
         <motion.form
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="space-y-5"
-          action={`https://formsubmit.co/${process.env.NEXT_PUBLIC_CONTACT_EMAIL || practiceInfo.email}`}
-          method="POST"
+          onSubmit={handleSubmit}
         >
-          {/* FormSubmit Configuration */}
-          <input type="hidden" name="_subject" value="Neue Kontaktanfrage – Hypnose Enza" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value={`${process.env.NEXT_PUBLIC_SITE_URL || 'https://hypnose-enza.ch'}/#kontakt`} />
           {/* Name Row */}
           <div className="grid md:grid-cols-2 gap-5">
             <div>
               <input
                 type="text"
-                name="Vorname"
-                placeholder={contactContent.fields.firstName}
+                name="vorname"
+                value={formData.vorname}
+                onChange={handleChange}
+                placeholder={data.fields.firstName}
                 className="input-soft"
                 required
               />
@@ -73,8 +156,10 @@ export default function ContactSection() {
             <div>
               <input
                 type="text"
-                name="Nachname"
-                placeholder={contactContent.fields.lastName}
+                name="nachname"
+                value={formData.nachname}
+                onChange={handleChange}
+                placeholder={data.fields.lastName}
                 className="input-soft"
                 required
               />
@@ -85,8 +170,10 @@ export default function ContactSection() {
           <div>
             <input
               type="email"
-              name="E-Mail"
-              placeholder={contactContent.fields.email}
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder={data.fields.email}
               className="input-soft"
               required
             />
@@ -96,8 +183,10 @@ export default function ContactSection() {
           <div>
             <input
               type="tel"
-              name="Telefon"
-              placeholder={contactContent.fields.phone}
+              name="telefon"
+              value={formData.telefon}
+              onChange={handleChange}
+              placeholder={data.fields.phone}
               className="input-soft"
             />
           </div>
@@ -105,9 +194,11 @@ export default function ContactSection() {
           {/* Message */}
           <div>
             <textarea
-              name="Nachricht"
+              name="nachricht"
+              value={formData.nachricht}
+              onChange={handleChange}
               rows={5}
-              placeholder={contactContent.fields.message}
+              placeholder={data.fields.message}
               className="input-soft resize-none"
               required
             />
@@ -115,8 +206,19 @@ export default function ContactSection() {
 
           {/* Submit Button */}
           <div className="pt-2">
-            <button type="submit" className="btn-primary w-full md:w-auto">
-              {contactContent.submitText}
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="btn-primary w-full md:w-auto disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Wird gesendet...
+                </>
+              ) : (
+                data.submitText
+              )}
             </button>
           </div>
         </motion.form>

@@ -2,9 +2,18 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { welcomeContent } from "@/lib/data";
+import { welcomeContent as defaultWelcomeContent, practiceInfo as defaultPracticeInfo } from "@/lib/data";
+import type { WelcomeContent, PracticeInfo } from "@/types/content";
 
-export default function WelcomeSection() {
+interface WelcomeSectionProps {
+  content?: WelcomeContent;
+  practiceInfo?: PracticeInfo;
+}
+
+export default function WelcomeSection({ content, practiceInfo }: WelcomeSectionProps) {
+  const data = content || defaultWelcomeContent;
+  const info = practiceInfo || defaultPracticeInfo;
+
   return (
     <section id="ueber-mich" className="relative section-padding pb-28 bg-cream-50">
       <div className="max-w-4xl mx-auto px-6 md:px-8">
@@ -17,7 +26,7 @@ export default function WelcomeSection() {
           className="text-4xl md:text-5xl text-center mb-8"
           style={{ fontFamily: "Playfair Display, Georgia, serif" }}
         >
-          {welcomeContent.title}
+          {data.title}
         </motion.h2>
 
         {/* Intro Text */}
@@ -28,7 +37,7 @@ export default function WelcomeSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-text-medium text-center text-lg md:text-xl leading-relaxed mb-6 max-w-2xl mx-auto"
         >
-          {welcomeContent.intro}
+          {data.intro}
         </motion.p>
 
         {/* Rainbow Inclusivity Badge - zentriert unter Intro */}
@@ -67,8 +76,8 @@ export default function WelcomeSection() {
               {/* Image Container */}
               <div className="relative w-64 h-80 md:w-72 md:h-96 portrait-frame overflow-hidden">
                 <Image
-                  src={welcomeContent.image}
-                  alt="Enza Gasser-Fiorini"
+                  src={data.image}
+                  alt={info.fullName}
                   fill
                   className="object-cover object-top"
                   sizes="(max-width: 768px) 256px, 288px"
@@ -85,13 +94,7 @@ export default function WelcomeSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <p className="text-text-medium text-lg leading-relaxed">
-              <span className="text-brand font-medium">Mein Name ist </span>
-              <span className="text-text-dark font-medium">Enza Gasser-Fiorini</span>
-              , ich bin verheiratet und Mutter von 2 erwachsenen Söhnen und zweifache
-              Nonna. Meine Eltern waren Italiener (Rom/Apulien) und zudem geprägte
-              Kriegskinder. Ich wuchs zweisprachig mit einer acht Jahren älteren
-              Schwester in Bern auf. Uns wurde die Wertschätzung und respektvollen
-              Umgang mit Menschen, Tieren und Umwelt mitgegeben.
+              {data.aboutText}
             </p>
           </motion.div>
         </div>
@@ -105,7 +108,7 @@ export default function WelcomeSection() {
           className="mt-24 text-center py-12 px-6 bg-sage-100/50 rounded-2xl"
         >
           <p className="quote-text max-w-2xl mx-auto">
-            {welcomeContent.quote}
+            {data.quote}
           </p>
         </motion.div>
       </div>

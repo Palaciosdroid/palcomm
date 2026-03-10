@@ -2,32 +2,25 @@
 
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
+import type { TestimonialsContent } from "@/types/content";
 
-const testimonials = [
-  {
-    id: 1,
-    text: "Nach nur wenigen Sitzungen konnte ich meine Flugangst überwinden. Enza hat eine wunderbare Art, einen durch den Prozess zu begleiten.",
-    author: "Sarah M.",
-    location: "Bern",
-    rating: 5,
-  },
-  {
-    id: 2,
-    text: "Endlich kann ich wieder ruhig schlafen. Die Hypnosetherapie hat mir geholfen, meine innere Unruhe loszulassen. Sehr empfehlenswert!",
-    author: "Thomas K.",
-    location: "Thun",
-    rating: 5,
-  },
-  {
-    id: 3,
-    text: "Professionell, einfühlsam und wirkungsvoll. Ich habe mich von Anfang an gut aufgehoben gefühlt. Die Blockaden sind endlich gelöst.",
-    author: "Laura B.",
-    location: "Bern",
-    rating: 5,
-  },
-];
+const defaultTestimonials: TestimonialsContent = {
+  title: "Erfahrungen",
+  subtitle: "Was meine Klient:innen sagen",
+  testimonials: [
+    { id: 1, text: "Nach nur wenigen Sitzungen konnte ich meine Flugangst überwinden. Enza hat eine wunderbare Art, einen durch den Prozess zu begleiten.", author: "Sarah M.", location: "Bern", rating: 5 },
+    { id: 2, text: "Endlich kann ich wieder ruhig schlafen. Die Hypnosetherapie hat mir geholfen, meine innere Unruhe loszulassen. Sehr empfehlenswert!", author: "Thomas K.", location: "Thun", rating: 5 },
+    { id: 3, text: "Professionell, einfühlsam und wirkungsvoll. Ich habe mich von Anfang an gut aufgehoben gefühlt. Die Blockaden sind endlich gelöst.", author: "Laura B.", location: "Bern", rating: 5 },
+  ],
+};
 
-export default function TestimonialsSection() {
+interface TestimonialsSectionProps {
+  content?: TestimonialsContent;
+}
+
+export default function TestimonialsSection({ content }: TestimonialsSectionProps) {
+  const data = content || defaultTestimonials;
+
   return (
     <section className="section-padding gradient-sage-reverse">
       <div className="max-w-5xl mx-auto px-6 md:px-8">
@@ -40,7 +33,7 @@ export default function TestimonialsSection() {
           className="text-4xl md:text-5xl text-center mb-4"
           style={{ fontFamily: "Playfair Display, Georgia, serif" }}
         >
-          Erfahrungen
+          {data.title}
         </motion.h2>
 
         <motion.p
@@ -50,12 +43,12 @@ export default function TestimonialsSection() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-text-medium text-center mb-12"
         >
-          Was meine Klient:innen sagen
+          {data.subtitle}
         </motion.p>
 
         {/* Testimonials Grid */}
         <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
+          {data.testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
               initial={{ opacity: 0, y: 20 }}

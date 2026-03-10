@@ -2,8 +2,16 @@
 
 import { motion } from "framer-motion";
 import { Calendar, Phone } from "lucide-react";
+import { practiceInfo as defaultPracticeInfo } from "@/lib/data";
+import type { PracticeInfo } from "@/types/content";
 
-export default function StickyCTA() {
+interface StickyCTAProps {
+  practiceInfo?: PracticeInfo;
+}
+
+export default function StickyCTA({ practiceInfo }: StickyCTAProps) {
+  const info = practiceInfo || defaultPracticeInfo;
+
   return (
     <motion.div
       initial={{ y: 100 }}
@@ -13,15 +21,15 @@ export default function StickyCTA() {
     >
       <div className="flex gap-3">
         <a
-          href="tel:+41794162223"
-          className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-full border border-brand text-brand font-medium text-sm transition-all active:scale-95"
+          href={`tel:${info.phone.replace(/\s/g, '')}`}
+          className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-full border border-brand text-brand font-medium text-sm transition-all active:scale-95 whitespace-nowrap"
         >
           <Phone className="w-4 h-4" />
           Anrufen
         </a>
         <a
           href="#kontakt"
-          className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-brand text-white font-medium text-sm transition-all active:scale-95"
+          className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-brand text-white font-medium text-sm transition-all active:scale-95 whitespace-nowrap"
         >
           <Calendar className="w-4 h-4" />
           Termin buchen

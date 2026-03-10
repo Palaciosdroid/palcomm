@@ -3,13 +3,13 @@ export const practiceInfo = {
   name: "Hypnose Enza",
   tagline: "Hypnosetherapie",
   fullName: "Enza Gasser-Fiorini",
-  subtitle: "Professionell und Kompetent",
+  subtitle: "Professionell und kompetent",
   phone: "+41 79 416 22 23",
-  email: "enzagasser@gmail.com",
+  email: "hypnoseenza@gmail.com",
   website: "hypnose-enza.ch",
   address: {
-    street: "Musterstrasse 12",
-    city: "3000 Bern",
+    street: "",
+    city: "3072 Ostermundigen",
     country: "Schweiz",
   },
 };
@@ -26,8 +26,8 @@ export const navigation = [
 export const heroContent = {
   title: "Hypnosetherapie",
   description:
-    "Beginne Dein Leben frei, harmonisch und unbeschwert zu leben. Bei der Reise begleite ich Dich demütig und vertrauensvoll auf Dein Wohlbefinden.",
-  subtitle: "Professionell und Kompetent",
+    "Beginne, Dein Leben frei, harmonisch und unbeschwert zu leben. Auf dieser Reise begleite ich Dich achtsam und vertrauensvoll in Richtung Deines Wohlbefindens.",
+  subtitle: "Professionell und kompetent",
   ctaText: "Termin Buchen",
   ctaLink: "#kontakt",
 };
@@ -36,7 +36,7 @@ export const heroContent = {
 export const welcomeContent = {
   title: "Herzlich willkommen",
   intro:
-    "Gerne stehe ich Dir achtsam, empathisch zur Seite, begleite Dich in einem geschützten Rahmen, und gebe Dir die nötige Unterstützung um Deine starken Ressourcen zu verankern.",
+    "Gerne stehe ich Dir achtsam und empathisch zur Seite, begleite Dich in einem geschützten Rahmen und unterstütze Dich dabei, Deine starken Ressourcen zu verankern.",
   aboutTitle: "Über mich",
   aboutText: `Mein Name ist Enza Gasser-Fiorini, ich bin verheiratet und Mutter von 2 erwachsenen Söhnen und zweifache Nonna. Meine Eltern waren Italiener (Rom/Apulien) und zudem geprägte Kriegskinder. Ich wuchs zweisprachig mit einer acht Jahren älteren Schwester in Bern auf. Uns wurde die Wertschätzung und respektvollen Umgang mit Menschen, Tieren und Umwelt mitgegeben.`,
   image: "/images/portrait.jpg",
@@ -53,7 +53,7 @@ Die Lösungsorientierte Methode nach Gabriel Palacios Hypnoseexperte hilft Dir d
   ctaText: "Termin Buchen",
   ctaLink: "#kontakt",
   quote: {
-    text: "Das Leben kann nur verstanden werden muss aber vorwärts gelebt werden…",
+    text: "Das Leben kann nur verstanden werden, muss aber vorwärts gelebt werden…",
     author: "Søren Kierkegaard",
     role: "Dänischer Philosoph",
   },
@@ -63,7 +63,7 @@ Die Lösungsorientierte Methode nach Gabriel Palacios Hypnoseexperte hilft Dir d
 export const therapyContent = {
   title: "Therapieangebot",
   intro:
-    "Dein Unterbewusstsein vergisst nie, denn Du kannst Deine Gefühle, Emotionen, Ängste und Glaubensätze ändern. Du verdienst es in Einklang des Lebens zu kommen.",
+    "Dein Unterbewusstsein vergisst nie, denn Du kannst Deine Gefühle, Emotionen, Ängste und Glaubensätze ändern. Du verdienst es, in Einklang mit dem Leben zu kommen.",
 
   // Zielgruppen mit Bildern
   targetGroupsTitle: "Für wen ist Hypnosetherapie?",
@@ -234,10 +234,10 @@ export const therapyDisclaimer = {
 // Footer
 export const footerContent = {
   copyright: "Enza Gasser",
-  email: "enzagasser@gmail.com",
+  email: "hypnoseenza@gmail.com",
   links: [
-    { name: "Impressum", href: "#impressum" },
-    { name: "Datenschutz", href: "#datenschutz" },
+    { name: "Impressum", href: "/impressum" },
+    { name: "Datenschutz", href: "/datenschutz" },
     { name: "Ethikkodex VSH", href: "https://verband-schweizer-hypnosetherapeuten.ch/vsh-ethik/", external: true },
   ],
   socialLinks: [

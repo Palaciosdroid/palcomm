@@ -4,9 +4,19 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
-import { navigation, practiceInfo } from "@/lib/data";
+import { navigation as defaultNavigation, practiceInfo as defaultPracticeInfo } from "@/lib/data";
+import type { NavigationItem, PracticeInfo } from "@/types/content";
 
-export default function Header() {
+interface HeaderProps {
+  content?: {
+    navigation: NavigationItem[];
+    practiceInfo: PracticeInfo;
+  };
+}
+
+export default function Header({ content }: HeaderProps) {
+  const navigation = content?.navigation || defaultNavigation;
+  const practiceInfo = content?.practiceInfo || defaultPracticeInfo;
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -30,7 +40,7 @@ export default function Header() {
             : "bg-transparent py-5"
         }`}
       >
-        <div className="max-w-5xl mx-auto px-6 md:px-8">
+        <div className="max-w-5xl mx-auto px-4 min-[400px]:px-6 md:px-8">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <a href="#" className="flex items-center">
@@ -39,7 +49,7 @@ export default function Header() {
                 alt={practiceInfo.name}
                 width={160}
                 height={65}
-                className={`h-14 md:h-16 w-auto transition-all duration-500 ${
+                className={`h-12 min-[400px]:h-14 md:h-16 w-auto transition-all duration-500 ${
                   isScrolled ? "" : "brightness-0 invert"
                 }`}
                 priority

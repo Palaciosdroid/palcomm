@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import { AlertCircle, Heart, Shield } from "lucide-react";
-import { therapyDisclaimer } from "@/lib/data";
+import { therapyDisclaimer as defaultDisclaimer } from "@/lib/data";
+import type { DisclaimerContent } from "@/types/content";
 
 // Icons passend zur neuen Reihenfolge: Komplementär, Laufend, Heilversprechen
 const icons = [
@@ -11,7 +12,13 @@ const icons = [
   <Shield key="shield" className="w-6 h-6" />,
 ];
 
-export default function DisclaimerSection() {
+interface DisclaimerSectionProps {
+  content?: DisclaimerContent;
+}
+
+export default function DisclaimerSection({ content }: DisclaimerSectionProps) {
+  const data = content || defaultDisclaimer;
+
   return (
     <section className="section-padding bg-sage-100/50">
       <div className="max-w-5xl mx-auto px-6 md:px-8">
@@ -23,11 +30,11 @@ export default function DisclaimerSection() {
           className="text-3xl md:text-4xl text-center mb-12"
           style={{ fontFamily: "Playfair Display, Georgia, serif" }}
         >
-          {therapyDisclaimer.title}
+          {data.title}
         </motion.h2>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {therapyDisclaimer.items.map((item, index) => (
+          {data.items.map((item, index) => (
             <motion.div
               key={item.title}
               initial={{ opacity: 0, y: 20 }}
