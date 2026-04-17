@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function ImpressionsSection() {
   return (
-    <section className="section-padding bg-white">
+    <section className="section-padding bg-cream-50">
       <div className="max-w-5xl mx-auto px-6 md:px-8">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
