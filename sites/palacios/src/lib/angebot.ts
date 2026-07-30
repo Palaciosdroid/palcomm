@@ -33,6 +33,14 @@ export interface Baustein {
 }
 
 export const GRUNDPREIS = 980;
+
+/**
+ * Absolvent/innen bekommen die Textüberarbeitung geschenkt statt eines
+ * Prozentrabatts. Kostet uns rund 45 Minuten, ist 190 wert — und hebt jede
+ * Absolventenseite von "selbst getippt" auf "redigiert". Ein Prozentrabatt
+ * würde bei überwiegend Absolvent/innen schlicht zum Normalpreis.
+ */
+export const ABSOLVENTEN_GRATIS = "texte-lektorat";
 export const ABO_MONATLICH = 29.9;
 export const ABO_JAEHRLICH = 299;
 
@@ -73,7 +81,7 @@ export const bausteine: Baustein[] = [
     name: "Sie schreiben für mich",
     beschreibung:
       "Sie schicken uns Stichworte, Lebenslauf und ein paar Sätze über Ihre Haltung. Den Rest schreiben wir.",
-    preis: 690,
+    preis: 490,
   },
 
   // --- Sichtbarkeit ---
