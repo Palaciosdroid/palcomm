@@ -10,6 +10,7 @@ import HeroSection from '@/components/sections/HeroSection';
 import WelcomeSection from '@/components/sections/WelcomeSection';
 import PhilosophySection from '@/components/sections/PhilosophySection';
 import TherapySection from '@/components/sections/TherapySection';
+import ImpressionsSection from '@/components/sections/ImpressionsSection';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import CertificatesSection from '@/components/sections/CertificatesSection';
 import PricingSection from '@/components/sections/PricingSection';
@@ -62,6 +63,7 @@ export default function DynamicPage() {
       <WelcomeSection content={c.welcome} practiceInfo={c.practiceInfo} />
       <PhilosophySection content={c.philosophy} />
       <TherapySection content={c.therapy} />
+      <ImpressionsSection />
       <TestimonialsSection content={c.testimonials} />
       <CertificatesSection content={c.certificates} />
       <PricingSection content={c.pricing} />
