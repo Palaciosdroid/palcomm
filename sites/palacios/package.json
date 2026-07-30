@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:domain": "npx --yes tsx scripts/check-domain.mts"
   },
   "dependencies": {
     "@tiptap/extension-link": "^3.19.0",
