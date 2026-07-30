@@ -1,0 +1,131 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Facebook, Instagram } from "lucide-react";
+import Link from "next/link";
+import { defaultContent } from "@/lib/content";
+import type { FooterContent, BusinessInfo } from "@/types/content";
+
+// Social Media URLs aus ENV-Variablen
+const FACEBOOK_URL = process.env.NEXT_PUBLIC_FACEBOOK_URL;
+const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL;
+
+interface FooterProps {
+  content?: FooterContent;
+  business?: BusinessInfo;
+}
+
+export default function Footer({ content, business }: FooterProps) {
+  const footerContent = content || defaultContent.footer;
+  const info = business || defaultContent.business;
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="bg-base-100 border-t border-accent-100">
+      {/* Main Footer */}
+      <div className="max-w-5xl mx-auto px-6 md:px-8 py-12 md:py-16">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+          {/* Logo & Contact */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center md:text-left"
+          >
+            <div className="flex flex-col leading-tight mb-3">
+              <span className="font-serif text-xl font-medium text-brand">
+                {info.name.split(" ")[0]}
+              </span>
+              <span className="font-serif text-base text-brand-light">
+                {info.name.split(" ")[1]}
+              </span>
+            </div>
+            <div className="flex flex-col gap-1">
+              <a
+                href={`tel:${info.phone.replace(/\s/g, '')}`}
+                className="text-sm text-accent-600 hover:text-brand transition-colors"
+              >
+                {info.phone}
+              </a>
+              <a
+                href={`mailto:${footerContent.email}`}
+                className="text-sm text-accent-600 hover:text-brand transition-colors"
+              >
+                {footerContent.email}
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Social Icons */}
+          {(FACEBOOK_URL || INSTAGRAM_URL) && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="flex gap-3"
+            >
+              {FACEBOOK_URL && (
+                <a
+                  href={FACEBOOK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-accent-100 flex items-center justify-center text-accent-500 hover:text-brand hover:bg-accent-200 transition-all duration-300"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="w-4 h-4" />
+                </a>
+              )}
+              {INSTAGRAM_URL && (
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-accent-100 flex items-center justify-center text-accent-500 hover:text-brand hover:bg-accent-200 transition-all duration-300"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-4 h-4" />
+                </a>
+              )}
+            </motion.div>
+          )}
+
+          {/* Certificates Badges */}
+        </div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="border-t border-accent-100">
+        <div className="max-w-5xl mx-auto px-6 md:px-8 py-5">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-text-light">
+            <p>&copy; {currentYear} {footerContent.copyright}</p>
+            <div className="flex gap-6">
+              {footerContent.links.map((link) => (
+                link.external ? (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-accent-600 transition-colors duration-200"
+                  >
+                    {link.name}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="hover:text-accent-600 transition-colors duration-200"
+                  >
+                    {link.name}
+                  </Link>
+                )
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

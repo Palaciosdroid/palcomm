@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Einblick 1">
+  <rect width="1200" height="900" fill="#e8e6e1"/>
+  <rect x="1" y="1" width="1198" height="898" fill="none" stroke="#c9c5bd" stroke-width="2" stroke-dasharray="10 8"/>
+  <g fill="#9b968c" font-family="system-ui, sans-serif" text-anchor="middle">
+    <text x="600" y="446" font-size="64" font-weight="500">Einblick 1</text>
+    <text x="600" y="531" font-size="40">1200 × 900</text>
+  </g>
+</svg>
