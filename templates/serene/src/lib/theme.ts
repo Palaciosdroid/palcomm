@@ -170,6 +170,32 @@ export const palettes: Palette[] = [
       textMuted: "#8f959e",
     },
   },
+  {
+    id: "gold",
+    name: "Gold",
+    description: "Warmes Gold auf Anthrazit. Wirkt hochwertig und ruhig zugleich.",
+    preview: ["#9c7b42", "#c9a870", "#f2f1ea"],
+    colors: {
+      brand: "#9c7b42",
+      brandLight: "#c9a870",
+      brandDark: "#7d6234",
+      accent100: "#f8f6f0",
+      accent200: "#efebe0",
+      accent300: "#ded4bf",
+      accent400: "#c9a870",
+      accent500: "#ae8e52",
+      accent600: "#8a6f3f",
+      base50: "#fdfcf9",
+      base100: "#f8f7f2",
+      base200: "#f2f1ea",
+      base300: "#e6e4da",
+      base400: "#d2cfc2",
+      textDark: "#2f2e2b",
+      textMedium: "#55534d",
+      textLight: "#7a776f",
+      textMuted: "#9e9b92",
+    },
+  },
 ];
 
 export interface FontPairing {
