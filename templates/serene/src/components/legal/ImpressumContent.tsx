@@ -3,6 +3,18 @@ import { ArrowLeft } from "lucide-react";
 import type { BusinessInfo } from "@/types/content";
 
 export default function ImpressumContent({ business }: { business: BusinessInfo }) {
+  const legal: [string, string][] = (
+    [
+      ["UID", business.legal?.uid],
+      ["Handelsregister", business.legal?.commercialRegister],
+      ["MWST-Nummer", business.legal?.vatNumber],
+      ["Berufsbezeichnung", business.legal?.professionalTitle],
+      ["Aufsichtsbehörde", business.legal?.supervisoryAuthority],
+      ["Berufsverband", business.legal?.professionalAssociation],
+      ["Registernummer", business.legal?.registrationNumber],
+    ] as [string, string | undefined][]
+  ).filter((entry): entry is [string, string] => Boolean(entry[1]?.trim()));
+
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -43,6 +55,26 @@ export default function ImpressumContent({ business }: { business: BusinessInfo 
             {business.address.country}
           </p>
         </section>
+
+        {/*
+          Pflichtangaben nach UWG Art. 3 Abs. 1 lit. s sowie berufsrechtliche
+          Angaben. Jede Zeile erscheint nur, wenn sie gesetzt ist.
+        */}
+        {legal.length > 0 && (
+          <section>
+            <h3 className="text-lg font-medium text-text-dark mb-2">
+              Rechtliche Angaben:
+            </h3>
+            <dl className="leading-relaxed">
+              {legal.map(([label, value]) => (
+                <div key={label} className="flex flex-wrap gap-x-2">
+                  <dt className="text-text-light">{label}:</dt>
+                  <dd>{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
 
         <section>
           <h3 className="text-lg font-medium text-text-dark mb-2">Telefon:</h3>

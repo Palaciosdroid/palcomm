@@ -3,7 +3,8 @@ import "./globals.css";
 import JsonLdSchemas from "@/components/seo/JsonLd";
 import { readContent } from "@/lib/content-store";
 import { siteConfig, siteUrl } from "@/lib/site-config";
-import { googleFontsUrl, themeToCssText } from "@/lib/theme";
+import { themeToCssText } from "@/lib/theme";
+import { fontVariables } from "@/lib/fonts";
 
 // Theme und SEO-Texte kommen aus dem gespeicherten Content — das Layout darf
 // deshalb nicht beim Deploy eingefroren werden.
@@ -76,21 +77,15 @@ export default async function RootLayout({
   const { theme } = content;
 
   return (
-    <html lang={siteConfig.locale} className="scroll-smooth">
+    <html lang={siteConfig.locale} className={`scroll-smooth ${fontVariables}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
         {/*
           Palette und Schrift kommen aus dem gespeicherten Theme und werden
           direkt mitgeliefert. So steht die richtige Farbgebung schon beim
           ersten Rendern — sonst würde die Seite kurz in der Vorgabe
-          aufblitzen und dann umspringen.
+          aufblitzen und dann umspringen. Die Schriftdateien selbst liefert
+          next/font vom eigenen Server aus, siehe src/lib/fonts.ts.
         */}
-        <link id="theme-font-link" href={googleFontsUrl(theme.fontId)} rel="stylesheet" />
         <style
           id="theme-vars"
           dangerouslySetInnerHTML={{ __html: themeToCssText(theme) }}

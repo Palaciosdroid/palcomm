@@ -66,6 +66,7 @@ export const emptyState: BuilderState = {
     "services",
     "impressions",
     "testimonials",
+    "disclaimer",
     "contact",
   ],
   texts: {
@@ -102,12 +103,17 @@ export const SECTION_LABELS: Record<SectionId, { name: string; hint: string }> =
   testimonials: { name: "Erfahrungen", hint: "Rückmeldungen von Kund/innen" },
   certificates: { name: "Aus- und Weiterbildungen", hint: "Diplome und Zertifikate" },
   pricing: { name: "Konditionen", hint: "Preise, Ermässigungen, Bezahlung" },
-  disclaimer: { name: "Wichtige Hinweise", hint: "Rechtliche Hinweise" },
+  disclaimer: { name: "Wichtige Hinweise", hint: "Kein Heilversprechen, Notfallnummern — immer dabei" },
   contact: { name: "Kontakt", hint: "Formular und Kontaktdaten — immer dabei" },
 };
 
-/** Diese Sektionen lassen sich nicht abwählen. */
-export const REQUIRED_SECTIONS: SectionId[] = ["hero", "contact"];
+/**
+ * Diese Sektionen lassen sich nicht abwählen. "disclaimer" gehört dazu, weil
+ * das Template für Angebote im Gesundheitsbereich gedacht ist — ohne die
+ * Hinweise (kein Heilversprechen, ergänzende Begleitung, Notfallnummern)
+ * darf keine Seite aufgeschaltet werden.
+ */
+export const REQUIRED_SECTIONS: SectionId[] = ["hero", "disclaimer", "contact"];
 
 /** Reihenfolge der Sektionen auf der fertigen Seite. */
 export const SECTION_ORDER: SectionId[] = [

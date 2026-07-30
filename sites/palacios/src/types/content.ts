@@ -22,6 +22,26 @@ export interface BusinessInfo {
     city: string;
     country: string;
   };
+  /**
+   * Pflichtangaben fürs Impressum nach UWG Art. 3 Abs. 1 lit. s. Leer lassen,
+   * was nicht zutrifft — die Felder werden dann nicht ausgegeben.
+   */
+  legal?: {
+    /** Unternehmens-Identifikationsnummer, z. B. "CHE-123.456.789" */
+    uid?: string;
+    /** Handelsregisteramt, z. B. "Handelsregisteramt des Kantons Bern" */
+    commercialRegister?: string;
+    /** MWST-Nummer, falls steuerpflichtig */
+    vatNumber?: string;
+    /** Geschützte Berufsbezeichnung und Staat der Verleihung */
+    professionalTitle?: string;
+    /** Zuständige kantonale Bewilligungsbehörde */
+    supervisoryAuthority?: string;
+    /** Berufsverband, z. B. "VSH" */
+    professionalAssociation?: string;
+    /** ZSR-, EMR- oder ASCA-Nummer */
+    registrationNumber?: string;
+  };
 }
 
 export interface NavigationItem {
@@ -182,6 +202,9 @@ export interface ContactContent {
     message: string;
   };
   submitText: string;
+  /** Hinweis zur Datenbearbeitung, steht über dem Senden-Knopf */
+  privacyNotice: string;
+  /** Beschriftung des Links auf die Datenschutzerklärung */
   privacyText: string;
   successTitle: string;
   successMessage: string;

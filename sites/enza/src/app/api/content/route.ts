@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import Redis from 'ioredis';
 import type { SiteContent } from '@/types/content';
 import { defaultContent } from '@/lib/content';
+import { isAuthenticated } from '@/lib/auth';
 
 // Redis Client (lazy initialization)
 let redis: Redis | null = null;
@@ -25,7 +26,11 @@ function getRedis(): Redis | null {
 // In-Memory Cache für Development (Fallback)
 let cachedContent: SiteContent | null = null;
 
-const CONTENT_KEY = 'site:content';
+// Schlüssel enthält die Seite, damit sich mehrere Seiten eine Redis-Instanz
+// teilen können, ohne einander die Inhalte zu überschreiben. Der alte Wert
+// 'site:content' wird beim ersten Start noch gelesen und übernommen.
+const CONTENT_KEY = 'site:hypnose-enza.ch:content';
+const LEGACY_CONTENT_KEY = 'site:content';
 
 // GET: Content abrufen
 export async function GET() {
@@ -39,9 +44,18 @@ export async function GET() {
         const storedVersion = await redisClient.get(VERSION_KEY);
         const currentVersion = storedVersion ? parseInt(storedVersion, 10) : 0;
 
-        const stored = await redisClient.get(CONTENT_KEY);
+        // Beim ersten Start nach der Umstellung liegt der Stand noch unter
+        // dem alten Schlüssel. Einmal übernehmen, danach greift der neue.
+        let stored = await redisClient.get(CONTENT_KEY);
+        if (!stored) {
+          const legacy = await redisClient.get(LEGACY_CONTENT_KEY);
+          if (legacy) {
+            await redisClient.set(CONTENT_KEY, legacy);
+            stored = legacy;
+          }
+        }
         if (stored) {
-          let content = JSON.parse(stored);
+          const content = JSON.parse(stored);
 
           // Version changed - reset practiceInfo and footer to defaults
           if (currentVersion < CONTENT_VERSION) {
@@ -74,10 +88,22 @@ export async function GET() {
   }
 }
 
-// PUT: Content speichern
+// PUT: Content speichern — nur mit gültiger Admin-Session
 export async function PUT(request: Request) {
+  if (!(await isAuthenticated())) {
+    return NextResponse.json({ error: 'Nicht angemeldet' }, { status: 401 });
+  }
+
   try {
     const content: SiteContent = await request.json();
+
+    // Ohne diese Prüfung überschreibt ein unvollständiger Aufruf den gesamten
+    // Seiteninhalt — die Seite rendert danach nichts mehr und der Admin
+    // stürzt beim Laden ab.
+    if (!content || typeof content !== 'object' || !content.practiceInfo || !content.hero) {
+      return NextResponse.json({ error: 'Unvollständige Inhalte' }, { status: 400 });
+    }
+
     const redisClient = getRedis();
 
     // Wenn Redis verfügbar, dort speichern

@@ -203,6 +203,18 @@ export default function ContactSection({ content, business }: ContactSectionProp
             />
           </div>
 
+          {/*
+            Hinweis zur Datenbearbeitung. Pflicht nach revDSG und DSGVO, und
+            der Satz zur Datensparsamkeit schützt zusätzlich: Über dieses
+            Formular sollen keine Gesundheitsangaben laufen.
+          */}
+          <p className="text-sm text-text-light leading-relaxed">
+            {data.privacyNotice}{" "}
+            <a href="/datenschutz" className="underline hover:text-brand">
+              {data.privacyText}
+            </a>
+          </p>
+
           {/* Submit Button */}
           <div className="pt-2">
             <button

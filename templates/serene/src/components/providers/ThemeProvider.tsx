@@ -1,14 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import {
-  getFontPairing,
-  googleFontsUrl,
-  themeToCssVars,
-  type ThemeSelection,
-} from "@/lib/theme";
-
-const FONT_LINK_ID = "theme-font-link";
+import { themeToCssVars, type ThemeSelection } from "@/lib/theme";
 
 /**
  * Setzt Palette und Schrift zur Laufzeit auf das Dokument.
@@ -16,7 +9,9 @@ const FONT_LINK_ID = "theme-font-link";
  * Im normalen Betrieb passiert hier nichts Sichtbares — das Layout liefert
  * das Theme bereits serverseitig aus, damit die Seite nicht umspringt. Nötig
  * ist der Provider für die Live-Vorschau im Admin, wo die Auswahl sofort
- * greifen soll, ohne dass gespeichert oder neu geladen wird.
+ * greifen soll, ohne dass gespeichert oder neu geladen wird. Die
+ * Schriftdateien liegen alle bereits vor (siehe src/lib/fonts.ts), es
+ * wechseln also nur die Variablen.
  */
 export default function ThemeProvider({ theme }: { theme: ThemeSelection }) {
   useEffect(() => {
@@ -27,21 +22,6 @@ export default function ThemeProvider({ theme }: { theme: ThemeSelection }) {
       root.style.setProperty(name, value);
     }
 
-    // Schrift nachladen, falls die gewählte Kombination noch nicht im
-    // Dokument steht (z. B. weil im Admin gerade umgestellt wurde).
-    const font = getFontPairing(theme.fontId);
-    const href = googleFontsUrl(font.id);
-    const existing = document.getElementById(FONT_LINK_ID) as HTMLLinkElement | null;
-
-    if (existing) {
-      if (existing.href !== href) existing.href = href;
-    } else {
-      const link = document.createElement("link");
-      link.id = FONT_LINK_ID;
-      link.rel = "stylesheet";
-      link.href = href;
-      document.head.appendChild(link);
-    }
   }, [theme]);
 
   return null;

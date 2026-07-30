@@ -182,8 +182,6 @@ export interface FontPairing {
   body: string;
   /** Kursive Überschriften im Hero (passt nicht zu jeder Schrift) */
   headingItalic: boolean;
-  /** Google-Fonts-Query, z. B. "Playfair+Display:ital,wght@0,400;0,500" */
-  googleFamilies: string[];
 }
 
 export const fontPairings: FontPairing[] = [
@@ -191,46 +189,33 @@ export const fontPairings: FontPairing[] = [
     id: "klassisch",
     name: "Klassisch",
     description: "Elegante Serifen-Überschriften mit ruhigem Fliesstext.",
-    heading: '"Playfair Display", Georgia, serif',
-    body: '"Inter", ui-sans-serif, system-ui, sans-serif',
+    heading: "var(--font-playfair), Georgia, serif",
+    body: "var(--font-inter), ui-sans-serif, system-ui, sans-serif",
     headingItalic: true,
-    googleFamilies: [
-      "Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500",
-      "Inter:wght@300;400;500;600",
-    ],
   },
   {
     id: "fein",
     name: "Fein",
     description: "Zarte, literarische Anmutung mit viel Luft.",
-    heading: '"Cormorant Garamond", Georgia, serif',
-    body: '"Inter", ui-sans-serif, system-ui, sans-serif',
+    heading: "var(--font-cormorant), Georgia, serif",
+    body: "var(--font-inter), ui-sans-serif, system-ui, sans-serif",
     headingItalic: true,
-    googleFamilies: [
-      "Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500",
-      "Inter:wght@300;400;500;600",
-    ],
   },
   {
     id: "modern",
     name: "Modern",
     description: "Durchgehend serifenlos, klar und sachlich.",
-    heading: '"Inter", ui-sans-serif, system-ui, sans-serif',
-    body: '"Inter", ui-sans-serif, system-ui, sans-serif',
+    heading: "var(--font-inter), ui-sans-serif, system-ui, sans-serif",
+    body: "var(--font-inter), ui-sans-serif, system-ui, sans-serif",
     headingItalic: false,
-    googleFamilies: ["Inter:wght@300;400;500;600;700"],
   },
   {
     id: "warm",
     name: "Warm",
     description: "Runde, freundliche Formen mit kräftigen Überschriften.",
-    heading: '"DM Serif Display", Georgia, serif',
-    body: '"DM Sans", ui-sans-serif, system-ui, sans-serif',
+    heading: "var(--font-dm-serif), Georgia, serif",
+    body: "var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif",
     headingItalic: true,
-    googleFamilies: [
-      "DM+Serif+Display:ital@0;1",
-      "DM+Sans:wght@300;400;500;600",
-    ],
   },
 ];
 
@@ -291,9 +276,3 @@ export function themeToCssText(theme: ThemeSelection): string {
   return `:root{${body}}`;
 }
 
-/** Google-Fonts-URL für eine Schrift-Kombination. */
-export function googleFontsUrl(fontId: string): string {
-  const font = getFontPairing(fontId);
-  const families = font.googleFamilies.map((f) => `family=${f}`).join("&");
-  return `https://fonts.googleapis.com/css2?${families}&display=swap`;
-}

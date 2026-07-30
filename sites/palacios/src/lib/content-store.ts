@@ -8,8 +8,12 @@ import "server-only";
 import Redis from "ioredis";
 import type { SiteContent } from "@/types/content";
 import { defaultContent, mergeContent } from "./content";
+import { siteConfig } from "./site-config";
 
-const CONTENT_KEY = "site:content";
+// Der Schlüssel MUSS die Seite enthalten. Mit einem festen Schlüssel würden
+// sich zwei Seiten, die sich eine Redis-Instanz teilen, gegenseitig die
+// Inhalte überschreiben — lautlos und ohne Fehlermeldung.
+const CONTENT_KEY = `site:${siteConfig.domain}:content`;
 
 let redis: Redis | null = null;
 let memoryContent: SiteContent | null = null;

@@ -33,6 +33,16 @@ export const defaultContent: SiteContent = {
       city: "0000 Musterort",
       country: "Schweiz",
     },
+    // Nur ausfüllen, was zutrifft — Leeres wird im Impressum weggelassen.
+    legal: {
+      uid: "",
+      commercialRegister: "",
+      vatNumber: "",
+      professionalTitle: "",
+      supervisoryAuthority: "",
+      professionalAssociation: "",
+      registrationNumber: "",
+    },
   },
   navigation: [
     { name: "Start", href: "#" },
@@ -230,16 +240,27 @@ export const defaultContent: SiteContent = {
     ctaText: "Termin vereinbaren",
     ctaLink: "#kontakt",
   },
+  // Diese vier Hinweise sind für Angebote im Gesundheitsbereich gedacht und
+  // bewusst vorausgefüllt: Eine Seite darf nicht ohne sie online gehen. Für
+  // andere Branchen anpassen oder die Sektion in site-config.ts abwählen.
   disclaimer: {
     title: "Wichtige Hinweise",
     items: [
       {
-        title: "Erster Hinweis",
-        text: "Rechtliche oder inhaltliche Hinweise, die für Ihr Angebot wichtig sind.",
+        title: "Ergänzende Begleitung",
+        text: "Meine Arbeit versteht sich als Ergänzung zu ärztlicher, psychotherapeutischer oder psychiatrischer Behandlung — nicht als deren Ersatz. Bei gesundheitlichen Beschwerden wenden Sie sich bitte zuerst an Ihre Ärztin oder Ihren Arzt.",
       },
       {
-        title: "Zweiter Hinweis",
-        text: "Rechtliche oder inhaltliche Hinweise, die für Ihr Angebot wichtig sind.",
+        title: "Laufende Behandlung",
+        text: "Wenn Sie sich derzeit in ärztlicher, psychotherapeutischer oder psychiatrischer Behandlung befinden oder Medikamente einnehmen, sagen Sie mir das bitte vor der ersten Sitzung. Eine Begleitung erfolgt dann in Absprache mit den behandelnden Fachpersonen.",
+      },
+      {
+        title: "Kein Heilversprechen",
+        text: "Ich gebe keine Heilversprechen und keine Garantien für einen bestimmten Erfolg ab. Jeder Mensch ist verschieden, und wie eine Begleitung wirkt, lässt sich nicht voraussagen.",
+      },
+      {
+        title: "Im Notfall",
+        text: "Diese Website ist kein Notfallangebot. In einer akuten Krise wenden Sie sich bitte an den ärztlichen Notfalldienst (144), die Dargebotene Hand (Tel. 143) oder die nächste Notfallstation.",
       },
     ],
   },
@@ -253,7 +274,9 @@ export const defaultContent: SiteContent = {
       message: "Ihre Nachricht...",
     },
     submitText: "Senden",
-    privacyText: "Datenschutz",
+    privacyNotice:
+      "Ihre Angaben verwende ich ausschliesslich, um Ihre Anfrage zu beantworten. Bitte schreiben Sie hier keine Angaben zu Ihrer Gesundheit — das besprechen wir persönlich. Mehr dazu in der",
+    privacyText: "Datenschutzerklärung",
     successTitle: "Nachricht gesendet!",
     successMessage:
       "Vielen Dank für Ihre Anfrage. Ich melde mich so schnell wie möglich bei Ihnen.",

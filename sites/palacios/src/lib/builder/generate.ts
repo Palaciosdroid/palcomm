@@ -253,6 +253,16 @@ export const defaultContent: SiteContent = {
       city: ${ts(basics.city)},
       country: "Schweiz",
     },
+    // TODO beim Aufsetzen: Pflichtangaben nachtragen, soweit zutreffend.
+    legal: {
+      uid: "",
+      commercialRegister: "",
+      vatNumber: "",
+      professionalTitle: "",
+      supervisoryAuthority: "",
+      professionalAssociation: "",
+      registrationNumber: "",
+    },
   },
   navigation: [
     { name: "Start", href: "#" },
@@ -340,9 +350,29 @@ ${testimonials || "      // TODO: Rückmeldungen ergänzen"}
     ctaText: ${ts(texts.ctaText)},
     ctaLink: "#kontakt",
   },
+  // Diese vier Hinweise werden bewusst immer ausgegeben. Eine Seite im
+  // Gesundheitsbereich darf nicht ohne sie online gehen — vorher waren sie
+  // leer, was genau das ermöglicht hätte.
   disclaimer: {
     title: "Wichtige Hinweise",
-    items: [],
+    items: [
+      {
+        title: "Ergänzende Begleitung",
+        text: "Meine Arbeit versteht sich als Ergänzung zu ärztlicher, psychotherapeutischer oder psychiatrischer Behandlung — nicht als deren Ersatz. Bei gesundheitlichen Beschwerden wenden Sie sich bitte zuerst an Ihre Ärztin oder Ihren Arzt.",
+      },
+      {
+        title: "Laufende Behandlung",
+        text: "Wenn Sie sich derzeit in ärztlicher, psychotherapeutischer oder psychiatrischer Behandlung befinden oder Medikamente einnehmen, sagen Sie mir das bitte vor der ersten Sitzung. Eine Begleitung erfolgt dann in Absprache mit den behandelnden Fachpersonen.",
+      },
+      {
+        title: "Kein Heilversprechen",
+        text: "Ich gebe keine Heilversprechen und keine Garantien für einen bestimmten Erfolg ab. Jeder Mensch ist verschieden, und wie eine Begleitung wirkt, lässt sich nicht voraussagen.",
+      },
+      {
+        title: "Im Notfall",
+        text: "Diese Website ist kein Notfallangebot. In einer akuten Krise wenden Sie sich bitte an den ärztlichen Notfalldienst (144), die Dargebotene Hand (Tel. 143) oder die nächste Notfallstation.",
+      },
+    ],
   },
   contact: {
     title: "Kontakt",
@@ -354,7 +384,9 @@ ${testimonials || "      // TODO: Rückmeldungen ergänzen"}
       message: "Ihre Nachricht...",
     },
     submitText: "Senden",
-    privacyText: "Datenschutz",
+    privacyNotice:
+      "Ihre Angaben verwende ich ausschliesslich, um Ihre Anfrage zu beantworten. Bitte schreiben Sie hier keine Angaben zu Ihrer Gesundheit — das besprechen wir persönlich. Mehr dazu in der",
+    privacyText: "Datenschutzerklärung",
     successTitle: "Nachricht gesendet!",
     successMessage:
       "Vielen Dank für Ihre Anfrage. Ich melde mich so schnell wie möglich bei Ihnen.",

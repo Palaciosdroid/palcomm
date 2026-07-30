@@ -1,15 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { AlertCircle, Heart, Shield } from "lucide-react";
+import { AlertCircle, Heart, Shield, LifeBuoy } from "lucide-react";
 import { defaultContent } from "@/lib/content";
 import type { DisclaimerContent } from "@/types/content";
 
-// Icons passend zur neuen Reihenfolge: Komplementär, Laufend, Heilversprechen
+// Reihenfolge: Ergänzende Begleitung, Laufende Behandlung, Kein
+// Heilversprechen, Im Notfall. Der Zugriff ist bewusst umlaufend (Modulo) —
+// so bleibt jede Karte bebildert, auch wenn jemand einen Hinweis ergänzt.
 const icons = [
   <Heart key="heart" className="w-6 h-6" />,
   <AlertCircle key="alert" className="w-6 h-6" />,
   <Shield key="shield" className="w-6 h-6" />,
+  <LifeBuoy key="lifebuoy" className="w-6 h-6" />,
 ];
 
 interface DisclaimerSectionProps {
@@ -32,7 +35,7 @@ export default function DisclaimerSection({ content }: DisclaimerSectionProps) {
           {data.title}
         </motion.h2>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {data.items.map((item, index) => (
             <motion.div
               key={item.title}
@@ -43,7 +46,7 @@ export default function DisclaimerSection({ content }: DisclaimerSectionProps) {
               className="bg-white rounded-2xl p-6 shadow-card flex flex-col items-center text-center h-full"
             >
               <div className="w-14 h-14 rounded-full bg-accent-100 mb-5 flex items-center justify-center text-brand">
-                {icons[index]}
+                {icons[index % icons.length]}
               </div>
               <h3 className="font-medium text-text-dark mb-3 text-lg">
                 {item.title}
