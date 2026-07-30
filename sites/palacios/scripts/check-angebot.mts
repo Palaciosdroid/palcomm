@@ -59,5 +59,22 @@ for (const b of bausteine) if (b.auswahlgruppe)
 for (const [g, n] of gruppen)
   pruefe(`Auswahlgruppe "${g}" hat mehrere Optionen`, n > 1, `${n} Stück`);
 
+// Die Formatierung muss auf Server und Client Zeichen für Zeichen gleich
+// ausfallen. toLocaleString("de-CH") tut das nicht — Node schrieb 1'590,
+// Chromium 1’590, und React verwarf deshalb den halben Konfigurator.
+const formate: [number, string][] = [
+  [980, "980"],
+  [1590, "1’590"],
+  [2990, "2’990"],
+  [29.9, "29.90"],
+  [44.9, "44.90"],
+  [299, "299"],
+  [1000000, "1’000’000"],
+  [0, "0"],
+];
+for (const [zahl, erwartet] of formate)
+  pruefe(`formatiereChf(${zahl})`, formatiereChf(zahl) === erwartet,
+    `"${formatiereChf(zahl)}" erwartet "${erwartet}"`);
+
 console.log(`\n${fehler === 0 ? "Alles bestanden" : fehler + " Fehler"}`);
 process.exit(fehler ? 1 : 0);

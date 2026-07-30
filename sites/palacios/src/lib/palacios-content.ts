@@ -7,21 +7,9 @@
 // Ton: Die Firma siezt, Gabriel duzt (Video, Newsletter, Social Media). Die
 // Seite ist ein Vertragsangebot, kein Seminar.
 
-export interface Paket {
-  id: string;
-  name: string;
-  preis: number;
-  raten: string;
-  fuerWen: string;
-  enthalten: string[];
-  empfohlen?: boolean;
-}
-
-export interface Zusatz {
-  name: string;
-  preis: string;
-  hinweis?: string;
-}
+// Preise stehen NICHT hier, sondern in src/lib/angebot.ts. Eine zweite
+// Preisliste im Text driftet nach der ersten Änderung auseinander — und die
+// falsche steht dann auf der Seite.
 
 export const palacios = {
   meta: {
@@ -50,11 +38,11 @@ export const palacios = {
   },
 
   navigation: [
-    { name: "Angebot", href: "#angebot" },
-    { name: "Preise", href: "#preise" },
-    { name: "Ablauf", href: "#ablauf" },
-    { name: "Über uns", href: "#ueber-uns" },
-    { name: "Kontakt", href: "#kontakt" },
+    { name: "Angebot", href: "/#angebot" },
+    { name: "Preise", href: "/#preise" },
+    { name: "Ablauf", href: "/#ablauf" },
+    { name: "Über uns", href: "/#ueber-uns" },
+    { name: "Kontakt", href: "/#kontakt" },
   ],
 
   hero: {
@@ -111,57 +99,12 @@ export const palacios = {
     ],
     nichtEnthaltenTitle: "Nicht enthalten — damit Sie es vorher wissen",
     nichtEnthalten: [
-      "Im Basispaket schreiben Sie die Texte selbst. Wir stellen die Fragen und lesen gegen; schreiben lassen können Sie ab dem Paket Komfort.",
+      "Im Grundpreis schreiben Sie die Texte selbst. Überarbeiten oder ganz übernehmen können wir sie — das wählen Sie unten aus.",
       "Fotos und Videos machen wir auf Wunsch im Studio in Bern, gegen eine feste Pauschale.",
       "Online-Shop und Newsletter sind nicht Teil des Abos. Sprechen Sie uns an, wenn Sie das brauchen.",
+      "Eine Korrekturrunde ist inbegriffen. Was darüber hinausgeht, verrechnen wir nach Aufwand.",
     ],
   },
-
-  pakete: [
-    {
-      id: "basis",
-      name: "Basis",
-      preis: 980,
-      raten: "oder 3 × CHF 340",
-      fuerWen: "Wenn Sie Ihre Texte selbst schreiben und schnell online sein wollen.",
-      enthalten: [
-        "Website nach unserer Vorlage",
-        "Eigene Farbpalette und Schrift",
-        "Domain, Hosting, Impressum und Datenschutz",
-        "Zugang zum Selberbearbeiten",
-        "Eine Korrekturrunde",
-      ],
-    },
-    {
-      id: "komfort",
-      name: "Komfort",
-      preis: 1690,
-      raten: "oder 4 × CHF 440",
-      fuerWen: "Wenn Ihnen das Schreiben über sich selbst schwerfällt — der häufigste Fall.",
-      empfohlen: true,
-      enthalten: [
-        "Alles aus Basis",
-        "Wir schreiben Ihre Texte",
-        "SEO-Grundausbau",
-        "Google-Business-Profil eingerichtet",
-        "3 Änderungen pro Jahr inbegriffen",
-      ],
-    },
-    {
-      id: "rundum",
-      name: "Rundum",
-      preis: 2690,
-      raten: "oder 6 × CHF 465",
-      fuerWen: "Wenn der ganze Auftritt stimmen soll, nicht nur die Website.",
-      enthalten: [
-        "Alles aus Komfort",
-        "Logo als Schriftzug",
-        "200 Visitenkarten",
-        "Fotoshooting an einem Studiotag",
-        "6 Änderungen pro Jahr inbegriffen",
-      ],
-    },
-  ] as Paket[],
 
   abo: {
     title: "Danach CHF 29.90 im Monat",
@@ -176,28 +119,6 @@ export const palacios = {
     jahr: "Bei Jahreszahlung CHF 299 statt CHF 359 — zwei Monate geschenkt.",
     vergleich:
       "Zum Vergleich: Ein Baukasten wie Wix kostet 25 bis 30 Franken im Monat, die Domain ab dem zweiten Jahr extra — und Sie machen alles selbst.",
-  },
-
-  zusatz: {
-    title: "Was Sie dazunehmen können",
-    lead: "Jederzeit, auch später. Wer einzeln wählt statt ein Paket zu nehmen, zahlt diese Preise.",
-    posten: [
-      { name: "Texte schreiben wir", preis: "CHF 690" },
-      { name: "SEO-Grundausbau", preis: "CHF 390" },
-      { name: "Google-Business-Profil", preis: "CHF 290" },
-      { name: "Logo als Schriftzug", preis: "CHF 690" },
-      { name: "Logo mit Bildmarke", preis: "ab CHF 1'490", hinweis: "auf Anfrage" },
-      { name: "200 Visitenkarten", preis: "CHF 390" },
-      { name: "Fotoshooting am Studiotag", preis: "CHF 590" },
-      { name: "Weitere Unterseite", preis: "CHF 390", hinweis: "zzgl. CHF 5/Monat" },
-      { name: "Zweite Sprache", preis: "ab CHF 1'490", hinweis: "zzgl. CHF 20/Monat" },
-      { name: "Terminbuchung", preis: "CHF 290", hinweis: "zzgl. CHF 10/Monat" },
-      { name: "Blog", preis: "CHF 490", hinweis: "zzgl. CHF 15/Monat" },
-      { name: "SEO-Betreuung", preis: "CHF 30/Monat", hinweis: "quartalsweise überarbeitet" },
-      { name: "Änderungspaket, 5 Stück", preis: "CHF 290", hinweis: "einzeln CHF 90" },
-    ] as Zusatz[],
-    videoHinweis:
-      "Vorstellungs- und Imagevideos machen wir im eigenen Studio oder bei Ihnen vor Ort. Weil dafür ein Drehtag reserviert wird, offerieren wir das persönlich statt es online zu verkaufen.",
   },
 
   ablauf: {
@@ -300,10 +221,12 @@ export const palacios = {
   },
 
   footer: {
+    // AGB fehlen hier bewusst: Die bestehenden regeln Kurse und Buchversand,
+    // nicht das Website-Abo. Der Link kommt zurück, sobald die neuen AGB
+    // geprüft sind — ein Link ins Leere ist schlimmer als kein Link.
     links: [
       { name: "Impressum", href: "/impressum" },
       { name: "Datenschutz", href: "/datenschutz" },
-      { name: "AGB", href: "/agb" },
     ],
     social: [
       { name: "Instagram", href: "https://instagram.com/gabriel.palacios" },

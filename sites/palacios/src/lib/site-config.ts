@@ -34,7 +34,7 @@ export const siteConfig: SiteConfig = {
   useWww: true,
   locale: "de-CH",
   defaultTheme: {
-    paletteId: "anthrazit",
+    paletteId: "gold",
     fontId: "modern",
   },
   // Für die eigene Seite brauchen wir weder Konditionen-Tabelle noch

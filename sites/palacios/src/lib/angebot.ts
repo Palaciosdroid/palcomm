@@ -304,13 +304,24 @@ export function berechne(ausgewaehlt: string[]): Summe {
   };
 }
 
+/**
+ * Schweizer Schreibweise: 1’590 und 29.90.
+ *
+ * Bewusst von Hand statt über toLocaleString("de-CH"): Node und Chromium
+ * liefern unterschiedliche Tausendertrennzeichen (' gegen ’), je nach
+ * mitgelieferter ICU-Version. Der Konfigurator wird auf dem Server gerendert
+ * und im Browser übernommen — bei unterschiedlichem Text verwirft React den
+ * ganzen Teilbaum und baut ihn neu auf.
+ */
 export function formatiereChf(betrag: number): string {
   const gerundet = Math.round(betrag * 100) / 100;
-  const ganz = Number.isInteger(gerundet);
-  return ganz
-    ? gerundet.toLocaleString("de-CH")
-    : gerundet.toLocaleString("de-CH", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      });
+  const vorzeichen = gerundet < 0 ? "-" : "";
+  const absolut = Math.abs(gerundet);
+
+  const ganzteil = Math.trunc(absolut)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, "’");
+  const rappen = Number.isInteger(absolut) ? "" : absolut.toFixed(2).slice(-3);
+
+  return `${vorzeichen}${ganzteil}${rappen}`;
 }
