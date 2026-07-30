@@ -29,25 +29,58 @@ durchschlagen.
    nur ab, was ein Formular nicht kann (Bilder, Sonderwünsche)
 3. **Aufsetzen** — `cp -r templates/serene sites/<name>`, die beiden Dateien
    einsetzen, Bilder ablegen
-4. **Aufschalten** — Hosting-Projekt mit Root Directory `sites/<name>`
+4. **Aufschalten** — Railway-Service mit Root Directory `sites/<name>`
 
 Danach kann die Kund/in unter `/admin` selbst Texte, Farbpalette und Schrift
 ändern. Aufbau und Reihenfolge der Sektionen bleiben fest — so kann beim
 Bearbeiten nichts an der Seite kaputtgehen.
 
-## Deployment
+## Deployment (Railway)
 
-Jede Seite ist ein eigenes Hosting-Projekt. Entscheidend ist das
-**Root Directory** in den Projekteinstellungen — es muss auf den jeweiligen
-Ordner zeigen, nicht auf das Repo-Root.
+Jede Seite ist ein eigener Railway-Service auf demselben Repo. Entscheidend
+sind zwei Einstellungen pro Service:
 
-| Projekt | Root Directory | Domain |
+| Einstellung | Wert | Warum |
+|---|---|---|
+| **Root Directory** | `sites/<name>` | Sonst findet der Build die App nicht |
+| **Watch Paths** | `sites/<name>/**` | Sonst baut *jeder* Service bei *jedem* Push neu |
+
+| Service | Root Directory | Domain |
 |---|---|---|
 | Hypnose Enza | `sites/enza` | www.hypnose-enza.ch |
 | Palacios Communications | `sites/palacios` | noch offen |
 
-Jede Seite braucht `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET` und `REDIS_URL`
-als Environment-Variablen — siehe die jeweilige `.env.example`.
+Watch Paths sind der Punkt, den man in einem Monorepo leicht übersieht: ohne
+sie löst eine Änderung an der Palacios-Seite auch ein Redeploy von Enza aus.
+Nicht gefährlich, aber unnötig.
+
+### Environment-Variablen
+
+Pro Service, siehe die jeweilige `.env.example`:
+
+| Variable | |
+|---|---|
+| `ADMIN_PASSWORD` | Passwort für `/admin` |
+| `ADMIN_SESSION_SECRET` | `openssl rand -base64 32` — ohne das startet der Admin nicht |
+| `REDIS_URL` | Von der Railway-Redis-Instanz; ohne das gehen Inhaltsänderungen beim Neustart verloren |
+| `RESEND_API_KEY` | Kontaktformular |
+| `CONTACT_EMAIL` | Leer = E-Mail aus dem Content |
+| `RESEND_FROM_EMAIL` | Muss eine bei Resend verifizierte Domain sein |
+
+`PORT` setzt Railway selbst, `next start` übernimmt ihn.
+
+### Warum Railway hier gut passt
+
+Der Redis-Client in `content-store.ts` hält eine Verbindung als Modul-Singleton.
+Auf einer Serverless-Plattform wäre das heikel — jede Funktionsinstanz baut
+eine eigene Verbindung auf. Railway lässt einen Node-Prozess durchlaufen, die
+Verbindung wird also einmal geöffnet und wiederverwendet.
+
+### Domain-Weiterleitung
+
+`next.config.ts` leitet die nackte Domain auf `www.` um. Damit das greift,
+müssen **beide** Domains am Service hängen — sonst kommt ein Aufruf der
+nackten Domain gar nicht erst bei Next.js an.
 
 ## Entwicklung
 

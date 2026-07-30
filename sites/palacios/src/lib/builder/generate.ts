@@ -458,8 +458,8 @@ ${state.notes.trim()}
 
 ## Deployment
 
-Neues Hosting-Projekt mit Root Directory \`sites/${slug}\`. Environment-
-Variablen nach \`.env.example\` setzen — insbesondere \`ADMIN_PASSWORD\`,
+Neuen Railway-Service anlegen: Root Directory \`sites/${slug}\`, Watch Paths
+\`sites/${slug}/**\`. Environment-Variablen nach \`.env.example\` setzen — insbesondere \`ADMIN_PASSWORD\`,
 \`ADMIN_SESSION_SECRET\` und \`REDIS_URL\`.
 `;
 }
