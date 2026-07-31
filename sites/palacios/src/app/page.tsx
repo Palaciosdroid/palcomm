@@ -18,6 +18,7 @@ import Bildplatz from "@/components/palacios/Bildplatz";
 import Bildstapel from "@/components/palacios/Bildstapel";
 import Medienleiste from "@/components/palacios/Medienleiste";
 import Pinselstrich from "@/components/palacios/Pinselstrich";
+import MalHintergrund from "@/components/palacios/MalHintergrund";
 import { ABO_JAEHRLICH, ABO_MONATLICH, formatiereChf } from "@/lib/angebot";
 import { getPalette } from "@/lib/theme";
 
@@ -50,7 +51,10 @@ export default function Startseite() {
 
       <main>
         {/* Startbild */}
-        <section className="gradient-hero px-6 pb-20 pt-36 md:px-8 md:pb-28 md:pt-44">
+        {/* isolate: eigener Stapelkontext, damit die -z-10-Malerei über dem
+            Verlauf der section liegt, aber hinter allem Inhalt. */}
+        <section className="gradient-hero relative isolate overflow-hidden px-6 pb-20 pt-36 md:px-8 md:pb-28 md:pt-44">
+          <MalHintergrund />
           <div className="mx-auto max-w-3xl text-center">
             <p className="mb-5 text-sm font-medium uppercase tracking-[0.16em] text-brand">
               {hero.kicker}

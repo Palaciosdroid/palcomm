@@ -437,3 +437,58 @@ a {
     animation: none;
   }
 }
+
+/*
+ * Gemalter Hintergrund des Startbilds (MalHintergrund.tsx).
+ *
+ * Dieselbe Maskentechnik wie beim .pinsel: Ein Zug mit runder Kappe läuft
+ * dem Band entlang und deckt es auf. Verzögerung und Dauer setzt jeder
+ * Strich selbst über --zug-warten/--zug-dauer, so entsteht die Staffelung —
+ * ein Strich nach dem anderen, zusammen rund zwei Sekunden, danach Ruhe.
+ *
+ * .mal-nass ist der zweite Farbauftrag: Er taucht erst auf, wenn der Strich
+ * gezogen ist, und nur bis zu seiner eigenen Deckkraft (--deckkraft). So
+ * wird die Deckung ungleich wie bei echter Ölfarbe.
+ */
+.mal-zug {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: mal-ziehen var(--zug-dauer, 750ms) cubic-bezier(0.32, 0, 0.18, 1)
+    var(--zug-warten, 0ms) forwards;
+}
+
+.mal-nass {
+  opacity: 0;
+  animation: mal-decken var(--nass-dauer, 600ms) ease-out
+    var(--nass-warten, 900ms) forwards;
+}
+
+@keyframes mal-ziehen {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes mal-decken {
+  to { opacity: var(--deckkraft, 0.5); }
+}
+
+/* Die Parallaxe-Ebenen bewegen sich nur per Transform — das bleibt auf dem
+   Compositor und rechnet die Strich-Filter nicht neu. */
+.mal-ebene {
+  will-change: transform;
+}
+
+/* Wer weniger Bewegung wünscht, bekommt das fertige, stille Bild. Die
+   Parallaxe schaltet sich in MalHintergrund.tsx über dieselbe Abfrage ab. */
+@media (prefers-reduced-motion: reduce) {
+  .mal-zug {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .mal-nass {
+    opacity: var(--deckkraft, 0.5);
+    animation: none;
+  }
+  .mal-ebene {
+    will-change: auto;
+  }
+}
