@@ -8,7 +8,9 @@ export default function Fusszeile() {
     <footer className="bg-text-dark px-6 py-14 text-base-300 md:px-8">
       <div className="mx-auto flex max-w-5xl flex-col gap-8 md:flex-row md:justify-between">
         <div>
-          <p className="font-serif text-lg tracking-[0.18em] text-base-50">PALACIOS</p>
+          <p className="font-wortmarke text-lg font-semibold tracking-[0.18em] text-brand-light">
+            PALACIOS
+          </p>
           <p className="text-[0.65rem] tracking-[0.3em]">COMMUNICATIONS</p>
           <address className="mt-4 text-sm not-italic leading-relaxed">
             {firma.rechtsform}

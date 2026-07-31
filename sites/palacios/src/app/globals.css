@@ -40,6 +40,9 @@
   /* Schrift */
   --font-heading: var(--font-playfair), Georgia, serif;
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* Nur die Wortmarke. Wechselt nicht mit der Schriftwahl im Admin — das
+     Logo ist keine Gestaltungsoption. */
+  --wortmarke-schrift: var(--font-faustina), Georgia, serif;
   --heading-style: italic;
 
   --background: var(--base-50);
@@ -69,6 +72,7 @@
   --color-text-muted: var(--text-muted);
   --font-sans: var(--font-body);
   --font-serif: var(--font-heading);
+  --font-wortmarke: var(--wortmarke-schrift);
 }
 
 html {
