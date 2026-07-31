@@ -6,6 +6,7 @@ import {
   findeBaustein,
   formatiereChf,
   voreinstellungen,
+  HERVORHEBUNG,
 } from "@/lib/angebot";
 
 /**
@@ -37,7 +38,7 @@ export default function Pakete() {
             >
               {v.empfohlen && (
                 <span className="absolute -top-3 left-6 rounded-full bg-brand px-3 py-1 text-xs font-medium text-white">
-                  Am häufigsten gewählt
+                  {HERVORHEBUNG}
                 </span>
               )}
 

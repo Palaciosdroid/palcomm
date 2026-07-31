@@ -41,6 +41,17 @@ export const GRUNDPREIS = 980;
  * würde bei überwiegend Absolvent/innen schlicht zum Normalpreis.
  */
 export const ABSOLVENTEN_GRATIS = "texte-lektorat";
+
+/**
+ * Beschriftung der hervorgehobenen Voreinstellung — an einer Stelle, weil sie
+ * an mehreren Orten steht.
+ *
+ * ACHTUNG: "Am häufigsten gewählt" ist eine Tatsachenbehauptung. Solange es
+ * keine Bestellungen gibt, ist sie nicht belegbar und damit nach UWG Art. 3
+ * Abs. 1 lit. b angreifbar. Belegbar ab etwa dreissig Bestellungen — bis
+ * dahin ist "Unsere Empfehlung" die sichere Variante.
+ */
+export const HERVORHEBUNG = "Am häufigsten gewählt";
 export const ABO_MONATLICH = 29.9;
 export const ABO_JAEHRLICH = 299;
 
@@ -253,6 +264,8 @@ export const voreinstellungen: Voreinstellung[] = [
 
 export interface Summe {
   einmalig: number;
+  /** Was Absolvent/innen geschenkt bekommen, in CHF */
+  absolventenBonus: number;
   proMonat: number;
   /** Was dieselbe Auswahl ohne Paketrabatt kosten würde */
   ohneRabatt: number;
@@ -265,16 +278,30 @@ export function findeBaustein(id: string): Baustein | undefined {
   return bausteine.find((b) => b.id === id);
 }
 
-/** Auf welche Voreinstellung passt diese Auswahl exakt? */
+/**
+ * Auf welche Voreinstellung passt diese Auswahl?
+ *
+ * Verglichen wird nur, was in die Summe einfliesst. Ein Posten auf Anfrage
+ * kostet hier nichts — er darf deshalb auch den Paketpreis nicht kippen.
+ * Ohne diese Filterung sprang "Rundum" beim Anhaken des Vorstellungsvideos
+ * von 2'990 auf 3'820, also um 830 Franken für etwas, das laut Anzeige gar
+ * nicht mitgerechnet wird.
+ */
 export function erkenneVoreinstellung(ausgewaehlt: string[]): string | null {
-  const gewaehlt = [...ausgewaehlt].sort().join("|");
-  const treffer = voreinstellungen.find(
-    (v) => [...v.bausteinIds].sort().join("|") === gewaehlt
-  );
+  const buchbar = (ids: string[]) =>
+    ids
+      .map(findeBaustein)
+      .filter((b): b is Baustein => Boolean(b) && !b!.nurAufAnfrage)
+      .map((b) => b.id)
+      .sort()
+      .join("|");
+
+  const gewaehlt = buchbar(ausgewaehlt);
+  const treffer = voreinstellungen.find((v) => buchbar(v.bausteinIds) === gewaehlt);
   return treffer?.id ?? null;
 }
 
-export function berechne(ausgewaehlt: string[]): Summe {
+export function berechne(ausgewaehlt: string[], istAbsolventin = false): Summe {
   const gewaehlteBausteine = ausgewaehlt
     .map(findeBaustein)
     .filter((b): b is Baustein => Boolean(b));
@@ -296,10 +323,23 @@ export function berechne(ausgewaehlt: string[]): Summe {
   const paket = passendeVoreinstellung
     ? voreinstellungen.find((v) => v.id === passendeVoreinstellung)
     : undefined;
-  const einmalig = paket ? paket.preis : ohneRabatt;
+  const vorBonus = paket ? paket.preis : ohneRabatt;
+
+  // Absolvent/innen bekommen die Textüberarbeitung geschenkt. Der Wert gilt
+  // auch, wenn jemand die grössere Stufe wählt — sonst bekäme ausgerechnet
+  // die Kund/in, die mehr bezahlt, weniger Bonus.
+  const bonusWert = findeBaustein(ABSOLVENTEN_GRATIS)?.preis ?? 0;
+  const gewaehlteTextstufe = gewaehlteBausteine.find((b) => b.auswahlgruppe === "texte");
+  const absolventenBonus =
+    istAbsolventin && gewaehlteTextstufe
+      ? Math.min(bonusWert, gewaehlteTextstufe.preis)
+      : 0;
+
+  const einmalig = vorBonus - absolventenBonus;
 
   return {
     einmalig,
+    absolventenBonus,
     proMonat: Math.round(proMonat * 100) / 100,
     ohneRabatt,
     ersparnis: ohneRabatt - einmalig,
@@ -307,15 +347,6 @@ export function berechne(ausgewaehlt: string[]): Summe {
   };
 }
 
-/**
- * Schweizer Schreibweise: 1’590 und 29.90.
- *
- * Bewusst von Hand statt über toLocaleString("de-CH"): Node und Chromium
- * liefern unterschiedliche Tausendertrennzeichen (' gegen ’), je nach
- * mitgelieferter ICU-Version. Der Konfigurator wird auf dem Server gerendert
- * und im Browser übernommen — bei unterschiedlichem Text verwirft React den
- * ganzen Teilbaum und baut ihn neu auf.
- */
 export function formatiereChf(betrag: number): string {
   const gerundet = Math.round(betrag * 100) / 100;
   const vorzeichen = gerundet < 0 ? "-" : "";

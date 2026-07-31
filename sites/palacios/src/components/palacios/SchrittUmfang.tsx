@@ -1,20 +1,18 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Check, Info, Phone } from "lucide-react";
+import { Check, Info } from "lucide-react";
 import {
-  ABO_JAEHRLICH,
   GRUNDLEISTUNG,
   GRUNDPREIS,
+  HERVORHEBUNG,
   bausteine,
-  berechne,
   findeBaustein,
   formatiereChf,
   voreinstellungen,
   type Baustein,
   type BausteinGruppe,
+  type Summe,
 } from "@/lib/angebot";
-import { palacios } from "@/lib/palacios-content";
 import { SUGGESTED_TLDS, type DomainErgebnis } from "@/lib/funnel/domain";
 
 const GRUPPEN: { id: BausteinGruppe; name: string; lead: string }[] = [
@@ -24,34 +22,27 @@ const GRUPPEN: { id: BausteinGruppe; name: string; lead: string }[] = [
   { id: "funktionen", name: "Funktionen", lead: "Wenn deine Startseite allein nicht reicht." },
 ];
 
-/** Startauswahl: die empfohlene Voreinstellung, nicht eine leere Liste. */
-const START = voreinstellungen.find((v) => v.empfohlen)!.bausteinIds;
-
-export default function Konfigurator() {
-  const [gewaehlt, setGewaehlt] = useState<string[]>(START);
-  const [domain, setDomain] = useState("");
-  const [domainErgebnis, setDomainErgebnis] = useState<DomainErgebnis | null>(null);
-  const [pruefeLaeuft, setPruefeLaeuft] = useState(false);
-
-  const summe = useMemo(() => berechne(gewaehlt), [gewaehlt]);
-
-  // Auf dem Telefon steht die Summe rund fünf Bildschirmhöhen unter der
-  // Auswahl. Wer dort etwas anhakt, sieht den Preis nicht mitlaufen —
-  // deshalb ein schmaler Balken, solange der Konfigurator im Bild ist.
-  const bereich = useRef<HTMLDivElement>(null);
-  const [imBild, setImBild] = useState(false);
-
-  useEffect(() => {
-    const element = bereich.current;
-    if (!element) return;
-    const beobachter = new IntersectionObserver(
-      ([eintrag]) => setImBild(eintrag.isIntersecting),
-      { rootMargin: "-96px 0px -160px 0px" }
-    );
-    beobachter.observe(element);
-    return () => beobachter.disconnect();
-  }, []);
-
+export default function SchrittUmfang({
+  gewaehlt,
+  setGewaehlt,
+  summe,
+  domain,
+  setDomain,
+  domainErgebnis,
+  setDomainErgebnis,
+  pruefeLaeuft,
+  domainPruefen,
+}: {
+  gewaehlt: string[];
+  setGewaehlt: React.Dispatch<React.SetStateAction<string[]>>;
+  summe: Summe;
+  domain: string;
+  setDomain: (wert: string) => void;
+  domainErgebnis: DomainErgebnis | null;
+  setDomainErgebnis: (wert: DomainErgebnis | null) => void;
+  pruefeLaeuft: boolean;
+  domainPruefen: (tld: string) => void;
+}) {
   function umschalten(baustein: Baustein) {
     setGewaehlt((vorher) => {
       if (vorher.includes(baustein.id)) {
@@ -66,39 +57,8 @@ export default function Konfigurator() {
     });
   }
 
-  async function domainPruefen(tld: string) {
-    const name = domain.trim();
-    if (!name) return;
-    const voll = name.includes(".") ? name : `${name}.${tld}`;
-    setPruefeLaeuft(true);
-    setDomainErgebnis(null);
-    try {
-      const antwort = await fetch(`/api/domain?name=${encodeURIComponent(voll)}`);
-      if (!antwort.ok) throw new Error(String(antwort.status));
-      setDomainErgebnis(await antwort.json());
-    } catch {
-      // Die Prüfung selbst läuft serverseitig — die Registries erlauben keine
-      // Anfragen aus dem Browser. Fällt sie aus, darf das den Verkauf nicht
-      // aufhalten: Wir sagen das offen und rechnen weiter.
-      setDomainErgebnis({
-        domain: voll,
-        status: "unbekannt",
-        preisChf: null,
-        inbegriffen: false,
-        hinweis:
-          "Wir konnten das gerade nicht nachschauen. Schreib uns den Wunschnamen einfach in die Anfrage — wir schauen für dich nach.",
-      });
-    } finally {
-      setPruefeLaeuft(false);
-    }
-  }
-
   return (
-    <div
-      ref={bereich}
-      className="grid gap-10 pb-20 lg:grid-cols-[1fr_20rem] lg:items-start lg:pb-0"
-    >
-      <div>
+    <div>
         {/* Voreinstellungen als Abkürzung */}
         <div className="mb-10 grid gap-3 sm:grid-cols-3">
           {voreinstellungen.map((v) => {
@@ -117,7 +77,7 @@ export default function Konfigurator() {
               >
                 {v.empfohlen && (
                   <span className="absolute -top-2.5 left-5 rounded-full bg-brand px-2.5 py-0.5 text-[0.7rem] font-medium text-white">
-                    Empfohlen
+                    {HERVORHEBUNG}
                   </span>
                 )}
                 <span className="block text-lg font-medium text-text-dark">{v.name}</span>
@@ -263,81 +223,6 @@ export default function Konfigurator() {
             für dich anmelden.
           </p>
         </div>
-      </div>
-
-      {/* Summe — bleibt beim Scrollen stehen */}
-      <aside className="lg:sticky lg:top-28">
-        <div className="rounded-2xl bg-text-dark p-6 text-base-50">
-          <p className="text-sm text-base-300">Einmalig für die Einrichtung</p>
-          <p className="mt-1 text-4xl">CHF {formatiereChf(summe.einmalig)}</p>
-
-          {summe.ersparnis > 0 && (
-            <p className="mt-2 text-sm text-brand-light">
-              Einzeln CHF {formatiereChf(summe.ohneRabatt)} — du sparst{" "}
-              {formatiereChf(summe.ersparnis)}
-            </p>
-          )}
-
-          <hr className="my-5 border-white/15" />
-
-          <p className="text-sm text-base-300">Danach monatlich</p>
-          <p className="mt-1 text-2xl">CHF {formatiereChf(summe.proMonat)}</p>
-          <p className="mt-1 text-xs text-base-300">
-            Betrieb, Internetadresse und Updates. Monatlich kündbar. Bei Jahreszahlung
-            CHF {formatiereChf(ABO_JAEHRLICH)}.
-          </p>
-
-          <a
-            href="#kontakt"
-            className="mt-6 block rounded-full bg-brand px-6 py-3.5 text-center font-medium text-white transition-colors hover:bg-brand-dark"
-          >
-            Unverbindlich anfragen
-          </a>
-
-          <a
-            href={palacios.firma.telefonLink}
-            className="mt-3 flex items-center justify-center gap-2 text-sm text-base-300 transition-colors hover:text-base-50"
-          >
-            <Phone className="h-4 w-4" />
-            {palacios.firma.telefon}
-          </a>
-
-          <p className="mt-4 text-xs leading-relaxed text-base-300">
-            Alle Preise inkl. MwSt. Diese Übersicht ist unverbindlich und noch kein
-            Angebot — verbindlich wird der Preis mit unserer schriftlichen
-            Auftragsbestätigung.
-          </p>
-        </div>
-      </aside>
-
-      {/* Mitlaufende Summe auf kleinen Bildschirmen */}
-      <div
-        aria-hidden={!imBild}
-        className={`fixed inset-x-0 bottom-0 z-40 bg-text-dark px-5 py-3 text-base-50 shadow-[0_-8px_24px_rgba(0,0,0,0.18)] transition-transform duration-300 lg:hidden ${
-          imBild ? "translate-y-0" : "translate-y-full"
-        }`}
-      >
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <p className="text-[0.7rem] text-base-300">
-              Einrichtung einmalig · unverbindlich
-            </p>
-            <p className="text-xl leading-tight">
-              CHF {formatiereChf(summe.einmalig)}
-              <span className="ml-2 text-xs text-base-300">
-                + {formatiereChf(summe.proMonat)}/Mt
-              </span>
-            </p>
-          </div>
-          <a
-            href="#kontakt"
-            tabIndex={imBild ? undefined : -1}
-            className="shrink-0 rounded-full bg-brand px-5 py-3 text-sm font-medium text-white"
-          >
-            Anfragen
-          </a>
-        </div>
-      </div>
     </div>
   );
 }

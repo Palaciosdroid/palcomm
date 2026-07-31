@@ -173,7 +173,7 @@ export default function Startseite() {
 
               {/* Die Zahl gehört hervorgehoben, nicht in einen Absatz */}
               <div className="mt-6 inline-flex items-baseline gap-2 rounded-2xl bg-text-dark px-6 py-4 text-base-50">
-                <span className="text-sm text-base-300">CHF</span>
+                <span className="text-sm text-base-300">ab CHF</span>
                 <span className="text-4xl leading-none">
                   {formatiereChf(ABO_MONATLICH)}
                 </span>
