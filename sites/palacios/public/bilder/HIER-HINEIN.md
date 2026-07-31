@@ -6,7 +6,7 @@ Seite einen beschrifteten Platzhalter.
 
 | Datei | Stelle | Format | Empfohlen |
 |---|---|---|---|
-| `startbild-website.jpg` | Startbild, unter der Schlagzeile | breit 16:7 | 1920×840 |
+| `startbild-website.jpg` | Startbild, im Browserfenster-Rahmen | 16:9 | 1920×1080 — Bildschirmfoto vom oberen Teil einer Kundenseite; zugeschnitten wird von oben |
 | `diplom.jpg` | «Kennst du diese Momente?», hinteres Bild | 4:3 | 1200×900 |
 | `praxisraum.jpg` | «Kennst du diese Momente?», vorderes Bild | 4:3 | 1200×900 |
 

@@ -266,7 +266,7 @@ export default function SchrittBestellen({
 
       {/* Was danach passiert — nimmt die Unsicherheit vor dem Klick */}
       <div className="mt-8 rounded-2xl bg-accent-100 p-6 md:p-8">
-        <h3 className="text-lg text-text-dark">{bestellen.danachTitle}</h3>
+        <h3 className="font-sans text-lg font-semibold text-text-dark">{bestellen.danachTitle}</h3>
         <ol className="mt-4 space-y-3">
           {bestellen.danach.map((zeile) => (
             <li key={zeile} className="flex gap-3 leading-relaxed text-text-medium">

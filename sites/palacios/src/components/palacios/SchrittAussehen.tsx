@@ -33,7 +33,7 @@ export default function SchrittAussehen({
       </div>
 
       {/* Farben */}
-      <h3 className="mb-1 text-lg text-text-dark">Farben</h3>
+      <h3 className="mb-1 font-sans text-lg font-semibold text-text-dark">Farben</h3>
       <p className="mb-4 text-sm text-text-light">
         Sechs fertige Kombinationen. Jede ist so abgestimmt, dass Text darauf
         gut lesbar bleibt.
@@ -87,7 +87,7 @@ export default function SchrittAussehen({
       </div>
 
       {/* Schrift */}
-      <h3 className="mb-1 mt-10 text-lg text-text-dark">Schrift</h3>
+      <h3 className="mb-1 mt-10 font-sans text-lg font-semibold text-text-dark">Schrift</h3>
       <p className="mb-4 text-sm text-text-light">
         Vier Paarungen — eine für Überschriften, eine für den Lesetext.
       </p>

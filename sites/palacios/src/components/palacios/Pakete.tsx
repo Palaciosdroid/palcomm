@@ -42,7 +42,7 @@ export default function Pakete() {
                 </span>
               )}
 
-              <h3 className="text-xl text-text-dark">{v.name}</h3>
+              <h3 className="font-sans text-xl font-semibold text-text-dark">{v.name}</h3>
               <p className="mt-1 text-3xl text-brand">CHF {formatiereChf(v.preis)}</p>
               <p className="mt-3 leading-relaxed text-text-medium">{v.fuerWen}</p>
 
@@ -65,7 +65,7 @@ export default function Pakete() {
 
       {/* Was im Grundpreis immer drin ist */}
       <div className="mt-8 rounded-2xl bg-accent-100 p-6 md:p-8">
-        <h3 className="mb-4 text-lg text-text-dark">
+        <h3 className="mb-4 font-sans text-lg font-semibold text-text-dark">
           In jedem Fall dabei — für CHF {formatiereChf(voreinstellungen[0].preis)}
         </h3>
         <ul className="grid gap-2.5 sm:grid-cols-2">

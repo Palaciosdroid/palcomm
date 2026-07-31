@@ -18,13 +18,14 @@ export default function Bildplatz({
   ton = "warm",
   farben,
   schmal = false,
+  rund = true,
   kinder,
 }: {
   /** Was hier hingehört — wird später zum Alternativtext */
   titel: string;
   /** Optionale Regieanweisung: Format, Motiv, Stimmung */
   hinweis?: string;
-  hoehe?: "flach" | "mittel" | "hoch" | "voll";
+  hoehe?: "flach" | "video" | "mittel" | "hoch" | "voll";
   ton?: "warm" | "dunkel" | "hell";
   /**
    * Drei Farbwerte statt des Theme-Verlaufs. Damit zeigen die Beispielkacheln
@@ -34,10 +35,13 @@ export default function Bildplatz({
   farben?: [string, string, string];
   /** Beschriftung schmal halten — für Bilder, die teilweise verdeckt werden */
   schmal?: boolean;
+  /** Ohne eigene Rundung — wenn ein Rahmen aussen die Ecken übernimmt */
+  rund?: boolean;
   kinder?: ReactNode;
 }) {
   const hoehen = {
     flach: "aspect-[16/7]",
+    video: "aspect-video",
     mittel: "aspect-[4/3]",
     hoch: "aspect-[3/4]",
     voll: "h-full min-h-[18rem]",
@@ -64,7 +68,7 @@ export default function Bildplatz({
             }
           : undefined
       }
-      className={`relative overflow-hidden rounded-2xl ${
+      className={`relative overflow-hidden ${rund ? "rounded-2xl" : ""} ${
         farben ? "" : `bg-gradient-to-br ${toene}`
       } ${hoehen}`}
     >

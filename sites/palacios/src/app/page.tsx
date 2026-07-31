@@ -13,6 +13,7 @@ import Pakete from "@/components/palacios/Pakete";
 import Fragen from "@/components/palacios/Fragen";
 import Fusszeile from "@/components/palacios/Fusszeile";
 import Bild from "@/components/palacios/Bild";
+import BrowserRahmen from "@/components/palacios/BrowserRahmen";
 import Bildplatz from "@/components/palacios/Bildplatz";
 import Bildstapel from "@/components/palacios/Bildstapel";
 import Medienleiste from "@/components/palacios/Medienleiste";
@@ -78,16 +79,26 @@ export default function Startseite() {
             <p className="mt-5 text-sm text-text-light">{hero.preisNote}</p>
           </div>
 
-          {/* Damit oben nicht nur Text steht */}
+          {/*
+            Das Bildschirmfoto steckt in einem angedeuteten Browserfenster:
+            Ein nacktes Rechteck liest sich als beliebiges Bild, erst die
+            Adresszeile macht daraus unmissverständlich eine fertige Website.
+            16:9 statt 16:7 — Bildschirmfotos sind höher, und zugeschnitten
+            wird von oben, damit die Kopfzeile der gezeigten Seite bleibt.
+          */}
           <div className="mx-auto mt-14 max-w-4xl">
-            <Bild
-              datei="startbild-website.jpg"
-              titel="Beispiel einer fertigen Praxis-Website"
-              hinweis="Breit (16:7, z. B. 1920×840), Bildschirm oder Laptop mit einer echten Kundenseite"
-              hoehe="flach"
-              ton="hell"
-              prioritaet
-            />
+            <BrowserRahmen>
+              <Bild
+                datei="startbild-website.jpg"
+                titel="Beispiel einer fertigen Praxis-Website"
+                hinweis="Bildschirmfoto einer Kundenseite, 16:9, z. B. 1920×1080"
+                hoehe="video"
+                ton="hell"
+                prioritaet
+                oben
+                rund={false}
+              />
+            </BrowserRahmen>
           </div>
         </section>
 
@@ -188,7 +199,7 @@ export default function Startseite() {
           </div>
 
           <div className="mt-12 rounded-2xl border border-base-400 bg-base-50 p-6">
-            <h3 className="font-medium text-text-dark">{angebot.nichtEnthaltenTitle}</h3>
+            <h3 className="font-sans font-semibold text-text-dark">{angebot.nichtEnthaltenTitle}</h3>
             <ul className="mt-3 space-y-2">
               {angebot.nichtEnthalten.map((punkt) => (
                 <li key={punkt} className="text-text-medium">
@@ -288,7 +299,7 @@ export default function Startseite() {
           {/* Das Abo ist keine Nebenbemerkung — es trägt den Betrieb. */}
           <div className="mt-16 grid gap-10 rounded-2xl bg-white p-8 md:grid-cols-[1fr_1.1fr] md:items-center md:p-10">
             <div>
-              <h3 className="text-2xl text-text-dark">{abo.title}</h3>
+              <h3 className="font-sans text-2xl font-semibold text-text-dark">{abo.title}</h3>
               <p className="mt-3 leading-relaxed text-text-medium">{abo.lead}</p>
 
               {/* Die Zahl gehört hervorgehoben, nicht in einen Absatz */}

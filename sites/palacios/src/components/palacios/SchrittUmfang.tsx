@@ -99,7 +99,7 @@ export default function SchrittUmfang({
 
         {/* Immer enthalten */}
         <div className="mb-10 rounded-2xl bg-accent-100 p-6">
-          <h3 className="mb-4 font-medium text-text-dark">
+          <h3 className="mb-4 font-sans font-semibold text-text-dark">
             In jedem Fall dabei — für CHF {formatiereChf(GRUNDPREIS)}
           </h3>
           <ul className="grid gap-2 sm:grid-cols-2">
@@ -115,7 +115,7 @@ export default function SchrittUmfang({
         {/* Bausteine */}
         {GRUPPEN.map((gruppe) => (
           <div key={gruppe.id} className="mb-10">
-            <h3 className="font-medium text-text-dark">{gruppe.name}</h3>
+            <h3 className="font-sans font-semibold text-text-dark">{gruppe.name}</h3>
             <p className="mb-4 text-sm text-text-light">{gruppe.lead}</p>
 
             <div className="space-y-2.5">
@@ -172,7 +172,7 @@ export default function SchrittUmfang({
 
         {/* Wunschdomain */}
         <div className="rounded-2xl border-2 border-base-300 bg-white p-6">
-          <h3 className="font-medium text-text-dark">Deine Wunschadresse</h3>
+          <h3 className="font-sans font-semibold text-text-dark">Deine Wunschadresse</h3>
           <p className="mb-4 text-sm text-text-light">
             Eine Adresse auf .ch, .de oder .com ist inbegriffen. Tipp den Wunschnamen
             ein, wir schauen sofort nach, ob er noch frei ist.

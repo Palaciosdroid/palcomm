@@ -27,7 +27,7 @@ export default function Fragen({ fragen }: { fragen: Frage[] }) {
                 aria-expanded={istOffen}
                 className="flex w-full items-center justify-between gap-4 py-5 text-left"
               >
-                <span className="text-lg font-medium text-text-dark">
+                <span className="font-sans text-lg font-semibold text-text-dark">
                   {eintrag.frage}
                 </span>
                 <ChevronDown
