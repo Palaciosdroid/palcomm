@@ -67,9 +67,15 @@ export default function Atem() {
       aria-hidden
       className="atem pointer-events-none absolute inset-0 overflow-hidden"
     >
-      <span className="atem-flaeche atem-eins" />
-      <span className="atem-flaeche atem-zwei" />
-      <span className="atem-flaeche atem-drei" />
+      <span className="atem-huelle atem-eins">
+        <span className="atem-kern" />
+      </span>
+      <span className="atem-huelle atem-zwei">
+        <span className="atem-kern" />
+      </span>
+      <span className="atem-huelle atem-drei">
+        <span className="atem-kern" />
+      </span>
     </div>
   );
 }
