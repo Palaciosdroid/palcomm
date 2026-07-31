@@ -17,8 +17,7 @@ import BrowserRahmen from "@/components/palacios/BrowserRahmen";
 import Bildplatz from "@/components/palacios/Bildplatz";
 import Bildstapel from "@/components/palacios/Bildstapel";
 import Medienleiste from "@/components/palacios/Medienleiste";
-import Pinselstrich from "@/components/palacios/Pinselstrich";
-import MalHintergrund from "@/components/palacios/MalHintergrund";
+import FliessHintergrund from "@/components/palacios/FliessHintergrund";
 import { ABO_JAEHRLICH, ABO_MONATLICH, formatiereChf } from "@/lib/angebot";
 import { getPalette } from "@/lib/theme";
 
@@ -51,19 +50,16 @@ export default function Startseite() {
 
       <main>
         {/* Startbild */}
-        {/* isolate: eigener Stapelkontext, damit die -z-10-Malerei über dem
-            Verlauf der section liegt, aber hinter allem Inhalt. */}
+        {/* isolate: eigener Stapelkontext, damit der -z-10-Hintergrund über
+            dem Verlauf der section liegt, aber hinter allem Inhalt. */}
         <section className="gradient-hero relative isolate overflow-hidden px-6 pb-20 pt-36 md:px-8 md:pb-28 md:pt-44">
-          <MalHintergrund />
+          <FliessHintergrund />
           <div className="mx-auto max-w-3xl text-center">
             <p className="mb-5 text-sm font-medium uppercase tracking-[0.16em] text-brand">
               {hero.kicker}
             </p>
-            {/* Der Pinselstrich hebt genau die Hälfte hervor, in der wir die
-                Arbeit übernehmen — den Teil, der die Leser/in entlastet. */}
             <h1 className="text-4xl leading-tight text-text-dark md:text-5xl lg:text-6xl">
-              {hero.titelVorn}{" "}
-              <Pinselstrich>{hero.titelBetont}</Pinselstrich>
+              {hero.title}
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-text-medium">
               {hero.lead}

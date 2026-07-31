@@ -55,12 +55,6 @@ export const palacios = {
     // ganze Seite. Die Vorgängerin ("Sichtbar werden, ohne laut zu werden")
     // war zu indirekt: Man musste überlegen, was gemeint ist.
     title: "Das Diplom hast du. Die Website machen wir.",
-    // Für den Pinselstrich getrennt: hervorgehoben wird die Hälfte, in der
-    // wir die Arbeit übernehmen.
-    // Nur zwei Wörter im Strich: Bricht der eingeschlossene Text auf dem
-    // Telefon um, unterstreicht der Pinsel einen Block statt einer Zeile.
-    titelVorn: "Das Diplom hast du. Die Website",
-    titelBetont: "machen wir.",
     lead: "Wer deinen Namen hört, gibt ihn bei Google ein — und entscheidet dort, ob aus der Empfehlung eine Anfrage wird. Darum bauen wir dir eine komplette Website und betreiben sie danach weiter: Du lieferst Texte und Bilder und sagst uns, welche Farben du magst. Mehr musst du nicht tun — ob deine Praxis gerade entsteht oder schon lange läuft.",
     preisNote:
       "Ab CHF 980 einmalig, danach ab CHF 29.90 im Monat — Internetadresse und Betrieb inbegriffen. Mehr braucht es am Anfang nicht.",
