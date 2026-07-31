@@ -14,8 +14,12 @@ import { palacios } from "@/lib/palacios-content";
 export default function Medienleiste({ hell = false }: { hell?: boolean }) {
   const { medien } = palacios;
 
+  // min-w-0: Ohne das behält ein Flex-Kind seine Mindestbreite aus dem Inhalt
+  // (min-width: auto). Die Namen stehen auf whitespace-nowrap, die Leiste war
+  // dadurch 635 statt 390 Punkte breit — und weil sie die Elternbreite
+  // mitgezogen hat, liess sich die ganze Seite waagrecht scrollen.
   return (
-    <div>
+    <div className="min-w-0">
       <p
         className={`text-xs uppercase tracking-[0.18em] ${
           hell ? "text-base-300" : "text-text-light"
@@ -25,7 +29,7 @@ export default function Medienleiste({ hell = false }: { hell?: boolean }) {
       </p>
 
       <ul
-        className={`-mx-6 mt-4 flex items-center gap-7 overflow-x-auto px-6 pb-2 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 ${
+        className={`-mx-6 mt-4 flex w-[100vw] max-w-[100vw] items-center gap-7 overflow-x-auto px-6 pb-2 sm:mx-0 sm:w-auto sm:max-w-full sm:flex-wrap sm:overflow-visible sm:px-0 ${
           hell ? "text-base-300" : "text-text-medium"
         }`}
       >

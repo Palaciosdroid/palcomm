@@ -91,7 +91,7 @@ export default function Startseite() {
               {/* Das Bild ist dreimal so hoch wie der Ausschnitt und läuft
                   langsam durch — man sieht die ganze Seite, nicht nur den
                   Kopf. Reines CSS, damit es auf jedem Telefon läuft. */}
-              <div className="relative aspect-video overflow-hidden">
+              <div className="rahmen-fenster">
                 <Image
                   src="/bilder/startbild-website.jpg"
                   alt="Beispielseite einer Praxis in der Farbwelt Salbei, gebaut mit unserer Vorlage"
@@ -99,7 +99,7 @@ export default function Startseite() {
                   height={3240}
                   priority
                   sizes="(max-width: 768px) 100vw, 896px"
-                  className="rahmen-lauf absolute inset-x-0 top-0 h-auto w-full"
+                  className="rahmen-lauf"
                 />
               </div>
             </BrowserRahmen>
