@@ -12,9 +12,9 @@
  */
 :root {
   /* Primärfarbe */
-  --brand: #8c836c;
+  --brand: #7a735e;
   --brand-light: #a69d88;
-  --brand-dark: #706857;
+  --brand-dark: #5d5747;
 
   /* Getönte Sekundärskala */
   --accent-100: #f4f6f3;

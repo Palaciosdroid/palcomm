@@ -115,6 +115,9 @@ def main():
     s = c.read_text(encoding="utf-8")
     s = s.replace('name: "Musterpraxis",', 'name: "Deine Praxis",')
     s = s.replace('domain: "musterpraxis.ch",', 'domain: "deine-praxis.ch",')
+    # Das Regenbogen-Abzeichen ist eine Option für Kundenseiten, keine
+    # Aussage von Palacios. Im Demo-Bild hat es nichts verloren.
+    s = s.replace("showInclusivityBadge: true", "showInclusivityBadge: false")
     c.write_text(s, encoding="utf-8")
 
     logo = WURZEL / "public/images/logo.svg"
