@@ -2,9 +2,20 @@ import { Check, Clock, Phone, Mail } from "lucide-react";
 import { palacios } from "@/lib/palacios-content";
 import { Abschnitt, Ueberschrift, Knopf } from "@/components/palacios/Basis";
 import Kopf from "@/components/palacios/Kopf";
-import Konfigurator from "@/components/palacios/Konfigurator";
+import Pakete from "@/components/palacios/Pakete";
 import Fragen from "@/components/palacios/Fragen";
 import Fusszeile from "@/components/palacios/Fusszeile";
+import Bildplatz from "@/components/palacios/Bildplatz";
+import { ABO_JAEHRLICH, ABO_MONATLICH, formatiereChf } from "@/lib/angebot";
+import { getPalette } from "@/lib/theme";
+
+// Die Beispielkacheln zeigen echte Paletten aus dem Template — was hier steht,
+// kann die Kund/in im Admin tatsächlich auswählen.
+const BEISPIELE = [
+  { paletteId: "salbei", titel: "Praxis für Hypnosetherapie", hinweis: "Palette Salbei · Schrift Klassisch" },
+  { paletteId: "rose", titel: "Gesprächstherapie und Begleitung", hinweis: "Palette Rose · Schrift Fein" },
+  { paletteId: "ozean", titel: "Coaching und Mentaltraining", hinweis: "Palette Ozean · Schrift Warm" },
+];
 
 // Die Inhalte dieser Seite stehen statisch im Code (src/lib/palacios-content.ts).
 // Das ist unsere eigene Seite — der visuelle Editor ist für Kundenseiten da.
@@ -38,13 +49,29 @@ export default function Startseite() {
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-text-medium">
               {hero.lead}
             </p>
-            <p className="mt-6 text-lg font-medium text-text-dark">{hero.preisNote}</p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
               <Knopf href={hero.ctaPrimary.href}>{hero.ctaPrimary.text}</Knopf>
               <Knopf href={hero.ctaSecondary.href} variante="rand">
                 {hero.ctaSecondary.text}
               </Knopf>
             </div>
+            {/*
+              Der Preis steht bewusst unter den Knöpfen und klein: Versteckte
+              Preise lesen sich als teuer und undurchsichtig, aber als fette
+              Zeile über den Knöpfen empfängt ein Preisschild die Besucherin,
+              bevor sie weiss, was drin ist.
+            */}
+            <p className="mt-5 text-sm text-text-light">{hero.preisNote}</p>
+          </div>
+
+          {/* Damit oben nicht nur Text steht */}
+          <div className="mx-auto mt-14 max-w-4xl">
+            <Bildplatz
+              titel="Beispiel einer fertigen Praxis-Website"
+              hinweis="Breites Bild, Bildschirm oder Laptop mit einer echten Kundenseite. Ersetzt später den Farbverlauf."
+              hoehe="flach"
+              ton="hell"
+            />
           </div>
         </section>
 
@@ -127,22 +154,39 @@ export default function Startseite() {
           </p>
         </Abschnitt>
 
-        {/* Konfigurator */}
+        {/* Preise */}
         <Abschnitt id="preise" flaeche="getoent">
           <Ueberschrift
             kicker="Preise"
-            lead="Ein Grundpreis, und Sie entscheiden, was dazukommt. Alles lässt sich später ergänzen."
+            lead="Drei Vorschläge als Abkürzung. Wenn keiner passt, stellst du dir dein Angebot selbst zusammen — dann rechnet der Preis mit."
           >
-            Stellen Sie sich zusammen, was Sie brauchen
+            Was es kostet
           </Ueberschrift>
-          <Konfigurator />
+
+          <Pakete />
 
           {/* Das Abo ist keine Nebenbemerkung — es trägt den Betrieb. */}
-          <div className="mt-16 grid gap-8 rounded-2xl bg-white p-8 md:grid-cols-[1fr_1fr] md:p-10">
+          <div className="mt-16 grid gap-10 rounded-2xl bg-white p-8 md:grid-cols-[1fr_1.1fr] md:items-center md:p-10">
             <div>
               <h3 className="text-2xl text-text-dark">{abo.title}</h3>
               <p className="mt-3 leading-relaxed text-text-medium">{abo.lead}</p>
-              <p className="mt-5 font-medium text-text-dark">{abo.jahr}</p>
+
+              {/* Die Zahl gehört hervorgehoben, nicht in einen Absatz */}
+              <div className="mt-6 inline-flex items-baseline gap-2 rounded-2xl bg-text-dark px-6 py-4 text-base-50">
+                <span className="text-sm text-base-300">CHF</span>
+                <span className="text-4xl leading-none">
+                  {formatiereChf(ABO_MONATLICH)}
+                </span>
+                <span className="text-sm text-base-300">im Monat</span>
+              </div>
+
+              <p className="mt-4">
+                <span className="inline-block rounded-full bg-accent-200 px-4 py-2 text-sm text-text-dark">
+                  Jährlich: CHF {formatiereChf(ABO_JAEHRLICH)} — du zahlst zehn
+                  Monate und bekommst zwölf
+                </span>
+              </p>
+
               <p className="mt-5 text-sm leading-relaxed text-text-light">
                 {abo.vergleich}
               </p>
@@ -182,15 +226,54 @@ export default function Startseite() {
               </blockquote>
             </div>
 
-            <dl className="space-y-6">
-              {ueberUns.fakten.map((faktum) => (
-                <div key={faktum.text}>
-                  <dt className="text-2xl text-brand-light">{faktum.zahl}</dt>
-                  <dd className="mt-1 text-sm text-base-300">{faktum.text}</dd>
-                </div>
-              ))}
-            </dl>
+            <div>
+              <Bildplatz
+                titel="Gabriel Palacios"
+                hinweis="Hochformat, ruhiger Hintergrund. Alternativ ein Teambild."
+                hoehe="hoch"
+                ton="dunkel"
+              />
+
+              <dl className="mt-8 space-y-6">
+                {ueberUns.fakten.map((faktum) => (
+                  <div key={faktum.text}>
+                    <dt className="text-2xl text-brand-light">{faktum.zahl}</dt>
+                    <dd className="mt-1 text-sm text-base-300">{faktum.text}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </div>
+        </Abschnitt>
+
+        {/* Wie das aussehen kann */}
+        <Abschnitt id="beispiele">
+          <Ueberschrift
+            kicker="Beispiele"
+            lead="Dieselbe Vorlage, drei Handschriften. Farben, Schrift und Texte machen den Unterschied — der Aufbau bleibt derselbe, weil er sich bewährt hat."
+          >
+            Wie deine Seite aussehen kann
+          </Ueberschrift>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            {BEISPIELE.map((beispiel) => {
+              const { colors } = getPalette(beispiel.paletteId);
+              return (
+                <Bildplatz
+                  key={beispiel.paletteId}
+                  titel={beispiel.titel}
+                  hinweis={beispiel.hinweis}
+                  hoehe="hoch"
+                  farben={[colors.brandDark, colors.brand, colors.accent200]}
+                />
+              );
+            })}
+          </div>
+
+          <p className="mt-6 text-sm text-text-light">
+            Beispiele. Sobald die ersten Seiten live sind, stehen hier echte
+            Adressen statt Bilder.
+          </p>
         </Abschnitt>
 
         {/* Häufige Fragen */}
@@ -209,10 +292,12 @@ export default function Startseite() {
               {abschluss.lead}
             </p>
 
+            {/* Zwei gleichwertige Wege — viele wollen zuerst mit einem
+                Menschen sprechen, bevor sie irgendwo klicken. */}
             <div className="mt-8 flex flex-wrap gap-3">
               <Knopf href={abschluss.ctaHref}>{abschluss.ctaText}</Knopf>
-              <Knopf href={firma.telefonLink} variante="rand">
-                {firma.telefon}
+              <Knopf href={palacios.beratung.terminHref} variante="rand">
+                {palacios.beratung.terminText}
               </Knopf>
             </div>
 

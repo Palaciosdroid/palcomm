@@ -18,10 +18,10 @@ import { palacios } from "@/lib/palacios-content";
 import { SUGGESTED_TLDS, type DomainErgebnis } from "@/lib/funnel/domain";
 
 const GRUPPEN: { id: BausteinGruppe; name: string; lead: string }[] = [
-  { id: "texte", name: "Ihre Texte", lead: "Wer schreibt — das ist der grösste Unterschied." },
-  { id: "sichtbarkeit", name: "Gefunden werden", lead: "Damit Sie nicht nur online sind, sondern auffindbar." },
-  { id: "auftritt", name: "Auftritt", lead: "Was über die Website hinausgeht." },
-  { id: "funktionen", name: "Funktionen", lead: "Wenn die Startseite allein nicht reicht." },
+  { id: "texte", name: "Deine Texte", lead: "Wer schreibt — das macht den grössten Unterschied." },
+  { id: "sichtbarkeit", name: "Gefunden werden", lead: "Damit du nicht nur online bist, sondern auch auffindbar." },
+  { id: "auftritt", name: "Dein Auftritt", lead: "Was über die Website hinausgeht: Logo, Karten, Bilder." },
+  { id: "funktionen", name: "Funktionen", lead: "Wenn deine Startseite allein nicht reicht." },
 ];
 
 /** Startauswahl: die empfohlene Voreinstellung, nicht eine leere Liste. */
@@ -86,7 +86,7 @@ export default function Konfigurator() {
         preisChf: null,
         inbegriffen: false,
         hinweis:
-          "Wir konnten das gerade nicht prüfen. Schreiben Sie uns den Wunschnamen einfach in die Anfrage — wir schauen es für Sie nach.",
+          "Wir konnten das gerade nicht nachschauen. Schreib uns den Wunschnamen einfach in die Anfrage — wir schauen für dich nach.",
       });
     } finally {
       setPruefeLaeuft(false);
@@ -133,7 +133,7 @@ export default function Konfigurator() {
         </div>
 
         <p className="mb-8 text-sm text-text-light">
-          Die drei Vorschläge sind Abkürzungen. Alles darunter können Sie einzeln
+          Die drei Vorschläge sind Abkürzungen. Alles darunter kannst du einzeln
           an- und abwählen — der Preis rechnet mit.
         </p>
 
@@ -212,10 +212,10 @@ export default function Konfigurator() {
 
         {/* Wunschdomain */}
         <div className="rounded-2xl border-2 border-base-300 bg-white p-6">
-          <h3 className="font-medium text-text-dark">Ihre Wunschdomain</h3>
+          <h3 className="font-medium text-text-dark">Deine Wunschadresse</h3>
           <p className="mb-4 text-sm text-text-light">
-            Eine Domain auf .ch, .de oder .com ist inbegriffen. Wir prüfen sofort,
-            ob sie noch frei ist.
+            Eine Adresse auf .ch, .de oder .com ist inbegriffen. Tipp den Wunschnamen
+            ein, wir schauen sofort nach, ob er noch frei ist.
           </p>
 
           <div className="flex flex-wrap gap-2">
@@ -259,8 +259,8 @@ export default function Konfigurator() {
             </p>
           )}
           <p className="mt-3 text-xs text-text-light">
-            Die Prüfung ist keine Reservation. Endgültig zeigt sich das erst bei
-            der Registrierung.
+            Das ist noch keine Reservation — sicher ist es erst, wenn wir die Adresse
+            für dich anmelden.
           </p>
         </div>
       </div>
@@ -273,7 +273,7 @@ export default function Konfigurator() {
 
           {summe.ersparnis > 0 && (
             <p className="mt-2 text-sm text-brand-light">
-              Einzeln CHF {formatiereChf(summe.ohneRabatt)} — Sie sparen{" "}
+              Einzeln CHF {formatiereChf(summe.ohneRabatt)} — du sparst{" "}
               {formatiereChf(summe.ersparnis)}
             </p>
           )}
@@ -283,7 +283,7 @@ export default function Konfigurator() {
           <p className="text-sm text-base-300">Danach monatlich</p>
           <p className="mt-1 text-2xl">CHF {formatiereChf(summe.proMonat)}</p>
           <p className="mt-1 text-xs text-base-300">
-            Hosting, Domain und Updates. Monatlich kündbar. Bei Jahreszahlung
+            Betrieb, Internetadresse und Updates. Monatlich kündbar. Bei Jahreszahlung
             CHF {formatiereChf(ABO_JAEHRLICH)}.
           </p>
 
@@ -303,8 +303,8 @@ export default function Konfigurator() {
           </a>
 
           <p className="mt-4 text-xs leading-relaxed text-base-300">
-            Alle Preise inkl. MwSt. Diese Übersicht ist unverbindlich und noch
-            kein Angebot — verbindlich wird der Preis mit unserer schriftlichen
+            Alle Preise inkl. MwSt. Diese Übersicht ist unverbindlich und noch kein
+            Angebot — verbindlich wird der Preis mit unserer schriftlichen
             Auftragsbestätigung.
           </p>
         </div>

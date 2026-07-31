@@ -45,13 +45,14 @@ export const ABO_MONATLICH = 29.9;
 export const ABO_JAEHRLICH = 299;
 
 export const GRUNDLEISTUNG = [
-  "Website nach unserer Vorlage, mit Ihrer Farbpalette und Schrift",
-  "Wunschdomain: geprüft, registriert und eingerichtet",
-  "Hosting, SSL-Zertifikat und Backups",
-  "Impressum und Datenschutzerklärung, auf Ihre Praxis zugeschnitten",
+  "Website nach unserer Vorlage, mit deiner Farbpalette und Schrift",
+  "Deine Wunschadresse im Netz: geprüft, angemeldet und eingerichtet",
+  "Wir halten die Seite am Laufen, mit täglichen Sicherungskopien",
+  "Das Schloss im Browser: deine Seite ist verschlüsselt",
+  "Impressum und Datenschutzerklärung, auf deine Praxis zugeschnitten",
   "Die Pflichthinweise für Gesundheitsberufe, fertig formuliert",
-  "Zugang zum Selberbearbeiten von Texten, Farben und Schrift",
-  "Eine Korrekturrunde vor der Aufschaltung",
+  "Dein Zugang, um Texte, Farben und Schrift selbst zu ändern",
+  "Eine Korrekturrunde, bevor die Seite online geht",
 ];
 
 export const bausteine: Baustein[] = [
@@ -60,27 +61,27 @@ export const bausteine: Baustein[] = [
     id: "texte-selbst",
     gruppe: "texte",
     auswahlgruppe: "texte",
-    name: "Ich schreibe selbst",
+    name: "Du schreibst selbst",
     beschreibung:
-      "Sie füllen die Fragen im Konfigurator aus. Wir übernehmen Ihre Texte, wie sie sind.",
+      "Du beantwortest unsere Fragen. Wir übernehmen deine Texte so, wie sie sind.",
     preis: 0,
   },
   {
     id: "texte-lektorat",
     gruppe: "texte",
     auswahlgruppe: "texte",
-    name: "Ich schreibe, Sie überarbeiten",
+    name: "Du schreibst, wir überarbeiten",
     beschreibung:
-      "Sie liefern den Inhalt, wir bringen ihn in Form: Rechtschreibung, Rhythmus, Wirkung — und wir weisen auf Formulierungen hin, die im Gesundheitsbereich heikel sind.",
+      "Du lieferst den Inhalt, wir bringen ihn in Form: Rechtschreibung, Rhythmus, Wirkung. Und wir sagen dir, wo eine Formulierung im Gesundheitsbereich heikel ist.",
     preis: 190,
   },
   {
     id: "texte-komplett",
     gruppe: "texte",
     auswahlgruppe: "texte",
-    name: "Sie schreiben für mich",
+    name: "Wir schreiben für dich",
     beschreibung:
-      "Sie schicken uns Stichworte, Lebenslauf und ein paar Sätze über Ihre Haltung. Den Rest schreiben wir.",
+      "Du schickst uns Stichworte, deinen Lebenslauf und ein paar Sätze zu deiner Haltung. Den Rest schreiben wir — in deinem Ton, nicht in unserem.",
     preis: 490,
   },
 
@@ -88,25 +89,26 @@ export const bausteine: Baustein[] = [
   {
     id: "seo",
     gruppe: "sichtbarkeit",
-    name: "SEO-Grundausbau",
+    name: "Bei Google gefunden werden",
     beschreibung:
-      "Suchbegriffe für Ihre Region und Ihr Angebot, Seitenstruktur und Beschreibungstexte darauf abgestimmt.",
+      "Wir schauen nach, wonach Menschen in deiner Region tatsächlich suchen, und richten deine Seite darauf aus — Aufbau, Überschriften und die Texte, die Google anzeigt.",
     preis: 390,
+    hinweis: "Fachleute nennen das SEO. Für dich ändert sich nichts ausser der Sichtbarkeit.",
   },
   {
     id: "google-business",
     gruppe: "sichtbarkeit",
-    name: "Google-Business-Profil",
+    name: "Dein Eintrag auf Google Maps",
     beschreibung:
-      "Eingerichtet und verifiziert, damit Sie in der Kartensuche erscheinen. Für lokale Praxen oft wirksamer als die Website selbst.",
+      "Wir richten ihn ein und lassen ihn bestätigen, damit deine Praxis auf der Karte erscheint, wenn jemand in der Nähe sucht. Für eine lokale Praxis oft wirksamer als die Website selbst.",
     preis: 290,
   },
   {
     id: "seo-betreuung",
     gruppe: "sichtbarkeit",
-    name: "Laufende SEO-Betreuung",
+    name: "Laufend nachhelfen",
     beschreibung:
-      "Wir schauen quartalsweise, wonach Menschen tatsächlich suchen, und passen Ihre Texte an.",
+      "Wir schauen jedes Quartal, wonach Menschen suchen, und passen deine Texte an. Sichtbarkeit ist nichts, was man einmal einstellt.",
     preis: 0,
     proMonat: 30,
   },
@@ -118,33 +120,33 @@ export const bausteine: Baustein[] = [
     auswahlgruppe: "logo",
     name: "Logo als Schriftzug",
     beschreibung:
-      "Ihr Name als gesetzter Schriftzug, abgestimmt auf die Farben Ihrer Website. Als Datei für Website, Druck und Social Media.",
+      "Dein Name als gesetzter Schriftzug, abgestimmt auf die Farben deiner Website. Als Datei für Web, Druck und Social Media.",
     preis: 690,
   },
   {
     id: "logo-bildmarke",
     gruppe: "auftritt",
     auswahlgruppe: "logo",
-    name: "Logo mit Bildmarke",
+    name: "Logo mit eigenem Zeichen",
     beschreibung:
-      "Ein eigenes Zeichen zum Schriftzug, in mehreren Entwurfsrunden entwickelt.",
+      "Ein eigenes Bildzeichen zu deinem Schriftzug, entwickelt in mehreren Entwurfsrunden.",
     preis: 1490,
     nurAufAnfrage: true,
-    hinweis: "Wir offerieren das persönlich, weil der Aufwand je nach Idee stark schwankt.",
+    hinweis: "Das offerieren wir dir persönlich, weil der Aufwand je nach Idee stark schwankt.",
   },
   {
     id: "visitenkarten",
     gruppe: "auftritt",
     name: "200 Visitenkarten",
-    beschreibung: "Gesetzt in Ihren Farben, gedruckt und zu Ihnen geliefert.",
+    beschreibung: "Gesetzt in deinen Farben, gedruckt und zu dir geliefert.",
     preis: 390,
   },
   {
     id: "fotoshooting",
     gruppe: "auftritt",
-    name: "Fotoshooting im Studio Bern",
+    name: "Fotoshooting bei uns im Institut",
     beschreibung:
-      "Portraits an einem unserer Studiotage. Der häufigste Grund, warum eine Seite unfertig wirkt, sind fehlende Bilder.",
+      "Portraits an einem unserer Fototage in Bern. Fehlende Bilder sind der häufigste Grund, warum eine Seite unfertig wirkt.",
     preis: 590,
   },
   {
@@ -152,36 +154,37 @@ export const bausteine: Baustein[] = [
     gruppe: "auftritt",
     name: "Vorstellungsvideo",
     beschreibung:
-      "Im Greenscreen-Studio in Bern oder bei Ihnen vor Ort. Kann als bewegtes Startbild Ihrer Website dienen.",
+      "Gedreht bei uns im Institut oder bei dir vor Ort. Kann als bewegtes Startbild deiner Website dienen.",
     preis: 890,
     nurAufAnfrage: true,
-    hinweis: "Dafür reservieren wir einen Drehtag — deshalb besprechen wir das persönlich.",
+    hinweis: "Dafür reservieren wir einen Drehtag — deshalb besprechen wir das persönlich mit dir.",
   },
 
   // --- Funktionen ---
   {
     id: "unterseite",
     gruppe: "funktionen",
-    name: "Weitere Unterseite",
-    beschreibung: "Zum Beispiel für ein einzelnes Angebot, eine Methode oder ein Team.",
+    name: "Eine weitere Seite",
+    beschreibung:
+      "Zum Beispiel für ein einzelnes Angebot, eine Methode oder dein Team — zusätzlich zur Startseite.",
     preis: 390,
     proMonat: 5,
   },
   {
     id: "terminbuchung",
     gruppe: "funktionen",
-    name: "Terminbuchung",
+    name: "Termine online buchen",
     beschreibung:
-      "Klient/innen buchen selbst einen freien Termin. Verbunden mit Ihrem Kalender.",
+      "Deine Klient/innen wählen selbst einen freien Termin. Verbunden mit deinem Kalender, damit nichts doppelt gebucht wird.",
     preis: 290,
     proMonat: 10,
   },
   {
     id: "blog",
     gruppe: "funktionen",
-    name: "Blog",
+    name: "Ein Bereich für eigene Beiträge",
     beschreibung:
-      "Ein Bereich für Beiträge, den Sie selbst pflegen. Hilft auch bei der Auffindbarkeit.",
+      "Wenn du gerne schreibst: ein Blog, den du selbst pflegst. Hilft auch dabei, gefunden zu werden.",
     preis: 490,
     proMonat: 15,
   },
@@ -189,11 +192,11 @@ export const bausteine: Baustein[] = [
     id: "zweite-sprache",
     gruppe: "funktionen",
     name: "Zweite Sprache",
-    beschreibung: "Ihre Seite zusätzlich auf Französisch, Italienisch oder Englisch.",
+    beschreibung: "Deine Seite zusätzlich auf Französisch, Italienisch oder Englisch.",
     preis: 1490,
     proMonat: 20,
     nurAufAnfrage: true,
-    hinweis: "Preis je nach Textmenge — wir schauen es uns an.",
+    hinweis: "Der Preis hängt von der Textmenge ab — wir schauen es uns gemeinsam an.",
   },
 ];
 
@@ -219,7 +222,7 @@ export const voreinstellungen: Voreinstellung[] = [
   {
     id: "selbst",
     name: "Selbst",
-    fuerWen: "Sie schreiben Ihre Texte selbst und wollen schnell online sein.",
+    fuerWen: "Du schreibst deine Texte selbst und willst schnell online sein.",
     preis: 980,
     bausteinIds: ["texte-selbst"],
   },
@@ -227,7 +230,7 @@ export const voreinstellungen: Voreinstellung[] = [
     id: "gemeinsam",
     name: "Gemeinsam",
     fuerWen:
-      "Sie schreiben, wir bringen es in Form — und sorgen dafür, dass man Sie findet.",
+      "Du schreibst, wir bringen es in Form — und sorgen dafür, dass man dich findet.",
     empfohlen: true,
     preis: 1590,
     bausteinIds: ["texte-lektorat", "seo", "google-business"],

@@ -45,7 +45,7 @@ export default function Kopf() {
               </Link>
             ))}
             <Link
-              href="/#preise"
+              href="/angebot"
               className="rounded-full bg-brand px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-dark"
             >
               Angebot zusammenstellen
@@ -77,7 +77,7 @@ export default function Kopf() {
               </Link>
             ))}
             <Link
-              href="/#preise"
+              href="/angebot"
               onClick={() => setMenuOffen(false)}
               className="mt-6 rounded-full bg-brand px-6 py-4 text-center font-medium text-white"
             >

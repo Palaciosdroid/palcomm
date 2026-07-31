@@ -6,7 +6,7 @@ const { firma } = palacios;
 
 export const metadata: Metadata = {
   title: "Datenschutzerklärung",
-  description: `Wie die ${firma.rechtsform} mit Personendaten umgeht — Hosting, Kontaktaufnahme, Domainprüfung, Ihre Rechte.`,
+  description: `Wie die ${firma.rechtsform} mit Personendaten umgeht — Hosting, Kontaktaufnahme, Domainprüfung, deine Rechte.`,
 };
 
 export default function DatenschutzSeite() {
@@ -14,7 +14,7 @@ export default function DatenschutzSeite() {
     <Rechtsseite titel="Datenschutzerklärung" stand="Juli 2026">
       <p className="text-lg leading-relaxed text-text-dark">
         Kurz vorweg: Diese Seite setzt keine Analyse-Werkzeuge ein, bindet keine
-        fremden Schriften oder Karten ein und verfolgt Sie nicht über andere
+        fremden Schriften oder Karten ein und verfolgt dich nicht über andere
         Websites hinweg. Was trotzdem an Daten anfällt, steht hier.
       </p>
 
@@ -36,11 +36,11 @@ export default function DatenschutzSeite() {
           Wir bearbeiten Personendaten nach dem Schweizer Datenschutzgesetz
           (revDSG) und, soweit die Datenschutz-Grundverordnung anwendbar ist,
           nach der DSGVO. Eine Datenschutzbeauftragte müssen wir nicht bestellen;
-          Anfragen richten Sie an die oben genannte Adresse.
+          Anfragen richtest du an die oben genannte Adresse.
         </p>
       </Rechtsabschnitt>
 
-      <Rechtsabschnitt titel="Wenn Sie diese Seite aufrufen">
+      <Rechtsabschnitt titel="Wenn du diese Seite aufrufst">
         <p>
           Beim Abruf werden technisch notwendige Daten in Serverprotokollen
           festgehalten: IP-Adresse, Zeitpunkt, aufgerufene Adresse, übermittelte
@@ -67,7 +67,7 @@ export default function DatenschutzSeite() {
       <Rechtsabschnitt titel="Schriften">
         <p>
           Alle Schriften liegen auf unserem eigenen Server. Es entsteht keine
-          Verbindung zu Google Fonts oder einem anderen fremden Anbieter, und Ihre
+          Verbindung zu Google Fonts oder einem anderen fremden Anbieter, und deine
           IP-Adresse wird dabei an niemanden übermittelt. Das gilt auch für die
           Websites, die wir für unsere Kund/innen bauen.
         </p>
@@ -76,30 +76,30 @@ export default function DatenschutzSeite() {
       <Rechtsabschnitt titel="Cookies">
         <p>
           Diese Seite setzt keine Cookies zu Analyse- oder Werbezwecken. Ein
-          einziges technisches Cookie entsteht, wenn Sie sich in einem
-          geschützten Bereich anmelden — es speichert nur, dass die Anmeldung
+          einziges technisches Cookie entsteht, wenn du dich in einem
+          geschützten Bereich anmeldest — es speichert nur, dass die Anmeldung
           gültig ist, und verfällt nach dem Abmelden beziehungsweise nach Ablauf
           der Sitzung. Dafür braucht es keine Einwilligung.
         </p>
       </Rechtsabschnitt>
 
-      <Rechtsabschnitt titel="Prüfung Ihrer Wunschdomain">
+      <Rechtsabschnitt titel="Prüfung deiner Wunschadresse">
         <p>
-          Wenn Sie im Konfigurator einen Domainnamen eingeben und prüfen lassen,
+          Wenn du im Konfigurator einen Domainnamen eingibst und prüfen lässt,
           wird dieser Name an unseren Server und von dort an den öffentlichen
           Auskunftsdienst der zuständigen Registrierungsstelle übermittelt
           (RDAP — für <em>.ch</em> etwa SWITCH, für <em>.de</em> die DENIC eG,
           für <em>.com</em> VeriSign). Übermittelt wird ausschliesslich der
-          Domainname, keine Angaben zu Ihrer Person. Wir speichern die Abfragen
-          nicht dauerhaft. Grundlage ist Ihr Wunsch nach dieser Auskunft (Art. 6
+          Domainname, keine Angaben zu deiner Person. Wir speichern die Abfragen
+          nicht dauerhaft. Grundlage ist dein Wunsch nach dieser Auskunft (Art. 6
           Abs. 1 lit. b DSGVO).
         </p>
       </Rechtsabschnitt>
 
-      <Rechtsabschnitt titel="Wenn Sie uns schreiben oder anrufen">
+      <Rechtsabschnitt titel="Wenn du uns schreibst oder anrufst">
         <p>
-          Nehmen Sie per E-Mail oder Telefon Kontakt auf, bearbeiten wir Ihre
-          Angaben, um Ihre Anfrage zu beantworten und ein allfälliges
+          Nimmst du per E-Mail oder Telefon Kontakt auf, bearbeiten wir deine
+          Angaben, um deine Anfrage zu beantworten und ein allfälliges
           Vertragsverhältnis abzuwickeln (Art. 31 Abs. 2 lit. a revDSG, Art. 6
           Abs. 1 lit. b DSGVO). Kommt kein Auftrag zustande, löschen wir die
           Korrespondenz, sobald sie nicht mehr gebraucht wird. Kommt ein Auftrag
@@ -130,14 +130,14 @@ export default function DatenschutzSeite() {
           Framework.
         </p>
         <p>
-          Darüber hinaus geben wir Ihre Daten nicht an Dritte weiter. Wir
+          Darüber hinaus geben wir deine Daten nicht an Dritte weiter. Wir
           verkaufen keine Personendaten und vermieten keine Adressen.
         </p>
       </Rechtsabschnitt>
 
       <Rechtsabschnitt titel="Sicherheit">
         <p>
-          Wir wissen Ihr Vertrauen zu schätzen und wenden Sorgfalt an, um Ihre
+          Wir wissen dein Vertrauen zu schätzen und wenden Sorgfalt an, um deine
           Daten vor unbefugtem Zugriff zu schützen. Die Übertragung dieser Seite
           ist durchgehend verschlüsselt (TLS), Zugänge zu geschützten Bereichen
           sind mit einem Kennwort gesichert, und Zugriff auf die Systeme haben
@@ -157,23 +157,23 @@ export default function DatenschutzSeite() {
 
       <Rechtsabschnitt titel="Daten unserer Kund/innen und deren Klient/innen">
         <p>
-          Betreiben wir für Sie eine Website, sind Sie für die dort bearbeiteten
-          Personendaten die verantwortliche Stelle; wir handeln in Ihrem Auftrag.
+          Betreiben wir für dich eine Website, bist du für die dort bearbeiteten
+          Personendaten die verantwortliche Stelle; wir handeln in deinem Auftrag.
           Das regeln wir in einem eigenen Vertrag zur Auftragsbearbeitung, der
           Bestandteil unseres Auftrags ist. Für Anfragen, die über das
-          Kontaktformular Ihrer Website eingehen, ist Ihre Datenschutzerklärung
+          Kontaktformular deiner Website eingehen, ist deine Datenschutzerklärung
           massgebend, nicht diese hier.
         </p>
       </Rechtsabschnitt>
 
-      <Rechtsabschnitt titel="Ihre Rechte">
+      <Rechtsabschnitt titel="Deine Rechte">
         <p>
-          Sie können jederzeit Auskunft darüber verlangen, ob und welche Daten
-          wir über Sie bearbeiten. Ausserdem können Sie die Berichtigung
+          Du kannst jederzeit Auskunft darüber verlangen, ob und welche Daten
+          wir über dich bearbeiten. Ausserdem kannst du die Berichtigung
           unrichtiger Daten, die Löschung, die Einschränkung der Bearbeitung und
           die Herausgabe in einem gängigen Format verlangen sowie einer
-          Bearbeitung widersprechen. Wo wir Daten aufgrund Ihrer Einwilligung
-          bearbeiten, können Sie diese jederzeit widerrufen; die Bearbeitung bis
+          Bearbeitung widersprechen. Wo wir Daten aufgrund deiner Einwilligung
+          bearbeiten, kannst du sie jederzeit widerrufen; die Bearbeitung bis
           zum Widerruf bleibt davon unberührt. Eine Mitteilung an{" "}
           <a href={`mailto:${firma.email}`} className="text-brand hover:underline">
             {firma.email}
@@ -181,10 +181,10 @@ export default function DatenschutzSeite() {
           genügt.
         </p>
         <p>
-          Sind Sie mit unserer Antwort nicht einverstanden, können Sie sich an
+          Bist du mit unserer Antwort nicht einverstanden, kannst du dich an
           den Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten
-          (EDÖB) wenden. Innerhalb der EU steht Ihnen zusätzlich das
-          Beschwerderecht bei der Datenschutzaufsichtsbehörde Ihres Wohnsitzes
+          (EDÖB) wenden. Innerhalb der EU steht dir zusätzlich das
+          Beschwerderecht bei der Datenschutzaufsichtsbehörde deines Wohnsitzes
           zu.
         </p>
       </Rechtsabschnitt>
