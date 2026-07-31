@@ -54,8 +54,15 @@ export const palacios = {
     // Du/Wir-Teilung wie bei "Du erzählst, wir bauen" — ein Ton über die
     // ganze Seite. Die Vorgängerin ("Sichtbar werden, ohne laut zu werden")
     // war zu indirekt: Man musste überlegen, was gemeint ist.
-    title: "Das Diplom hast du. Die Website machen wir.",
-    lead: "Wer deinen Namen hört, gibt ihn bei Google ein — und entscheidet dort, ob aus der Empfehlung eine Anfrage wird. Darum bauen wir dir eine komplette Website und betreiben sie danach weiter: Du lieferst Texte und Bilder und sagst uns, welche Farben du magst. Mehr musst du nicht tun — ob deine Praxis gerade entsteht oder schon lange läuft.",
+    // Geschütztes Leerzeichen zwischen «Die» und «Website»: Sonst hängt der
+    // Artikel am Zeilenende und der zweite Satz ist zerrissen. So kann nur
+    // noch an der Satzgrenze umbrochen werden.
+    title: "Das Diplom hast du. Die\u00a0Website machen wir.",
+    lead: // Gekürzt von fünf auf zwei Sätze. Die Gedanken «dein Aufwand» und «ob
+    // neu oder lange dabei» stehen weiter unten ohnehin — hier haben sie den
+    // besten Satz der Seite zugedeckt und das Browserfenster unter die Falz
+    // gedrückt.
+    "Wer deinen Namen hört, gibt ihn bei Google ein — und entscheidet dort, ob aus der Empfehlung eine Anfrage wird. Darum bauen wir dir eine komplette Website und betreiben sie danach weiter.",
     // Der Preis bleibt oben. Diese Zielgruppe fürchtet die Agentur, die erst
     // nach dem Gespräch mit einer Zahl kommt — die Zahl IST hier die
     // Beruhigung. Aber als Satz war sie zwanzig Wörter grau unter den
@@ -63,7 +70,7 @@ export const palacios = {
     // «In 5 bis 10 Tagen» steht bewusst nicht hier: Das sagt schon die
     // Vertrauensleiste direkt darunter.
     preisNote:
-      "Ab CHF 980, danach ab CHF 29.90 im Monat — Internetadresse und Betrieb inbegriffen.",
+      "Einrichtung ab CHF 980, Betrieb ab CHF 29.90 im Monat — Internetadresse inbegriffen.",
     ctaPrimary: { text: "Meine Website zusammenstellen", href: "/angebot" },
     ctaSecondary: { text: "Zuerst den Ablauf ansehen", href: "#ablauf" },
   },

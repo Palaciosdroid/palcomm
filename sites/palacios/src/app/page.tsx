@@ -52,12 +52,19 @@ export default function Startseite() {
         {/* Startbild */}
         {/* isolate: eigener Stapelkontext, damit der -z-10-Hintergrund über
             dem Verlauf der section liegt, aber hinter allem Inhalt. */}
-        <section className="gradient-hero relative isolate overflow-hidden px-6 pb-20 pt-36 md:px-8 md:pb-28 md:pt-44">
+        {/* Polster oben bewusst knapp: Das Browserfenster ist das einzige
+          Beweisstück auf dem ersten Bildschirm — je mehr davon über der
+          Falz steht, desto besser. Unten ebenfalls knapper, damit die
+          Vertrauensleiste anschliesst statt zu schweben. */}
+        <section className="gradient-hero relative isolate overflow-hidden px-6 pb-14 pt-28 md:px-8 md:pb-16 md:pt-32">
           <FliessHintergrund />
           <div className="mx-auto max-w-3xl text-center">
             <p className="mb-5 text-sm font-medium uppercase tracking-[0.16em] text-brand">
               {hero.kicker}
             </p>
+            {/* Der Umbruch wird über ein geschütztes Leerzeichen im Text
+                erzwungen, nicht über text-balance — das hätte die Zeilen zwar
+                ausgeglichen, aber weiter nach «Die» getrennt. */}
             <h1 className="text-4xl leading-tight text-text-dark md:text-5xl lg:text-6xl">
               {hero.title}
             </h1>
