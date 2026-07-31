@@ -58,7 +58,7 @@ export default function SchrittBestellen({
   absenden: () => void;
   versandFehler: string | null;
 }) {
-  const { bestellen, beratung, firma } = palacios;
+  const { bestellen, firma } = palacios;
 
   return (
     <div>
@@ -277,22 +277,6 @@ export default function SchrittBestellen({
         </ol>
       </div>
 
-      {/* Der zweite Weg, gleichwertig gesetzt */}
-      <div className="mt-8 rounded-2xl bg-white p-6 md:p-8">
-        <div className="grid gap-6 md:grid-cols-[1.5fr_1fr] md:items-center">
-          <div>
-            <h3 className="text-lg text-text-dark">{beratung.title}</h3>
-            <p className="mt-2 leading-relaxed text-text-medium">{beratung.text}</p>
-            <p className="mt-2 text-sm text-text-light">{beratung.hinweis}</p>
-          </div>
-          <a
-            href={beratung.terminHref}
-            className="rounded-full border-2 border-brand px-6 py-3.5 text-center font-medium text-brand transition-colors hover:bg-brand hover:text-white"
-          >
-            {beratung.terminText}
-          </a>
-        </div>
-      </div>
     </div>
   );
 }

@@ -21,6 +21,7 @@ import SchrittUmfang from "./SchrittUmfang";
 import SchrittAussehen from "./SchrittAussehen";
 import SchrittBestellen from "./SchrittBestellen";
 import SummenTafel from "./SummenTafel";
+import Beratung from "./Beratung";
 import Vorschau from "./Vorschau";
 
 const SCHRITTE = [
@@ -283,6 +284,10 @@ export default function AngebotAssistent() {
               versandFehler={versandFehler}
             />
           )}
+
+          <div className="mt-10">
+            <Beratung />
+          </div>
 
           {schritt > 1 && (
             <button

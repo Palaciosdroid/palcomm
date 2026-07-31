@@ -1,4 +1,11 @@
-import { Check, Phone, Mail } from "lucide-react";
+import {
+  Check,
+  Phone,
+  Mail,
+  GraduationCap,
+  CalendarCheck,
+  PhoneCall,
+} from "lucide-react";
 import { palacios } from "@/lib/palacios-content";
 import { Abschnitt, Ueberschrift, Knopf } from "@/components/palacios/Basis";
 import Kopf from "@/components/palacios/Kopf";
@@ -7,6 +14,8 @@ import Fragen from "@/components/palacios/Fragen";
 import Fusszeile from "@/components/palacios/Fusszeile";
 import Bildplatz from "@/components/palacios/Bildplatz";
 import Bildstapel from "@/components/palacios/Bildstapel";
+import Medienleiste from "@/components/palacios/Medienleiste";
+import Atem from "@/components/palacios/Atem";
 import { ABO_JAEHRLICH, ABO_MONATLICH, formatiereChf } from "@/lib/angebot";
 import { getPalette } from "@/lib/theme";
 
@@ -39,8 +48,10 @@ export default function Startseite() {
 
       <main>
         {/* Startbild */}
-        <section className="gradient-hero px-6 pb-20 pt-36 md:px-8 md:pb-28 md:pt-44">
-          <div className="mx-auto max-w-3xl text-center">
+        <section className="gradient-hero relative overflow-hidden px-6 pb-20 pt-36 md:px-8 md:pb-28 md:pt-44">
+          <Atem />
+
+          <div className="relative mx-auto max-w-3xl text-center">
             <p className="mb-5 text-sm font-medium uppercase tracking-[0.16em] text-brand">
               {hero.kicker}
             </p>
@@ -66,7 +77,7 @@ export default function Startseite() {
           </div>
 
           {/* Damit oben nicht nur Text steht */}
-          <div className="mx-auto mt-14 max-w-4xl">
+          <div className="relative mx-auto mt-14 max-w-4xl">
             <Bildplatz
               titel="Beispiel einer fertigen Praxis-Website"
               hinweis="Breites Bild, Bildschirm oder Laptop mit einer echten Kundenseite. Ersetzt später den Farbverlauf."
@@ -77,14 +88,29 @@ export default function Startseite() {
         </section>
 
         {/* Vertrauensleiste */}
-        <div className="border-y border-base-300 bg-base-100 px-6 py-5 md:px-8">
-          <ul className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-10 gap-y-2 text-sm text-text-medium">
-            {vertrauensleiste.map((punkt) => (
-              <li key={punkt} className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-brand-light" />
-                {punkt}
-              </li>
-            ))}
+        <div className="border-y border-base-300 bg-base-100 px-6 py-8 md:px-8">
+          <ul className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-3 sm:gap-4 sm:divide-x sm:divide-base-300">
+            {vertrauensleiste.map((punkt, i) => {
+              const Symbol = { institut: GraduationCap, zeit: CalendarCheck, telefon: PhoneCall }[
+                punkt.symbol as "institut" | "zeit" | "telefon"
+              ];
+              return (
+                <li
+                  key={punkt.zeile}
+                  className={`flex gap-3 ${i > 0 ? "sm:pl-6" : ""}`}
+                >
+                  <Symbol className="mt-0.5 h-5 w-5 shrink-0 text-brand" strokeWidth={1.5} />
+                  <span>
+                    <span className="block font-sans text-sm font-semibold text-text-dark">
+                      {punkt.zeile}
+                    </span>
+                    <span className="mt-0.5 block text-sm leading-snug text-text-medium">
+                      {punkt.text}
+                    </span>
+                  </span>
+                </li>
+              );
+            })}
           </ul>
         </div>
 
@@ -305,14 +331,14 @@ export default function Startseite() {
         <Abschnitt id="ueber-uns" flaeche="getoent">
           <Ueberschrift lead={ueberUns.untertitel}>{ueberUns.title}</Ueberschrift>
 
-          <div className="grid gap-10 md:grid-cols-[1.6fr_1fr]">
+          <div className="grid gap-10 md:grid-cols-[1.6fr_1fr] md:items-start">
             <div>
               {ueberUns.absaetze.map((absatz) => (
                 <p key={absatz} className="mb-5 leading-relaxed text-text-medium">
                   {absatz}
                 </p>
               ))}
-              <blockquote className="mt-8 border-l-2 border-brand-light pl-5">
+              <blockquote className="mt-8 border-l-2 border-brand pl-5">
                 <p className="font-serif text-xl leading-relaxed text-text-dark">
                   «{ueberUns.zitat.text}»
                 </p>
@@ -320,6 +346,12 @@ export default function Startseite() {
                   {ueberUns.zitat.quelle}
                 </footer>
               </blockquote>
+
+              {/* Füllt die Lücke unter dem Zitat und beantwortet die Frage,
+                  die hier von selbst kommt: Wer steckt dahinter? */}
+              <div className="mt-10 border-t border-base-300 pt-8">
+                <Medienleiste />
+              </div>
             </div>
 
             <div>
@@ -343,7 +375,9 @@ export default function Startseite() {
         </Abschnitt>
 
         {/* Abschluss */}
-        <Abschnitt id="kontakt" flaeche="getoent">
+        {/* Helle Fläche: Zwei getönte Abschnitte hintereinander laufen
+            ineinander und der Übergang verschwindet. */}
+        <Abschnitt id="kontakt">
           <div className="max-w-2xl">
             <h2 className="text-3xl leading-tight text-text-dark md:text-4xl">
               {abschluss.title}

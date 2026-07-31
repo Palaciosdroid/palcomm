@@ -47,7 +47,6 @@ export const palacios = {
     { name: "Ablauf", href: "/#ablauf" },
     { name: "Preise", href: "/#preise" },
     { name: "Beispiele", href: "/#beispiele" },
-    { name: "Über uns", href: "/#ueber-uns" },
   ],
 
   hero: {
@@ -72,10 +71,37 @@ export const palacios = {
   // Die Institutszeile bleibt: Sie ist der einzige Beleg mit Alleinstellung —
   // schreiben kann ihn sonst niemand.
   vertrauensleiste: [
-    "Aus dem Institut, das über 3'500 Therapeut/innen ausgebildet hat",
-    "In 5 bis 10 Arbeitstagen fertig — Vorschau und Korrekturrunde inbegriffen",
-    "Sekretariat in Bern, erreichbar Di.–Sa., 09:00–18:00",
+    {
+      symbol: "institut",
+      zeile: "Aus dem Institut",
+      text: "das über 3'500 Therapeut/innen ausgebildet hat",
+    },
+    {
+      symbol: "zeit",
+      zeile: "In 5 bis 10 Arbeitstagen fertig",
+      text: "Vorschau und eine Korrekturrunde inbegriffen",
+    },
+    {
+      symbol: "telefon",
+      zeile: "Sekretariat in Bern",
+      text: "erreichbar Di.–Sa., 09:00–18:00",
+    },
   ],
+
+  // Belegt, soweit auf palacios-relations.ch nachprüfbar: SRF, Blick,
+  // Sonntagsblick, Blue News, Teleclub. Die übrigen stammen vom Inhaber.
+  medien: {
+    titel: "Bekannt aus",
+    namen: [
+      "SRF",
+      "Blick",
+      "Tages-Anzeiger",
+      "20 Minuten",
+      "ZDF",
+      "3sat",
+      "Forbes",
+    ],
+  },
 
   // Kacheln statt Fliesstext: Diese Leser/innen überfliegen. Die fetten
   // Zeilen allein erzählen die ganze Geschichte — Liste, Zweifel, verpasste
@@ -214,7 +240,6 @@ export const palacios = {
       { zahl: "3'500+", text: "Absolvent/innen am Institut unserer Gruppe" },
       { zahl: "10'000+", text: "therapeutische Erfahrungsstunden in der Gruppe" },
       { zahl: "12", text: "Bestseller von Gabriel Palacios, in 8 Ländern" },
-      { zahl: "SRF", text: "Blick und Blue News haben über ihn berichtet" },
     ],
   },
 
@@ -282,11 +307,14 @@ export const palacios = {
   // Viele in dieser Zielgruppe wollen zuerst mit einem Menschen sprechen,
   // bevor sie irgendwo klicken. Der Termin läuft später über cal.com; bis
   // dahin führt der Knopf ans Telefon.
+  // Viele in dieser Zielgruppe wollen zuerst mit einem Menschen sprechen,
+  // bevor sie irgendwo klicken — und zwar beim ersten Baustein, nicht beim
+  // Absenden. Deshalb steht der Block unter jedem Schritt.
   beratung: {
-    title: "Zuerst reden, dann entscheiden",
-    text: "Wir gehen deine Zusammenstellung gemeinsam durch, du stellst deine Fragen — und wir sagen dir auch, was du weglassen kannst.",
+    title: "Unsicher, was du wirklich brauchst?",
+    text: "Dann schauen wir es zusammen an. Wir gehen deine Auswahl durch, du stellst deine Fragen — und wir sagen dir ehrlich, was in deiner Lage Sinn macht und was du getrost weglassen kannst. Am Ende steht etwas, das zu deiner Praxis passt, nicht das grösste Paket.",
     hinweis:
-      "Das Gespräch ist kostenlos, dauert etwa 20 Minuten, und den Termin suchst du dir direkt im Kalender aus.",
+      "Kostenlos, etwa 20 Minuten, und den Termin suchst du dir selbst im Kalender aus.",
     terminText: "Gesprächstermin aussuchen",
     // TODO: auf den cal.com-Link umstellen, sobald der Kalender steht.
     terminHref: "#kontakt",
@@ -333,11 +361,11 @@ export const palacios = {
 
   abschluss: {
     title: "Wie möchtest du anfangen?",
-    lead: "Wenn du weisst, was du brauchst, stell dir dein Angebot selbst zusammen. Wenn du zuerst mit einem Menschen sprechen möchtest, vereinbare ein kostenloses Gespräch. Keiner der beiden Wege ist der Umweg — nimm den, der dir entspricht.",
-    ctaText: "Angebot zusammenstellen",
+    lead: "Wenn du weisst, was du brauchst, stell dir deine Website selbst zusammen — in ein paar Minuten steht dein Angebot. Und wenn du lieber zuerst mit jemandem sprichst: Wir schauen zusammen an, was zu deiner Praxis passt und was du getrost weglassen kannst. Massgeschneidert heisst bei uns nicht mehr, sondern das Richtige.",
+    ctaText: "Meine Website zusammenstellen",
     ctaHref: "/angebot",
     telefonNote:
-      "Das Gespräch ist unverbindlich. Wenn du lieber direkt anrufst: Sekretariat Di.–Sa., 09:00–18:00.",
+      "Das Gespräch ist kostenlos und unverbindlich. Wenn du lieber direkt anrufst: Sekretariat Di.–Sa., 09:00–18:00.",
   },
 
   footer: {

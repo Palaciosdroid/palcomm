@@ -66,6 +66,16 @@ export default function SummenTafel({
             {weiterText}
           </button>
 
+          {/* Zweiter Weg als Umriss: gleich sichtbar, aber klar
+              nachgeordnet. Unsicher ist man beim ersten Baustein, nicht
+              beim Absenden — bis dahin hat sie längst weggeklickt. */}
+          <a
+            href="#beratung"
+            className="mt-3 block rounded-full border border-white/30 px-6 py-3 text-center text-sm font-medium text-base-50 transition-colors hover:border-white/60 hover:bg-white/5"
+          >
+            Unsicher? Gemeinsam anschauen
+          </a>
+
           <a
             href={palacios.firma.telefonLink}
             className="mt-3 flex items-center justify-center gap-2 text-sm text-base-300 transition-colors hover:text-base-50"

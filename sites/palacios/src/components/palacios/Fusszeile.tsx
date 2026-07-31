@@ -45,17 +45,11 @@ export default function Fusszeile() {
       </div>
 
       {/*
-        Der Notfallhinweis steht auf der Firmenseite, weil unsere Besucher/innen
-        selbst im Gesundheitsbereich arbeiten und die Seite von deren
-        Klient/innen gefunden werden kann.
+        Kein Notfallhinweis auf dieser Seite. Er gehört auf die Kundenseiten,
+        wo jemand in einer Krise landen kann — dort erzwingt ihn das Template.
+        Hier sucht niemand die 143; wir verkaufen Websites.
       */}
-      <p className="mx-auto mt-10 max-w-5xl border-t border-white/10 pt-6 text-xs leading-relaxed">
-        Im Notfall: Sanitätsnotruf 144 · Die Dargebotene Hand 143 (Schweiz) ·
-        Telefonseelsorge 0800 111 0 111 (Deutschland) · Telefonseelsorge 142
-        (Österreich)
-      </p>
-
-      <p className="mx-auto mt-4 max-w-5xl text-xs">
+      <p className="mx-auto mt-10 max-w-5xl border-t border-white/10 pt-6 text-xs">
         © {new Date().getFullYear()} {firma.rechtsform} · {firma.uid}
       </p>
     </footer>

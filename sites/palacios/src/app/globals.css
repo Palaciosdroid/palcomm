@@ -386,3 +386,70 @@ a {
     padding-bottom: 80px;
   }
 }
+
+/*
+ * Atmender Farbschimmer hinter dem Startbild (siehe Atem.tsx).
+ *
+ * Drei weich gezeichnete Flächen liegen grösstenteils ausserhalb des Bildes;
+ * sichtbar sind nur ihre Ränder. Sie atmen in rund zwanzig Sekunden und
+ * folgen dem Zeiger stark gedämpft. Die Farben kommen aus der Palette, damit
+ * der Schimmer mitwechselt, wenn jemand die Farbwelt umstellt.
+ */
+.atem {
+  --zeiger-x: 0;
+  --zeiger-y: 0;
+}
+
+.atem-flaeche {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform;
+}
+
+.atem-eins {
+  width: 70%;
+  padding-bottom: 70%;
+  left: -18%;
+  top: -32%;
+  background: radial-gradient(circle, var(--brand) 0%, transparent 68%);
+  opacity: 0.22;
+  animation: atem-zug 21s ease-in-out infinite;
+  transform: translate3d(calc(var(--zeiger-x) * 34px), calc(var(--zeiger-y) * 26px), 0);
+}
+
+.atem-zwei {
+  width: 62%;
+  padding-bottom: 62%;
+  right: -16%;
+  top: -22%;
+  background: radial-gradient(circle, var(--brand-light) 0%, transparent 66%);
+  opacity: 0.26;
+  animation: atem-zug 26s ease-in-out infinite 3s;
+  transform: translate3d(calc(var(--zeiger-x) * -46px), calc(var(--zeiger-y) * 30px), 0);
+}
+
+.atem-drei {
+  width: 80%;
+  padding-bottom: 55%;
+  left: 22%;
+  bottom: -38%;
+  background: radial-gradient(circle, var(--accent-300) 0%, transparent 70%);
+  opacity: 0.3;
+  animation: atem-zug 31s ease-in-out infinite 7s;
+  transform: translate3d(calc(var(--zeiger-x) * 22px), calc(var(--zeiger-y) * -18px), 0);
+}
+
+/* Die Atembewegung liegt auf einem Wrapper-Keyframe, damit sie sich nicht
+   mit der Zeigerverschiebung im selben transform streitet. */
+@keyframes atem-zug {
+  0%, 100% { scale: 1; }
+  50% { scale: 1.16; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atem-flaeche {
+    animation: none;
+    transform: none;
+  }
+}
