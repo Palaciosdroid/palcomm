@@ -70,10 +70,14 @@ export default function HeroSection({ content }: HeroSectionProps) {
           transition={{ duration: 0.8 }}
           className="px-5 py-10 min-[400px]:px-8 min-[400px]:py-14 md:px-20 md:py-20 text-center rounded-2xl min-[400px]:rounded-3xl"
           style={{
-            background: "rgba(255, 255, 255, 0.38)",
+            // Ohne Foto steht die Karte auf einem hellen Verlauf und
+            // verschwindet darauf. Mehr Deckung, sichtbare Kante, tieferer
+            // Schatten — sonst wirkt das Startbild leer.
+            background: "rgba(255, 255, 255, 0.62)",
             backdropFilter: "blur(16px)",
             WebkitBackdropFilter: "blur(16px)",
-            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.06)"
+            border: "1px solid rgba(255, 255, 255, 0.85)",
+            boxShadow: "0 18px 50px rgba(61, 74, 58, 0.10)"
           }}
         >
           {/* Main Title */}

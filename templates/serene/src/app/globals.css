@@ -139,8 +139,35 @@ body {
   background: linear-gradient(180deg, var(--base-100) 0%, var(--base-50) 100%);
 }
 
+/* Startbild ohne Foto.
+   Vorher stand der dunkelste Ton ganz oben — genau dort, wo die
+   durchsichtige Kopfzeile mit dem Logo liegt. Jetzt oben fast weiss,
+   Schwerpunkt der Tönung bei 60 %, unten wieder hell. Dazu warmes Korn,
+   damit die Fläche nach Papier aussieht statt nach leerem Bildschirm.
+   Ein Foto überdeckt beides. */
 .gradient-hero {
-  background: linear-gradient(180deg, var(--accent-200) 0%, var(--accent-100) 50%, var(--base-50) 100%);
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    var(--base-50) 0%,
+    var(--base-50) 16%,
+    var(--accent-100) 40%,
+    var(--accent-300) 64%,
+    var(--accent-100) 88%,
+    var(--base-50) 100%
+  );
+}
+
+.gradient-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 170px 170px;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
 }
 
 /* Text-Gradient mit Brand-Farbe */

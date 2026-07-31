@@ -12,7 +12,7 @@ import Kopf from "@/components/palacios/Kopf";
 import Pakete from "@/components/palacios/Pakete";
 import Fragen from "@/components/palacios/Fragen";
 import Fusszeile from "@/components/palacios/Fusszeile";
-import Bild from "@/components/palacios/Bild";
+import Image from "next/image";
 import BrowserRahmen from "@/components/palacios/BrowserRahmen";
 import Bildplatz from "@/components/palacios/Bildplatz";
 import Bildstapel from "@/components/palacios/Bildstapel";
@@ -76,7 +76,7 @@ export default function Startseite() {
               Zeile über den Knöpfen empfängt ein Preisschild die Besucherin,
               bevor sie weiss, was drin ist.
             */}
-            <p className="mt-5 text-sm text-text-light">{hero.preisNote}</p>
+            <p className="mt-5 text-sm text-text-medium">{hero.preisNote}</p>
           </div>
 
           {/*
@@ -88,16 +88,20 @@ export default function Startseite() {
           */}
           <div className="mx-auto mt-14 max-w-4xl">
             <BrowserRahmen>
-              <Bild
-                datei="startbild-website.jpg"
-                titel="So sieht eine fertige Seite aus — Farbwelt Salbei"
-                hinweis="Bildschirmfoto einer Seite auf unserer Vorlage, 16:9, 1920×1080"
-                hoehe="video"
-                ton="hell"
-                prioritaet
-                oben
-                rund={false}
-              />
+              {/* Das Bild ist dreimal so hoch wie der Ausschnitt und läuft
+                  langsam durch — man sieht die ganze Seite, nicht nur den
+                  Kopf. Reines CSS, damit es auf jedem Telefon läuft. */}
+              <div className="relative aspect-video overflow-hidden">
+                <Image
+                  src="/bilder/startbild-website.jpg"
+                  alt="Beispielseite einer Praxis in der Farbwelt Salbei, gebaut mit unserer Vorlage"
+                  width={1920}
+                  height={3240}
+                  priority
+                  sizes="(max-width: 768px) 100vw, 896px"
+                  className="rahmen-lauf absolute inset-x-0 top-0 h-auto w-full"
+                />
+              </div>
             </BrowserRahmen>
           </div>
         </section>

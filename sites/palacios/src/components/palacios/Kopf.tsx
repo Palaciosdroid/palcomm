@@ -30,7 +30,7 @@ export default function Kopf() {
                 wirkte zusammengepresst. Der Faktor zieht es so weit auf, dass
                 es bündig unter COMMUNICATIONS steht — wie im echten Logo, wo
                 beide Zeilen gleich breit sind. */}
-            <span className="inline-block origin-left scale-x-110 font-serif text-xl tracking-[0.18em] text-accent-500">
+            <span className="inline-block origin-left scale-x-110 font-serif text-xl tracking-[0.18em] text-brand">
               PALACIOS
             </span>
             <span className="mt-0.5 text-[0.65rem] tracking-[0.3em] text-text-light">

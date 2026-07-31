@@ -388,90 +388,72 @@ a {
 }
 
 /* ------------------------------------------------------------------
-   Fliessender Farbhintergrund im Startbild
+   Hintergrund des Startbilds — Ton und Korn
    ------------------------------------------------------------------
-   Vier grosse, sehr weiche Farbflächen, die langsam gegeneinander
-   driften. Bewusst ohne feine Struktur: Der Vorgänger war ein
-   Rausch-Shader, und dessen Schwaden sahen aus wie ein bewölkter
-   Himmel im Horrorfilm. Schwaden entstehen durch Details — hier gibt
-   es keine.
+   Begründung und Vorgeschichte stehen in FliessHintergrund.tsx.
+   Kurz: keine Form, keine Bewegung, keine Wiederholperiode im
+   sichtbaren Bereich. */
 
-   Kein filter: blur() — der radiale Verlauf ist die Weichzeichnung.
-   Das spart die teuerste Eigenschaft im Browser und lässt nur
-   transform übrig, das im Compositor läuft. */
-
-.fliess-flaeche {
+.fliess-ton,
+.fliess-korn {
   position: absolute;
+  inset: 0;
   display: block;
-  border-radius: 50%;
-  will-change: transform;
 }
 
-/* Warm und hell. Der dunkle Markenton kommt nicht vor — er war es,
-   der die Gewitterstimmung erzeugt hat. */
-.fliess-a {
-  top: -28%;
-  left: -18%;
-  width: 78%;
-  height: 78%;
-  background: radial-gradient(circle at 50% 50%, var(--brand-light) 0%, transparent 68%);
-  opacity: 0.42;
-  animation: fliess-a 34s ease-in-out infinite alternate;
+/* Oben fast weiss, damit die goldene Wortmarke steht. Der Schwerpunkt
+   der Tönung liegt bei etwa 60 % — im leeren Band zwischen Preiszeile
+   und Browserfenster, nicht hinter der Schlagzeile. Unten läuft es auf
+   accent-100 aus, praktisch deckungsgleich mit der Folgesektion, damit
+   an der Kante kein Absatz entsteht. */
+.fliess-ton {
+  background: linear-gradient(
+    180deg,
+    var(--base-50) 0%,
+    var(--base-50) 20%,
+    var(--accent-100) 45%,
+    var(--accent-200) 62%,
+    var(--accent-100) 100%
+  );
 }
 
-.fliess-b {
-  top: -20%;
-  right: -22%;
-  width: 88%;
-  height: 72%;
-  background: radial-gradient(circle at 50% 50%, var(--accent-300) 0%, transparent 70%);
-  opacity: 0.85;
-  animation: fliess-b 41s ease-in-out infinite alternate;
+/* Warmes Korn. feTurbulence als Data-URI, entsättigt, per Multiplikation
+   aufgetragen: Auf hellem Creme ergibt das eine warme Vergilbung statt
+   eines grauen Schleiers — der Unterschied zwischen «Papier» und
+   «verschmutzter Bildschirm».
+
+   baseFrequency 0.8 statt der verbreiteten 0.65: feiner, dadurch keine
+   Wolkenbildung. stitchTiles sorgt für nahtlose Kachelung. */
+.fliess-korn {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 170px 170px;
+  opacity: 0.055;
+  mix-blend-mode: multiply;
 }
 
-.fliess-c {
-  bottom: -30%;
-  left: 6%;
-  width: 70%;
-  height: 70%;
-  background: radial-gradient(circle at 50% 50%, var(--accent-200) 0%, transparent 72%);
-  opacity: 0.9;
-  animation: fliess-c 47s ease-in-out infinite alternate;
+/* ------------------------------------------------------------------
+   Bildlauf im Browserrahmen
+   ------------------------------------------------------------------
+   Das Startbild ist 1920 x 3240, der Rahmen zeigt 16:9. Statt eines
+   Schiebereglers mit mehreren Bildern läuft eine einzige lange Aufnahme
+   langsam durch — dieselbe Seite von oben bis zum Angebot.
+
+   Warum nicht scrollgebunden: Dafür bräuchte es animation-timeline,
+   das nicht überall vorhanden ist, oder JavaScript am Scroll-Ereignis.
+   So ist es eine transform-Animation im Compositor, die auf jedem
+   Telefon läuft.
+
+   Der Weg: (Bildhöhe - Rahmenhöhe) / Bildhöhe. Bei Breite W ist das
+   Bild 1.6875 W hoch, der Rahmen 0.5625 W — also 66.67 %. */
+.rahmen-lauf {
+  animation: rahmen-lauf 34s cubic-bezier(0.55, 0, 0.45, 1) infinite alternate;
 }
 
-/* Ein zweiter Farbton, sonst wirkt die Fläche eintönig. Sehr blass —
-   er soll Tiefe geben, nicht auffallen. */
-.fliess-d {
-  top: 22%;
-  right: 4%;
-  width: 52%;
-  height: 58%;
-  background: radial-gradient(circle at 50% 50%, var(--accent-400) 0%, transparent 66%);
-  opacity: 0.22;
-  animation: fliess-d 55s ease-in-out infinite alternate;
+@keyframes rahmen-lauf {
+  0%,   14% { transform: translate3d(0, 0, 0); }
+  86%, 100% { transform: translate3d(0, -66.67%, 0); }
 }
 
-@keyframes fliess-a {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to   { transform: translate3d(9%, 6%, 0) scale(1.16); }
-}
-@keyframes fliess-b {
-  from { transform: translate3d(0, 0, 0) scale(1.08); }
-  to   { transform: translate3d(-7%, 9%, 0) scale(1); }
-}
-@keyframes fliess-c {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to   { transform: translate3d(11%, -7%, 0) scale(1.2); }
-}
-@keyframes fliess-d {
-  from { transform: translate3d(0, 0, 0) scale(1.1); }
-  to   { transform: translate3d(-9%, -5%, 0) scale(0.94); }
-}
-
-/* Wer weniger Bewegung eingestellt hat, bekommt das Bild, aber ohne
-   Drift. */
 @media (prefers-reduced-motion: reduce) {
-  .fliess-flaeche {
-    animation: none;
-  }
+  .rahmen-lauf { animation: none; }
 }

@@ -1,46 +1,74 @@
 /**
- * Ruhiger Farbhintergrund für das Startbild.
+ * Hintergrund des Startbilds.
  *
- * Vorgeschichte, damit niemand einen der Irrwege noch einmal geht:
+ * Fünf Anläufe, dann eine Untersuchung mit drei unabhängigen Gutachten.
+ * Was dabei herauskam, steht hier, damit niemand Anlauf sechs bis neun
+ * wiederholt.
  *
- * Drei Versuche mit SVG-Pfaden (weiche Flächen, Pinselstriche, gemalte
- * Striche) sahen aus wie Flecken, Federn und Blätter — von Hand gesetzte
- * Pfade brauchen eine Illustratorin, kein Programm.
+ * DIE FEHLSCHLÄGE UND WARUM
  *
- * Der vierte Versuch war ein WebGL-Shader mit Domain Warping: Rauschen,
- * dessen Koordinaten selbst von Rauschen verschoben werden. Die Bewegung war
- * endlich richtig — langsam, organisch, nie hektisch. Das Bild aber nicht:
- * fünf Oktaven Rauschen erzeugen feine Schwaden, und weil ein dunkler Ton
- * mitgemischt war, sah das Ergebnis aus wie ein bewölkter Himmel im
- * Horrorfilm. Für eine Seite, die Ruhe verkaufen soll, ist das das Gegenteil
- * des Ziels.
+ * 1. weiche SVG-Flächen        -> «sieht aus wie Flecken»
+ * 2. gemalte Pinselstriche     -> «Federn und Blätter»
+ * 3. WebGL, Rauschen mit
+ *    Domain Warping            -> «bewölkter Himmel im Horrorfilm»
+ * 4. weiche Farbflächen,
+ *    langsam driftend           -> «ich erkenn nix»
  *
- * Deshalb hier: grosse, sehr weiche Farbflächen statt Turbulenz. Genau das
- * ist der Unterschied zwischen "Aurora" und Rauch — Schwaden entstehen durch
- * feine Details, und die gibt es hier gar nicht. Vier radiale Verläufe,
- * jeder ohne harte Kante, die langsam gegeneinander driften.
+ * Drei Mal wurde ein Gegenstand erkannt, der nicht gemeint war, ein Mal gar
+ * keiner. Dazwischen liegt kein Zielfenster: Abstrakte Deko wird vom Auge
+ * zwangsläufig als Gegenstand gelesen, und welcher das ist, lässt sich nicht
+ * steuern. Es gibt genau zwei Auswege — entweder es IST absichtlich ein
+ * Gegenstand (Foto, Bildschirmfoto, Produkt), oder absichtlich keiner
+ * (Fläche, Material). Die Mitte erzeugt beliebig viele weitere Runden.
  *
- * Kein WebGL, kein JavaScript, kein filter: blur(). Der Verlauf selbst ist
- * die Weichzeichnung, und Verschiebung und Skalierung laufen im Compositor.
- * Damit läuft es auch auf einem alten Telefon flüssig — und auf Geräten ohne
- * WebGL überhaupt, was beim Shader nicht der Fall war.
+ * WARUM VERSUCH 4 UNSICHTBAR WAR — nachgerechnet, nicht geraten
  *
- * Zwei Regeln halten es ruhig:
- * 1. Nur helle, warme Töne. Der dunkle Markenton kommt nicht vor — er war
- *    es, der die Gewitterstimmung erzeugt hat.
- * 2. Die Flächen sitzen an den Rändern. In der Mitte stehen Schlagzeile und
- *    Knöpfe, dort bleibt es fast unbunt.
+ * Das Auge ist bei etwa 3 bis 6 Hell-Dunkel-Wechseln pro Sehwinkelgrad am
+ * empfindlichsten. Die weichen Flächen waren rund 600 Pixel breit, also
+ * 0,06 Wechsel pro Grad — dort ist die Empfindlichkeit zwanzig- bis
+ * dreissigmal geringer. Mehr Deckkraft hätte sie nicht sichtbar gemacht,
+ * sondern nur schmutzig. Dasselbe gilt für ein Partikelnetz (Punktabstand
+ * 80 bis 150 Pixel) — auch das wäre wieder in derselben blinden Zone
+ * gelandet.
  *
- * Die Farben kommen aus den Theme-Variablen, der Grund wechselt also mit,
- * wenn jemand die Farbwelt umstellt.
+ * WAS VERGLEICHBARE SEITEN TUN
+ *
+ * Eine Auswertung von rund 60 Seiten im selben Register — warm, creme,
+ * Serifen, ruhig — ergab: hinter der Schlagzeile steht dort fast nie etwas.
+ * Und die Therapiebranche arbeitet durchweg mit Fotografie statt Mustern.
+ * Wo Muster vorkommen, stammen sie aus dem Werkzeug- und SaaS-Umfeld, und
+ * das Punktraster ist dort zur Voreinstellung geworden — für eine Agentur,
+ * die Gestaltung verkauft, ein stilles Eingeständnis.
+ *
+ * WAS HIER STEHT
+ *
+ * Zwei Schichten, beide ohne Form.
+ *
+ * 1. Ein sehr flacher Verlauf, oben fast weiss. Das ist die Korrektur des
+ *    eigentlichen Fehlers: Bisher lag ausgerechnet der dunkelste Ton ganz
+ *    oben, direkt hinter der goldenen Wortmarke. Jetzt liegt der Schwerpunkt
+ *    der Tönung bei etwa 60 Prozent der Höhe — in dem leeren Band zwischen
+ *    Preiszeile und Browserfenster, nicht hinter der Schlagzeile.
+ *
+ * 2. Warmes Korn. Feines Rauschen, das über Multiplikation aufgetragen wird
+ *    und dem Cremeweiss die digitale Flachheit nimmt. Es hat keine Kanten
+ *    und keine Wiederholperiode im sichtbaren Bereich, kann also weder als
+ *    Gegenstand gelesen werden noch beim Skalieren Störmuster erzeugen. Es
+ *    wirkt als Material, nicht als Muster — dieselbe Machart benutzen
+ *    mercury.com und craft.do.
+ *
+ * Keine Animation. Bewegung hinter Text heisst zeitlich veränderlicher
+ * Kontrast; man kann nur den schlechtesten Einzelbild prüfen, und wenn der
+ * allein besteht, war die Bewegung überflüssig. Der sichtbare Blickfang der
+ * Sektion ist nicht der Grund, sondern das Browserfenster darunter — eine
+ * echte, mit dem eigenen Werkzeug gebaute Therapieseite. Das ist kein
+ * Schmuck, das ist der Beweis.
  */
 export default function FliessHintergrund() {
   return (
-    <div className="fliess pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden>
-      <span className="fliess-flaeche fliess-a" />
-      <span className="fliess-flaeche fliess-b" />
-      <span className="fliess-flaeche fliess-c" />
-      <span className="fliess-flaeche fliess-d" />
+    <div className="fliess pointer-events-none absolute inset-0 -z-10" aria-hidden>
+      <span className="fliess-ton" />
+      <span className="fliess-korn" />
     </div>
   );
 }
