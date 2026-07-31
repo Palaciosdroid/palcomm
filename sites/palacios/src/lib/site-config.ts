@@ -50,6 +50,15 @@ export const siteConfig: SiteConfig = {
 
 export const siteUrl = `https://${siteConfig.useWww ? "www." : ""}${siteConfig.domain}`;
 
+/**
+ * Läuft diese Instanz als Vorschau (z. B. auf einer *.up.railway.app-Adresse)?
+ *
+ * Dann wird die Seite auf noindex gesetzt. Eine zweite, öffentlich
+ * erreichbare Kopie derselben Texte macht der echten Domain sonst in der
+ * Suche Konkurrenz. In Railway dazu SITE_VORSCHAU=1 setzen.
+ */
+export const istVorschau = process.env.SITE_VORSCHAU === "1";
+
 export function hasSection(id: SectionId): boolean {
   return siteConfig.sections.includes(id);
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { palacios } from "@/lib/palacios-content";
-import { siteConfig, siteUrl } from "@/lib/site-config";
+import { siteConfig, siteUrl, istVorschau } from "@/lib/site-config";
 import { themeToCssText } from "@/lib/theme";
 import { fontVariables } from "@/lib/fonts";
 
@@ -38,16 +38,18 @@ export const metadata: Metadata = {
     title: meta.title,
     description: meta.description,
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
+  robots: istVorschau
+    ? { index: false, follow: false }
+    : {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+        },
+      },
 };
 
 // Strukturierte Daten. Bewusst nicht über @/components/seo/JsonLd — das
