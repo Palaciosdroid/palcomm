@@ -21,9 +21,10 @@ export default function Header({ content }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Über einem Hintergrundvideo steht der Header auf Dunkel und braucht helle
-  // Schrift. Ohne Video ist der Hero hell — dann wäre Weiss unlesbar.
-  const overDarkHero = siteConfig.heroVideo !== null && !isScrolled;
+  // Über einem dunklen Hero (Video oder Foto) braucht der Header helle
+  // Schrift. Ohne beides ist der Hero hell — dann wäre Weiss unlesbar.
+  const heroMedia = siteConfig.heroVideo ?? siteConfig.heroImage;
+  const overDarkHero = heroMedia !== null && !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {

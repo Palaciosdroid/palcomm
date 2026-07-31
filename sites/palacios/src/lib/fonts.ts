@@ -17,7 +17,6 @@ import {
   Cormorant_Garamond,
   DM_Serif_Display,
   DM_Sans,
-  Faustina,
 } from "next/font/google";
 
 const inter = Inter({
@@ -55,24 +54,6 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
-// Nur für die Wortmarke «PALACIOS» im Kopf und im Fussbereich, nicht für
-// Fliesstext. Vorher stand dort die Überschriftenschrift, und die ist für ein
-// Logo die falsche Klasse: Am O gemessen hat die echte Wortmarke auf
-// Versalhöhe 112 einen Stamm von 24 und Haarstriche von 9 Bildpunkten —
-// Verhältnis 2.67, also ein kräftiger Buchschnitt. DM Serif Display kommt auf
-// 26 zu 3, Verhältnis 8.67. Deren Haarstriche verschwinden bei 20 Punkt
-// beinahe, das Wort wirkt dünn und modisch statt gesetzt.
-//
-// Faustina liegt in derselben Klasse wie die Vorlage. Die richtige Schrift
-// wäre Athelas — die ist aber nicht frei, sondern von TypeTogether und liegt
-// bei Apple bei. Kommt eine Weblizenz dazu, wird hier getauscht.
-const faustina = Faustina({
-  subsets: ["latin"],
-  weight: ["600"],
-  variable: "--font-faustina",
-  display: "swap",
-});
-
 /** Gehört auf das <html>-Element, damit alle Schrift-Variablen verfügbar sind. */
 export const fontVariables = [
   inter.variable,
@@ -80,5 +61,4 @@ export const fontVariables = [
   cormorant.variable,
   dmSerif.variable,
   dmSans.variable,
-  faustina.variable,
 ].join(" ");

@@ -8,7 +8,8 @@ export default function Fusszeile() {
     <footer className="bg-text-dark px-6 py-14 text-base-300 md:px-8">
       <div className="mx-auto flex max-w-5xl flex-col gap-8 md:flex-row md:justify-between">
         <div>
-          <p className="font-wortmarke text-lg font-semibold tracking-[0.18em] text-brand-light">
+          {/* scaleX wie im Kopf — siehe Kopf.tsx */}
+          <p className="inline-block origin-left scale-x-110 font-serif text-lg tracking-[0.18em] text-brand-light">
             PALACIOS
           </p>
           <p className="text-[0.65rem] tracking-[0.3em]">COMMUNICATIONS</p>

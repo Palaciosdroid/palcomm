@@ -24,6 +24,8 @@ export interface SiteConfig {
   defaultTheme: ThemeSelection;
   sections: SectionId[];
   heroVideo: string | null;
+  /** Hintergrundfoto im Hero. Siehe templates/serene/src/lib/site-config.ts. */
+  heroImage: string | null;
   showInclusivityBadge: boolean;
 }
 
@@ -45,6 +47,7 @@ export const siteConfig: SiteConfig = {
   // Zertifikate — diese Sektionen bleiben aus.
   sections: ["hero", "welcome", "philosophy", "services", "testimonials", "contact"],
   heroVideo: null,
+  heroImage: null,
   showInclusivityBadge: false,
 };
 

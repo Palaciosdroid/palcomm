@@ -34,6 +34,13 @@ export interface SiteConfig {
   sections: SectionId[];
   /** Optionales Hintergrundvideo im Hero. Leer = ruhiger Farbverlauf. */
   heroVideo: string | null;
+  /**
+   * Optionales Hintergrundfoto im Hero — der übliche Fall. Ein Video hat
+   * fast niemand, ein Foto vom Praxisraum fast alle. Ohne beides bleibt der
+   * Farbverlauf, und der wirkt auf einem grossen Schirm sehr leer.
+   * Wird ignoriert, wenn heroVideo gesetzt ist.
+   */
+  heroImage: string | null;
   /** Regenbogen-Badge "Alle sind willkommen" in der Willkommens-Sektion */
   showInclusivityBadge: boolean;
 }
@@ -60,6 +67,7 @@ export const siteConfig: SiteConfig = {
     "contact",
   ],
   heroVideo: null,
+  heroImage: null,
   showInclusivityBadge: true,
 };
 

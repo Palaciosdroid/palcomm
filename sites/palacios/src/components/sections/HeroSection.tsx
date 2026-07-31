@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { defaultContent } from "@/lib/content";
 import { siteConfig } from "@/lib/site-config";
@@ -12,11 +13,15 @@ interface HeroSectionProps {
 export default function HeroSection({ content }: HeroSectionProps) {
   const data = content || defaultContent.hero;
   const video = siteConfig.heroVideo;
+  // Ein Foto haben fast alle, ein Video fast niemand. Ohne beides bleibt der
+  // Farbverlauf — der wirkt auf einem grossen Schirm sehr leer.
+  const foto = video ? null : siteConfig.heroImage;
+  const medium = video ?? foto;
 
   return (
     <section
       className={`relative min-h-screen flex items-center justify-center overflow-hidden isolate ${
-        video ? "bg-accent-300" : "gradient-hero"
+        medium ? "bg-accent-300" : "gradient-hero"
       }`}
     >
       {/* Hintergrundvideo — nur wenn in der Site-Config eines hinterlegt ist */}
@@ -33,8 +38,20 @@ export default function HeroSection({ content }: HeroSectionProps) {
         </video>
       )}
 
-      {/* Abdunklung oben, damit die Navigation auf dem Video lesbar bleibt */}
-      {video && (
+      {/* Hintergrundfoto — dieselbe Rolle wie das Video, nur der Normalfall */}
+      {foto && (
+        <Image
+          src={foto}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="absolute inset-0 z-0 object-cover"
+        />
+      )}
+
+      {/* Abdunklung oben, damit die Navigation auf dem Medium lesbar bleibt */}
+      {medium && (
         <div
           className="absolute inset-x-0 top-0 h-32 z-[5]"
           style={{

@@ -90,8 +90,8 @@ export default function Startseite() {
             <BrowserRahmen>
               <Bild
                 datei="startbild-website.jpg"
-                titel="Beispiel einer fertigen Praxis-Website"
-                hinweis="Bildschirmfoto einer Kundenseite, 16:9, z. B. 1920×1080"
+                titel="So sieht eine fertige Seite aus — Farbwelt Salbei"
+                hinweis="Bildschirmfoto einer Seite auf unserer Vorlage, 16:9, 1920×1080"
                 hoehe="video"
                 ton="hell"
                 prioritaet

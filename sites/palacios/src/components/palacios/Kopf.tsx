@@ -26,10 +26,11 @@ export default function Kopf() {
       >
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4 md:px-8">
           <Link href="/" className="flex flex-col leading-none">
-            {/* Gold wie im Logo. accent-500 statt brand-light: Der Kopf liegt
-                durchsichtig über dem fliessenden Hintergrund, und der wandert.
-                brand-light verschwindet darauf an manchen Stellen. */}
-            <span className="font-wortmarke text-xl font-semibold tracking-[0.18em] text-accent-500">
+            {/* scaleX: DM Serif Display ist von Haus aus schmal, das Wort
+                wirkte zusammengepresst. Der Faktor zieht es so weit auf, dass
+                es bündig unter COMMUNICATIONS steht — wie im echten Logo, wo
+                beide Zeilen gleich breit sind. */}
+            <span className="inline-block origin-left scale-x-110 font-serif text-xl tracking-[0.18em] text-accent-500">
               PALACIOS
             </span>
             <span className="mt-0.5 text-[0.65rem] tracking-[0.3em] text-text-light">
