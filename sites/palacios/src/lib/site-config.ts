@@ -33,9 +33,13 @@ export const siteConfig: SiteConfig = {
   domain: "palacios-relations.ch",
   useWww: true,
   locale: "de-CH",
+  // Gold auf Anthrazit mit der Paarung "Warm" (DM Serif Display über DM Sans).
+  // Bewusst nicht "Klassisch": Playfair auf Salbei ist die Voreinstellung des
+  // Templates und wird auf den meisten Kundenseiten stehen. Unsere eigene
+  // Seite soll nicht aussehen wie das, was wir verkaufen.
   defaultTheme: {
     paletteId: "gold",
-    fontId: "modern",
+    fontId: "warm",
   },
   // Für die eigene Seite brauchen wir weder Konditionen-Tabelle noch
   // Zertifikate — diese Sektionen bleiben aus.

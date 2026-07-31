@@ -129,6 +129,30 @@ export default function DatenschutzSeite() {
           vorhanden, auf die Zertifizierung nach dem EU-U.S. Data Privacy
           Framework.
         </p>
+        <p>
+          Darüber hinaus geben wir Ihre Daten nicht an Dritte weiter. Wir
+          verkaufen keine Personendaten und vermieten keine Adressen.
+        </p>
+      </Rechtsabschnitt>
+
+      <Rechtsabschnitt titel="Sicherheit">
+        <p>
+          Wir wissen Ihr Vertrauen zu schätzen und wenden Sorgfalt an, um Ihre
+          Daten vor unbefugtem Zugriff zu schützen. Die Übertragung dieser Seite
+          ist durchgehend verschlüsselt (TLS), Zugänge zu geschützten Bereichen
+          sind mit einem Kennwort gesichert, und Zugriff auf die Systeme haben
+          nur Personen, die ihn für ihre Arbeit brauchen. Eine absolute
+          Sicherheit kann im Internet niemand zusichern.
+        </p>
+      </Rechtsabschnitt>
+
+      <Rechtsabschnitt titel="Daten von Kindern und Jugendlichen">
+        <p>
+          Unser Angebot richtet sich an Erwachsene. Wir erheben nicht wissentlich
+          Daten von Kindern unter 16 Jahren. Erfahren wir, dass uns solche Daten
+          ohne Zustimmung der Erziehungsberechtigten übermittelt wurden, löschen
+          wir sie.
+        </p>
       </Rechtsabschnitt>
 
       <Rechtsabschnitt titel="Daten unserer Kund/innen und deren Klient/innen">
@@ -148,7 +172,9 @@ export default function DatenschutzSeite() {
           wir über Sie bearbeiten. Ausserdem können Sie die Berichtigung
           unrichtiger Daten, die Löschung, die Einschränkung der Bearbeitung und
           die Herausgabe in einem gängigen Format verlangen sowie einer
-          Bearbeitung widersprechen. Eine Mitteilung an{" "}
+          Bearbeitung widersprechen. Wo wir Daten aufgrund Ihrer Einwilligung
+          bearbeiten, können Sie diese jederzeit widerrufen; die Bearbeitung bis
+          zum Widerruf bleibt davon unberührt. Eine Mitteilung an{" "}
           <a href={`mailto:${firma.email}`} className="text-brand hover:underline">
             {firma.email}
           </a>{" "}
