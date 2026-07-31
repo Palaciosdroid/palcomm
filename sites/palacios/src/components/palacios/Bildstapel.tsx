@@ -1,4 +1,4 @@
-import Bildplatz from "./Bildplatz";
+import Bild from "./Bild";
 
 /**
  * Zwei versetzt übereinanderliegende Bilder.
@@ -14,13 +14,14 @@ export default function Bildstapel({
   hinten,
   vorne,
 }: {
-  hinten: { titel: string; hinweis?: string };
-  vorne: { titel: string; hinweis?: string };
+  hinten: { datei: string; titel: string; hinweis?: string };
+  vorne: { datei: string; titel: string; hinweis?: string };
 }) {
   return (
     <div className="space-y-4 sm:relative sm:space-y-0 sm:pb-16 sm:pr-16">
       <div className="sm:w-[78%]">
-        <Bildplatz
+        <Bild
+          datei={hinten.datei}
           titel={hinten.titel}
           hinweis={hinten.hinweis}
           hoehe="mittel"
@@ -29,8 +30,9 @@ export default function Bildstapel({
         />
       </div>
 
-      <div className="sm:absolute sm:bottom-0 sm:right-0 sm:w-[55%] sm:rounded-2xl sm:shadow-xl sm:ring-8 sm:ring-base-50">
-        <Bildplatz
+      <div className="sm:absolute sm:bottom-0 sm:right-0 sm:w-[55%] sm:overflow-hidden sm:rounded-2xl sm:shadow-xl sm:ring-8 sm:ring-base-50">
+        <Bild
+          datei={vorne.datei}
           titel={vorne.titel}
           hinweis={vorne.hinweis}
           hoehe="mittel"

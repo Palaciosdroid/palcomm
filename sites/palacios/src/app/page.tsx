@@ -12,6 +12,7 @@ import Kopf from "@/components/palacios/Kopf";
 import Pakete from "@/components/palacios/Pakete";
 import Fragen from "@/components/palacios/Fragen";
 import Fusszeile from "@/components/palacios/Fusszeile";
+import Bild from "@/components/palacios/Bild";
 import Bildplatz from "@/components/palacios/Bildplatz";
 import Bildstapel from "@/components/palacios/Bildstapel";
 import Medienleiste from "@/components/palacios/Medienleiste";
@@ -79,11 +80,13 @@ export default function Startseite() {
 
           {/* Damit oben nicht nur Text steht */}
           <div className="mx-auto mt-14 max-w-4xl">
-            <Bildplatz
+            <Bild
+              datei="startbild-website.jpg"
               titel="Beispiel einer fertigen Praxis-Website"
-              hinweis="Breites Bild, Bildschirm oder Laptop mit einer echten Kundenseite. Ersetzt später den Farbverlauf."
+              hinweis="Breit (16:7, z. B. 1920×840), Bildschirm oder Laptop mit einer echten Kundenseite"
               hoehe="flach"
               ton="hell"
+              prioritaet
             />
           </div>
         </section>
@@ -131,12 +134,14 @@ export default function Startseite() {
                 erst das Diplom, dann die Praxis. */}
             <Bildstapel
               hinten={{
+                datei: "diplom.jpg",
                 titel: "Das Diplom in der Hand",
-                hinweis: "Abschlussmoment, Urkunde, echte Absolvent/in",
+                hinweis: "4:3, z. B. 1200×900",
               }}
               vorne={{
+                datei: "praxisraum.jpg",
                 titel: "Der eigene Praxisraum",
-                hinweis: "Sessel, Licht, Pflanze — bewohnt, nicht steril",
+                hinweis: "4:3, z. B. 1200×900",
               }}
             />
           </div>
