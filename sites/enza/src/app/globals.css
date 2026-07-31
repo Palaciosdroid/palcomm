@@ -71,12 +71,20 @@ body {
 }
 
 /* Elegante Überschriften */
-h1, h2, h3 {
-  font-family: "Playfair Display", Georgia, serif;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-  color: var(--text-dark);
+/*
+ * In @layer base, damit Hilfsklassen gewinnen. Ohne die Ebene schlägt dieser
+ * Element-Selektor jede Tailwind-Klasse — ungeschichtetes CSS gewinnt gegen
+ * geschichtetes. Folge: Auf dunklen Flächen bliebe "text-base-50" wirkungslos
+ * und die Überschrift stünde dunkel auf dunkel.
+ */
+@layer base {
+  h1, h2, h3 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    color: var(--text-dark);
+  }
 }
 
 h4, h5, h6 {

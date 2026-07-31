@@ -17,6 +17,7 @@ export default function Bildplatz({
   hoehe = "mittel",
   ton = "warm",
   farben,
+  schmal = false,
   kinder,
 }: {
   /** Was hier hingehört — wird später zum Alternativtext */
@@ -31,6 +32,8 @@ export default function Bildplatz({
    * und die Kachel ist golden wie alles andere.
    */
   farben?: [string, string, string];
+  /** Beschriftung schmal halten — für Bilder, die teilweise verdeckt werden */
+  schmal?: boolean;
   kinder?: ReactNode;
 }) {
   const hoehen = {
@@ -68,7 +71,11 @@ export default function Bildplatz({
       {/* Leichte Struktur, damit die Fläche nicht wie ein Farbfehler wirkt */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.28),transparent_55%)]" />
 
-      <div className={`absolute inset-0 flex flex-col justify-end gap-1 p-5 ${schrift}`}>
+      <div
+        className={`absolute inset-0 flex flex-col justify-end gap-1 p-5 ${schrift} ${
+          schmal ? "pr-[42%]" : ""
+        }`}
+      >
         <BildSymbol
           className="mb-auto h-5 w-5 opacity-60"
           strokeWidth={1.5}

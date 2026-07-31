@@ -84,19 +84,28 @@ body {
   font-size: 17px;
 }
 
-/* Elegante Überschriften */
-h1, h2, h3 {
-  font-family: var(--font-heading);
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-  color: var(--text-dark);
-}
+/*
+ * Elegante Überschriften.
+ *
+ * In @layer base, damit Hilfsklassen gewinnen. Ohne die Ebene schlägt dieser
+ * Element-Selektor jede Tailwind-Klasse — ungeschichtetes CSS gewinnt gegen
+ * geschichtetes. Folge: Auf dunklen Flächen blieb "text-base-50" wirkungslos
+ * und die Überschrift stand dunkel auf dunkel, also unsichtbar.
+ */
+@layer base {
+  h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    color: var(--text-dark);
+  }
 
-h4, h5, h6 {
-  font-family: var(--font-body);
-  font-weight: 500;
-  letter-spacing: 0;
+  h4, h5, h6 {
+    font-family: var(--font-body);
+    font-weight: 500;
+    letter-spacing: 0;
+  }
 }
 
 /* Sanfter Scrollbar */

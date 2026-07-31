@@ -51,62 +51,92 @@ export const palacios = {
   ],
 
   hero: {
-    kicker: "Für Menschen, die Menschen begleiten — ob seit gestern oder seit Jahren",
-    title: "Sichtbar werden, ohne laut zu werden.",
-    lead: "Wer dich sucht, soll dich finden — und gleich spüren, wie du arbeitest. Das gilt schon, bevor die erste Klient/in kommt: Du erzählst uns von deiner Arbeit, wir bauen daraus deine Website und betreiben sie danach weiter. Für Therapeut/innen, Coaches und kleine Praxen in der Schweiz, in Deutschland und in Österreich — ob deine Praxis gerade entsteht oder seit Jahren läuft.",
+    kicker: "Für Menschen, die Menschen begleiten",
+    // Du/Wir-Teilung wie bei "Du erzählst, wir bauen" — ein Ton über die
+    // ganze Seite. Die Vorgängerin ("Sichtbar werden, ohne laut zu werden")
+    // war zu indirekt: Man musste überlegen, was gemeint ist.
+    title: "Das Diplom hast du. Die Website machen wir.",
+    lead: "Wer deinen Namen hört, gibt ihn bei Google ein — und entscheidet dort, ob aus der Empfehlung eine Anfrage wird. Darum bauen wir dir eine komplette Website und betreiben sie danach weiter: Du lieferst Texte und Bilder und sagst uns, welche Farben du magst. Mehr musst du nicht tun — ob deine Praxis gerade entsteht oder schon lange läuft.",
     preisNote:
       "Ab CHF 980 einmalig, danach ab CHF 29.90 im Monat — Internetadresse und Betrieb inbegriffen. Mehr braucht es am Anfang nicht.",
-    ctaPrimary: { text: "Angebot zusammenstellen", href: "/angebot" },
+    ctaPrimary: { text: "Meine Website zusammenstellen", href: "/angebot" },
     ctaSecondary: { text: "Zuerst den Ablauf ansehen", href: "#ablauf" },
   },
 
-  // Belegt auf palacios-relations.ch. Die Zahlen gehören dem Institut, nicht
-  // dieser GmbH — deshalb steht «aus dem Institut» davor und nicht «wir haben».
+  // Unter dem Startbild steht die stille Frage "Kann ich denen meine Website
+  // anvertrauen?". Darauf antworten Liefertermin, Vorschau und ein Sekretariat,
+  // das ans Telefon geht — nicht Medienauftritte. Bestseller und TV belegen,
+  // dass eine Person in einem anderen Handwerk bekannt ist; die stehen weiter
+  // unten bei "Über uns", wo die Frage nach den Personen von selbst kommt.
+  //
+  // Die Institutszeile bleibt: Sie ist der einzige Beleg mit Alleinstellung —
+  // schreiben kann ihn sonst niemand.
   vertrauensleiste: [
     "Aus dem Institut, das über 3'500 Therapeut/innen ausgebildet hat",
-    "Gabriel Palacios: 12-facher Bestsellerautor in 8 Ländern",
-    "Bekannt aus SRF, Blick und Blue News",
+    "In 5 bis 10 Arbeitstagen fertig — Vorschau und Korrekturrunde inbegriffen",
+    "Sekretariat in Bern, erreichbar Di.–Sa., 09:00–18:00",
   ],
 
-  // Der Fokus liegt auf frisch Diplomierten: Die meisten Kund/innen haben noch
-  // gar keine Website, nicht eine veraltete. Absatz 3 fängt die zweite Gruppe
-  // auf, ohne den Einstieg zu verwässern.
+  // Kacheln statt Fliesstext: Diese Leser/innen überfliegen. Die fetten
+  // Zeilen allein erzählen die ganze Geschichte — Liste, Zweifel, verpasste
+  // Empfehlung, veraltete Seite. Kachel 4 ist der Platz für die zweite
+  // Gruppe, ohne dass sie den Fokus auf die Neustarterinnen verwässert.
   problem: {
-    title: "Kennst du diesen Moment?",
-    absaetze: [
-      "Das Diplom ist da. Vielleicht arbeitest du noch im alten Beruf, vielleicht richtest du gerade den ersten eigenen Raum ein — und auf deiner Liste steht seit Wochen: Website. Du hattest noch nie eine. Und so recht weisst du nicht, wo du anfangen sollst.",
-      "Also wartest du, bis die Praxis «richtig» läuft. Reicht das denn überhaupt schon für eine eigene Seite? Was soll da stehen, solange noch keine Klient/innen da waren? Verständliche Fragen. Nur ist die Reihenfolge in Wahrheit umgekehrt: Die ersten Klient/innen kommen über Empfehlungen — und wer deinen Namen hört, gibt ihn bei Google ein. Steht dort nichts, versandet die Empfehlung. Ausgerechnet am Anfang, wo jede einzelne Anfrage zählt.",
-      "Vielleicht bist du aber auch längst unterwegs: Deine Praxis läuft seit Jahren, nur deine Website ist stehen geblieben — du nennst die Adresse und schiebst gleich hinterher: «Die ist nicht mehr ganz aktuell.» So oder so: Es ist kein Versäumnis. Eine Website zu bauen und aktuell zu halten ist ein eigener Beruf — deiner ist es nicht. Und die Baukästen, die das Gegenteil behaupten, kosten am Ende mehr Abende, als sie sparen.",
+    title: "Kennst du diese Momente?",
+    kacheln: [
+      {
+        zeile: "Seit Wochen auf der Liste: Website",
+        text: "Das Diplom ist da — nur eine eigene Seite hattest du noch nie.",
+      },
+      {
+        zeile: "Was soll da überhaupt stehen?",
+        text: "Solange noch keine Klient/innen da waren, fühlt sich eine eigene Seite zu früh an — also wartest du.",
+      },
+      {
+        zeile: "Jemand gibt deinen Namen weiter",
+        text: "Wer ihn hört, gibt ihn bei Google ein — steht dort nichts, versandet die Empfehlung.",
+      },
+      {
+        zeile: "«Die ist nicht mehr ganz aktuell»",
+        text: "Deine Praxis läuft seit Jahren — nur deine Website ist stehen geblieben.",
+      },
     ],
+    bruecke:
+      "So oder so: kein Versäumnis. Eine Website zu bauen und aktuell zu halten ist ein eigener Beruf — deiner ist es nicht.",
   },
 
+  // Reihenfolge nach der Sorge, nicht nach dem Bauplan: zuerst die
+  // Technikangst, dann die Rechtsangst, dann das Produkt, zuletzt die Frage
+  // nach der Bindung. "Stimmen deiner Klient/innen" fehlt in Punkt 5 mit
+  // Absicht — bei frisch Diplomierten weckt gerade das die Sorge, die diese
+  // Seite nehmen soll. Auf der gebauten Website ist der Abschnitt trotzdem da.
   angebot: {
     title: "Was du in jedem Fall bekommst",
     lead: "Alles, was eine Praxis im Netz braucht — auch wenn deine gerade erst entsteht. Was hier steht, ist drin und bleibt drin, solange du dabei bist.",
     punkte: [
       {
-        title: "Eine vollständige Website",
-        text: "Eine Startseite mit allen Abschnitten, die eine Praxis braucht: wer du bist, was du anbietest, wie du arbeitest, Stimmen deiner Klient/innen, Kontaktformular.",
+        title: "Technik ist unser Problem",
+        text: "Updates, Sicherheit, tägliche Sicherungskopien — du bezahlst uns dafür, dass du daran nie denken musst.",
       },
       {
-        title: "Deine eigene Internetadresse",
-        text: "Wir prüfen sie, melden sie an, verlängern sie jedes Jahr und richten alles Nötige ein. Sie gehört dir — auch wenn du später gehst.",
+        title: "Du machst nichts kaputt",
+        text: "Texte, Farben und Schrift änderst du selbst — der Aufbau deiner Seite bleibt dabei fest.",
       },
       {
-        title: "Wir halten deine Seite am Laufen",
-        text: "Updates, Sicherheit, Erreichbarkeit. Du merkst davon nichts — und genau das ist der Punkt.",
+        title: "Was du schreiben darfst",
+        text: "Kein Heilversprechen, Notfallnummern, die üblichen Hinweise deines Fachgebiets — fertig formuliert, bevor du danach fragen musst.",
       },
       {
-        title: "Impressum und Datenschutzerklärung",
-        text: "Vorbereitet und auf deine Praxis zugeschnitten, mit den Angaben, die in der Schweiz, in Deutschland und in Österreich verlangt sind.",
+        title: "Impressum und Datenschutz: erledigt",
+        text: "Auf deine Praxis zugeschnitten und passend für die Schweiz, Deutschland oder Österreich.",
       },
       {
-        title: "Die Hinweise für dein Fachgebiet",
-        text: "Ergänzende Begleitung, laufende Behandlung, kein Heilversprechen, Notfallnummern — formuliert, bevor du danach fragen musst.",
+        title: "Alles drauf, was hingehört",
+        text: "Wer du bist, was du anbietest, wie eine Sitzung abläuft — bis hin zum Kontaktformular.",
       },
       {
-        title: "Selbst ändern, ohne etwas kaputtzumachen",
-        text: "Texte, Farben und Schrift änderst du in einem geschützten Bereich. Der Aufbau deiner Seite bleibt fest — darum kann dabei nichts schiefgehen.",
+        title: "Deine Internetadresse gehört dir",
+        text: "Wir melden sie an und verlängern sie Jahr für Jahr — und wenn du gehst, nimmst du sie mit.",
       },
     ],
     nichtEnthaltenTitle: "Nicht enthalten — damit du es vorher weisst",
@@ -129,34 +159,42 @@ export const palacios = {
       "Geht etwas nicht, ist das unser Problem — so oft es vorkommt",
       "Dein Zugang, um Texte, Farben und Schrift selbst zu ändern",
     ],
+    // Ohne Preisbehauptung, ohne Anbieternamen: Der Unterschied ist nicht der
+    // Preis, sondern wer die Arbeit macht. Die frühere Fassung behauptete, die
+    // Internetadresse koste erst ab dem zweiten Jahr — das stimmt bei den
+    // meisten Anbietern nicht.
     vergleich:
-      "Zum Vergleich: Ein Baukasten zum Selberbauen kostet im Monat etwa gleich viel, die Internetadresse ab dem zweiten Jahr extra — und bauen, pflegen und reparieren musst du dort alles selbst.",
+      "Zum Vergleich: Ein Baukasten zum Selberbauen gibt dir Werkzeug, keine fertige Website. Bauen, pflegen, reparieren — das bleibt dort alles bei dir, neben deiner Praxis. Bei uns bezahlst du genau dafür, dass diese Arbeit gemacht ist.",
   },
 
+  // Gegenüberstellung statt nummerierter Schritte: Die Botschaft dieses
+  // Abschnitts ist kein Ablauf, sondern ein Mengenverhältnis. Zwei ungleich
+  // lange Spalten zeigen es, bevor jemand ein Wort gelesen hat. Und die Frage
+  // an dieser Stelle lautet nicht "in welcher Reihenfolge?", sondern "kommt da
+  // Arbeit auf mich zu?".
   ablauf: {
-    title: "Du erzählst, wir bauen",
-    schritte: [
-      {
-        nummer: "1",
-        title: "Du erzählst uns von deiner Arbeit",
-        text: "Du beantwortest Fragen, die du ohnehin beantworten kannst: Wen begleitest du? Was bietest du an? Wie arbeitest du? Dazu wählst du Farben und Schrift aus fertigen Kombinationen und siehst sofort, wie das zusammenwirkt.",
-        dauer: "etwa 30 Minuten",
-      },
-      {
-        nummer: "2",
-        title: "Wir bauen deine Seite",
-        text: "Aus deinen Antworten entsteht die Website. Wir setzen deine Bilder ein, lesen jeden Text auf Rechtschreibung und Wirkung gegen und legen Impressum und Datenschutzerklärung an. Du bekommst einen Link zur Vorschau und sagst uns, was noch anders soll.",
-        dauer: "5 bis 10 Arbeitstage",
-      },
-      {
-        nummer: "3",
-        title: "Deine Seite geht online",
-        text: "Wir schalten deine Internetadresse auf, melden die Seite bei Google an und zeigen dir in einem kurzen Gespräch, wie du selbst Texte änderst. Ab dann läuft sie — und wir sorgen dafür, dass das so bleibt.",
-        dauer: "an einem Tag",
-      },
-    ],
+    title: "Wenig von dir, viel von uns",
+    deins: {
+      title: "Was du machst",
+      punkte: [
+        "Einmal von deiner Arbeit erzählen — etwa 30 Minuten",
+        "Ein paar Fotos schicken",
+        "Sagen, welche Farben dir gefallen",
+        "Die Vorschau anschauen und sagen, was noch anders soll",
+      ],
+      schluss: "Mehr steht nicht auf deiner Liste.",
+    },
+    unseres: {
+      title: "Was wir machen",
+      punkte: [
+        "Aus deinen Worten die ganze Website bauen — in 5 bis 10 Arbeitstagen",
+        "Impressum, Datenschutzerklärung und die Hinweise für dein Fachgebiet anlegen",
+        "Deine Internetadresse aufschalten und die Seite bei Google anmelden",
+        "Und danach: betreiben, sichern, reparieren — Monat für Monat, so lange du willst",
+      ],
+    },
     fazit:
-      "Alles, was du dafür tust: einmal etwa 30 Minuten Zeit, ein paar Fotos und eine Rückmeldung zur Vorschau. Den Rest machen wir.",
+      "Deine Liste ist nach einer halben Stunde erledigt. Unsere fängt dort erst an — und beim Aufschalten hört sie nicht auf.",
   },
 
   ueberUns: {
@@ -176,6 +214,7 @@ export const palacios = {
       { zahl: "3'500+", text: "Absolvent/innen am Institut unserer Gruppe" },
       { zahl: "10'000+", text: "therapeutische Erfahrungsstunden in der Gruppe" },
       { zahl: "12", text: "Bestseller von Gabriel Palacios, in 8 Ländern" },
+      { zahl: "SRF", text: "Blick und Blue News haben über ihn berichtet" },
     ],
   },
 

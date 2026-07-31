@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User } from "lucide-react";
 import { palacios } from "@/lib/palacios-content";
 
 export default function Kopf() {
@@ -44,6 +44,12 @@ export default function Kopf() {
                 {eintrag.name}
               </Link>
             ))}
+            {/* Zugang für bestehende Kund/innen. Noch nicht verlinkt — der
+                Bereich entsteht erst; ein Link ins Leere wäre schlimmer. */}
+            <span className="flex cursor-not-allowed items-center gap-1.5 text-sm text-text-light">
+              <User className="h-4 w-4" />
+              Login
+            </span>
             <Link
               href="/angebot"
               className="rounded-full bg-brand px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand-dark"
@@ -83,6 +89,10 @@ export default function Kopf() {
             >
               Angebot zusammenstellen
             </Link>
+            <span className="mt-4 flex items-center justify-center gap-2 text-text-light">
+              <User className="h-4 w-4" />
+              Login — folgt
+            </span>
           </nav>
         </div>
       )}

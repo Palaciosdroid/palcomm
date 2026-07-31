@@ -1,4 +1,4 @@
-import { Check, Clock, Phone, Mail } from "lucide-react";
+import { Check, Phone, Mail } from "lucide-react";
 import { palacios } from "@/lib/palacios-content";
 import { Abschnitt, Ueberschrift, Knopf } from "@/components/palacios/Basis";
 import Kopf from "@/components/palacios/Kopf";
@@ -6,6 +6,7 @@ import Pakete from "@/components/palacios/Pakete";
 import Fragen from "@/components/palacios/Fragen";
 import Fusszeile from "@/components/palacios/Fusszeile";
 import Bildplatz from "@/components/palacios/Bildplatz";
+import Bildstapel from "@/components/palacios/Bildstapel";
 import { ABO_JAEHRLICH, ABO_MONATLICH, formatiereChf } from "@/lib/angebot";
 import { getPalette } from "@/lib/theme";
 
@@ -89,14 +90,40 @@ export default function Startseite() {
 
         {/* Erkennen */}
         <Abschnitt>
-          <div className="max-w-2xl">
-            <h2 className="text-3xl leading-tight text-text-dark md:text-4xl">
-              {problem.title}
-            </h2>
-            {problem.absaetze.map((absatz) => (
-              <p key={absatz} className="mt-5 text-lg leading-relaxed text-text-medium">
-                {absatz}
+          <div className="grid items-center gap-10 md:grid-cols-[1fr_1fr] md:gap-14">
+            <div>
+              <h2 className="text-3xl leading-tight text-text-dark md:text-4xl">
+                {problem.title}
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-text-medium">
+                {problem.bruecke}
               </p>
+            </div>
+
+            {/* Zwei versetzte Bilder — sie erzählen nebenbei die Reihenfolge:
+                erst das Diplom, dann die Praxis. */}
+            <Bildstapel
+              hinten={{
+                titel: "Das Diplom in der Hand",
+                hinweis: "Abschlussmoment, Urkunde, echte Absolvent/in",
+              }}
+              vorne={{
+                titel: "Der eigene Praxisraum",
+                hinweis: "Sessel, Licht, Pflanze — bewohnt, nicht steril",
+              }}
+            />
+          </div>
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {problem.kacheln.map((kachel) => (
+              <div key={kachel.zeile} className="rounded-2xl bg-base-100 p-5">
+                <p className="font-sans font-semibold leading-snug text-text-dark">
+                  {kachel.zeile}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-text-medium">
+                  {kachel.text}
+                </p>
+              </div>
             ))}
           </div>
         </Abschnitt>
@@ -105,14 +132,25 @@ export default function Startseite() {
         <Abschnitt id="angebot" flaeche="getoent">
           <Ueberschrift lead={angebot.lead}>{angebot.title}</Ueberschrift>
 
-          <div className="grid gap-x-10 gap-y-8 md:grid-cols-2">
+          {/*
+            Karten statt einer zweispaltigen Liste: Sechs gleich aussehende
+            Textblöcke verschwimmen beim Überfliegen. Und die Titel stehen
+            serifenlos (font-sans) — DM Serif Display ist eine Schrift für
+            grosse Zeilen, bei 16 Pixel wird sie matschig.
+          */}
+          <div className="grid gap-4 sm:grid-cols-2">
             {angebot.punkte.map((punkt) => (
-              <div key={punkt.title} className="flex gap-4">
-                <Check className="mt-1 h-5 w-5 shrink-0 text-brand" />
-                <div>
-                  <h3 className="font-medium text-text-dark">{punkt.title}</h3>
-                  <p className="mt-1.5 leading-relaxed text-text-medium">{punkt.text}</p>
-                </div>
+              <div
+                key={punkt.title}
+                className="rounded-2xl bg-base-50 p-5 md:p-6"
+              >
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand/10">
+                  <Check className="h-4.5 w-4.5 text-brand" strokeWidth={2.5} />
+                </span>
+                <h3 className="mt-4 font-sans text-base font-semibold text-text-dark">
+                  {punkt.title}
+                </h3>
+                <p className="mt-1.5 leading-relaxed text-text-medium">{punkt.text}</p>
               </div>
             ))}
           </div>
@@ -129,27 +167,77 @@ export default function Startseite() {
           </div>
         </Abschnitt>
 
+        {/* Wie das aussehen kann */}
+        <Abschnitt id="beispiele" flaeche="dunkel">
+          <Ueberschrift
+            hell
+            kicker="Beispiele"
+            lead="Dieselbe Vorlage, drei Handschriften. Farben, Schrift und Texte machen den Unterschied — der Aufbau bleibt derselbe, weil er sich bewährt hat."
+          >
+            Wie deine Seite aussehen kann
+          </Ueberschrift>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            {BEISPIELE.map((beispiel) => {
+              const { colors } = getPalette(beispiel.paletteId);
+              return (
+                <Bildplatz
+                  key={beispiel.paletteId}
+                  titel={beispiel.titel}
+                  hinweis={beispiel.hinweis}
+                  hoehe="hoch"
+                  farben={[colors.brandDark, colors.brand, colors.accent200]}
+                />
+              );
+            })}
+          </div>
+
+          <p className="mt-6 text-sm text-base-300">
+            Beispiele. Sobald die ersten Seiten live sind, stehen hier echte
+            Adressen statt Bilder.
+          </p>
+        </Abschnitt>
+
         {/* Ablauf */}
         <Abschnitt id="ablauf">
           <Ueberschrift>{ablauf.title}</Ueberschrift>
 
-          <ol className="grid gap-8 md:grid-cols-3">
-            {ablauf.schritte.map((schritt) => (
-              <li key={schritt.nummer}>
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand text-lg font-medium text-white">
-                  {schritt.nummer}
-                </span>
-                <h3 className="mt-4 text-lg font-medium text-text-dark">{schritt.title}</h3>
-                <p className="mt-2 leading-relaxed text-text-medium">{schritt.text}</p>
-                <p className="mt-3 flex items-center gap-1.5 text-sm text-brand">
-                  <Clock className="h-3.5 w-3.5" />
-                  {schritt.dauer}
-                </p>
-              </li>
-            ))}
-          </ol>
+          {/* Zwei ungleich lange Spalten — das Mengenverhältnis sieht man,
+              bevor man ein Wort liest. */}
+          <div className="grid gap-5 md:grid-cols-2">
+            <div className="rounded-2xl border-2 border-brand bg-white p-6 md:p-8">
+              <h3 className="font-sans text-lg font-semibold text-text-dark">
+                {ablauf.deins.title}
+              </h3>
+              <ul className="mt-5 space-y-3">
+                {ablauf.deins.punkte.map((punkt) => (
+                  <li key={punkt} className="flex gap-3 leading-relaxed text-text-medium">
+                    <Check className="mt-1 h-4 w-4 shrink-0 text-brand" />
+                    <span>{punkt}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 border-t border-base-200 pt-4 font-medium text-brand">
+                {ablauf.deins.schluss}
+              </p>
+            </div>
 
-          <p className="mt-12 rounded-2xl bg-accent-100 p-6 text-lg leading-relaxed text-text-dark">
+            <div className="rounded-2xl bg-base-200 p-6 md:p-8">
+              <h3 className="font-sans text-lg font-semibold text-text-dark">
+                {ablauf.unseres.title}
+              </h3>
+              <ul className="mt-5 space-y-3">
+                {ablauf.unseres.punkte.map((punkt) => (
+                  <li key={punkt} className="flex gap-3 leading-relaxed text-text-medium">
+                    <Check className="mt-1 h-4 w-4 shrink-0 text-brand" />
+                    <span>{punkt}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <p className="mt-8 max-w-3xl text-lg leading-relaxed text-text-dark">
             {ablauf.fazit}
           </p>
         </Abschnitt>
@@ -180,12 +268,16 @@ export default function Startseite() {
                 <span className="text-sm text-base-300">im Monat</span>
               </div>
 
-              <p className="mt-4">
-                <span className="inline-block rounded-full bg-accent-200 px-4 py-2 text-sm text-text-dark">
-                  Jährlich: CHF {formatiereChf(ABO_JAEHRLICH)} — du zahlst zehn
-                  Monate und bekommst zwölf
-                </span>
-              </p>
+              {/* Zweizeilige Box statt einer runden Pille: Der Satz war zu
+                  lang, brach in der Pille um und sah abgeschnitten aus. */}
+              <div className="mt-4 inline-block rounded-xl bg-accent-200 px-5 py-3">
+                <p className="font-medium text-text-dark">
+                  Jahrespreis CHF {formatiereChf(ABO_JAEHRLICH)}
+                </p>
+                <p className="text-sm text-text-medium">
+                  Zwei Monate geschenkt
+                </p>
+              </div>
 
               <p className="mt-5 text-sm leading-relaxed text-text-light">
                 {abo.vergleich}
@@ -203,24 +295,28 @@ export default function Startseite() {
           </div>
         </Abschnitt>
 
+        {/* Häufige Fragen */}
+        <Abschnitt>
+          <Ueberschrift>{palacios.faq.title}</Ueberschrift>
+          <Fragen fragen={palacios.faq.fragen} />
+        </Abschnitt>
+
         {/* Über uns */}
-        <Abschnitt id="ueber-uns" flaeche="dunkel">
-          <Ueberschrift hell lead={ueberUns.untertitel}>
-            {ueberUns.title}
-          </Ueberschrift>
+        <Abschnitt id="ueber-uns" flaeche="getoent">
+          <Ueberschrift lead={ueberUns.untertitel}>{ueberUns.title}</Ueberschrift>
 
           <div className="grid gap-10 md:grid-cols-[1.6fr_1fr]">
             <div>
               {ueberUns.absaetze.map((absatz) => (
-                <p key={absatz} className="mb-5 leading-relaxed text-base-300">
+                <p key={absatz} className="mb-5 leading-relaxed text-text-medium">
                   {absatz}
                 </p>
               ))}
               <blockquote className="mt-8 border-l-2 border-brand-light pl-5">
-                <p className="font-serif text-xl leading-relaxed text-base-50">
+                <p className="font-serif text-xl leading-relaxed text-text-dark">
                   «{ueberUns.zitat.text}»
                 </p>
-                <footer className="mt-2 text-sm text-base-300">
+                <footer className="mt-2 text-sm text-text-light">
                   {ueberUns.zitat.quelle}
                 </footer>
               </blockquote>
@@ -231,55 +327,19 @@ export default function Startseite() {
                 titel="Gabriel Palacios"
                 hinweis="Hochformat, ruhiger Hintergrund. Alternativ ein Teambild."
                 hoehe="hoch"
-                ton="dunkel"
+                ton="warm"
               />
 
               <dl className="mt-8 space-y-6">
                 {ueberUns.fakten.map((faktum) => (
                   <div key={faktum.text}>
-                    <dt className="text-2xl text-brand-light">{faktum.zahl}</dt>
-                    <dd className="mt-1 text-sm text-base-300">{faktum.text}</dd>
+                    <dt className="text-2xl text-brand">{faktum.zahl}</dt>
+                    <dd className="mt-1 text-sm text-text-medium">{faktum.text}</dd>
                   </div>
                 ))}
               </dl>
             </div>
           </div>
-        </Abschnitt>
-
-        {/* Wie das aussehen kann */}
-        <Abschnitt id="beispiele">
-          <Ueberschrift
-            kicker="Beispiele"
-            lead="Dieselbe Vorlage, drei Handschriften. Farben, Schrift und Texte machen den Unterschied — der Aufbau bleibt derselbe, weil er sich bewährt hat."
-          >
-            Wie deine Seite aussehen kann
-          </Ueberschrift>
-
-          <div className="grid gap-5 md:grid-cols-3">
-            {BEISPIELE.map((beispiel) => {
-              const { colors } = getPalette(beispiel.paletteId);
-              return (
-                <Bildplatz
-                  key={beispiel.paletteId}
-                  titel={beispiel.titel}
-                  hinweis={beispiel.hinweis}
-                  hoehe="hoch"
-                  farben={[colors.brandDark, colors.brand, colors.accent200]}
-                />
-              );
-            })}
-          </div>
-
-          <p className="mt-6 text-sm text-text-light">
-            Beispiele. Sobald die ersten Seiten live sind, stehen hier echte
-            Adressen statt Bilder.
-          </p>
-        </Abschnitt>
-
-        {/* Häufige Fragen */}
-        <Abschnitt>
-          <Ueberschrift>{palacios.faq.title}</Ueberschrift>
-          <Fragen fragen={palacios.faq.fragen} />
         </Abschnitt>
 
         {/* Abschluss */}
