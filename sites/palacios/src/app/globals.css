@@ -394,7 +394,6 @@ a {
    Rahmen und Linienfeld sind wieder raus — sie lasen sich wie
    liniertes Briefpapier. */
 
-.fliess-ton,
 .fliess-korn,
 .fliess-netz {
   position: absolute;
@@ -402,19 +401,9 @@ a {
   display: block;
 }
 
-/* Oben hell für die Wortmarke, Schwerpunkt der Tönung bei 68 %. */
-.fliess-ton {
-  background: linear-gradient(
-    180deg,
-    var(--base-50) 0%,
-    var(--base-50) 14%,
-    var(--accent-100) 34%,
-    var(--accent-200) 52%,
-    var(--accent-300) 68%,
-    var(--accent-200) 84%,
-    var(--accent-100) 100%
-  );
-}
+/* Kein Verlauf mehr. Der Grund ist die Sektionsfarbe; das Netz und das
+   Korn tragen die Fläche. Der Verlauf lag als sichtbare Bahn quer über
+   dem Netz und sah wie draufgelegt aus. */
 
 /* Jede Ebene ein eigenes Canvas mit fester Weichzeichnung. Gezeichnet
    wird genau einmal; pro Bild ändert sich nur transform, und das läuft

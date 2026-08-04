@@ -48,10 +48,10 @@ import { useEffect, useRef } from "react";
 const BILDRATE = 30;
 
 /** Ungefährer Abstand der Ruheorte in Punkten. Kleiner = dichter. */
-const ABSTAND = 115;
+const ABSTAND = 155;
 
 /** Ab welcher Entfernung zwei Punkte verbunden werden. */
-const REICHWEITE = 205;
+const REICHWEITE = 218;
 
 function nachRgb(hex: string): [number, number, number] {
   const h = hex.trim().replace("#", "");
@@ -213,13 +213,13 @@ export default function FliessHintergrund() {
           const nah = 1 - d / REICHWEITE;
           const tiefe = (a.tiefe + b.tiefe) / 2;
           const raum = Math.min(frei(a.x, a.y), frei(b.x, b.y));
-          const deckung = nah * (0.34 + tiefe * 0.75) * raum;
+          const deckung = nah * (0.16 + tiefe * 0.4) * raum;
           if (deckung < 0.012) continue;
 
           ctx!.beginPath();
           ctx!.moveTo(a.x, a.y);
           ctx!.lineTo(b.x, b.y);
-          ctx!.lineWidth = 0.7 + tiefe * 1.2;
+          ctx!.lineWidth = 0.6 + tiefe * 0.8;
           ctx!.strokeStyle = `rgba(${linie[0]},${linie[1]},${linie[2]},${deckung})`;
           ctx!.stroke();
         }
@@ -228,10 +228,10 @@ export default function FliessHintergrund() {
       // Knoten
       for (const p of punkte) {
         const raum = frei(p.x, p.y);
-        const deckung = (0.42 + p.tiefe * 0.6) * raum;
+        const deckung = (0.22 + p.tiefe * 0.38) * raum;
         if (deckung < 0.015) continue;
         ctx!.beginPath();
-        ctx!.arc(p.x, p.y, 1 + p.tiefe * 2.1, 0, Math.PI * 2);
+        ctx!.arc(p.x, p.y, 0.9 + p.tiefe * 1.6, 0, Math.PI * 2);
         ctx!.fillStyle = `rgba(${knoten[0]},${knoten[1]},${knoten[2]},${deckung})`;
         ctx!.fill();
       }
@@ -259,7 +259,6 @@ export default function FliessHintergrund() {
 
   return (
     <div ref={huelle} className="fliess pointer-events-none absolute inset-0 -z-10" aria-hidden>
-      <span className="fliess-ton" />
       <canvas ref={flaeche} className="fliess-netz" />
       <span className="fliess-korn" />
     </div>
