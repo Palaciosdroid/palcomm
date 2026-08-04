@@ -54,10 +54,10 @@ import { useEffect, useRef } from "react";
 /** Ebenen von hinten nach vorn. Verhältnis der Unschärfe rund 40:1. */
 const EBENEN = [
   // unschaerfe, knoten, farbe,        deckkraft, linie, flaechen, punkte
-  { unschaerfe: 34, knoten: 13, ton: "--accent-400", deckung: 0.42, linie: 10, flaechen: true, punkte: false },
-  { unschaerfe: 12, knoten: 16, ton: "--accent-500", deckung: 0.3, linie: 4, flaechen: true, punkte: false },
-  { unschaerfe: 3, knoten: 17, ton: "--accent-600", deckung: 0.34, linie: 1.4, flaechen: false, punkte: false },
-  { unschaerfe: 0, knoten: 13, ton: "--brand", deckung: 0.5, linie: 1, flaechen: false, punkte: true },
+  { unschaerfe: 26, knoten: 26, ton: "--accent-400", deckung: 0.4, linie: 7, flaechen: true, punkte: false },
+  { unschaerfe: 9, knoten: 30, ton: "--accent-500", deckung: 0.3, linie: 3, flaechen: true, punkte: false },
+  { unschaerfe: 2, knoten: 38, ton: "--accent-600", deckung: 0.32, linie: 1.2, flaechen: false, punkte: true },
+  { unschaerfe: 0, knoten: 34, ton: "--brand", deckung: 0.45, linie: 1, flaechen: false, punkte: true },
 ];
 
 /** Wie weit sich jede Ebene mit dem Zeiger bewegt, in Punkten. Vorn am meisten. */
@@ -116,32 +116,30 @@ export default function FliessHintergrund() {
         const [r, g, b] = nachRgb(stil.getPropertyValue(e.ton) || "#c9a870");
         const w = zufall(1207 + i * 613);
 
-        // Das Feld ballt sich in der unteren linken Ecke und läuft nach
-        // rechts oben aus. Bewusst schief: eine dichte Ecke, viel Nichts.
-        // Gleichmässig verteilt wäre es ein Drahtmodell.
-        const feldB = schmal ? 380 : 780;
-        const kern = schmal ? 130 : 340;
-        const mx = schmal ? 60 : 130;
-        const my = H * (schmal ? 0.72 : 0.66);
-        const streuX = schmal ? 220 : 420;
-        const streuY = H * (schmal ? 0.3 : 0.34);
+        // Wie in der Vorlage: Das Netz füllt die linke Hälfte über die ganze
+        // Höhe und läuft nach rechts aus, bevor die Textspalte beginnt.
+        const feldB = schmal ? 400 : B * 0.62;
+        const kern = schmal ? 150 : B * 0.28;
 
-        // Zwei Zufallszahlen gemittelt ergeben eine Ballung um die Mitte,
-        // ohne dass es kreisrund wirkt.
-        const glocke = () => (w() + w() + w()) / 3 - 0.5;
-
+        // Leicht gestörtes Raster statt reinem Zufall — sonst entstehen
+        // Klumpen und kahle Stellen, und die Dreiecke werden ungleich gross.
         const punkte: { x: number; y: number }[] = [];
-        for (let k = 0; k < e.knoten; k++) {
-          punkte.push({
-            x: mx + glocke() * 2 * streuX + (w() - 0.3) * 120,
-            y: my + glocke() * 2 * streuY,
-          });
+        const spalten = Math.max(3, Math.round(Math.sqrt(e.knoten * (feldB / H) * 1.5)));
+        const zeilen = Math.ceil(e.knoten / spalten);
+        for (let sy = 0; sy < zeilen; sy++) {
+          for (let sx = 0; sx < spalten; sx++) {
+            if (punkte.length >= e.knoten) break;
+            punkte.push({
+              x: -90 + ((sx + 0.5 + (w() - 0.5) * 0.85) / spalten) * (feldB + 90),
+              y: -70 + ((sy + 0.5 + (w() - 0.5) * 0.85) / zeilen) * (H + 140),
+            });
+          }
         }
 
         const deckungBei = (x: number) => {
           if (x <= kern) return 1;
-          const t = (x - kern) / (feldB - 140 - kern);
-          return Math.max(0, 1 - t) ** 1.4;
+          const t = (x - kern) / Math.max(1, feldB - kern);
+          return Math.max(0, 1 - t) ** 1.6;
         };
 
         // Jeder Knoten wird mit seinen zwei bis drei nächsten Nachbarn
@@ -193,10 +191,10 @@ export default function FliessHintergrund() {
         // jeder Ecke wären es Partikel.
         if (e.punkte) {
           const [kr, kg, kb] = nachRgb(stil.getPropertyValue("--brand-dark") || "#6a542d");
-          const wieViele = schmal ? 1 : 5;
+          const wieViele = schmal ? 6 : e.knoten;
           punkte.slice(0, wieViele).forEach((p) => {
             ctx.beginPath();
-            ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
+            ctx.arc(p.x, p.y, e.unschaerfe ? 3.2 : 2.2, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(${kr},${kg},${kb},${0.55 * deckungBei(p.x)})`;
             ctx.fill();
           });
