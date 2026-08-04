@@ -109,10 +109,15 @@ export const bausteine: Baustein[] = [
   {
     id: "google-business",
     gruppe: "sichtbarkeit",
-    name: "Dein Eintrag auf Google Maps",
+    // Hiess vorher «Dein Eintrag auf Google Maps». Das war zu eng: Der
+    // Eintrag erscheint nicht nur auf der Karte, sondern auch rechts neben
+    // den Suchergebnissen, und genau dort stehen Öffnungszeiten, Telefon
+    // und Bewertungen. Wer nur «Maps» liest, unterschätzt, was er kauft.
+    name: "Dein Praxiseintrag bei Google",
     beschreibung:
-      "Wir richten ihn ein und lassen ihn bestätigen, damit deine Praxis auf der Karte erscheint, wenn jemand in der Nähe sucht. Für eine lokale Praxis oft wirksamer als die Website selbst.",
+      "Der Kasten mit Adresse, Öffnungszeiten, Telefon und Bewertungen — er erscheint neben den Suchergebnissen und auf der Karte. Wir richten ihn ein, lassen ihn bestätigen und füllen ihn. Für eine lokale Praxis oft wirksamer als die Website selbst.",
     preis: 290,
+    hinweis: "Google nennt das Unternehmensprofil, früher Google My Business.",
   },
   {
     id: "seo-betreuung",

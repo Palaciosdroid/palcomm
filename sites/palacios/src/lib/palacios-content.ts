@@ -70,7 +70,7 @@ export const palacios = {
     // «In 5 bis 10 Tagen» steht bewusst nicht hier: Das sagt schon die
     // Vertrauensleiste direkt darunter.
     preisNote:
-      "Einrichtung ab CHF 980, Betrieb ab CHF 29.90 im Monat — Internetadresse inbegriffen.",
+      "Ab CHF 980 gebaut, ab CHF 29.90 im Monat betreut — Internetadresse inbegriffen.",
     ctaPrimary: { text: "Meine Website zusammenstellen", href: "/angebot" },
     ctaSecondary: { text: "Zuerst den Ablauf ansehen", href: "#ablauf" },
   },
