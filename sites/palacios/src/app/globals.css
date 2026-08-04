@@ -420,7 +420,9 @@ a {
    wird genau einmal; pro Bild ändert sich nur transform, und das läuft
    im Compositor. Deshalb kostet die Parallaxe praktisch nichts. */
 .fliess-netz {
-  will-change: transform;
+  /* Wird jedes Bild neu gezeichnet — deshalb keine CSS-Weichzeichnung
+     darauf, die müsste sonst jedes Bild neu gerechnet werden. Tiefe
+     kommt über Grösse und Deckkraft der Punkte. */
 }
 
 /* Warmes Korn — verbindet die weichen Goldflächen und verhindert
