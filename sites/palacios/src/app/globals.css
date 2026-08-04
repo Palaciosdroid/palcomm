@@ -388,27 +388,21 @@ a {
 }
 
 /* ------------------------------------------------------------------
-   Hintergrund des Startbilds — «Passepartout»
+   Hintergrund des Startbilds — räumliches Polygonnetz
    ------------------------------------------------------------------
-   Begründung, Vorgeschichte und die Rechnung zur Sichtbarkeit stehen in
-   FliessHintergrund.tsx. Alle Masse in Punkten, nirgends skaliert. */
+   Begründung und die drei Kippstellen stehen in FliessHintergrund.tsx.
+   Rahmen und Linienfeld sind wieder raus — sie lasen sich wie
+   liniertes Briefpapier. */
 
 .fliess-ton,
 .fliess-korn,
-.fliess-feld,
-.fliess-rahmen,
-.fliess-licht {
+.fliess-netz {
   position: absolute;
+  inset: 0;
   display: block;
 }
 
-.fliess-ton,
-.fliess-korn {
-  inset: 0;
-}
-
-/* Oben hell für die Wortmarke, Schwerpunkt der Tönung bei 68 % — im
-   leeren Band zwischen Preiszeile und Browserfenster. */
+/* Oben hell für die Wortmarke, Schwerpunkt der Tönung bei 68 %. */
 .fliess-ton {
   background: linear-gradient(
     180deg,
@@ -422,94 +416,20 @@ a {
   );
 }
 
-/* Das Linienfeld. 1 Punkt Linie, 10 Punkte Abstand — auf einem Telefon
-   rund vier Hell-Dunkel-Wechsel pro Sehwinkelgrad, also im Maximum der
-   Empfindlichkeit. Steht nur unten; über der Schlagzeile hat Struktur
-   nichts verloren. Die Maske lässt es anschwellen und wieder sterben,
-   statt an der Sektionskante abzubrechen. */
-.fliess-feld {
-  left: 14px;
-  right: 14px;
-  bottom: 0;
-  height: 52%;
-  background: repeating-linear-gradient(
-    180deg,
-    var(--accent-500) 0 1px,
-    transparent 1px 10px
-  );
-  opacity: 0.3;
-  -webkit-mask-image: linear-gradient(
-    180deg, transparent 0%, #000 42%, #000 84%, transparent 100%);
-  mask-image: linear-gradient(
-    180deg, transparent 0%, #000 42%, #000 84%, transparent 100%);
+/* Jede Ebene ein eigenes Canvas mit fester Weichzeichnung. Gezeichnet
+   wird genau einmal; pro Bild ändert sich nur transform, und das läuft
+   im Compositor. Deshalb kostet die Parallaxe praktisch nichts. */
+.fliess-netz {
+  will-change: transform;
 }
 
-/* Der Rahmen. Beginnt unter der Kopfzeile, damit die durchsichtige
-   Navigation eine Grundlinie bekommt. Unten offen — geschlossen wäre es
-   die Anatomie eines Werbebanners. */
-.fliess-rahmen {
-  top: 96px;
-  left: 14px;
-  right: 14px;
-  bottom: 0;
-  border: 1px solid var(--brand);
-  border-bottom: 0;
-  opacity: 0.5;
-  -webkit-mask-image: linear-gradient(
-    180deg, #000 0%, #000 66%, transparent 100%);
-  mask-image: linear-gradient(
-    180deg, #000 0%, #000 66%, transparent 100%);
-}
-
-/* Die einzige Bewegung: ein Lichtpunkt auf der oberen Rahmenlinie.
-   Nur Deckkraft, keine Farbe, kein Schein. */
-.fliess-licht {
-  top: 96px;
-  left: 14px;
-  right: 14px;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--brand) 42%,
-    var(--brand-dark) 50%,
-    var(--brand) 58%,
-    transparent 100%
-  );
-  background-size: 240% 100%;
-  background-repeat: no-repeat;
-  opacity: 0.9;
-  animation: fliess-licht 19s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-}
-
-@keyframes fliess-licht {
-  0%        { background-position: 130% 0; }
-  55%, 100% { background-position: -30% 0; }
-}
-
-@media (min-width: 768px) {
-  .fliess-feld,
-  .fliess-rahmen,
-  .fliess-licht { left: 32px; right: 32px; }
-  .fliess-rahmen, .fliess-licht { top: 112px; }
-}
-
-@media (min-width: 1280px) {
-  .fliess-feld,
-  .fliess-rahmen,
-  .fliess-licht { left: 52px; right: 52px; }
-}
-
-/* Warmes Korn — nimmt der Fläche die digitale Flachheit. */
+/* Warmes Korn — verbindet die weichen Goldflächen und verhindert
+   Streifenbildung in den Verläufen. */
 .fliess-korn {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 170px 170px;
   opacity: 0.085;
   mix-blend-mode: multiply;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .fliess-licht { animation: none; opacity: 0.35; }
 }
 
 /* ------------------------------------------------------------------
