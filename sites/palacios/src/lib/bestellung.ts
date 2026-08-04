@@ -27,6 +27,17 @@ export interface Bestellung {
   land: LandId;
   praxisname: string;
   istAbsolventin: boolean;
+  /**
+   * Ausdrückliches Verlangen nach § 356 Abs. 4 BGB, vor Ablauf der
+   * Widerrufsfrist zu beginnen — samt Kenntnisnahme, dass das Widerrufsrecht
+   * bei vollständiger Erfüllung erlischt.
+   *
+   * Ohne dieses Häkchen dürfen wir bei Verbraucherinnen aus der EU erst nach
+   * vierzehn Tagen anfangen. Und ohne den Hinweis, der daran hängt, schuldet
+   * die Kundin bei Widerruf gar keinen Wertersatz (§ 357 Abs. 8 BGB) — dann
+   * wurde umsonst gearbeitet.
+   */
+  sofortBeginnen: boolean;
   bemerkungen: string;
 }
 
@@ -89,6 +100,9 @@ export function fasseZusammen(b: Bestellung): { summe: Summe; text: string } {
     b.praxisname ? `Praxis: ${b.praxisname}` : null,
     `${b.email} · ${b.telefon} · ${land}`,
     b.istAbsolventin ? "Absolvent/in einer Palacios-Ausbildung" : null,
+    b.sofortBeginnen
+      ? "Sofortiger Beginn ausdrücklich verlangt (§ 356 Abs. 4 BGB)"
+      : "KEIN sofortiger Beginn verlangt — bei Verbraucher/in aus der EU erst nach 14 Tagen anfangen",
     "",
     `Einmalig: CHF ${summe.einmalig}`,
     `Monatlich: CHF ${summe.proMonat}`,

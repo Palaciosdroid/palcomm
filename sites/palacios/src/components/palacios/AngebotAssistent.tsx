@@ -45,6 +45,7 @@ const LEERE_BESTELLUNG: Bestellung = {
   land: "CH",
   praxisname: "",
   istAbsolventin: false,
+  sofortBeginnen: false,
   bemerkungen: "",
 };
 

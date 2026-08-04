@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Check, Info, Loader2 } from "lucide-react";
 import { LAENDER, type Bestellung, type PruefErgebnis } from "@/lib/bestellung";
 import { formatiereChf, type Summe } from "@/lib/angebot";
@@ -200,6 +201,45 @@ export default function SchrittBestellen({
                 CHF {formatiereChf(summe.absolventenBonus)} abgezogen.
               </span>
             )}
+          </span>
+        </label>
+
+        {/* Ausdrückliches Verlangen nach § 356 Abs. 4 BGB.
+            Ohne dieses Häkchen dürfen wir bei Verbraucherinnen aus der EU erst
+            nach vierzehn Tagen anfangen — und ohne den Satz zum Erlöschen des
+            Widerrufsrechts schuldet die Kundin bei Widerruf keinen Wertersatz
+            (§ 357 Abs. 8 BGB). Der Wortlaut folgt dem Gesetz und ist bewusst
+            nicht schöner formuliert.
+
+            Vorbelegen wäre unzulässig: Die Zustimmung muss aktiv gesetzt
+            werden. */}
+        <label className="flex cursor-pointer gap-3 rounded-xl border border-base-300 p-4">
+          <input
+            type="checkbox"
+            checked={daten.sofortBeginnen}
+            onChange={(e) => setDaten({ sofortBeginnen: e.target.checked })}
+            className="mt-1 h-4 w-4 shrink-0 accent-[color:var(--brand)]"
+          />
+          <span>
+            <span className="block font-medium text-text-dark">
+              Ihr dürft sofort anfangen
+            </span>
+            <span className="mt-1 block text-sm leading-snug text-text-medium">
+              Ich verlange ausdrücklich, dass ihr vor Ablauf der Widerrufsfrist
+              mit der Arbeit beginnt. Mir ist bekannt, dass ich mein
+              Widerrufsrecht verliere, sobald ihr die Leistung vollständig
+              erbracht habt, und dass ich bei einem Widerruf davor den Wert der
+              bis dahin erbrachten Arbeit zu ersetzen habe. Einzelheiten in der{" "}
+              <Link href="/widerruf" className="text-brand underline">
+                Widerrufsbelehrung
+              </Link>
+              .
+            </span>
+            <span className="mt-2 block text-sm leading-snug text-text-light">
+              Ohne dieses Häkchen fangen wir erst in vierzehn Tagen an. Wohnst
+              du in der Schweiz, spielt es keine Rolle — dort gibt es kein
+              gesetzliches Widerrufsrecht bei Dienstleistungen.
+            </span>
           </span>
         </label>
 
