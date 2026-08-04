@@ -1,73 +1,59 @@
 /**
- * Hintergrund des Startbilds.
+ * Hintergrund des Startbilds — «Passepartout».
  *
- * Fünf Anläufe, dann eine Untersuchung mit drei unabhängigen Gutachten.
- * Was dabei herauskam, steht hier, damit niemand Anlauf sechs bis neun
- * wiederholt.
+ * Vier Deko-Versuche sind gescheitert (Flecken, Federn, Horrorhimmel,
+ * unsichtbar), der fünfte war absichtlich still und wirkte langweilig.
+ * Dieser hier folgt dem eigenen Vorschlag des Auftraggebers — «ein paar
+ * klare Linien» — aber als Struktur, nicht als Zierat.
  *
- * DIE FEHLSCHLÄGE UND WARUM
- *
- * 1. weiche SVG-Flächen        -> «sieht aus wie Flecken»
- * 2. gemalte Pinselstriche     -> «Federn und Blätter»
- * 3. WebGL, Rauschen mit
- *    Domain Warping            -> «bewölkter Himmel im Horrorfilm»
- * 4. weiche Farbflächen,
- *    langsam driftend           -> «ich erkenn nix»
- *
- * Drei Mal wurde ein Gegenstand erkannt, der nicht gemeint war, ein Mal gar
- * keiner. Dazwischen liegt kein Zielfenster: Abstrakte Deko wird vom Auge
- * zwangsläufig als Gegenstand gelesen, und welcher das ist, lässt sich nicht
- * steuern. Es gibt genau zwei Auswege — entweder es IST absichtlich ein
- * Gegenstand (Foto, Bildschirmfoto, Produkt), oder absichtlich keiner
- * (Fläche, Material). Die Mitte erzeugt beliebig viele weitere Runden.
- *
- * WARUM VERSUCH 4 UNSICHTBAR WAR — nachgerechnet, nicht geraten
+ * WARUM LINIEN UND NICHT WIEDER EINE FLÄCHE
  *
  * Das Auge ist bei etwa 3 bis 6 Hell-Dunkel-Wechseln pro Sehwinkelgrad am
- * empfindlichsten. Die weichen Flächen waren rund 600 Pixel breit, also
- * 0,06 Wechsel pro Grad — dort ist die Empfindlichkeit zwanzig- bis
- * dreissigmal geringer. Mehr Deckkraft hätte sie nicht sichtbar gemacht,
- * sondern nur schmutzig. Dasselbe gilt für ein Partikelnetz (Punktabstand
- * 80 bis 150 Pixel) — auch das wäre wieder in derselben blinden Zone
- * gelandet.
+ * empfindlichsten. Die weichen Farbflächen lagen bei 0,06 — deshalb sah man
+ * sie nicht, und mehr Deckkraft hätte sie nur schmutzig gemacht. Ein
+ * Linienraster mit 10 Punkten Abstand liegt auf einem Telefon bei rund 4
+ * Wechseln pro Grad, also im Maximum. Es ist sichtbar, ohne kräftig zu sein.
  *
- * WAS VERGLEICHBARE SEITEN TUN
+ * WARUM ES NICHT WIE EINE DER VIER FALLEN AUSSIEHT
  *
- * Eine Auswertung von rund 60 Seiten im selben Register — warm, creme,
- * Serifen, ruhig — ergab: hinter der Schlagzeile steht dort fast nie etwas.
- * Und die Therapiebranche arbeitet durchweg mit Fotografie statt Mustern.
- * Wo Muster vorkommen, stammen sie aus dem Werkzeug- und SaaS-Umfeld, und
- * das Punktraster ist dort zur Voreinstellung geworden — für eine Agentur,
- * die Gestaltung verkauft, ein stilles Eingeständnis.
+ * Es gibt keine einzige freie Kontur. Alles ist entweder eine Gerade
+ * parallel zur Bildschirmkante oder deren Wiederholung. Etwas, das nur aus
+ * Geraden besteht, kann nicht wie ein Fleck, eine Feder oder Rauch aussehen.
+ * Und periodisch kann nicht rauchen: Schwaden brauchen viele Frequenzen an
+ * zufälligen Orten, hier gibt es genau eine Frequenz und eine Richtung.
  *
- * WAS HIER STEHT
+ * WAS WO LIEGT — UND WARUM NICHTS HINTER DER SCHLAGZEILE
  *
- * Zwei Schichten, beide ohne Form.
+ * Ton (der Verlauf) ist niederfrequent und darf hinter Text stehen; er macht
+ * die Fläche unweiss, ohne als Gegenstand gelesen zu werden. Struktur (die
+ * Linien) ist hochfrequent und konkurriert mit den Buchstabenformen — die
+ * liegt deshalb nur im unteren Band, wo zwischen Preiszeile und
+ * Browserfenster ohnehin nichts steht. Merksatz: oben Licht, unten Struktur.
  *
- * 1. Ein sehr flacher Verlauf, oben fast weiss. Das ist die Korrektur des
- *    eigentlichen Fehlers: Bisher lag ausgerechnet der dunkelste Ton ganz
- *    oben, direkt hinter der goldenen Wortmarke. Jetzt liegt der Schwerpunkt
- *    der Tönung bei etwa 60 Prozent der Höhe — in dem leeren Band zwischen
- *    Preiszeile und Browserfenster, nicht hinter der Schlagzeile.
+ * Der Rahmen beginnt unterhalb der Kopfzeile. Damit bekommt die
+ * durchsichtige Kopfzeile ein eigenes Feld mit einer Grundlinie darunter —
+ * sie schwebt nicht mehr, sie steht auf etwas.
  *
- * 2. Warmes Korn. Feines Rauschen, das über Multiplikation aufgetragen wird
- *    und dem Cremeweiss die digitale Flachheit nimmt. Es hat keine Kanten
- *    und keine Wiederholperiode im sichtbaren Bereich, kann also weder als
- *    Gegenstand gelesen werden noch beim Skalieren Störmuster erzeugen. Es
- *    wirkt als Material, nicht als Muster — dieselbe Machart benutzen
- *    mercury.com und craft.do.
+ * DIE BEWEGUNG
  *
- * Keine Animation. Bewegung hinter Text heisst zeitlich veränderlicher
- * Kontrast; man kann nur den schlechtesten Einzelbild prüfen, und wenn der
- * allein besteht, war die Bewegung überflüssig. Der sichtbare Blickfang der
- * Sektion ist nicht der Grund, sondern das Browserfenster darunter — eine
- * echte, mit dem eigenen Werkzeug gebaute Therapieseite. Das ist kein
- * Schmuck, das ist der Beweis.
+ * Genau eine: ein Lichtpunkt wandert über die obere Rahmenlinie. Auf einer
+ * scharfen Kante ist das auch schwach unübersehbar — anders als in einer
+ * Wolke. Nur Deckkraft, keine Farbe, kein Schein. Wird es kräftiger oder
+ * schneller, kippt es sofort ins Billige.
+ *
+ * MASSE IN PUNKTEN, NICHT IN PROZENT
+ *
+ * Sonst landen die Linien auf halben Gerätepunkten und werden ungleich dick.
+ * Der Abstand bleibt konstant in CSS-Punkten, das Muster wird nirgends
+ * skaliert — damit entsteht auch beim Zoomen kein Störmuster.
  */
 export default function FliessHintergrund() {
   return (
     <div className="fliess pointer-events-none absolute inset-0 -z-10" aria-hidden>
       <span className="fliess-ton" />
+      <span className="fliess-feld" />
+      <span className="fliess-rahmen" />
+      <span className="fliess-licht" />
       <span className="fliess-korn" />
     </div>
   );

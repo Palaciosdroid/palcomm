@@ -388,24 +388,27 @@ a {
 }
 
 /* ------------------------------------------------------------------
-   Hintergrund des Startbilds — Ton und Korn
+   Hintergrund des Startbilds — «Passepartout»
    ------------------------------------------------------------------
-   Begründung und Vorgeschichte stehen in FliessHintergrund.tsx.
-   Kurz: keine Form, keine Bewegung, keine Wiederholperiode im
-   sichtbaren Bereich. */
+   Begründung, Vorgeschichte und die Rechnung zur Sichtbarkeit stehen in
+   FliessHintergrund.tsx. Alle Masse in Punkten, nirgends skaliert. */
 
 .fliess-ton,
-.fliess-korn {
+.fliess-korn,
+.fliess-feld,
+.fliess-rahmen,
+.fliess-licht {
   position: absolute;
-  inset: 0;
   display: block;
 }
 
-/* Oben fast weiss, damit die goldene Wortmarke steht. Der Schwerpunkt
-   der Tönung liegt bei etwa 60 % — im leeren Band zwischen Preiszeile
-   und Browserfenster, nicht hinter der Schlagzeile. Unten läuft es auf
-   accent-100 aus, praktisch deckungsgleich mit der Folgesektion, damit
-   an der Kante kein Absatz entsteht. */
+.fliess-ton,
+.fliess-korn {
+  inset: 0;
+}
+
+/* Oben hell für die Wortmarke, Schwerpunkt der Tönung bei 68 % — im
+   leeren Band zwischen Preiszeile und Browserfenster. */
 .fliess-ton {
   background: linear-gradient(
     180deg,
@@ -419,18 +422,94 @@ a {
   );
 }
 
-/* Warmes Korn. feTurbulence als Data-URI, entsättigt, per Multiplikation
-   aufgetragen: Auf hellem Creme ergibt das eine warme Vergilbung statt
-   eines grauen Schleiers — der Unterschied zwischen «Papier» und
-   «verschmutzter Bildschirm».
+/* Das Linienfeld. 1 Punkt Linie, 10 Punkte Abstand — auf einem Telefon
+   rund vier Hell-Dunkel-Wechsel pro Sehwinkelgrad, also im Maximum der
+   Empfindlichkeit. Steht nur unten; über der Schlagzeile hat Struktur
+   nichts verloren. Die Maske lässt es anschwellen und wieder sterben,
+   statt an der Sektionskante abzubrechen. */
+.fliess-feld {
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 52%;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--accent-500) 0 1px,
+    transparent 1px 10px
+  );
+  opacity: 0.3;
+  -webkit-mask-image: linear-gradient(
+    180deg, transparent 0%, #000 42%, #000 84%, transparent 100%);
+  mask-image: linear-gradient(
+    180deg, transparent 0%, #000 42%, #000 84%, transparent 100%);
+}
 
-   baseFrequency 0.8 statt der verbreiteten 0.65: feiner, dadurch keine
-   Wolkenbildung. stitchTiles sorgt für nahtlose Kachelung. */
+/* Der Rahmen. Beginnt unter der Kopfzeile, damit die durchsichtige
+   Navigation eine Grundlinie bekommt. Unten offen — geschlossen wäre es
+   die Anatomie eines Werbebanners. */
+.fliess-rahmen {
+  top: 96px;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  border: 1px solid var(--brand);
+  border-bottom: 0;
+  opacity: 0.5;
+  -webkit-mask-image: linear-gradient(
+    180deg, #000 0%, #000 66%, transparent 100%);
+  mask-image: linear-gradient(
+    180deg, #000 0%, #000 66%, transparent 100%);
+}
+
+/* Die einzige Bewegung: ein Lichtpunkt auf der oberen Rahmenlinie.
+   Nur Deckkraft, keine Farbe, kein Schein. */
+.fliess-licht {
+  top: 96px;
+  left: 14px;
+  right: 14px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--brand) 42%,
+    var(--brand-dark) 50%,
+    var(--brand) 58%,
+    transparent 100%
+  );
+  background-size: 240% 100%;
+  background-repeat: no-repeat;
+  opacity: 0.9;
+  animation: fliess-licht 19s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes fliess-licht {
+  0%        { background-position: 130% 0; }
+  55%, 100% { background-position: -30% 0; }
+}
+
+@media (min-width: 768px) {
+  .fliess-feld,
+  .fliess-rahmen,
+  .fliess-licht { left: 32px; right: 32px; }
+  .fliess-rahmen, .fliess-licht { top: 112px; }
+}
+
+@media (min-width: 1280px) {
+  .fliess-feld,
+  .fliess-rahmen,
+  .fliess-licht { left: 52px; right: 52px; }
+}
+
+/* Warmes Korn — nimmt der Fläche die digitale Flachheit. */
 .fliess-korn {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 170px 170px;
   opacity: 0.085;
   mix-blend-mode: multiply;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fliess-licht { animation: none; opacity: 0.35; }
 }
 
 /* ------------------------------------------------------------------
