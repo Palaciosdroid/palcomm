@@ -147,15 +147,18 @@ body {
    Ein Foto überdeckt beides. */
 .gradient-hero {
   position: relative;
-  background: linear-gradient(
-    180deg,
-    var(--base-50) 0%,
-    var(--base-50) 16%,
-    var(--accent-100) 40%,
-    var(--accent-300) 64%,
-    var(--accent-100) 88%,
-    var(--base-50) 100%
-  );
+  /* Voll gefüllt, kein Weiss — wie die Farbkachel im Konfigurator.
+     Diagonal, damit es nicht nach Verlaufsgenerator aussieht, und mit
+     zwei weichen Aufhellungen für Tiefe. Der Kopf liegt durchsichtig
+     darauf, deshalb oben etwas heller. */
+  background:
+    radial-gradient(120% 90% at 18% 12%, rgb(255 255 255 / 0.42) 0%, transparent 62%),
+    radial-gradient(90% 70% at 88% 92%, rgb(255 255 255 / 0.30) 0%, transparent 60%),
+    linear-gradient(152deg,
+      var(--accent-300) 0%,
+      var(--accent-400) 34%,
+      var(--accent-300) 62%,
+      var(--accent-200) 100%);
 }
 
 .gradient-hero::before {
@@ -166,7 +169,7 @@ body {
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 170px 170px;
-  opacity: 0.06;
+  opacity: 0.07;
   mix-blend-mode: multiply;
 }
 
