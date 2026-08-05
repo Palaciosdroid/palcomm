@@ -12,10 +12,21 @@ export default function Vorschau({
   paletteId,
   fontId,
   gross = false,
+  lang = false,
+  praxis = "PRAXIS SONNENBERG",
+  kicker = "Hypnosetherapie in Bern",
+  titel = "Da ankommen, wo du hinwolltest.",
+  lead = "Ich begleite Menschen, die mit Ängsten, Schlafproblemen oder alten Mustern leben — behutsam und in deinem Tempo.",
 }: {
   paletteId: string;
   fontId: string;
   gross?: boolean;
+  /** Zeigt zusätzlich Angebot und Kontakt — für das Hochformat auf der Startseite. */
+  lang?: boolean;
+  praxis?: string;
+  kicker?: string;
+  titel?: string;
+  lead?: string;
 }) {
   const vars = themeToCssVars({ paletteId, fontId });
   const { colors } = getPalette(paletteId);
@@ -36,7 +47,7 @@ export default function Vorschau({
           className="text-[0.6rem] tracking-[0.18em]"
           style={{ color: colors.textDark, fontFamily: schrift.heading }}
         >
-          PRAXIS SONNENBERG
+          {praxis}
         </span>
         <span className="flex gap-2">
           {["Angebot", "Über mich", "Kontakt"].map((eintrag) => (
@@ -62,7 +73,7 @@ export default function Vorschau({
           className="text-[0.5rem] uppercase tracking-[0.16em]"
           style={{ color: colors.brand, fontFamily: schrift.body }}
         >
-          Hypnosetherapie in Bern
+          {kicker}
         </p>
         <p
           className={gross ? "mt-2 text-2xl leading-tight" : "mt-1.5 text-base leading-tight"}
@@ -72,14 +83,13 @@ export default function Vorschau({
             fontStyle: schrift.headingItalic ? "italic" : "normal",
           }}
         >
-          Da ankommen, wo du hinwolltest.
+          {titel}
         </p>
         <p
           className={gross ? "mt-3 max-w-sm text-xs leading-relaxed" : "mt-2 text-[0.6rem] leading-relaxed"}
           style={{ color: colors.textMedium, fontFamily: schrift.body }}
         >
-          Ich begleite Menschen, die mit Ängsten, Schlafproblemen oder alten
-          Mustern leben — behutsam und in deinem Tempo.
+          {lead}
         </p>
         <span
           className={`mt-4 inline-block rounded-full ${gross ? "px-4 py-2 text-[0.65rem]" : "px-3 py-1.5 text-[0.55rem]"}`}
@@ -114,6 +124,68 @@ export default function Vorschau({
           ))}
         </div>
       </div>
+
+      {/* Nur im Hochformat: Angebot und Kontakt. Ohne die wirkt die Vorschau
+          im hohen Rahmen wie ein angeschnittenes Bild statt wie eine Seite. */}
+      {lang && (
+        <>
+          <div className="px-4 py-5" style={{ backgroundColor: colors.base50 }}>
+            <p
+              className="text-[0.7rem]"
+              style={{
+                color: colors.textDark,
+                fontFamily: schrift.heading,
+                fontStyle: schrift.headingItalic ? "italic" : "normal",
+              }}
+            >
+              Angebot
+            </p>
+            <div className="mt-2.5 grid grid-cols-2 gap-1.5">
+              {["Ängste", "Schlaf", "Schmerzen", "Rauchstopp"].map((thema) => (
+                <span
+                  key={thema}
+                  className="rounded-md px-2 py-2 text-[0.5rem]"
+                  style={{
+                    backgroundColor: colors.accent100,
+                    color: colors.textMedium,
+                    fontFamily: schrift.body,
+                  }}
+                >
+                  {thema}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="px-4 py-5" style={{ backgroundColor: colors.accent200 }}>
+            <p
+              className="text-[0.7rem]"
+              style={{
+                color: colors.textDark,
+                fontFamily: schrift.heading,
+                fontStyle: schrift.headingItalic ? "italic" : "normal",
+              }}
+            >
+              Kontakt
+            </p>
+            <div className="mt-2 space-y-1.5">
+              {[70, 52].map((breite, i) => (
+                <div
+                  key={i}
+                  className="h-1 rounded-full"
+                  style={{ width: `${breite}%`, backgroundColor: colors.base400 }}
+                />
+              ))}
+            </div>
+            <span
+              className="mt-3 inline-block rounded-full px-3 py-1.5 text-[0.55rem]"
+              style={{ backgroundColor: colors.brand, color: "#fff", fontFamily: schrift.body }}
+            >
+              Nachricht schreiben
+            </span>
+          </div>
+        </>
+      )}
     </div>
   );
 }

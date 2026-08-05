@@ -14,19 +14,43 @@ import Fragen from "@/components/palacios/Fragen";
 import Fusszeile from "@/components/palacios/Fusszeile";
 import Image from "next/image";
 import BrowserRahmen from "@/components/palacios/BrowserRahmen";
+import Vorschau from "@/components/palacios/Vorschau";
 import Bildplatz from "@/components/palacios/Bildplatz";
 import Bildstapel from "@/components/palacios/Bildstapel";
 import Medienleiste from "@/components/palacios/Medienleiste";
 import FliessHintergrund from "@/components/palacios/FliessHintergrund";
 import { ABO_JAEHRLICH, ABO_MONATLICH, formatiereChf } from "@/lib/angebot";
-import { getPalette } from "@/lib/theme";
 
-// Die Beispielkacheln zeigen echte Paletten aus dem Template — was hier steht,
-// kann die Kund/in im Admin tatsächlich auswählen.
+// Die Beispiele rendern die ECHTE Vorschau aus dem Konfigurator, nicht ein
+// Platzhalterbild. Vorher stand unter jeder Kachel «Palette Salbei», gezeigt
+// wurde aber ein beliebiger Verlauf — die Kachel behauptete eine Farbwelt,
+// die im Bild gar nicht vorkam. Wer Gestaltung verkauft, darf genau das nicht.
+//
+// Nebeneffekt, der mehr wert ist als die Korrektur: Was hier steht, ist
+// dasselbe Bauteil, das die Kund/in im Konfigurator bewegt. Es kann also gar
+// nicht auseinanderlaufen.
 const BEISPIELE = [
-  { paletteId: "salbei", titel: "Praxis für Hypnosetherapie", hinweis: "Palette Salbei · Schrift Klassisch" },
-  { paletteId: "rose", titel: "Gesprächstherapie und Begleitung", hinweis: "Palette Rose · Schrift Fein" },
-  { paletteId: "ozean", titel: "Coaching und Mentaltraining", hinweis: "Palette Ozean · Schrift Warm" },
+  {
+    paletteId: "salbei", fontId: "klassisch",
+    praxis: "PRAXIS SONNENBERG", kicker: "Hypnosetherapie in Bern",
+    titel: "Da ankommen, wo du hinwolltest.",
+    lead: "Ich begleite Menschen, die mit Ängsten, Schlafproblemen oder alten Mustern leben — behutsam und in deinem Tempo.",
+    beschriftung: "Praxis für Hypnosetherapie", hinweis: "Palette Salbei · Schrift Klassisch",
+  },
+  {
+    paletteId: "rose", fontId: "fein",
+    praxis: "ANNA REBER", kicker: "Gesprächstherapie in Luzern",
+    titel: "Reden hilft. Aber nur, wenn jemand zuhört.",
+    lead: "Ich nehme mir Zeit für das, was sich sonst niemand anhört — ohne Ratschläge, ohne Eile.",
+    beschriftung: "Gesprächstherapie und Begleitung", hinweis: "Palette Rose · Schrift Fein",
+  },
+  {
+    paletteId: "ozean", fontId: "warm",
+    praxis: "MARTIN KELLER", kicker: "Coaching und Mentaltraining",
+    titel: "Klarer denken, wenn es darauf ankommt.",
+    lead: "Für Menschen mit Verantwortung, die unter Druck den Überblick behalten wollen.",
+    beschriftung: "Coaching und Mentaltraining", hinweis: "Palette Ozean · Schrift Warm",
+  },
 ];
 
 // Die Inhalte dieser Seite stehen statisch im Code (src/lib/palacios-content.ts).
@@ -231,24 +255,30 @@ export default function Startseite() {
             Wie deine Seite aussehen kann
           </Ueberschrift>
 
-          <div className="grid gap-5 md:grid-cols-3">
-            {BEISPIELE.map((beispiel) => {
-              const { colors } = getPalette(beispiel.paletteId);
-              return (
-                <Bildplatz
-                  key={beispiel.paletteId}
+          <div className="grid gap-6 md:grid-cols-3">
+            {BEISPIELE.map((beispiel) => (
+              <figure key={beispiel.paletteId}>
+                <Vorschau
+                  paletteId={beispiel.paletteId}
+                  fontId={beispiel.fontId}
+                  praxis={beispiel.praxis}
+                  kicker={beispiel.kicker}
                   titel={beispiel.titel}
-                  hinweis={beispiel.hinweis}
-                  hoehe="hoch"
-                  farben={[colors.brandDark, colors.brand, colors.accent200]}
+                  lead={beispiel.lead}
+                  lang
                 />
-              );
-            })}
+                <figcaption className="mt-3">
+                  <span className="block font-medium text-base-50">{beispiel.beschriftung}</span>
+                  <span className="mt-0.5 block text-sm text-base-300">{beispiel.hinweis}</span>
+                </figcaption>
+              </figure>
+            ))}
           </div>
 
           <p className="mt-6 text-sm text-base-300">
-            Beispiele. Sobald die ersten Seiten live sind, stehen hier echte
-            Adressen statt Bilder.
+            Erfundene Praxen — aber keine Bilder: Was hier steht, ist dasselbe
+            Bauteil, das du im Konfigurator bewegst. Sobald die ersten Seiten
+            live sind, kommen hier echte Adressen dazu.
           </p>
         </Abschnitt>
 
