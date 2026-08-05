@@ -35,7 +35,7 @@ const BEISPIELE = [
     praxis: "PRAXIS SONNENBERG", kicker: "Hypnosetherapie in Bern",
     titel: "Da ankommen, wo du hinwolltest.",
     lead: "Ich begleite Menschen, die mit Ängsten, Schlafproblemen oder alten Mustern leben — behutsam und in deinem Tempo.",
-    beschriftung: "Praxis für Hypnosetherapie", hinweis: "Palette Salbei · Schrift Klassisch",
+    hinweis: "Palette Salbei · Schrift Klassisch",
   },
   {
     // Die einzige Karte mit eigenem Navigationsbalken — sichtbarer Beleg,
@@ -44,14 +44,14 @@ const BEISPIELE = [
     praxis: "ANNA REBER", kicker: "Gesprächstherapie in Luzern",
     titel: "Reden hilft. Aber nur, wenn jemand zuhört.",
     lead: "Ich nehme mir Zeit für das, was sich sonst niemand anhört — ohne Ratschläge, ohne Eile.",
-    beschriftung: "Gesprächstherapie und Begleitung", hinweis: "Palette Rosé · Schrift Fein",
+    hinweis: "Palette Rosé · Schrift Fein",
   },
   {
     paletteId: "ozean", fontId: "modern",
-    praxis: "STUDIO NORD", kicker: "Mentaltraining für Teams",
-    titel: "Leistung ohne Verschleiss.",
-    lead: "Begleitung für Menschen, die viel verantworten und wenig darüber reden.",
-    beschriftung: "Mentaltraining für Teams", hinweis: "Palette Ozean · Schrift Modern",
+    praxis: "MARTIN KELLER", kicker: "Coaching und Mentaltraining",
+    titel: "Klarer denken, wenn es darauf ankommt.",
+    lead: "Für Menschen, die viel verantworten und selten jemanden haben, mit dem sie das besprechen können.",
+    hinweis: "Palette Ozean · Schrift Modern",
   },
 ];
 
@@ -252,7 +252,7 @@ export default function Startseite() {
           <Ueberschrift
             hell
             kicker="Beispiele"
-            lead="Dieselbe Vorlage, drei Handschriften. Farben, Schrift und Texte machen den Unterschied — der Aufbau bleibt derselbe, weil er sich bewährt hat."
+            lead="Dieselbe Vorlage, drei Handschriften. Farben, Schrift, Texte — und ob die Navigation im Bild liegt oder einen eigenen Balken bekommt."
           >
             Wie deine Seite aussehen kann
           </Ueberschrift>
@@ -270,9 +270,11 @@ export default function Startseite() {
                   navBalken={beispiel.navBalken}
                   lang
                 />
-                <figcaption className="mt-3 shrink-0">
-                  <span className="block font-medium text-base-50">{beispiel.beschriftung}</span>
-                  <span className="mt-0.5 block text-sm text-base-300">{beispiel.hinweis}</span>
+                {/* Nur noch Palette und Schrift. Der Praxisname stand schon
+                    in der Karte selbst — eine Überschrift darunter wiederholt
+                    ihn bloss und lenkt vom Vergleich ab, um den es geht. */}
+                <figcaption className="mt-3 shrink-0 text-sm text-base-300">
+                  {beispiel.hinweis}
                 </figcaption>
               </figure>
             ))}
