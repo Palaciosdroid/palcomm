@@ -42,14 +42,17 @@ const BEISPIELE = [
     praxis: "ANNA REBER", kicker: "Gesprächstherapie in Luzern",
     titel: "Reden hilft. Aber nur, wenn jemand zuhört.",
     lead: "Ich nehme mir Zeit für das, was sich sonst niemand anhört — ohne Ratschläge, ohne Eile.",
-    beschriftung: "Gesprächstherapie und Begleitung", hinweis: "Palette Rose · Schrift Fein",
+    beschriftung: "Gesprächstherapie und Begleitung", hinweis: "Palette Rosé · Schrift Fein",
   },
   {
-    paletteId: "ozean", fontId: "warm",
-    praxis: "MARTIN KELLER", kicker: "Coaching und Mentaltraining",
-    titel: "Klarer denken, wenn es darauf ankommt.",
-    lead: "Für Menschen mit Verantwortung, die unter Druck den Überblick behalten wollen.",
-    beschriftung: "Coaching und Mentaltraining", hinweis: "Palette Ozean · Schrift Warm",
+    // Anthrazit und Modern stehen bewusst am weitesten weg von den beiden
+    // anderen. Wer drei Beispiele zeigt, muss die Spannweite zeigen, nicht
+    // drei Nachbarn auf derselben Skala.
+    paletteId: "anthrazit", fontId: "modern",
+    praxis: "STUDIO NORD", kicker: "Mentaltraining für Teams",
+    titel: "Leistung ohne Verschleiss.",
+    lead: "Begleitung für Menschen, die viel verantworten und wenig darüber reden.",
+    beschriftung: "Mentaltraining für Teams", hinweis: "Palette Anthrazit · Schrift Modern",
   },
 ];
 
@@ -255,9 +258,9 @@ export default function Startseite() {
             Wie deine Seite aussehen kann
           </Ueberschrift>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid items-stretch gap-6 sm:grid-cols-2 md:grid-cols-3">
             {BEISPIELE.map((beispiel) => (
-              <figure key={beispiel.paletteId}>
+              <figure key={beispiel.paletteId} className="flex flex-col">
                 <Vorschau
                   paletteId={beispiel.paletteId}
                   fontId={beispiel.fontId}
@@ -267,7 +270,7 @@ export default function Startseite() {
                   lead={beispiel.lead}
                   lang
                 />
-                <figcaption className="mt-3">
+                <figcaption className="mt-3 shrink-0">
                   <span className="block font-medium text-base-50">{beispiel.beschriftung}</span>
                   <span className="mt-0.5 block text-sm text-base-300">{beispiel.hinweis}</span>
                 </figcaption>

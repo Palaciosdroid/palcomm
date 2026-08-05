@@ -1,4 +1,14 @@
+import { CloudLightning, HeartPulse, MoonStar, CigaretteOff } from "lucide-react";
 import { getPalette, getFontPairing, themeToCssVars } from "@/lib/theme";
+
+/** Die vier Themen im Angebot-Raster. Ohne Symbole wirken die Kästchen wie
+ *  unfertige Platzhalter statt wie eine gebaute Seite. */
+const THEMEN = [
+  { name: "Ängste", Symbol: CloudLightning },
+  { name: "Schlaf", Symbol: MoonStar },
+  { name: "Schmerzen", Symbol: HeartPulse },
+  { name: "Rauchstopp", Symbol: CigaretteOff },
+];
 
 /**
  * Kleine Vorschau der künftigen Kundenseite.
@@ -35,25 +45,24 @@ export default function Vorschau({
   return (
     <div
       style={vars as React.CSSProperties}
-      className="overflow-hidden rounded-xl border border-base-300"
+      className="relative flex h-full flex-col overflow-hidden rounded-xl border border-base-300"
       aria-hidden
     >
-      {/* Kopfzeile */}
-      <div
-        className="flex items-center justify-between px-4 py-2.5"
-        style={{ backgroundColor: colors.base50, borderBottom: `1px solid ${colors.base300}` }}
-      >
+      {/* Kopfzeile ohne eigenen Balken: Sie sitzt im selben Verlauf wie das
+          Startbild. Der weisse Streifen davor hat die Karte oben abgeschnitten
+          und liess sie nach Vorlage aussehen statt nach fertiger Seite. */}
+      <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 py-2.5">
         <span
-          className="text-[0.6rem] tracking-[0.18em]"
+          className="whitespace-nowrap text-[0.55rem] tracking-[0.14em]"
           style={{ color: colors.textDark, fontFamily: schrift.heading }}
         >
           {praxis}
         </span>
-        <span className="flex gap-2">
+        <span className="flex shrink-0 gap-1.5">
           {["Angebot", "Über mich", "Kontakt"].map((eintrag) => (
             <span
               key={eintrag}
-              className="text-[0.5rem]"
+              className="whitespace-nowrap text-[0.45rem]"
               style={{ color: colors.textMedium, fontFamily: schrift.body }}
             >
               {eintrag}
@@ -64,9 +73,9 @@ export default function Vorschau({
 
       {/* Startbild */}
       <div
-        className={gross ? "px-6 py-9" : "px-4 py-6"}
+        className={`flex-1 ${gross ? "px-6 pb-9 pt-14" : "px-4 pb-6 pt-12"}`}
         style={{
-          background: `linear-gradient(180deg, ${colors.accent200} 0%, ${colors.accent100} 55%, ${colors.base50} 100%)`,
+          background: `linear-gradient(180deg, ${colors.accent300} 0%, ${colors.accent100} 55%, ${colors.base50} 100%)`,
         }}
       >
         <p
@@ -141,17 +150,18 @@ export default function Vorschau({
               Angebot
             </p>
             <div className="mt-2.5 grid grid-cols-2 gap-1.5">
-              {["Ängste", "Schlaf", "Schmerzen", "Rauchstopp"].map((thema) => (
+              {THEMEN.map(({ name, Symbol }) => (
                 <span
-                  key={thema}
-                  className="rounded-md px-2 py-2 text-[0.5rem]"
+                  key={name}
+                  className="flex items-center gap-1.5 rounded-md px-2 py-2 text-[0.5rem]"
                   style={{
                     backgroundColor: colors.accent100,
                     color: colors.textMedium,
                     fontFamily: schrift.body,
                   }}
                 >
-                  {thema}
+                  <Symbol size={11} strokeWidth={1.6} style={{ color: colors.brand }} />
+                  {name}
                 </span>
               ))}
             </div>
