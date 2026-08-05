@@ -38,21 +38,20 @@ const BEISPIELE = [
     beschriftung: "Praxis für Hypnosetherapie", hinweis: "Palette Salbei · Schrift Klassisch",
   },
   {
-    paletteId: "rose", fontId: "fein",
+    // Die einzige Karte mit eigenem Navigationsbalken — sichtbarer Beleg,
+    // dass nicht nur Farbe und Schrift wählbar sind, sondern auch der Aufbau.
+    paletteId: "rose", fontId: "fein", navBalken: true,
     praxis: "ANNA REBER", kicker: "Gesprächstherapie in Luzern",
     titel: "Reden hilft. Aber nur, wenn jemand zuhört.",
     lead: "Ich nehme mir Zeit für das, was sich sonst niemand anhört — ohne Ratschläge, ohne Eile.",
     beschriftung: "Gesprächstherapie und Begleitung", hinweis: "Palette Rosé · Schrift Fein",
   },
   {
-    // Anthrazit und Modern stehen bewusst am weitesten weg von den beiden
-    // anderen. Wer drei Beispiele zeigt, muss die Spannweite zeigen, nicht
-    // drei Nachbarn auf derselben Skala.
-    paletteId: "anthrazit", fontId: "modern",
+    paletteId: "ozean", fontId: "modern",
     praxis: "STUDIO NORD", kicker: "Mentaltraining für Teams",
     titel: "Leistung ohne Verschleiss.",
     lead: "Begleitung für Menschen, die viel verantworten und wenig darüber reden.",
-    beschriftung: "Mentaltraining für Teams", hinweis: "Palette Anthrazit · Schrift Modern",
+    beschriftung: "Mentaltraining für Teams", hinweis: "Palette Ozean · Schrift Modern",
   },
 ];
 
@@ -268,6 +267,7 @@ export default function Startseite() {
                   kicker={beispiel.kicker}
                   titel={beispiel.titel}
                   lead={beispiel.lead}
+                  navBalken={beispiel.navBalken}
                   lang
                 />
                 <figcaption className="mt-3 shrink-0">

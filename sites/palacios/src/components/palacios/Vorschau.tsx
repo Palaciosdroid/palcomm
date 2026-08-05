@@ -25,6 +25,10 @@ export default function Vorschau({
   lang = false,
   praxis = "PRAXIS SONNENBERG",
   kicker = "Hypnosetherapie in Bern",
+  /** Navigation als eigener weisser Balken statt im Verlauf. Genau eine von
+   *  drei Karten baut so — das ist die Abweichung, die zeigt, dass auch der
+   *  Aufbau wählbar ist. Bei allen wäre es kein Unterschied mehr. */
+  navBalken = false,
   titel = "Da ankommen, wo du hinwolltest.",
   lead = "Ich begleite Menschen, die mit Ängsten, Schlafproblemen oder alten Mustern leben — behutsam und in deinem Tempo.",
 }: {
@@ -35,6 +39,7 @@ export default function Vorschau({
   lang?: boolean;
   praxis?: string;
   kicker?: string;
+  navBalken?: boolean;
   titel?: string;
   lead?: string;
 }) {
@@ -48,10 +53,19 @@ export default function Vorschau({
       className="relative flex h-full flex-col overflow-hidden rounded-xl border border-base-300"
       aria-hidden
     >
-      {/* Kopfzeile ohne eigenen Balken: Sie sitzt im selben Verlauf wie das
-          Startbild. Der weisse Streifen davor hat die Karte oben abgeschnitten
-          und liess sie nach Vorlage aussehen statt nach fertiger Seite. */}
-      <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 py-2.5">
+      {/* Kopfzeile. Standard: im selben Verlauf wie das Startbild. Mit
+          navBalken bekommt sie einen eigenen weissen Streifen mit Linie
+          darunter — beides sind Aufbauten, die Kundenseiten wirklich haben. */}
+      <div
+        className={`z-10 flex items-center justify-between px-4 py-2.5 ${
+          navBalken ? "" : "absolute inset-x-0 top-0"
+        }`}
+        style={
+          navBalken
+            ? { backgroundColor: colors.base50, borderBottom: `1px solid ${colors.base300}` }
+            : undefined
+        }
+      >
         <span
           className="whitespace-nowrap text-[0.55rem] tracking-[0.14em]"
           style={{ color: colors.textDark, fontFamily: schrift.heading }}
@@ -73,7 +87,11 @@ export default function Vorschau({
 
       {/* Startbild */}
       <div
-        className={`flex-1 ${gross ? "px-6 pb-9 pt-14" : "px-4 pb-6 pt-12"}`}
+        className={`flex-1 ${
+          gross
+            ? navBalken ? "px-6 py-9" : "px-6 pb-9 pt-14"
+            : navBalken ? "px-4 py-6" : "px-4 pb-6 pt-12"
+        }`}
         style={{
           background: `linear-gradient(180deg, ${colors.accent300} 0%, ${colors.accent100} 55%, ${colors.base50} 100%)`,
         }}
