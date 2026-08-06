@@ -11,7 +11,12 @@
 // sichtbar bleiben — ein Bündel wirkt nur dann wie ein Angebot, wenn man
 // sieht, was die Teile kosten.
 
-export type BausteinGruppe = "texte" | "sichtbarkeit" | "auftritt" | "funktionen";
+export type BausteinGruppe =
+  | "texte"
+  | "sichtbarkeit"
+  | "adresse"
+  | "auftritt"
+  | "funktionen";
 
 export interface Baustein {
   id: string;
@@ -58,6 +63,15 @@ export const ABO_JAEHRLICH = 299;
 export const GRUNDLEISTUNG = [
   "Website nach unserer Vorlage, mit deiner Farbpalette und Schrift",
   "Deine Wunschadresse im Netz: geprüft, angemeldet und eingerichtet",
+  // Stand bis August 2026 als eigener Posten «Bei Google gefunden werden»
+  // für CHF 390 im Konfigurator. Gestrichen, weil das technische Fundament
+  // (saubere Struktur, Anmeldung, Suchmaschinen-Angaben) die Vorlage ohnehin
+  // für jede Seite erzeugt — das einzeln zu verkaufen, wäre die Sorte
+  // Posten, die beim zweiten Hinsehen Vertrauen kostet. Die FAQ «Findet man
+  // mich danach auf Google?» sagt dasselbe seit jeher. Die Regional-
+  // Recherche, die im alten Posten steckte, lebt in der Abo-Betreuung
+  // weiter — dort gehört sie hin, weil sich Suchverhalten ändert.
+  "Bei Google angemeldet, technisch für Suchmaschinen eingerichtet",
   "Wir halten die Seite am Laufen, mit täglichen Sicherungskopien",
   "Das Schloss im Browser: deine Seite ist verschlüsselt",
   "Impressum und Datenschutzerklärung, auf deine Praxis zugeschnitten",
@@ -98,15 +112,6 @@ export const bausteine: Baustein[] = [
 
   // --- Sichtbarkeit ---
   {
-    id: "seo",
-    gruppe: "sichtbarkeit",
-    name: "Bei Google gefunden werden",
-    beschreibung:
-      "Wir schauen nach, wonach Menschen in deiner Region tatsächlich suchen, und richten deine Seite darauf aus — Aufbau, Überschriften und die Texte, die Google anzeigt.",
-    preis: 390,
-    hinweis: "Fachleute nennen das SEO. Für dich ändert sich nichts ausser der Sichtbarkeit.",
-  },
-  {
     id: "google-business",
     gruppe: "sichtbarkeit",
     // Hiess vorher «Dein Eintrag auf Google Maps». Das war zu eng: Der
@@ -122,60 +127,65 @@ export const bausteine: Baustein[] = [
   {
     id: "seo-betreuung",
     gruppe: "sichtbarkeit",
-    name: "Laufend nachhelfen",
+    // «Laufend nachhelfen» allein sagte nicht, WOBEI — das Wort
+    // Suchmaschinen muss in den Namen, sonst weiss niemand, was er kauft.
+    name: "Suchmaschinen: laufend nachhelfen",
     beschreibung:
-      "Wir schauen jedes Quartal, wonach Menschen suchen, und passen deine Texte an. Sichtbarkeit ist nichts, was man einmal einstellt.",
+      "Wir schauen jedes Quartal, wonach Menschen in deiner Region suchen, und passen Texte und Überschriften darauf an. Sichtbarkeit ist nichts, was man einmal einstellt.",
     preis: 0,
     proMonat: 30,
+    hinweis:
+      "Fachleute nennen das SEO. Das technische Fundament dafür ist bei jeder Seite von uns inbegriffen.",
   },
 
-  // --- Auftritt ---
+  // --- Adresse: Internetadresse und E-Mail, beides auf ihren Namen ---
   /**
-   * E-MAIL: WIE DER PREIS ZUSTANDE KOMMT
+   * E-MAIL: WIE DER PREIS ZUSTANDE KOMMT (Stand 6.8.2026)
    *
-   * Einkauf (geprüft am 6.8.2026 auf infomaniak.com/de/ksuite/service-mail/preise):
-   * Mail-Service CHF 2.29 pro Adresse und Monat, exkl. MwSt., unbegrenzter
-   * Speicher, eigene Domain, bis 1'000 Adressen. Die Vorsteuer holen wir
-   * zurück, der Einkauf kostet uns also netto 2.29 — CHF 27.48 im Jahr.
+   * Einkauf: Infomaniak Mail-Service, CHF 2.29 pro Adresse und Monat exkl.
+   * MwSt. (geprüft auf infomaniak.com/de/ksuite/service-mail/preise) —
+   * unbegrenzter Speicher, eigene Domain. Die Vorsteuer holen wir zurück.
    *
-   * Verkauf CHF 5.90 im Monat, inkl. 8.1 % MwSt. wie jeder Preis auf dieser
-   * Seite. Netto bleiben 5.90 / 1.081 = 5.46, abzüglich Einkauf **3.17 im
-   * Monat**, also rund 38 Franken je Kund/in und Jahr. Faktor 2.4 — ein
-   * normaler Wiederverkaufsaufschlag, und immer noch unter Google Workspace
-   * Business Starter (rund CHF 7 exkl. MwSt.), wo die Einrichtung obendrein
-   * Sache der Kund/in bliebe.
+   * Verkauf CHF 9.90 inkl. 8.1 % MwSt. Netto 9.16, abzüglich Einkauf
+   * bleiben CHF 6.87 im Monat, rund 82 Franken je Kund/in und Jahr.
    *
-   * Einrichtung CHF 190 einmalig, inkl. MwSt. Das ist NICHT der Preis für
-   * das Anlegen eines Postfachs — das dauert fünf Minuten. Bezahlt wird das,
-   * was danach kommt: MX-, SPF-, DKIM- und DMARC-Einträge setzen, und dann
-   * die Adresse auf Telefon und Computer der Kund/in einrichten. Bei dieser
-   * Zielgruppe ist das der ganze Aufwand, und er dauert eher eine Stunde als
-   * eine halbe. 190 entspricht damit demselben Stundensatz wie der Grundpreis
-   * und liegt bewusst gleichauf mit «Du schreibst, wir überarbeiten».
+   * Der Anker ist Google Workspace, nicht unser Einkauf: Business Starter
+   * kostet die Kund/in direkt bei Google rund CHF 7 exkl. MwSt. im Monat —
+   * selbst eingerichtet, Daten in den USA. Wir liegen bewusst KNAPP
+   * DARÜBER, nicht darunter: Billiger als Google sähe nach einem Haken
+   * aus, und verkauft wird hier nicht Speicherplatz, sondern «jemand
+   * richtet es ein und ist zuständig». Und bewusst nicht weiter oben — bei
+   * 12.90 kostete ein Postfach 43 % des ganzen Website-Abos; die
+   * Proportion macht entweder die Mail teuer oder die 29.90 billig.
    *
-   * DIE STELLE, DIE WEHTUN KANN: 3.17 im Monat decken keinen Support. Ein
-   * einziger Anruf «ich komme nicht mehr an meine Mails» von zwanzig Minuten
-   * frisst über anderthalb Jahre Marge. Das ist kein Preisproblem, sondern
-   * ein Abgrenzungsproblem — es gehört in die Supportregel, nicht in eine
-   * höhere Zahl. Wer das später doch über den Preis lösen will: bei 7.90
-   * blieben 5.02 im Monat.
+   * Einrichtung CHF 190 einmalig: nicht fürs Anlegen des Postfachs (fünf
+   * Minuten), sondern für MX-, SPF-, DKIM- und DMARC-Einträge und das
+   * Einrichten auf Telefon und Computer der Kund/in — bei dieser
+   * Zielgruppe gut eine Stunde.
+   *
+   * DIE STELLE, DIE WEHTUN KANN: Auch 6.87 decken wenig Support. Ein
+   * Anruf «ich komme nicht an meine Mails» von zwanzig Minuten (~65
+   * Franken) frisst zehn Monate Marge. Der Riegel ist die Supportregel,
+   * nicht der Preis.
    *
    * ABHÄNGIGKEIT: «Schweizer Server» unten gilt für Infomaniak. Wird der
-   * Anbieter gewechselt, muss dieser Satz mitwandern — sonst steht eine
-   * unwahre Zusage auf der Verkaufsseite. Dasselbe gilt für die kostenlose
-   * Weiterleitung: Sie ist bei Infomaniak in der Domain enthalten.
+   * Anbieter gewechselt, muss der Satz mitwandern — er steht auch in den
+   * AGB (Abschnitt 11). Die kostenlose Weiterleitung ist bei Infomaniak
+   * in der Domain enthalten.
    */
   {
     id: "email-postfach",
-    gruppe: "auftritt",
+    gruppe: "adresse",
     name: "E-Mail-Adresse mit deinem Praxisnamen",
     beschreibung:
       "info@deine-praxis.ch statt einer Adresse bei GMX, Bluewin oder Gmail — zum Empfangen und zum Antworten. Wir richten sie ein und stellen sie dir auf Telefon und Computer bereit, damit du deine Mails dort liest, wo du sie heute schon liest.",
     preis: 190,
-    proMonat: 5.9,
+    proMonat: 9.9,
     hinweis:
       "Eine Adresse, unbegrenzter Speicher, auf Schweizer Servern. Wenn du deine Mails lieber weiterhin bei Gmail liest, richten wir dir stattdessen kostenlos eine Weiterleitung ein — antworten würdest du dann aber weiterhin von deiner alten Adresse aus.",
   },
+
+  // --- Auftritt ---
   {
     id: "logo-schriftzug",
     gruppe: "auftritt",
@@ -183,7 +193,14 @@ export const bausteine: Baustein[] = [
     name: "Logo als Schriftzug",
     beschreibung:
       "Dein Name als gesetzter Schriftzug, abgestimmt auf die Farben deiner Website. Als Datei für Web, Druck und Social Media.",
-    preis: 690,
+    // 690 war der Preis freier Logoarbeit — die steckt hier nicht drin.
+    // Der Schriftzug entsteht aus den Schriftpaarungen der Vorlage:
+    // setzen, zurichten, als Dateien für Web und Druck exportieren. Rund
+    // eine Stunde, also 190 im selben Stundensatz wie der Grundpreis.
+    // Die Bildmarke darunter bleibt bewusst Offerte: Entwurfsrunden sind
+    // nicht produktisierbar, ein Festpreis bezahlte jede Runde aus
+    // unserer Tasche.
+    preis: 190,
   },
   {
     id: "logo-bildmarke",
@@ -201,7 +218,9 @@ export const bausteine: Baustein[] = [
     gruppe: "auftritt",
     name: "200 Visitenkarten",
     beschreibung: "Gesetzt in deinen Farben, gedruckt und zu dir geliefert.",
-    preis: 390,
+    // Druck und Versand kosten uns 30–40 Franken, der Satz aus dem
+    // bestehenden Design eine knappe Stunde. 390 war dafür zu viel.
+    preis: 240,
   },
   {
     id: "fotoshooting",
@@ -209,7 +228,10 @@ export const bausteine: Baustein[] = [
     name: "Fotoshooting bei uns im Institut",
     beschreibung:
       "Portraits an einem unserer Fototage in Bern. Fehlende Bilder sind der häufigste Grund, warum eine Seite unfertig wirkt.",
-    preis: 590,
+    // Die alte Preisliste kannte genau diese Zahl («Fotoshooting bei uns
+    // in Bern, CHF 390») — die Zielgruppe kennt sie. Rechnet sich über
+    // den Fototag: fünf bis sechs Personen ergeben 1'950–2'340 pro Tag.
+    preis: 390,
   },
   {
     id: "video",
@@ -229,17 +251,40 @@ export const bausteine: Baustein[] = [
     name: "Eine weitere Seite",
     beschreibung:
       "Zum Beispiel für ein einzelnes Angebot, eine Methode oder dein Team — zusätzlich zur Startseite.",
-    preis: 390,
+    // «Eine Stunde von uns»-Logik wie überall, wo 190 steht: Vorlagenseite
+    // mit den Inhalten der Kund/in, Einbau in die Navigation, Prüfung.
+    // Der Fünfliber im Monat deckt, dass jede weitere Seite bei jedem
+    // Update mitgeprüft wird.
+    preis: 190,
     proMonat: 5,
   },
+  /**
+   * Bewusst KEIN eigenes Buchungssystem — das wäre ein zweites Produkt
+   * mit eigener Plattformpflege. Wir richten der Kund/in einen bewährten
+   * Dienst ein: cal.com in der kostenlosen Grundausführung (Calendly kann
+   * in der Gratisstufe nur eine Terminart). Der Name steht mit Absicht
+   * nicht auf der Verkaufsseite — Entscheid des Inhabers vom 6.8.2026 —,
+   * das Buchungsfenster zeigt ihn dann ohnehin.
+   *
+   * Kein Monatszuschlag von uns: Das Konto läuft auf den Namen der
+   * Kund/in; Bezahlstufen (mehrere Kalender, ohne Fremdlogo) bucht sie
+   * selbst direkt beim Dienst. Spätere Änderungen an Terminarten sind
+   * ihr Konto, nicht unser Abo — Supportregel.
+   *
+   * Datenschutz-Flag für die Rechtsprüfung: Wer einen Hypnosetermin
+   * bucht, gibt etwas über sich preis. Der Dienst gehört ins
+   * Verarbeitungsverzeichnis der Kund/in, nicht in unseres — auch
+   * deshalb ihr Konto, nicht unseres.
+   */
   {
     id: "terminbuchung",
     gruppe: "funktionen",
     name: "Termine online buchen",
     beschreibung:
-      "Deine Klient/innen wählen selbst einen freien Termin. Verbunden mit deinem Kalender, damit nichts doppelt gebucht wird.",
-    preis: 290,
-    proMonat: 10,
+      "Deine Klient/innen wählen selbst einen freien Termin — verbunden mit deinem Kalender, damit nichts doppelt gebucht wird. Wir richten alles ein und bauen es in deine Seite ein.",
+    preis: 190,
+    hinweis:
+      "Wir richten dir dafür einen bewährten Buchungsdienst ein. Das Konto läuft auf deinen Namen, die Grundausführung ist dauerhaft kostenlos — sie zeigt im Buchungsfenster das Logo des Dienstes. Mehr Funktionen kannst du später direkt dort dazubuchen.",
   },
   {
     id: "blog",
@@ -250,15 +295,26 @@ export const bausteine: Baustein[] = [
     preis: 490,
     proMonat: 15,
   },
+  /**
+   * Der Wunsch des Inhabers war 190 («ist ja easy mit AI»). Die Maschine
+   * übersetzt tatsächlich in Minuten — aber auf einer Therapieseite
+   * entscheidet die Nuance: Aus «ich begleite Menschen mit Ängsten» darf
+   * in keiner Sprache «ich behandle Angststörungen» werden, sonst steht
+   * dort ein Heilversprechen. Bezahlt wird die menschliche Durchsicht
+   * plus Einbau und Sprachumschaltung — zwei bis drei Stunden, daher 490.
+   * Wer die Durchsicht streicht, kann auf 190 gehen; empfehlen würden
+   * wir es nicht.
+   */
   {
     id: "zweite-sprache",
     gruppe: "funktionen",
     name: "Zweite Sprache",
-    beschreibung: "Deine Seite zusätzlich auf Französisch, Italienisch oder Englisch.",
-    preis: 1490,
+    beschreibung:
+      "Deine Seite zusätzlich auf Französisch, Italienisch oder Englisch — maschinell vorübersetzt, von Menschen geprüft, mit Sprachumschaltung.",
+    preis: 490,
     proMonat: 20,
-    nurAufAnfrage: true,
-    hinweis: "Der Preis hängt von der Textmenge ab — wir schauen es uns gemeinsam an.",
+    hinweis:
+      "Gilt pro Sprache. Der Monatsbeitrag deckt, dass jede spätere Textänderung in beiden Sprachen nachgeführt wird.",
   },
 ];
 
@@ -288,23 +344,28 @@ export const voreinstellungen: Voreinstellung[] = [
     preis: 980,
     bausteinIds: ["texte-selbst"],
   },
+  // Neu gerechnet am 6.8.2026, nachdem die Bausteinpreise gesenkt wurden
+  // und der einmalige SEO-Posten in die Grundleistung gewandert ist. Das
+  // Prinzip bleibt: Ein Paket muss spürbar billiger sein als seine Teile —
+  // check-angebot erzwingt mindestens zehn Prozent.
   {
     id: "gemeinsam",
     name: "Gemeinsam",
     fuerWen:
       "Du schreibst, wir bringen es in Form — und sorgen dafür, dass man dich findet.",
     empfohlen: true,
-    preis: 1590,
-    bausteinIds: ["texte-lektorat", "seo", "google-business"],
+    // Einzeln: 980 + 190 + 290 = 1'460
+    preis: 1290,
+    bausteinIds: ["texte-lektorat", "google-business"],
   },
   {
     id: "rundum",
     name: "Rundum",
     fuerWen: "Der ganze Auftritt soll stimmen, nicht nur die Website.",
-    preis: 2990,
+    // Einzeln: 980 + 490 + 290 + 190 + 240 + 390 = 2'580
+    preis: 2190,
     bausteinIds: [
       "texte-komplett",
-      "seo",
       "google-business",
       "logo-schriftzug",
       "visitenkarten",
@@ -335,8 +396,8 @@ export function findeBaustein(id: string): Baustein | undefined {
  * Verglichen wird nur, was in die Summe einfliesst. Ein Posten auf Anfrage
  * kostet hier nichts — er darf deshalb auch den Paketpreis nicht kippen.
  * Ohne diese Filterung sprang "Rundum" beim Anhaken des Vorstellungsvideos
- * von 2'990 auf 3'820, also um 830 Franken für etwas, das laut Anzeige gar
- * nicht mitgerechnet wird.
+ * um Hunderte Franken nach oben, für etwas, das laut Anzeige gar nicht
+ * mitgerechnet wird.
  */
 export function erkenneVoreinstellung(ausgewaehlt: string[]): string | null {
   const buchbar = (ids: string[]) =>

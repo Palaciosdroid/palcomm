@@ -25,8 +25,23 @@ const RDAP_ENDPOINTS: Record<string, string> = {
   swiss: "https://rdap.nic.swiss/domain/",
 };
 
+/**
+ * Endungen ohne offenes RDAP. Für .at gibt es keins — rdap.nic.at existiert
+ * nicht (NXDOMAIN, nachgemessen am 6.8.2026), und im IANA-Bootstrap fehlt
+ * die Endung ebenfalls. Wir fragen stattdessen das DNS nach NS-Einträgen:
+ *
+ *   NS vorhanden  -> sicher vergeben (eine aufgeschaltete Domain ist immer
+ *                    registriert)
+ *   NXDOMAIN      -> nur WAHRSCHEINLICH frei. Eine registrierte, aber nicht
+ *                    aufgeschaltete Domain sähe genauso aus. Deshalb melden
+ *                    wir "unbekannt" mit ehrlichem Hinweis statt eines
+ *                    falschen "frei" — dieselbe Vorsicht, aus der wir
+ *                    rdap.org aussortiert haben.
+ */
+const DNS_STATT_RDAP = new Set(["at"]);
+
 /** Endungen zur Auswahl im Feld, in der Reihenfolge der Anzeige. */
-export const SUGGESTED_TLDS = ["ch", "de", "com"] as const;
+export const SUGGESTED_TLDS = ["ch", "de", "at", "com"] as const;
 
 /**
  * Jahrespreis pro Endung in CHF, Einkauf. Bewusst eine feste Liste statt
@@ -38,13 +53,16 @@ const TLD_PREISE: Record<string, number> = {
   ch: 12,
   li: 25,
   de: 10,
+  // Grober Wert — vor einer allfälligen Verrechnung beim Registrar prüfen.
+  // Solange .at inbegriffen ist, wird er nie angezeigt.
+  at: 20,
   com: 14,
   net: 16,
   swiss: 55,
 };
 
 /** Endungen, die im Abo inbegriffen sind. Alles andere wird verrechnet. */
-const INBEGRIFFEN = new Set(["ch", "de", "com"]);
+const INBEGRIFFEN = new Set(["ch", "de", "at", "com"]);
 
 export type DomainStatus = "frei" | "vergeben" | "unbekannt" | "ungueltig";
 
@@ -92,6 +110,33 @@ function tldVon(domain: string): string {
 }
 
 /**
+ * DNS-Befund für Endungen ohne offenes RDAP. Fragt Googles DNS-over-HTTPS
+ * nach NS-Einträgen; siehe DNS_STATT_RDAP für die Deutung. Wirft nie.
+ */
+async function pruefePerDns(
+  domain: string,
+  timeoutMs: number
+): Promise<"vergeben" | "wohl-frei" | "unbekannt"> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const antwort = await fetch(
+      `https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=NS`,
+      { signal: controller.signal }
+    );
+    if (!antwort.ok) return "unbekannt";
+    const daten = (await antwort.json()) as { Status?: number; Answer?: unknown[] };
+    if (daten.Status === 0 && (daten.Answer?.length ?? 0) > 0) return "vergeben";
+    if (daten.Status === 3) return "wohl-frei"; // NXDOMAIN
+    return "unbekannt";
+  } catch {
+    return "unbekannt";
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
  * Fragt die zuständige Registry, ob die Domain registriert ist.
  *
  * Wirft nie. Bei Zeitüberschreitung, unbekannter Endung oder einer
@@ -115,6 +160,29 @@ export async function pruefeDomain(
       status: "ungueltig",
       hinweis:
         "Das sieht noch nicht nach einer Domain aus. Erlaubt sind Buchstaben, Zahlen und Bindestriche.",
+    };
+  }
+
+  if (DNS_STATT_RDAP.has(tld)) {
+    const befund = await pruefePerDns(domain, timeoutMs);
+    if (befund === "vergeben") {
+      return {
+        ...basis,
+        status: "vergeben",
+        hinweis: `${domain} ist bereits vergeben. Probier eine andere Schreibweise oder Endung.`,
+      };
+    }
+    if (befund === "wohl-frei") {
+      return {
+        ...basis,
+        status: "unbekannt",
+        hinweis: `${domain} ist nirgends aufgeschaltet — sehr wahrscheinlich frei. Für .${tld} gibt es keine offene Abfrage; wir prüfen es von Hand, bevor wir die Adresse anmelden.`,
+      };
+    }
+    return {
+      ...basis,
+      status: "unbekannt",
+      hinweis: "Das konnten wir gerade nicht prüfen. Wir schauen es von Hand an.",
     };
   }
 
@@ -152,7 +220,7 @@ export async function pruefeDomain(
       return {
         ...basis,
         status: "vergeben",
-        hinweis: `${domain} ist bereits vergeben. Probieren Sie eine andere Schreibweise oder Endung.`,
+        hinweis: `${domain} ist bereits vergeben. Probier eine andere Schreibweise oder Endung.`,
       };
     }
 

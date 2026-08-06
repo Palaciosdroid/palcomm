@@ -8,7 +8,12 @@ const faelle: [string, string][] = [
   ["praxis-sonnenberg-xyz123.de", "frei"],
   ["google.com", "vergeben"],
   ["praxis-sonnenberg-xyz123.com", "frei"],
-  ["praxis-sonnenberg-xyz123.at", "unbekannt"],  // keine offene Registry
+  // .at hat kein offenes RDAP. Vergeben erkennen wir sicher über das DNS;
+  // "frei" gibt es für .at nie — nur "unbekannt" mit ehrlichem Hinweis,
+  // weil eine registrierte, aber nicht aufgeschaltete Domain im DNS
+  // genauso aussieht wie eine freie.
+  ["google.at", "vergeben"],
+  ["praxis-sonnenberg-xyz123.at", "unbekannt"],
   ["-kaputt-.ch", "ungueltig"],
   ["ohnepunkt", "ungueltig"],
 ];

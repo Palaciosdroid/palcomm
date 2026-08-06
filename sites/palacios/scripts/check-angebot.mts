@@ -31,8 +31,21 @@ for (const v of voreinstellungen.filter((v) => v.id !== "selbst")) {
   );
 }
 
+// Das Prinzip aus dem Plan als Zahl: Ein Paket muss SPÜRBAR billiger sein,
+// nicht nur um einen Franken. Wer Bausteinpreise senkt, ohne die Pakete
+// nachzuziehen, fällt hier durch — genau das wäre im August 2026 beinahe
+// passiert, als der SEO-Posten in die Grundleistung wanderte.
+for (const v of voreinstellungen.filter((v) => v.id !== "selbst")) {
+  const s = berechne(v.bausteinIds);
+  pruefe(
+    `${v.name}: Ersparnis mindestens 10 %`,
+    s.ersparnis >= 0.1 * s.ohneRabatt,
+    `${formatiereChf(s.ersparnis)} von ${formatiereChf(s.ohneRabatt)}`
+  );
+}
+
 // Wer selbst zusammenstellt, zahlt Einzelpreise — kein versteckter Rabatt.
-const eigeneAuswahl = ["texte-lektorat", "seo"];
+const eigeneAuswahl = ["texte-lektorat", "visitenkarten"];
 const eigen = berechne(eigeneAuswahl);
 pruefe("Eigene Auswahl ohne Rabatt", eigen.einmalig === eigen.ohneRabatt,
   `${formatiereChf(eigen.einmalig)}`);
@@ -56,7 +69,7 @@ pruefe("Monatliche Zuschläge kommen aufs Abo", mitBlog.proMonat === 44.9,
 //
 // Alle anderen Posten kosten uns Arbeitszeit; dieser kostet jeden Monat bares
 // Geld an einen Dritten. Deshalb steht der Einkaufspreis hier und wird gegen
-// den Verkaufspreis geprüft: Wer die 5.90 später senkt, soll es merken,
+// den Verkaufspreis geprüft: Wer die 9.90 später senkt, soll es merken,
 // bevor die Kund/in es tut.
 //
 // Einkauf: Infomaniak Mail-Service, CHF 2.29 pro Adresse und Monat, exkl.
@@ -73,16 +86,16 @@ pruefe("E-Mail: Verkauf deckt den Einkauf",
   mailNetto > EINKAUF_MAIL_PRO_MONAT,
   `netto ${formatiereChf(mailNetto)} gegen Einkauf ${formatiereChf(EINKAUF_MAIL_PRO_MONAT)}`);
 
-// Untergrenze, nicht Zielwert: Darunter trägt der Posten seinen eigenen
-// Verwaltungsaufwand nicht mehr.
-pruefe("E-Mail: mindestens CHF 3 Marge im Monat",
-  mailMarge >= 3,
+// Untergrenze, nicht Zielwert: Darunter trägt der Posten nicht einmal einen
+// einzigen kurzen Supportfall im Jahr (zwanzig Minuten ≈ 65 Franken).
+pruefe("E-Mail: mindestens CHF 5.50 Marge im Monat",
+  mailMarge >= 5.5,
   `CHF ${formatiereChf(mailMarge)}/Monat, CHF ${formatiereChf(Math.round(mailMarge * 12 * 100) / 100)}/Jahr`);
 
-// 29.90 + 5.90 ergibt in Fliesskomma 35.800000000000004. Ohne die Rundung in
-// berechne() stünde das im Konfigurator.
+// 29.90 + 9.90 ergibt in Fliesskomma nicht exakt 39.8. Ohne die Rundung in
+// berechne() stünde der Bruch im Konfigurator.
 const mitMail = berechne(["texte-selbst", "email-postfach"]);
-pruefe("Abo mit E-Mail geht auf den Rappen auf", mitMail.proMonat === 35.8,
+pruefe("Abo mit E-Mail geht auf den Rappen auf", mitMail.proMonat === 39.8,
   `CHF ${formatiereChf(mitMail.proMonat)}/Monat`);
 
 // Jede Auswahlgruppe muss mehr als eine Option haben, sonst ist sie sinnlos
@@ -100,9 +113,9 @@ const formate: [number, string][] = [
   [1590, "1’590"],
   [2990, "2’990"],
   [29.9, "29.90"],
-  [35.8, "35.80"],
+  [39.8, "39.80"],
   [44.9, "44.90"],
-  [5.9, "5.90"],
+  [9.9, "9.90"],
   [299, "299"],
   [1000000, "1’000’000"],
   [0, "0"],

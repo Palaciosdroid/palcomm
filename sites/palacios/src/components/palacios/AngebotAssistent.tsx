@@ -38,6 +38,7 @@ const LEERE_BESTELLUNG: Bestellung = {
   paletteId: defaultTheme.paletteId,
   fontId: defaultTheme.fontId,
   wunschdomain: "",
+  domainVorhanden: false,
   vorname: "",
   nachname: "",
   email: "",
@@ -257,6 +258,8 @@ export default function AngebotAssistent() {
               summe={summe}
               domain={daten.wunschdomain}
               setDomain={(wert) => setDaten({ wunschdomain: wert })}
+              domainVorhanden={daten.domainVorhanden}
+              setDomainVorhanden={(wert) => setDaten({ domainVorhanden: wert })}
               domainErgebnis={domainErgebnis}
               setDomainErgebnis={setDomainErgebnis}
               pruefeLaeuft={pruefeLaeuft}

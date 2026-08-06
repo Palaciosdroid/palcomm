@@ -20,6 +20,13 @@ export interface Bestellung {
   paletteId: string;
   fontId: string;
   wunschdomain: string;
+  /**
+   * Die Kund/in bringt ihre bestehende Adresse mit — dann steht in
+   * wunschdomain keine Wunschadresse, sondern die Adresse, die umzuziehen
+   * oder zu verbinden ist. Für die Abwicklung ist das ein anderer Auftrag
+   * als eine Neuanmeldung, darum das eigene Feld.
+   */
+  domainVorhanden: boolean;
   vorname: string;
   nachname: string;
   email: string;
@@ -117,7 +124,11 @@ export function fasseZusammen(b: Bestellung): { summe: Summe; text: string } {
     ...aufAnfrage.map((x) => `  - ${x.name}`),
     "",
     `Aussehen: Palette ${getPalette(b.paletteId).name}, Schrift ${getFontPairing(b.fontId).name}`,
-    b.wunschdomain ? `Wunschadresse: ${b.wunschdomain}` : "Wunschadresse: noch offen",
+    b.wunschdomain
+      ? b.domainVorhanden
+        ? `Bestehende Adresse: ${b.wunschdomain} — umziehen oder verbinden, NICHT neu anmelden`
+        : `Wunschadresse: ${b.wunschdomain}`
+      : "Wunschadresse: noch offen",
     b.bemerkungen ? `\nBemerkungen:\n${b.bemerkungen}` : null,
   ].filter((z) => z !== null);
 
