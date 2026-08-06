@@ -44,11 +44,63 @@ for (const v of voreinstellungen.filter((v) => v.id !== "selbst")) {
   );
 }
 
-// Wer selbst zusammenstellt, zahlt Einzelpreise — kein versteckter Rabatt.
+// Wer an den Paketen vorbei kombiniert, zahlt Einzelpreise — kein
+// versteckter Rabatt. (Lektorat ohne Google-Eintrag trifft kein Paket.)
 const eigeneAuswahl = ["texte-lektorat", "visitenkarten"];
 const eigen = berechne(eigeneAuswahl);
-pruefe("Eigene Auswahl ohne Rabatt", eigen.einmalig === eigen.ohneRabatt,
+pruefe("Auswahl ohne Paketbasis: Einzelpreise", eigen.einmalig === eigen.ohneRabatt,
   `${formatiereChf(eigen.einmalig)}`);
+
+// --- Der Paketrabatt übersteht Extras ---
+//
+// Der Fall, der am 6.8.2026 im Browser auffiel: «Gemeinsam» (1'290) plus
+// SEO-Betreuung — einmalig NULL Franken — sprang auf die Einzelsumme
+// 1'460. Ein Etikett «+ 0» neben einem Sprung von 170 liest sich als
+// Abzocke. Regel seither: Paketpreis plus Einzelpreise der Extras.
+const gemeinsamIds = voreinstellungen.find((v) => v.id === "gemeinsam")!.bausteinIds;
+const gemeinsamPreis = berechne(gemeinsamIds).einmalig;
+
+const mitSeoAbo = berechne([...gemeinsamIds, "seo-betreuung"]);
+pruefe("Extra ohne Einmalpreis lässt den Paketpreis stehen",
+  mitSeoAbo.einmalig === gemeinsamPreis &&
+    mitSeoAbo.proMonat === 59.9 &&
+    mitSeoAbo.passendeVoreinstellung === "gemeinsam",
+  `CHF ${formatiereChf(mitSeoAbo.einmalig)} + ${formatiereChf(mitSeoAbo.proMonat)}/Mt`);
+
+const mitKarten = berechne([...gemeinsamIds, "visitenkarten"]);
+pruefe("Extra kostet genau sein Etikett, der Rabatt bleibt",
+  mitKarten.einmalig === gemeinsamPreis + 240 &&
+    mitKarten.ersparnis === berechne(gemeinsamIds).ersparnis,
+  `CHF ${formatiereChf(mitKarten.einmalig)}, Ersparnis ${formatiereChf(mitKarten.ersparnis)}`);
+
+// Wer ein Paket zu einem grösseren erweitert, bekommt das bessere von
+// beiden — nie beide Rabatte übereinander.
+const rundumIds = voreinstellungen.find((v) => v.id === "rundum")!.bausteinIds;
+const fastRundum = berechne([...rundumIds, "email-postfach"]);
+pruefe("Grösseres Paket plus Extra rechnet vom grösseren Paket",
+  fastRundum.einmalig === berechne(rundumIds).einmalig + 190 &&
+    fastRundum.passendeVoreinstellung === "rundum",
+  `CHF ${formatiereChf(fastRundum.einmalig)}`);
+
+// Aufstufung: Gemeinsam, aber mit der grossen Textstufe. Paketpreis plus
+// Stufendifferenz (490 − 190), nicht die Einzelsumme. Die Kachel leuchtet
+// dabei bewusst nicht — es ist wörtlich nicht mehr «Gemeinsam» —, aber die
+// Ersparnis bleibt dieselbe.
+const hochgestuft = berechne(["texte-komplett", "google-business"]);
+pruefe("Grössere Textstufe im Paket kostet nur die Differenz",
+  hochgestuft.einmalig === gemeinsamPreis + 300 &&
+    hochgestuft.ersparnis === berechne(gemeinsamIds).ersparnis &&
+    hochgestuft.passendeVoreinstellung === null,
+  `CHF ${formatiereChf(hochgestuft.einmalig)}, Ersparnis ${formatiereChf(hochgestuft.ersparnis)}`);
+
+// Abstufung kippt aufs Günstigere: Gemeinsam ohne Überarbeitung ist die
+// Einzelsumme — und die liegt UNTER dem Paketpreis. Niemand zahlt für
+// weniger mehr.
+const runtergestuft = berechne(["texte-selbst", "google-business"]);
+pruefe("Kleinere Textstufe fällt auf die günstigere Einzelsumme",
+  runtergestuft.einmalig === runtergestuft.ohneRabatt &&
+    runtergestuft.einmalig < gemeinsamPreis,
+  `CHF ${formatiereChf(runtergestuft.einmalig)}`);
 
 // Leere Auswahl = Grundpreis
 const leer = berechne([]);

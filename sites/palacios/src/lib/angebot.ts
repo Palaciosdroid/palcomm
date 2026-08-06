@@ -391,26 +391,90 @@ export function findeBaustein(id: string): Baustein | undefined {
 }
 
 /**
- * Auf welche Voreinstellung passt diese Auswahl?
+ * Was die Auswahl mit Paketlogik kostet — und welche Kachel leuchten darf.
  *
- * Verglichen wird nur, was in die Summe einfliesst. Ein Posten auf Anfrage
- * kostet hier nichts — er darf deshalb auch den Paketpreis nicht kippen.
- * Ohne diese Filterung sprang "Rundum" beim Anhaken des Vorstellungsvideos
- * um Hunderte Franken nach oben, für etwas, das laut Anzeige gar nicht
- * mitgerechnet wird.
+ * Der Paketrabatt übersteht Zusätze. Vorher galt er nur bei EXAKT der
+ * Paketauswahl: Wer bei «Gemeinsam» (1'290) die SEO-Betreuung anhakte —
+ * einmalig null Franken —, sprang auf die Einzelsumme 1'460. Ein Etikett
+ * «+ 0» neben einem Sprung von 170 liest sich nicht als Rabattregel,
+ * sondern als Abzocke. Es gelten drei Regeln:
+ *
+ * 1. EXTRAS: Das Paket deckt seine Bausteine; jedes Extra kostet genau das,
+ *    was auf seinem Etikett steht.
+ * 2. AUFSTUFUNG: Wer innerhalb einer Auswahlgruppe die grössere Stufe wählt
+ *    (Gemeinsam, aber «Wir schreiben für dich»), zahlt Paketpreis plus
+ *    Stufendifferenz — nicht die Einzelsumme. Die Kachel leuchtet dann
+ *    nicht mehr, denn es ist wörtlich nicht mehr dieses Paket; der Rabatt
+ *    bleibt trotzdem, weil das ganze Paket in der Auswahl steckt.
+ * 3. ABSTUFUNG gibt es nicht: Wer die kleinere Stufe wählt, hat das Paket
+ *    nicht mehr — die Einzelsumme ist dann ohnehin die günstigere.
+ *
+ * Posten auf Anfrage bleiben aussen vor, auf beiden Seiten. Sonst kippte
+ * das Vorstellungsvideo den Paketpreis für etwas, das laut Anzeige gar
+ * nicht mitgerechnet wird.
  */
-export function erkenneVoreinstellung(ausgewaehlt: string[]): string | null {
-  const buchbar = (ids: string[]) =>
-    ids
-      .map(findeBaustein)
-      .filter((b): b is Baustein => Boolean(b) && !b!.nurAufAnfrage)
-      .map((b) => b.id)
-      .sort()
-      .join("|");
+function paketRechnung(buchbar: Baustein[]): {
+  /** Bester Preis über alle Wege — nie schlechter als die Einzelsumme. */
+  besterPreis: number;
+  /** Paket, das wörtlich (ohne Aufstufung) in der Auswahl steckt. */
+  passung: Voreinstellung | null;
+} {
+  const gewaehltIds = new Set(buchbar.map((b) => b.id));
+  let besterPreis = Infinity;
+  let passung: { paket: Voreinstellung; einmalig: number } | null = null;
 
-  const gewaehlt = buchbar(ausgewaehlt);
-  const treffer = voreinstellungen.find((v) => buchbar(v.bausteinIds) === gewaehlt);
-  return treffer?.id ?? null;
+  for (const v of voreinstellungen) {
+    const noetig = v.bausteinIds
+      .map(findeBaustein)
+      .filter((b): b is Baustein => b !== undefined && !b.nurAufAnfrage);
+
+    let aufpreis = 0;
+    let aufgestuft = false;
+    let passt = true;
+    // Welche gewählten Bausteine das Paket abdeckt — direkt oder als Stufe.
+    const gedeckt = new Set<string>();
+
+    for (const teil of noetig) {
+      if (gewaehltIds.has(teil.id)) {
+        gedeckt.add(teil.id);
+        continue;
+      }
+      const stufe = teil.auswahlgruppe
+        ? buchbar.find(
+            (b) => b.auswahlgruppe === teil.auswahlgruppe && b.preis >= teil.preis
+          )
+        : undefined;
+      if (stufe) {
+        gedeckt.add(stufe.id);
+        aufpreis += stufe.preis - teil.preis;
+        aufgestuft = true;
+        continue;
+      }
+      passt = false;
+      break;
+    }
+    if (!passt) continue;
+
+    const extras = buchbar
+      .filter((b) => !gedeckt.has(b.id))
+      .reduce((s, b) => s + b.preis, 0);
+    const einmalig = v.preis + aufpreis + extras;
+
+    if (einmalig < besterPreis) besterPreis = einmalig;
+    if (!aufgestuft && (!passung || einmalig < passung.einmalig)) {
+      passung = { paket: v, einmalig };
+    }
+  }
+
+  return { besterPreis, passung: passung?.paket ?? null };
+}
+
+/** Das Grundpaket, das wörtlich in dieser Auswahl steckt — für die Kachel-Anzeige. */
+export function erkenneVoreinstellung(ausgewaehlt: string[]): string | null {
+  const buchbar = ausgewaehlt
+    .map(findeBaustein)
+    .filter((b): b is Baustein => b !== undefined && !b.nurAufAnfrage);
+  return paketRechnung(buchbar).passung?.id ?? null;
 }
 
 export function berechne(ausgewaehlt: string[], istAbsolventin = false): Summe {
@@ -428,14 +492,14 @@ export function berechne(ausgewaehlt: string[], istAbsolventin = false): Summe {
 
   const ohneRabatt = GRUNDPREIS + bausteineEinmalig;
 
-  // Passt die Auswahl genau auf eine Voreinstellung, gilt deren Paketpreis.
-  // Wer selbst zusammenstellt, zahlt die Einzelpreise — eine ungewöhnliche
-  // Kombination kostet uns mehr Zeit als eine eingespielte.
-  const passendeVoreinstellung = erkenneVoreinstellung(ausgewaehlt);
-  const paket = passendeVoreinstellung
-    ? voreinstellungen.find((v) => v.id === passendeVoreinstellung)
-    : undefined;
-  const vorBonus = paket ? paket.preis : ohneRabatt;
+  // Steckt ein Paket in der Auswahl, gilt sein Preis plus Einzelpreise für
+  // die Extras (Regeln: siehe paketRechnung). Nur wer an den Paketen vorbei
+  // kombiniert, zahlt die reine Einzelsumme. «Selbst» ergibt rechnerisch
+  // immer die Einzelsumme (sein Preis IST der Grundpreis) — es markiert
+  // dann bloss die Kachel.
+  const rechnung = paketRechnung(buchbar);
+  const passendeVoreinstellung = rechnung.passung?.id ?? null;
+  const vorBonus = Math.min(rechnung.besterPreis, ohneRabatt);
 
   // Absolvent/innen bekommen die Textüberarbeitung geschenkt. Der Wert gilt
   // auch, wenn jemand die grössere Stufe wählt — sonst bekäme ausgerechnet

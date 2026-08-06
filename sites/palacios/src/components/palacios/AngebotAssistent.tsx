@@ -18,16 +18,24 @@ import {
 import { palacios } from "@/lib/palacios-content";
 import type { DomainErgebnis } from "@/lib/funnel/domain";
 import SchrittUmfang from "./SchrittUmfang";
+import SchrittExtras from "./SchrittExtras";
 import SchrittAussehen from "./SchrittAussehen";
 import SchrittBestellen from "./SchrittBestellen";
 import SummenTafel from "./SummenTafel";
 import Beratung from "./Beratung";
 import Vorschau from "./Vorschau";
 
+// Vier Schritte statt drei: Umfang zeigte vorher alle zwölf Bausteine auf
+// einmal — eine Bildschirmwand aus Ankreuzkästchen, die wie ein
+// Kostenkatalog wirkte. Jetzt trägt Schritt 1 nur, was jede Bestellung
+// entscheiden muss; alles Freiwillige steht in Schritt 2 hinter einem
+// Satz, der klarmacht: nichts davon ist nötig, nichts ist die letzte
+// Gelegenheit.
 const SCHRITTE = [
-  { id: 1, name: "Umfang", weiter: "Weiter zum Aussehen" },
-  { id: 2, name: "Aussehen", weiter: "Weiter zur Bestellung" },
-  { id: 3, name: "Bestellen", weiter: "Zur Bestellung" },
+  { id: 1, name: "Umfang", weiter: "Weiter zu den Extras" },
+  { id: 2, name: "Extras", weiter: "Weiter zum Aussehen" },
+  { id: 3, name: "Aussehen", weiter: "Weiter zur Bestellung" },
+  { id: 4, name: "Bestellen", weiter: "Zur Bestellung" },
 ] as const;
 
 /** Startauswahl: die hervorgehobene Voreinstellung, nicht eine leere Liste. */
@@ -268,6 +276,18 @@ export default function AngebotAssistent() {
           )}
 
           {schritt === 2 && (
+            <SchrittExtras
+              gewaehlt={daten.bausteinIds}
+              setGewaehlt={(wert) =>
+                setDaten({
+                  bausteinIds:
+                    typeof wert === "function" ? wert(daten.bausteinIds) : wert,
+                })
+              }
+            />
+          )}
+
+          {schritt === 3 && (
             <SchrittAussehen
               paletteId={daten.paletteId}
               setPaletteId={(id) => setDaten({ paletteId: id })}
@@ -276,7 +296,7 @@ export default function AngebotAssistent() {
             />
           )}
 
-          {schritt === 3 && (
+          {schritt === 4 && (
             <SchrittBestellen
               daten={daten}
               setDaten={setDaten}
@@ -308,8 +328,8 @@ export default function AngebotAssistent() {
         <SummenTafel
           summe={summe}
           aufAnfrage={aufAnfrage}
-          weiterText={schritt === 3 ? "Nach oben zum Formular" : SCHRITTE[schritt - 1].weiter}
-          weiter={() => (schritt === 3 ? wechsle(3) : wechsle(schritt + 1))}
+          weiterText={schritt === 4 ? "Nach oben zum Formular" : SCHRITTE[schritt - 1].weiter}
+          weiter={() => (schritt === 4 ? wechsle(4) : wechsle(schritt + 1))}
           imBild={imBild && !fertig}
         />
       </div>

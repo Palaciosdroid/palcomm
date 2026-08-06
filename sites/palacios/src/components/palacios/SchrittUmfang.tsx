@@ -1,29 +1,16 @@
 "use client";
 
-import { Check, Info } from "lucide-react";
+import { Check } from "lucide-react";
 import {
   GRUNDLEISTUNG,
   GRUNDPREIS,
   HERVORHEBUNG,
-  bausteine,
-  findeBaustein,
   formatiereChf,
   voreinstellungen,
-  type Baustein,
-  type BausteinGruppe,
   type Summe,
 } from "@/lib/angebot";
 import { SUGGESTED_TLDS, type DomainErgebnis } from "@/lib/funnel/domain";
-
-const GRUPPEN: { id: BausteinGruppe; name: string; lead: string }[] = [
-  { id: "texte", name: "Deine Texte", lead: "Wer schreibt — das macht den grössten Unterschied." },
-  { id: "sichtbarkeit", name: "Gefunden werden", lead: "Damit du nicht nur online bist, sondern auch auffindbar." },
-  // Domain und E-Mail stehen beieinander, weil sie zusammengehören: Die
-  // E-Mail-Adresse entsteht aus der Internetadresse.
-  { id: "adresse", name: "Deine Adresse im Netz", lead: "Internetadresse und E-Mail — beides läuft auf deinen Namen." },
-  { id: "auftritt", name: "Dein Auftritt", lead: "Was über die Website hinausgeht: Logo, Karten, Bilder." },
-  { id: "funktionen", name: "Funktionen", lead: "Wenn deine Startseite allein nicht reicht." },
-];
+import BausteinKarten from "./BausteinKarten";
 
 /** «.ch, .de, .at oder .com» — aus der Liste gebaut, damit nichts auseinanderläuft. */
 const TLD_SATZ = SUGGESTED_TLDS.map((t) => `.${t}`)
@@ -31,20 +18,12 @@ const TLD_SATZ = SUGGESTED_TLDS.map((t) => `.${t}`)
   .replace(/, ([^,]+)$/, " oder $1");
 
 /**
- * Preisetikett eines Bausteins. Einmalig und monatlich werden getrennt
- * aufgeführt; «inbegriffen» steht nur, wenn wirklich nichts anfällt.
- * Vorher zeigte die SEO-Betreuung «inbegriffen · + 30/Mt» — das las sich,
- * als wäre sie geschenkt, obwohl 30 Franken im Monat anfallen.
+ * Schritt 1: was jede Bestellung entscheiden muss — Paket, Texte, Adresse.
+ * Alles Freiwillige (Sichtbarkeit, Auftritt, Funktionen) liegt seit dem
+ * Vier-Schritte-Umbau in Schritt 2: Eine Bildschirmwand aus zwölf
+ * Ankreuzkästchen wirkte wie ein Kostenkatalog, bevor man überhaupt
+ * verstanden hatte, was man kauft.
  */
-function preisEtikett(b: Baustein): string {
-  if (b.nurAufAnfrage) return "auf Anfrage";
-  const teile = [
-    b.preis > 0 ? `+ CHF ${formatiereChf(b.preis)}` : null,
-    b.proMonat ? `+ ${formatiereChf(b.proMonat)}/Mt` : null,
-  ].filter(Boolean);
-  return teile.length ? teile.join(" · ") : "inbegriffen";
-}
-
 export default function SchrittUmfang({
   gewaehlt,
   setGewaehlt,
@@ -70,19 +49,106 @@ export default function SchrittUmfang({
   pruefeLaeuft: boolean;
   domainPruefen: (tld: string) => void;
 }) {
-  function umschalten(baustein: Baustein) {
-    setGewaehlt((vorher) => {
-      if (vorher.includes(baustein.id)) {
-        // Aus einer Auswahlgruppe muss immer genau eines gewählt bleiben.
-        if (baustein.auswahlgruppe === "texte") return vorher;
-        return vorher.filter((id) => id !== baustein.id);
-      }
-      const ohneGeschwister = baustein.auswahlgruppe
-        ? vorher.filter((id) => findeBaustein(id)?.auswahlgruppe !== baustein.auswahlgruppe)
-        : vorher;
-      return [...ohneGeschwister, baustein.id];
-    });
-  }
+  const adresseKarte = (
+    <div className="mb-2.5 rounded-xl border-2 border-base-300 bg-white p-4">
+      {/* Zwei Wege: neue Adresse suchen oder die mitbringen, die schon
+          existiert. Wer seit Jahren praxis-x.ch besitzt, stand vorher vor
+          einem Formular, das so tat, als gäbe es nur Neuland. */}
+      <div className="flex flex-wrap gap-2" role="group" aria-label="Neue oder bestehende Adresse">
+        {[
+          { wert: false, text: "Ich brauche eine neue Adresse" },
+          { wert: true, text: "Ich habe schon eine" },
+        ].map((wahl) => (
+          <button
+            key={String(wahl.wert)}
+            type="button"
+            aria-pressed={domainVorhanden === wahl.wert}
+            onClick={() => {
+              setDomainVorhanden(wahl.wert);
+              setDomainErgebnis(null);
+            }}
+            className={`rounded-full border px-4 py-2 text-sm transition-colors ${
+              domainVorhanden === wahl.wert
+                ? "border-brand bg-brand text-white"
+                : "border-base-400 text-text-medium hover:border-brand hover:text-brand"
+            }`}
+          >
+            {wahl.text}
+          </button>
+        ))}
+      </div>
+
+      {!domainVorhanden ? (
+        <>
+          <p className="mb-4 mt-4 text-sm text-text-light">
+            Eine Adresse auf {TLD_SATZ} ist inbegriffen. Tipp den Wunschnamen
+            ein, wir schauen sofort nach, ob er noch frei ist.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <input
+              type="text"
+              value={domain}
+              onChange={(e) => {
+                setDomain(e.target.value);
+                setDomainErgebnis(null);
+              }}
+              placeholder="praxis-sonnenberg"
+              className="min-w-[12rem] flex-1 rounded-lg border border-base-400 px-4 py-2.5 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+            />
+            {SUGGESTED_TLDS.map((tld) => (
+              <button
+                key={tld}
+                type="button"
+                onClick={() => domainPruefen(tld)}
+                disabled={!domain.trim() || pruefeLaeuft}
+                className="rounded-lg border border-base-400 px-4 py-2.5 text-sm text-text-medium transition-colors hover:border-brand hover:text-brand disabled:opacity-40"
+              >
+                .{tld}
+              </button>
+            ))}
+          </div>
+
+          {pruefeLaeuft && <p className="mt-3 text-sm text-text-light">Wird geprüft…</p>}
+          {domainErgebnis && (
+            <p
+              className={`mt-3 text-sm ${
+                domainErgebnis.status === "frei"
+                  ? "text-green-700"
+                  : domainErgebnis.status === "vergeben"
+                    ? "text-red-700"
+                    : "text-text-medium"
+              }`}
+            >
+              {domainErgebnis.hinweis}
+            </p>
+          )}
+          <p className="mt-3 text-xs text-text-light">
+            Das ist noch keine Reservation — sicher ist es erst, wenn wir die
+            Adresse für dich anmelden.
+          </p>
+        </>
+      ) : (
+        <>
+          <p className="mb-4 mt-4 text-sm text-text-light">
+            Schön — dann bleibt sie. Trag sie hier ein, den Rest übernehmen wir.
+          </p>
+          <input
+            type="text"
+            value={domain}
+            onChange={(e) => setDomain(e.target.value)}
+            placeholder="praxis-sonnenberg.ch"
+            className="w-full rounded-lg border border-base-400 px-4 py-2.5 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
+          />
+          <p className="mt-3 text-xs text-text-light">
+            Wir ziehen deine Adresse kostenlos zu uns um oder verbinden sie mit
+            der neuen Seite — je nachdem, was dein jetziger Anbieter zulässt.
+            Sie bleibt dabei auf deinen Namen eingetragen, und deine bisherige
+            Seite bleibt erreichbar, bis die neue steht.
+          </p>
+        </>
+      )}
+    </div>
+  );
 
   return (
     <div>
@@ -120,8 +186,9 @@ export default function SchrittUmfang({
         </div>
 
         <p className="mb-8 text-sm text-text-light">
-          Die drei Vorschläge sind Abkürzungen. Alles darunter kannst du einzeln
-          an- und abwählen — der Preis rechnet mit.
+          Die drei Vorschläge sind Abkürzungen. Alles Weitere kannst du einzeln
+          an- und abwählen — der Preis rechnet mit, und den Paketpreis behältst
+          du auch dann, wenn du etwas dazunimmst.
         </p>
 
         {/* Immer enthalten */}
@@ -139,162 +206,12 @@ export default function SchrittUmfang({
           </ul>
         </div>
 
-        {/* Bausteine, gruppiert; in der Adressgruppe steht zuoberst die Domainwahl */}
-        {GRUPPEN.map((gruppe) => (
-          <div key={gruppe.id} className="mb-10">
-            <h3 className="font-sans font-semibold text-text-dark">{gruppe.name}</h3>
-            <p className="mb-4 text-sm text-text-light">{gruppe.lead}</p>
-
-            {gruppe.id === "adresse" && (
-              <div className="mb-2.5 rounded-xl border-2 border-base-300 bg-white p-4">
-                {/* Zwei Wege: neue Adresse suchen oder die mitbringen, die
-                    schon existiert. Wer seit Jahren praxis-x.ch besitzt,
-                    stand vorher vor einem Formular, das so tat, als gäbe es
-                    nur Neuland. */}
-                <div className="flex flex-wrap gap-2" role="group" aria-label="Neue oder bestehende Adresse">
-                  {[
-                    { wert: false, text: "Ich brauche eine neue Adresse" },
-                    { wert: true, text: "Ich habe schon eine" },
-                  ].map((wahl) => (
-                    <button
-                      key={String(wahl.wert)}
-                      type="button"
-                      aria-pressed={domainVorhanden === wahl.wert}
-                      onClick={() => {
-                        setDomainVorhanden(wahl.wert);
-                        setDomainErgebnis(null);
-                      }}
-                      className={`rounded-full border px-4 py-2 text-sm transition-colors ${
-                        domainVorhanden === wahl.wert
-                          ? "border-brand bg-brand text-white"
-                          : "border-base-400 text-text-medium hover:border-brand hover:text-brand"
-                      }`}
-                    >
-                      {wahl.text}
-                    </button>
-                  ))}
-                </div>
-
-                {!domainVorhanden ? (
-                  <>
-                    <p className="mb-4 mt-4 text-sm text-text-light">
-                      Eine Adresse auf {TLD_SATZ} ist inbegriffen. Tipp den
-                      Wunschnamen ein, wir schauen sofort nach, ob er noch frei ist.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <input
-                        type="text"
-                        value={domain}
-                        onChange={(e) => {
-                          setDomain(e.target.value);
-                          setDomainErgebnis(null);
-                        }}
-                        placeholder="praxis-sonnenberg"
-                        className="min-w-[12rem] flex-1 rounded-lg border border-base-400 px-4 py-2.5 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
-                      />
-                      {SUGGESTED_TLDS.map((tld) => (
-                        <button
-                          key={tld}
-                          type="button"
-                          onClick={() => domainPruefen(tld)}
-                          disabled={!domain.trim() || pruefeLaeuft}
-                          className="rounded-lg border border-base-400 px-4 py-2.5 text-sm text-text-medium transition-colors hover:border-brand hover:text-brand disabled:opacity-40"
-                        >
-                          .{tld}
-                        </button>
-                      ))}
-                    </div>
-
-                    {pruefeLaeuft && (
-                      <p className="mt-3 text-sm text-text-light">Wird geprüft…</p>
-                    )}
-                    {domainErgebnis && (
-                      <p
-                        className={`mt-3 text-sm ${
-                          domainErgebnis.status === "frei"
-                            ? "text-green-700"
-                            : domainErgebnis.status === "vergeben"
-                              ? "text-red-700"
-                              : "text-text-medium"
-                        }`}
-                      >
-                        {domainErgebnis.hinweis}
-                      </p>
-                    )}
-                    <p className="mt-3 text-xs text-text-light">
-                      Das ist noch keine Reservation — sicher ist es erst, wenn wir
-                      die Adresse für dich anmelden.
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <p className="mb-4 mt-4 text-sm text-text-light">
-                      Schön — dann bleibt sie. Trag sie hier ein, den Rest
-                      übernehmen wir.
-                    </p>
-                    <input
-                      type="text"
-                      value={domain}
-                      onChange={(e) => setDomain(e.target.value)}
-                      placeholder="praxis-sonnenberg.ch"
-                      className="w-full rounded-lg border border-base-400 px-4 py-2.5 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
-                    />
-                    <p className="mt-3 text-xs text-text-light">
-                      Wir ziehen deine Adresse kostenlos zu uns um oder verbinden
-                      sie mit der neuen Seite — je nachdem, was dein jetziger
-                      Anbieter zulässt. Sie bleibt dabei auf deinen Namen
-                      eingetragen, und deine bisherige Seite bleibt erreichbar,
-                      bis die neue steht.
-                    </p>
-                  </>
-                )}
-              </div>
-            )}
-
-            <div className="space-y-2.5">
-              {bausteine
-                .filter((b) => b.gruppe === gruppe.id)
-                .map((b) => {
-                  const aktiv = gewaehlt.includes(b.id);
-                  return (
-                    <button
-                      key={b.id}
-                      type="button"
-                      onClick={() => umschalten(b)}
-                      aria-pressed={aktiv}
-                      className={`flex w-full gap-4 rounded-xl border-2 bg-white p-4 text-left transition-all ${
-                        aktiv ? "border-brand" : "border-base-300 hover:border-brand-light"
-                      }`}
-                    >
-                      <span
-                        className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md ${
-                          aktiv ? "bg-brand text-white" : "border-2 border-base-400"
-                        }`}
-                      >
-                        {aktiv && <Check size={13} strokeWidth={3} />}
-                      </span>
-
-                      <span className="flex-1">
-                        <span className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                          <span className="font-medium text-text-dark">{b.name}</span>
-                          <span className="text-sm text-brand">{preisEtikett(b)}</span>
-                        </span>
-                        <span className="mt-1 block text-sm leading-snug text-text-medium">
-                          {b.beschreibung}
-                        </span>
-                        {b.hinweis && (
-                          <span className="mt-2 flex gap-1.5 text-xs text-text-light">
-                            <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                            {b.hinweis}
-                          </span>
-                        )}
-                      </span>
-                    </button>
-                  );
-                })}
-            </div>
-          </div>
-        ))}
+        <BausteinKarten
+          gruppen={["texte", "adresse"]}
+          gewaehlt={gewaehlt}
+          setGewaehlt={setGewaehlt}
+          vorGruppe={{ adresse: adresseKarte }}
+        />
     </div>
   );
 }
