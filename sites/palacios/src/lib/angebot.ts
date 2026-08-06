@@ -130,6 +130,52 @@ export const bausteine: Baustein[] = [
   },
 
   // --- Auftritt ---
+  /**
+   * E-MAIL: WIE DER PREIS ZUSTANDE KOMMT
+   *
+   * Einkauf (geprüft am 6.8.2026 auf infomaniak.com/de/ksuite/service-mail/preise):
+   * Mail-Service CHF 2.29 pro Adresse und Monat, exkl. MwSt., unbegrenzter
+   * Speicher, eigene Domain, bis 1'000 Adressen. Die Vorsteuer holen wir
+   * zurück, der Einkauf kostet uns also netto 2.29 — CHF 27.48 im Jahr.
+   *
+   * Verkauf CHF 5.90 im Monat, inkl. 8.1 % MwSt. wie jeder Preis auf dieser
+   * Seite. Netto bleiben 5.90 / 1.081 = 5.46, abzüglich Einkauf **3.17 im
+   * Monat**, also rund 38 Franken je Kund/in und Jahr. Faktor 2.4 — ein
+   * normaler Wiederverkaufsaufschlag, und immer noch unter Google Workspace
+   * Business Starter (rund CHF 7 exkl. MwSt.), wo die Einrichtung obendrein
+   * Sache der Kund/in bliebe.
+   *
+   * Einrichtung CHF 190 einmalig, inkl. MwSt. Das ist NICHT der Preis für
+   * das Anlegen eines Postfachs — das dauert fünf Minuten. Bezahlt wird das,
+   * was danach kommt: MX-, SPF-, DKIM- und DMARC-Einträge setzen, und dann
+   * die Adresse auf Telefon und Computer der Kund/in einrichten. Bei dieser
+   * Zielgruppe ist das der ganze Aufwand, und er dauert eher eine Stunde als
+   * eine halbe. 190 entspricht damit demselben Stundensatz wie der Grundpreis
+   * und liegt bewusst gleichauf mit «Du schreibst, wir überarbeiten».
+   *
+   * DIE STELLE, DIE WEHTUN KANN: 3.17 im Monat decken keinen Support. Ein
+   * einziger Anruf «ich komme nicht mehr an meine Mails» von zwanzig Minuten
+   * frisst über anderthalb Jahre Marge. Das ist kein Preisproblem, sondern
+   * ein Abgrenzungsproblem — es gehört in die Supportregel, nicht in eine
+   * höhere Zahl. Wer das später doch über den Preis lösen will: bei 7.90
+   * blieben 5.02 im Monat.
+   *
+   * ABHÄNGIGKEIT: «Schweizer Server» unten gilt für Infomaniak. Wird der
+   * Anbieter gewechselt, muss dieser Satz mitwandern — sonst steht eine
+   * unwahre Zusage auf der Verkaufsseite. Dasselbe gilt für die kostenlose
+   * Weiterleitung: Sie ist bei Infomaniak in der Domain enthalten.
+   */
+  {
+    id: "email-postfach",
+    gruppe: "auftritt",
+    name: "E-Mail-Adresse mit deinem Praxisnamen",
+    beschreibung:
+      "info@deine-praxis.ch statt einer Adresse bei GMX, Bluewin oder Gmail — zum Empfangen und zum Antworten. Wir richten sie ein und stellen sie dir auf Telefon und Computer bereit, damit du deine Mails dort liest, wo du sie heute schon liest.",
+    preis: 190,
+    proMonat: 5.9,
+    hinweis:
+      "Eine Adresse, unbegrenzter Speicher, auf Schweizer Servern. Wenn du deine Mails lieber weiterhin bei Gmail liest, richten wir dir stattdessen kostenlos eine Weiterleitung ein — antworten würdest du dann aber weiterhin von deiner alten Adresse aus.",
+  },
   {
     id: "logo-schriftzug",
     gruppe: "auftritt",

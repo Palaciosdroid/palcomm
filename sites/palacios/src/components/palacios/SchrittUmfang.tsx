@@ -18,7 +18,7 @@ import { SUGGESTED_TLDS, type DomainErgebnis } from "@/lib/funnel/domain";
 const GRUPPEN: { id: BausteinGruppe; name: string; lead: string }[] = [
   { id: "texte", name: "Deine Texte", lead: "Wer schreibt — das macht den grössten Unterschied." },
   { id: "sichtbarkeit", name: "Gefunden werden", lead: "Damit du nicht nur online bist, sondern auch auffindbar." },
-  { id: "auftritt", name: "Dein Auftritt", lead: "Was über die Website hinausgeht: Logo, Karten, Bilder." },
+  { id: "auftritt", name: "Dein Auftritt", lead: "Was über die Website hinausgeht: E-Mail, Logo, Karten, Bilder." },
   { id: "funktionen", name: "Funktionen", lead: "Wenn deine Startseite allein nicht reicht." },
 ];
 

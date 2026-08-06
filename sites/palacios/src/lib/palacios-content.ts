@@ -63,14 +63,25 @@ export const palacios = {
     // besten Satz der Seite zugedeckt und das Browserfenster unter die Falz
     // gedrückt.
     "Wer deinen Namen hört, gibt ihn bei Google ein — und entscheidet dort, ob aus der Empfehlung eine Anfrage wird. Darum bauen wir dir eine komplette Website und betreiben sie danach weiter.",
-    // Der Preis bleibt oben. Diese Zielgruppe fürchtet die Agentur, die erst
-    // nach dem Gespräch mit einer Zahl kommt — die Zahl IST hier die
-    // Beruhigung. Aber als Satz war sie zwanzig Wörter grau unter den
-    // Knöpfen, also Kleingedrucktes. Jetzt eine Zeile.
-    // «In 5 bis 10 Tagen» steht bewusst nicht hier: Das sagt schon die
-    // Vertrauensleiste direkt darunter.
+    // Hier stand bis jetzt der Preis. Er ist raus — auf ausdrücklichen Wunsch,
+    // viermal gestellt. Die Gegenstimme bleibt trotzdem im Protokoll: Diese
+    // Zielgruppe fürchtet die Agentur, die erst nach dem Gespräch mit einer
+    // Zahl kommt, und für sie war die Zahl die Beruhigung. Falls die
+    // Anfragen aus dem Konfigurator einbrechen, ist diese Zeile der erste
+    // Ort zum Nachsehen.
+    //
+    // Was stattdessen dasteht, ist das stärkste Argument, das wir haben und
+    // belegen können: nicht Geld, sondern AUFWAND. Wer über vierzig ist, nie
+    // eine Website hatte und Technik meidet, fragt sich nicht «was kostet
+    // das», sondern «wie viel Arbeit habe ich damit». Der Satz nimmt genau
+    // diese Sorge — und er deckt sich Wort für Wort mit dem, was unter
+    // «Ablauf» steht («Deine Liste ist nach einer halben Stunde erledigt»),
+    // also mit einem Versprechen, das wir selbst einhalten können.
+    //
+    // Der Preis ist deshalb nicht verschwunden: Er steht unter «Preise», eine
+    // Bildschirmhöhe tiefer, und im Konfigurator ab dem ersten Klick.
     preisNote:
-      "Ab CHF 980 gebaut, ab CHF 29.90 im Monat betreut — Internetadresse inbegriffen.",
+      "Eine halbe Stunde erzählen, ein paar Fotos — mehr brauchen wir nicht von dir.",
     ctaPrimary: { text: "Meine Website zusammenstellen", href: "/angebot" },
     ctaSecondary: { text: "Zuerst den Ablauf ansehen", href: "#ablauf" },
   },

@@ -224,6 +224,20 @@ export default function AgbWebsiteSeite() {
           Vorlage, der Programmcode und das Gestaltungssystem — bleibt bei uns;
           du erhältst daran ein einfaches Nutzungsrecht für die Laufzeit.
         </p>
+        {/* Ohne diesen Absatz wäre die E-Mail-Option ein Haftungsrisiko: Im
+            Postfach einer Therapeutin liegt Korrespondenz mit Klient/innen,
+            für die sie dokumentationspflichtig sein kann. Ein Postfach nach
+            Vertragsende einfach zu löschen, hiesse, ihr Unterlagen zu
+            vernichten, die sie aufbewahren muss. */}
+        <p>
+          Hast du bei uns ein E-Mail-Postfach gebucht, gilt dasselbe: Die
+          Adresse hängt an deiner Internetadresse und geht mit ihr auf dich
+          über. Vor der Abschaltung geben wir dir mindestens 30 Tage Zeit, um
+          deine Nachrichten herunterzuladen oder das Postfach zu einem anderen
+          Anbieter mitzunehmen; auf Wunsch stellen wir dir eine vollständige
+          Kopie in einem gängigen Format zur Verfügung. Gelöscht wird erst
+          danach.
+        </p>
       </Rechtsabschnitt>
 
       <Rechtsabschnitt titel="9. Laufzeit und Kündigung">
@@ -287,6 +301,19 @@ export default function AgbWebsiteSeite() {
           diese Daten bist du die Verantwortliche; wir bearbeiten sie in deinem
           Auftrag. Dafür schliessen wir mit dir einen Vertrag zur
           Auftragsbearbeitung ab, der Bestandteil dieses Vertrags ist.
+        </p>
+        {/* Das Postfach ist der heikelste Punkt der ganzen Seite: Dort liegen
+            Gesundheitsdaten dauerhaft, nicht nur auf dem Transportweg. Der
+            Standort muss deshalb benannt sein — «ein externer Anbieter»
+            genügt dem revDSG nicht. Wechselt der Anbieter, muss dieser Satz
+            mitwandern; derselbe Hinweis steht in src/lib/angebot.ts. */}
+        <p>
+          Betreiben wir für dich ein E-Mail-Postfach, liegen die Nachrichten
+          darin bei unserem Anbieter Infomaniak Network SA in Genf, auf
+          Servern in der Schweiz. Wir lesen sie nicht; wir greifen nur darauf
+          zu, wenn du uns bei einer Störung ausdrücklich darum bittest. Für
+          die Inhalte deines Postfachs bist du verantwortlich — auch dafür,
+          wie lange du Korrespondenz mit Klient/innen aufbewahren musst.
         </p>
         <p>
           Wie wir mit deinen eigenen Daten umgehen, steht in der{" "}
