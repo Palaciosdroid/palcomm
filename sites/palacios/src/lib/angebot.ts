@@ -62,6 +62,11 @@ export const ABO_JAEHRLICH = 299;
 
 export const GRUNDLEISTUNG = [
   "Website nach unserer Vorlage, mit deiner Farbpalette und Schrift",
+  // Muss hier stehen, weil es ohnehin passiert: Die Vorlage braucht im Kopf
+  // zwingend eine Logodatei, also erzeugen wir für jede Seite den Namen als
+  // Schriftzug. Stand das nicht dabei, las sich «Einfaches Logo, CHF 190»
+  // wie eine Bedingung dafür, dass oben überhaupt etwas steht.
+  "Dein Praxisname als Schriftzug im Kopf der Seite",
   "Deine Wunschadresse im Netz: geprüft, angemeldet und eingerichtet",
   // Stand bis August 2026 als eigener Posten «Bei Google gefunden werden»
   // für CHF 390 im Konfigurator. Gestrichen, weil das technische Fundament
@@ -198,21 +203,28 @@ export const bausteine: Baustein[] = [
 
   // --- Auftritt ---
   /**
-   * ZWEI LOGO-STUFEN, UND DIE GRENZE LIEGT BEI DEN ENTWURFSRUNDEN
+   * DREI STUFEN, ZWEI GRENZEN
    *
-   * «Einfaches Logo» ist produktisierbar: Der Name wird in einer Schrift der
-   * Vorlage gesetzt, zugerichtet, auf Wunsch mit einem Symbol aus einer
-   * fertigen Auswahl kombiniert und als Dateien für Web und Druck
-   * exportiert. Eine Variante, eine Korrektur, rund eine Stunde — 190 im
-   * selben Stundensatz wie der Grundpreis.
+   * 1. Der reine Textschriftzug im Kopf der Website ist INBEGRIFFEN und
+   *    steht in der Grundleistung. Die Vorlage verlangt dort zwingend eine
+   *    Logodatei; wir erzeugen sie aus dem Praxisnamen in der gewählten
+   *    Schrift. Dafür etwas zu verlangen, wäre eine Gebühr darauf, dass die
+   *    Seite oben nicht leer ist.
    *
-   * «Individuelles Logo» bleibt Offerte, und das ist keine Bequemlichkeit,
-   * sondern die Lehre aus der alten Preisliste: Dort stand ein Logo für CHF
-   * 490 bei drei bis vier Stunden Aufwand — eine Nullsumme, die mit jeder
-   * zusätzlichen Entwurfsrunde ins Minus kippte. Genau daran ist das alte
-   * Angebot erstickt. Ein Festpreis funktioniert nur, wenn die Zahl der
-   * Runden feststeht; bei einer eigenen Bildmarke tut sie das nie. Die
-   * Zahl unten ist deshalb Richtwert für das Gespräch, nicht Preis.
+   * 2. «Einfaches Logo» (190) verkauft etwas anderes: dasselbe Wort als
+   *    BRAUCHBARE DATEIEN ausserhalb der Website — von Hand gesetzt statt
+   *    generiert, auf Wunsch mit einem Symbol aus fester Auswahl, hell und
+   *    dunkel, in Druckauflösung. Rund eine Stunde, eine Korrekturrunde.
+   *    Der Hinweis sagt ausdrücklich, wann man es NICHT braucht; wer nur
+   *    eine Website will, soll es weglassen.
+   *
+   * 3. «Individuelles Logo» bleibt Offerte, und das ist keine Bequemlichkeit,
+   *    sondern die Lehre aus der alten Preisliste: Dort stand ein Logo für
+   *    CHF 490 bei drei bis vier Stunden Aufwand — eine Nullsumme, die mit
+   *    jeder zusätzlichen Entwurfsrunde ins Minus kippte. Ein Festpreis
+   *    funktioniert nur, wenn die Zahl der Runden feststeht; bei einer
+   *    eigenen Bildmarke tut sie das nie. Die Zahl unten ist Richtwert
+   *    fürs Gespräch, nicht Preis.
    */
   {
     id: "logo-schriftzug",
@@ -220,9 +232,10 @@ export const bausteine: Baustein[] = [
     auswahlgruppe: "logo",
     name: "Einfaches Logo",
     beschreibung:
-      "Dein Name als gesetzter Schriftzug — allein oder mit einem schlichten Symbol aus unserer Auswahl, abgestimmt auf die Farben deiner Website. Als Datei für Web, Druck und Social Media.",
+      "Dein Name als richtiges Logo — von Hand gesetzt statt automatisch, auf Wunsch mit einem schlichten Symbol aus unserer Auswahl. Du bekommst die Dateien in hell und dunkel, für Druck, Social Media und deine E-Mail-Signatur.",
     preis: 190,
-    hinweis: "Eine Variante, eine Korrekturrunde. Reicht für die meisten Praxen.",
+    hinweis:
+      "Für die Website allein brauchst du das nicht: Dein Name steht dort ohnehin als Schriftzug, in deiner Schrift und deinen Farben. Das hier lohnt sich, wenn du dein Logo auch ausserhalb der Website verwenden willst.",
   },
   {
     id: "logo-bildmarke",
