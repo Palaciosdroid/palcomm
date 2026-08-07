@@ -186,32 +186,44 @@ export const bausteine: Baustein[] = [
   },
 
   // --- Auftritt ---
+  /**
+   * ZWEI LOGO-STUFEN, UND DIE GRENZE LIEGT BEI DEN ENTWURFSRUNDEN
+   *
+   * «Einfaches Logo» ist produktisierbar: Der Name wird in einer Schrift der
+   * Vorlage gesetzt, zugerichtet, auf Wunsch mit einem Symbol aus einer
+   * fertigen Auswahl kombiniert und als Dateien für Web und Druck
+   * exportiert. Eine Variante, eine Korrektur, rund eine Stunde — 190 im
+   * selben Stundensatz wie der Grundpreis.
+   *
+   * «Individuelles Logo» bleibt Offerte, und das ist keine Bequemlichkeit,
+   * sondern die Lehre aus der alten Preisliste: Dort stand ein Logo für CHF
+   * 490 bei drei bis vier Stunden Aufwand — eine Nullsumme, die mit jeder
+   * zusätzlichen Entwurfsrunde ins Minus kippte. Genau daran ist das alte
+   * Angebot erstickt. Ein Festpreis funktioniert nur, wenn die Zahl der
+   * Runden feststeht; bei einer eigenen Bildmarke tut sie das nie. Die
+   * Zahl unten ist deshalb Richtwert für das Gespräch, nicht Preis.
+   */
   {
     id: "logo-schriftzug",
     gruppe: "auftritt",
     auswahlgruppe: "logo",
-    name: "Logo als Schriftzug",
+    name: "Einfaches Logo",
     beschreibung:
-      "Dein Name als gesetzter Schriftzug, abgestimmt auf die Farben deiner Website. Als Datei für Web, Druck und Social Media.",
-    // 690 war der Preis freier Logoarbeit — die steckt hier nicht drin.
-    // Der Schriftzug entsteht aus den Schriftpaarungen der Vorlage:
-    // setzen, zurichten, als Dateien für Web und Druck exportieren. Rund
-    // eine Stunde, also 190 im selben Stundensatz wie der Grundpreis.
-    // Die Bildmarke darunter bleibt bewusst Offerte: Entwurfsrunden sind
-    // nicht produktisierbar, ein Festpreis bezahlte jede Runde aus
-    // unserer Tasche.
+      "Dein Name als gesetzter Schriftzug — allein oder mit einem schlichten Symbol aus unserer Auswahl, abgestimmt auf die Farben deiner Website. Als Datei für Web, Druck und Social Media.",
     preis: 190,
+    hinweis: "Eine Variante, eine Korrekturrunde. Reicht für die meisten Praxen.",
   },
   {
     id: "logo-bildmarke",
     gruppe: "auftritt",
     auswahlgruppe: "logo",
-    name: "Logo mit eigenem Zeichen",
+    name: "Individuelles Logo",
     beschreibung:
-      "Ein eigenes Bildzeichen zu deinem Schriftzug, entwickelt in mehreren Entwurfsrunden.",
+      "Ein eigenes Bildzeichen, für dich entworfen — mit Skizzen, mehreren Vorschlägen und Überarbeitungsrunden, bis es sitzt.",
     preis: 1490,
     nurAufAnfrage: true,
-    hinweis: "Das offerieren wir dir persönlich, weil der Aufwand je nach Idee stark schwankt.",
+    hinweis:
+      "Ab etwa CHF 690, je nach Idee und Zahl der Runden. Weil das stark schwankt, offerieren wir es dir persönlich statt zum Festpreis.",
   },
   {
     id: "visitenkarten",
@@ -292,7 +304,7 @@ export const bausteine: Baustein[] = [
     name: "Ein Bereich für eigene Beiträge",
     beschreibung:
       "Wenn du gerne schreibst: ein Blog, den du selbst pflegst. Hilft auch dabei, gefunden zu werden.",
-    preis: 490,
+    preis: 290,
     proMonat: 15,
   },
   /**
@@ -323,47 +335,47 @@ export interface Voreinstellung {
   name: string;
   fuerWen: string;
   bausteinIds: string[];
-  /**
-   * Fester Paketpreis statt gerechnetem Prozentsatz. Bewusst so: Ein Rabatt
-   * auf die Bausteine ergibt bei einem hohen Grundpreis nur kleine, unrunde
-   * Ersparnisse — sichtbar wird ein Angebot erst bei runden Zahlen.
-   */
-  preis: number;
   empfohlen?: boolean;
 }
 
 /**
  * Die drei Voreinstellungen. Sie sind Abkürzungen, keine Produkte — deshalb
  * heissen sie nach dem, was den Unterschied ausmacht: wer die Arbeit macht.
+ *
+ * KEIN PAKETRABATT, und das ist Absicht. Bis August 2026 trug jede
+ * Voreinstellung einen eigenen, tieferen Festpreis. Das erzeugte genau eine
+ * Sorte Fehler, zweimal gemeldet: Die Summe folgte nicht mehr den Etiketten
+ * auf den Kästchen. Ein Häkchen bei einem Posten, der «+ 0» anzeigte, hob
+ * den Preis um 170 Franken, weil der Rabatt verfiel.
+ *
+ * Ein Bündelrabatt lohnt sich, wenn die Teile einzeln unsichtbar sind. Hier
+ * stehen sie mit Preis daneben und lassen sich anklicken — die Kund/in
+ * RECHNET MIT. Deshalb gilt jetzt ausnahmslos: Der Preis ist der Grundpreis
+ * plus die Summe der angehakten Kästchen. Wer nachrechnet, kommt auf
+ * denselben Betrag; das ist bei dieser Zielgruppe mehr wert als ein Rabatt.
+ *
+ * Der einzige Nachlass bleibt der Absolventen-Bonus — gezielt, begründet
+ * und an eine Person geknüpft statt an eine Kombination.
  */
 export const voreinstellungen: Voreinstellung[] = [
   {
     id: "selbst",
     name: "Selbst",
     fuerWen: "Du schreibst deine Texte selbst und willst schnell online sein.",
-    preis: 980,
     bausteinIds: ["texte-selbst"],
   },
-  // Neu gerechnet am 6.8.2026, nachdem die Bausteinpreise gesenkt wurden
-  // und der einmalige SEO-Posten in die Grundleistung gewandert ist. Das
-  // Prinzip bleibt: Ein Paket muss spürbar billiger sein als seine Teile —
-  // check-angebot erzwingt mindestens zehn Prozent.
   {
     id: "gemeinsam",
     name: "Gemeinsam",
     fuerWen:
       "Du schreibst, wir bringen es in Form — und sorgen dafür, dass man dich findet.",
     empfohlen: true,
-    // Einzeln: 980 + 190 + 290 = 1'460
-    preis: 1290,
     bausteinIds: ["texte-lektorat", "google-business"],
   },
   {
     id: "rundum",
     name: "Rundum",
     fuerWen: "Der ganze Auftritt soll stimmen, nicht nur die Website.",
-    // Einzeln: 980 + 490 + 290 + 190 + 240 + 390 = 2'580
-    preis: 2190,
     bausteinIds: [
       "texte-komplett",
       "google-business",
@@ -374,14 +386,20 @@ export const voreinstellungen: Voreinstellung[] = [
   },
 ];
 
+/**
+ * Was eine Voreinstellung kostet — gerechnet, nie gepflegt. Damit kann der
+ * Preis auf der Kachel gar nicht mehr von dem abweichen, was das Anklicken
+ * derselben Kästchen ergibt.
+ */
+export function voreinstellungPreis(v: Voreinstellung): number {
+  return berechne(v.bausteinIds).einmalig;
+}
+
 export interface Summe {
   einmalig: number;
   /** Was Absolvent/innen geschenkt bekommen, in CHF */
   absolventenBonus: number;
   proMonat: number;
-  /** Was dieselbe Auswahl ohne Paketrabatt kosten würde */
-  ohneRabatt: number;
-  ersparnis: number;
   /** Auf welche Voreinstellung die Auswahl genau passt, falls überhaupt */
   passendeVoreinstellung: string | null;
 }
@@ -391,115 +409,41 @@ export function findeBaustein(id: string): Baustein | undefined {
 }
 
 /**
- * Was die Auswahl mit Paketlogik kostet — und welche Kachel leuchten darf.
+ * Auf welche Voreinstellung passt diese Auswahl genau? Steuert nur, welche
+ * Kachel als aktiv leuchtet — auf den Preis hat sie keinen Einfluss mehr.
  *
- * Der Paketrabatt übersteht Zusätze. Vorher galt er nur bei EXAKT der
- * Paketauswahl: Wer bei «Gemeinsam» (1'290) die SEO-Betreuung anhakte —
- * einmalig null Franken —, sprang auf die Einzelsumme 1'460. Ein Etikett
- * «+ 0» neben einem Sprung von 170 liest sich nicht als Rabattregel,
- * sondern als Abzocke. Es gelten drei Regeln:
- *
- * 1. EXTRAS: Das Paket deckt seine Bausteine; jedes Extra kostet genau das,
- *    was auf seinem Etikett steht.
- * 2. AUFSTUFUNG: Wer innerhalb einer Auswahlgruppe die grössere Stufe wählt
- *    (Gemeinsam, aber «Wir schreiben für dich»), zahlt Paketpreis plus
- *    Stufendifferenz — nicht die Einzelsumme. Die Kachel leuchtet dann
- *    nicht mehr, denn es ist wörtlich nicht mehr dieses Paket; der Rabatt
- *    bleibt trotzdem, weil das ganze Paket in der Auswahl steckt.
- * 3. ABSTUFUNG gibt es nicht: Wer die kleinere Stufe wählt, hat das Paket
- *    nicht mehr — die Einzelsumme ist dann ohnehin die günstigere.
- *
- * Posten auf Anfrage bleiben aussen vor, auf beiden Seiten. Sonst kippte
- * das Vorstellungsvideo den Paketpreis für etwas, das laut Anzeige gar
- * nicht mitgerechnet wird.
+ * Verglichen wird, was in die Summe einfliesst: Ein Posten auf Anfrage
+ * kostet nichts und darf die Kachel deshalb auch nicht ausschalten.
  */
-function paketRechnung(buchbar: Baustein[]): {
-  /** Bester Preis über alle Wege — nie schlechter als die Einzelsumme. */
-  besterPreis: number;
-  /** Paket, das wörtlich (ohne Aufstufung) in der Auswahl steckt. */
-  passung: Voreinstellung | null;
-} {
-  const gewaehltIds = new Set(buchbar.map((b) => b.id));
-  let besterPreis = Infinity;
-  let passung: { paket: Voreinstellung; einmalig: number } | null = null;
-
-  for (const v of voreinstellungen) {
-    const noetig = v.bausteinIds
-      .map(findeBaustein)
-      .filter((b): b is Baustein => b !== undefined && !b.nurAufAnfrage);
-
-    let aufpreis = 0;
-    let aufgestuft = false;
-    let passt = true;
-    // Welche gewählten Bausteine das Paket abdeckt — direkt oder als Stufe.
-    const gedeckt = new Set<string>();
-
-    for (const teil of noetig) {
-      if (gewaehltIds.has(teil.id)) {
-        gedeckt.add(teil.id);
-        continue;
-      }
-      const stufe = teil.auswahlgruppe
-        ? buchbar.find(
-            (b) => b.auswahlgruppe === teil.auswahlgruppe && b.preis >= teil.preis
-          )
-        : undefined;
-      if (stufe) {
-        gedeckt.add(stufe.id);
-        aufpreis += stufe.preis - teil.preis;
-        aufgestuft = true;
-        continue;
-      }
-      passt = false;
-      break;
-    }
-    if (!passt) continue;
-
-    const extras = buchbar
-      .filter((b) => !gedeckt.has(b.id))
-      .reduce((s, b) => s + b.preis, 0);
-    const einmalig = v.preis + aufpreis + extras;
-
-    if (einmalig < besterPreis) besterPreis = einmalig;
-    if (!aufgestuft && (!passung || einmalig < passung.einmalig)) {
-      passung = { paket: v, einmalig };
-    }
-  }
-
-  return { besterPreis, passung: passung?.paket ?? null };
-}
-
-/** Das Grundpaket, das wörtlich in dieser Auswahl steckt — für die Kachel-Anzeige. */
 export function erkenneVoreinstellung(ausgewaehlt: string[]): string | null {
-  const buchbar = ausgewaehlt
-    .map(findeBaustein)
-    .filter((b): b is Baustein => b !== undefined && !b.nurAufAnfrage);
-  return paketRechnung(buchbar).passung?.id ?? null;
+  const buchbar = (ids: string[]) =>
+    ids
+      .map(findeBaustein)
+      .filter((b): b is Baustein => b !== undefined && !b.nurAufAnfrage)
+      .map((b) => b.id)
+      .sort()
+      .join("|");
+
+  const gewaehlt = buchbar(ausgewaehlt);
+  return voreinstellungen.find((v) => buchbar(v.bausteinIds) === gewaehlt)?.id ?? null;
 }
 
+/**
+ * Grundpreis plus angehakte Kästchen. Mehr Preislogik gibt es nicht — siehe
+ * die Begründung bei den Voreinstellungen.
+ */
 export function berechne(ausgewaehlt: string[], istAbsolventin = false): Summe {
   const gewaehlteBausteine = ausgewaehlt
     .map(findeBaustein)
-    .filter((b): b is Baustein => Boolean(b));
+    .filter((b): b is Baustein => b !== undefined);
 
   // Was nur auf Anfrage geht, fliesst nicht in die Summe — sonst stünde ein
   // Preis da, den wir nicht zusagen können.
   const buchbar = gewaehlteBausteine.filter((b) => !b.nurAufAnfrage);
 
-  const bausteineEinmalig = buchbar.reduce((s, b) => s + b.preis, 0);
+  const vorBonus = GRUNDPREIS + buchbar.reduce((s, b) => s + b.preis, 0);
   const proMonat =
     ABO_MONATLICH + buchbar.reduce((s, b) => s + (b.proMonat ?? 0), 0);
-
-  const ohneRabatt = GRUNDPREIS + bausteineEinmalig;
-
-  // Steckt ein Paket in der Auswahl, gilt sein Preis plus Einzelpreise für
-  // die Extras (Regeln: siehe paketRechnung). Nur wer an den Paketen vorbei
-  // kombiniert, zahlt die reine Einzelsumme. «Selbst» ergibt rechnerisch
-  // immer die Einzelsumme (sein Preis IST der Grundpreis) — es markiert
-  // dann bloss die Kachel.
-  const rechnung = paketRechnung(buchbar);
-  const passendeVoreinstellung = rechnung.passung?.id ?? null;
-  const vorBonus = Math.min(rechnung.besterPreis, ohneRabatt);
 
   // Absolvent/innen bekommen die Textüberarbeitung geschenkt. Der Wert gilt
   // auch, wenn jemand die grössere Stufe wählt — sonst bekäme ausgerechnet
@@ -511,15 +455,11 @@ export function berechne(ausgewaehlt: string[], istAbsolventin = false): Summe {
       ? Math.min(bonusWert, gewaehlteTextstufe.preis)
       : 0;
 
-  const einmalig = vorBonus - absolventenBonus;
-
   return {
-    einmalig,
+    einmalig: vorBonus - absolventenBonus,
     absolventenBonus,
     proMonat: Math.round(proMonat * 100) / 100,
-    ohneRabatt,
-    ersparnis: ohneRabatt - einmalig,
-    passendeVoreinstellung,
+    passendeVoreinstellung: erkenneVoreinstellung(ausgewaehlt),
   };
 }
 

@@ -2,9 +2,11 @@ import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import {
   GRUNDLEISTUNG,
+  GRUNDPREIS,
   bausteine,
   findeBaustein,
   formatiereChf,
+  voreinstellungPreis,
   voreinstellungen,
   HERVORHEBUNG,
 } from "@/lib/angebot";
@@ -43,7 +45,9 @@ export default function Pakete() {
               )}
 
               <h3 className="font-sans text-xl font-semibold text-text-dark">{v.name}</h3>
-              <p className="mt-1 text-3xl text-brand">CHF {formatiereChf(v.preis)}</p>
+              <p className="mt-1 text-3xl text-brand">
+                CHF {formatiereChf(voreinstellungPreis(v))}
+              </p>
               <p className="mt-3 leading-relaxed text-text-medium">{v.fuerWen}</p>
 
               <ul className="mt-5 space-y-2 border-t border-base-200 pt-5">
@@ -66,7 +70,7 @@ export default function Pakete() {
       {/* Was im Grundpreis immer drin ist */}
       <div className="mt-8 rounded-2xl bg-accent-100 p-6 md:p-8">
         <h3 className="mb-4 font-sans text-lg font-semibold text-text-dark">
-          In jedem Fall dabei — für CHF {formatiereChf(voreinstellungen[0].preis)}
+          In jedem Fall dabei — für CHF {formatiereChf(GRUNDPREIS)}
         </h3>
         <ul className="grid gap-2.5 sm:grid-cols-2">
           {GRUNDLEISTUNG.map((punkt) => (

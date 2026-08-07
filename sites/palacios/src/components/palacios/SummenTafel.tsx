@@ -27,10 +27,12 @@ export default function SummenTafel({
           <p className="text-sm text-base-300">Einmalig für die Einrichtung</p>
           <p className="mt-1 text-4xl">CHF {formatiereChf(summe.einmalig)}</p>
 
-          {summe.ersparnis > 0 && (
+          {/* Der Bonus ist der einzige verbliebene Nachlass — alles andere
+              ist die schlichte Summe der angehakten Kästchen. */}
+          {summe.absolventenBonus > 0 && (
             <p className="mt-2 text-sm text-brand-light">
-              Einzeln CHF {formatiereChf(summe.ohneRabatt)} — du sparst{" "}
-              {formatiereChf(summe.ersparnis)}
+              Als Absolvent/in: CHF {formatiereChf(summe.absolventenBonus)} für
+              deine Textüberarbeitung geschenkt
             </p>
           )}
 

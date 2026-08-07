@@ -1,5 +1,6 @@
 import {
-  berechne, voreinstellungen, bausteine, GRUNDPREIS, formatiereChf, findeBaustein,
+  berechne, voreinstellungen, voreinstellungPreis, bausteine, GRUNDPREIS,
+  formatiereChf, findeBaustein,
 } from "../src/lib/angebot.js";
 
 let fehler = 0;
@@ -13,93 +14,78 @@ for (const v of voreinstellungen) {
   const s = berechne(v.bausteinIds);
   const teile = v.bausteinIds.map(findeBaustein).filter(Boolean);
   const aufAnfrage = teile.filter((b) => b!.nurAufAnfrage).length;
+  const posten = teile
+    .filter((b) => !b!.nurAufAnfrage && b!.preis > 0)
+    .map((b) => formatiereChf(b!.preis));
   console.log(
     `  ${v.name.padEnd(11)} CHF ${formatiereChf(s.einmalig).padStart(6)} + ${formatiereChf(s.proMonat)}/Mt` +
-    (s.ersparnis > 0 ? `   (einzeln ${formatiereChf(s.ohneRabatt)}, gespart ${formatiereChf(s.ersparnis)})` : "") +
+    `   = ${[formatiereChf(GRUNDPREIS), ...posten].join(" + ")}` +
     (aufAnfrage ? `   [${aufAnfrage} auf Anfrage]` : "")
   );
 }
 console.log();
 
-// Der Kernmechanismus: das Paket MUSS billiger sein als seine Teile.
-for (const v of voreinstellungen.filter((v) => v.id !== "selbst")) {
-  const s = berechne(v.bausteinIds);
-  pruefe(
-    `${v.name}: Paket billiger als Einzelkauf`,
-    s.einmalig < s.ohneRabatt,
-    `${formatiereChf(s.einmalig)} < ${formatiereChf(s.ohneRabatt)}`
-  );
-}
-
-// Das Prinzip aus dem Plan als Zahl: Ein Paket muss SPÜRBAR billiger sein,
-// nicht nur um einen Franken. Wer Bausteinpreise senkt, ohne die Pakete
-// nachzuziehen, fällt hier durch — genau das wäre im August 2026 beinahe
-// passiert, als der SEO-Posten in die Grundleistung wanderte.
-for (const v of voreinstellungen.filter((v) => v.id !== "selbst")) {
-  const s = berechne(v.bausteinIds);
-  pruefe(
-    `${v.name}: Ersparnis mindestens 10 %`,
-    s.ersparnis >= 0.1 * s.ohneRabatt,
-    `${formatiereChf(s.ersparnis)} von ${formatiereChf(s.ohneRabatt)}`
-  );
-}
-
-// Wer an den Paketen vorbei kombiniert, zahlt Einzelpreise — kein
-// versteckter Rabatt. (Lektorat ohne Google-Eintrag trifft kein Paket.)
-const eigeneAuswahl = ["texte-lektorat", "visitenkarten"];
-const eigen = berechne(eigeneAuswahl);
-pruefe("Auswahl ohne Paketbasis: Einzelpreise", eigen.einmalig === eigen.ohneRabatt,
-  `${formatiereChf(eigen.einmalig)}`);
-
-// --- Der Paketrabatt übersteht Extras ---
+// --- DIE zentrale Regel seit dem 6.8.2026 ---
 //
-// Der Fall, der am 6.8.2026 im Browser auffiel: «Gemeinsam» (1'290) plus
-// SEO-Betreuung — einmalig NULL Franken — sprang auf die Einzelsumme
-// 1'460. Ein Etikett «+ 0» neben einem Sprung von 170 liest sich als
-// Abzocke. Regel seither: Paketpreis plus Einzelpreise der Extras.
+// Kein Paketrabatt. Der Preis ist immer Grundpreis plus die Summe der
+// angehakten Kästchen — nachrechenbar mit den Etiketten, die daneben
+// stehen. Vorher trug jede Voreinstellung einen eigenen, tieferen
+// Festpreis; das führte zweimal zu gemeldeten Sprüngen, zuletzt: ein
+// Häkchen bei einem Posten mit Etikett «+ 0» hob den Preis um 170.
+//
+// Diese Schleife prüft das erschöpfend über ALLE Teilmengen der buchbaren
+// Bausteine — nicht an Beispielen. Damit kann kein künftiger Sonderfall
+// die Nachrechenbarkeit unbemerkt brechen.
+const buchbareIds = bausteine.filter((b) => !b.nurAufAnfrage).map((b) => b.id);
+let abweichungen = 0;
+let geprueft = 0;
+for (let maske = 0; maske < 1 << buchbareIds.length; maske++) {
+  const auswahl = buchbareIds.filter((_, i) => maske & (1 << i));
+  const erwartet =
+    GRUNDPREIS + auswahl.reduce((s, id) => s + findeBaustein(id)!.preis, 0);
+  geprueft++;
+  if (berechne(auswahl).einmalig !== erwartet) abweichungen++;
+}
+pruefe("Preis = Grundpreis + angehakte Kästchen, ausnahmslos",
+  abweichungen === 0,
+  `${geprueft.toLocaleString("de-CH")} Kombinationen geprüft, ${abweichungen} Abweichungen`);
+
+// Der Preis auf der Kachel muss derselbe sein, den das Anklicken ihrer
+// Kästchen ergibt — sonst wäre die Kachel eine zweite Wahrheit.
+for (const v of voreinstellungen) {
+  pruefe(`${v.name}: Kachelpreis = Summe ihrer Bausteine`,
+    voreinstellungPreis(v) === berechne(v.bausteinIds).einmalig,
+    `CHF ${formatiereChf(voreinstellungPreis(v))}`);
+}
+
+// Der gemeldete Fall, jetzt als fester Regressionstest: «Gemeinsam» plus
+// SEO-Betreuung. Einmalig darf sich NICHTS ändern, nur das Monatliche.
 const gemeinsamIds = voreinstellungen.find((v) => v.id === "gemeinsam")!.bausteinIds;
 const gemeinsamPreis = berechne(gemeinsamIds).einmalig;
 
+pruefe("Gemeinsam ist Grundpreis + 190 + 290",
+  gemeinsamPreis === GRUNDPREIS + 190 + 290,
+  `CHF ${formatiereChf(gemeinsamPreis)}`);
+
 const mitSeoAbo = berechne([...gemeinsamIds, "seo-betreuung"]);
-pruefe("Extra ohne Einmalpreis lässt den Paketpreis stehen",
-  mitSeoAbo.einmalig === gemeinsamPreis &&
-    mitSeoAbo.proMonat === 59.9 &&
-    mitSeoAbo.passendeVoreinstellung === "gemeinsam",
+pruefe("Posten mit Etikett «+ 30/Mt» ändert den Einmalpreis nicht",
+  mitSeoAbo.einmalig === gemeinsamPreis && mitSeoAbo.proMonat === 59.9,
   `CHF ${formatiereChf(mitSeoAbo.einmalig)} + ${formatiereChf(mitSeoAbo.proMonat)}/Mt`);
 
 const mitKarten = berechne([...gemeinsamIds, "visitenkarten"]);
-pruefe("Extra kostet genau sein Etikett, der Rabatt bleibt",
-  mitKarten.einmalig === gemeinsamPreis + 240 &&
-    mitKarten.ersparnis === berechne(gemeinsamIds).ersparnis,
-  `CHF ${formatiereChf(mitKarten.einmalig)}, Ersparnis ${formatiereChf(mitKarten.ersparnis)}`);
+pruefe("Posten mit Etikett «+ CHF 240» kostet genau 240",
+  mitKarten.einmalig === gemeinsamPreis + 240,
+  `CHF ${formatiereChf(mitKarten.einmalig)}`);
 
-// Wer ein Paket zu einem grösseren erweitert, bekommt das bessere von
-// beiden — nie beide Rabatte übereinander.
-const rundumIds = voreinstellungen.find((v) => v.id === "rundum")!.bausteinIds;
-const fastRundum = berechne([...rundumIds, "email-postfach"]);
-pruefe("Grösseres Paket plus Extra rechnet vom grösseren Paket",
-  fastRundum.einmalig === berechne(rundumIds).einmalig + 190 &&
-    fastRundum.passendeVoreinstellung === "rundum",
-  `CHF ${formatiereChf(fastRundum.einmalig)}`);
-
-// Aufstufung: Gemeinsam, aber mit der grossen Textstufe. Paketpreis plus
-// Stufendifferenz (490 − 190), nicht die Einzelsumme. Die Kachel leuchtet
-// dabei bewusst nicht — es ist wörtlich nicht mehr «Gemeinsam» —, aber die
-// Ersparnis bleibt dieselbe.
+// Textstufe wechseln kostet genau die Differenz der beiden Etiketten.
 const hochgestuft = berechne(["texte-komplett", "google-business"]);
-pruefe("Grössere Textstufe im Paket kostet nur die Differenz",
-  hochgestuft.einmalig === gemeinsamPreis + 300 &&
-    hochgestuft.ersparnis === berechne(gemeinsamIds).ersparnis &&
-    hochgestuft.passendeVoreinstellung === null,
-  `CHF ${formatiereChf(hochgestuft.einmalig)}, Ersparnis ${formatiereChf(hochgestuft.ersparnis)}`);
+pruefe("Grössere Textstufe kostet die Differenz der Etiketten",
+  hochgestuft.einmalig === gemeinsamPreis + (490 - 190),
+  `CHF ${formatiereChf(hochgestuft.einmalig)}`);
 
-// Abstufung kippt aufs Günstigere: Gemeinsam ohne Überarbeitung ist die
-// Einzelsumme — und die liegt UNTER dem Paketpreis. Niemand zahlt für
-// weniger mehr.
 const runtergestuft = berechne(["texte-selbst", "google-business"]);
-pruefe("Kleinere Textstufe fällt auf die günstigere Einzelsumme",
-  runtergestuft.einmalig === runtergestuft.ohneRabatt &&
-    runtergestuft.einmalig < gemeinsamPreis,
+pruefe("Kleinere Textstufe senkt den Preis",
+  runtergestuft.einmalig === gemeinsamPreis - 190,
   `CHF ${formatiereChf(runtergestuft.einmalig)}`);
 
 // Leere Auswahl = Grundpreis
@@ -203,17 +189,17 @@ for (const stufe of ["texte-selbst", "texte-lektorat", "texte-komplett"]) {
     `CHF ${formatiereChf(b.absolventenBonus)} Bonus`);
 }
 
-// Ein Posten auf Anfrage darf den Paketpreis nicht kippen.
+// Ein Posten auf Anfrage darf die Summe nicht kippen.
 const rundum = voreinstellungen.find((v) => v.id === "rundum")!;
 const rundumNormal = berechne(rundum.bausteinIds);
 const rundumMitVideo = berechne([...rundum.bausteinIds, "video"]);
-pruefe("Posten auf Anfrage lässt den Paketpreis stehen",
+pruefe("Posten auf Anfrage lässt die Summe stehen",
   rundumMitVideo.einmalig === rundumNormal.einmalig &&
     rundumMitVideo.passendeVoreinstellung === "rundum",
   `${formatiereChf(rundumNormal.einmalig)} → ${formatiereChf(rundumMitVideo.einmalig)}`);
 
 const gemeinsamMitLogo = berechne([...gemeinsam, "logo-bildmarke"]);
-pruefe("Gilt auch für die Bildmarke im Paket Gemeinsam",
+pruefe("Gilt auch für die Bildmarke neben Gemeinsam",
   gemeinsamMitLogo.einmalig === berechne(gemeinsam).einmalig,
   `CHF ${formatiereChf(gemeinsamMitLogo.einmalig)}`);
 

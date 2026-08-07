@@ -4,7 +4,7 @@
 // übernommen. Sonst könnte jemand die Summe im Browser überschreiben und wir
 // bestätigen einen Auftrag über CHF 1.
 
-import { berechne, findeBaustein, type Summe } from "./angebot";
+import { GRUNDPREIS, berechne, findeBaustein, type Summe } from "./angebot";
 import { getPalette, getFontPairing } from "./theme";
 
 export const LAENDER = [
@@ -113,11 +113,11 @@ export function fasseZusammen(b: Bestellung): { summe: Summe; text: string } {
     "",
     `Einmalig: CHF ${summe.einmalig}`,
     `Monatlich: CHF ${summe.proMonat}`,
-    summe.ersparnis > 0
-      ? `(einzeln CHF ${summe.ohneRabatt}, gespart CHF ${summe.ersparnis})`
+    summe.absolventenBonus > 0
+      ? `(Absolventen-Bonus CHF ${summe.absolventenBonus} bereits abgezogen)`
       : null,
     "",
-    "Gewählt:",
+    `Gewählt (Grundpreis CHF ${GRUNDPREIS} plus):`,
     ...berechnet.map((x) => `  - ${x.name}${x.preis > 0 ? ` (CHF ${x.preis})` : ""}`),
     aufAnfrage.length ? "" : null,
     aufAnfrage.length ? "Separat zu offerieren:" : null,

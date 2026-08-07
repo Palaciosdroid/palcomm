@@ -6,6 +6,7 @@ import {
   GRUNDPREIS,
   HERVORHEBUNG,
   formatiereChf,
+  voreinstellungPreis,
   voreinstellungen,
   type Summe,
 } from "@/lib/angebot";
@@ -175,7 +176,7 @@ export default function SchrittUmfang({
                 )}
                 <span className="block text-lg font-medium text-text-dark">{v.name}</span>
                 <span className="mt-1 block text-2xl text-brand">
-                  CHF {formatiereChf(v.preis)}
+                  CHF {formatiereChf(voreinstellungPreis(v))}
                 </span>
                 <span className="mt-2 block text-sm leading-snug text-text-medium">
                   {v.fuerWen}
@@ -186,9 +187,9 @@ export default function SchrittUmfang({
         </div>
 
         <p className="mb-8 text-sm text-text-light">
-          Die drei Vorschläge sind Abkürzungen. Alles Weitere kannst du einzeln
-          an- und abwählen — der Preis rechnet mit, und den Paketpreis behältst
-          du auch dann, wenn du etwas dazunimmst.
+          Die drei Vorschläge sind Abkürzungen — sie setzen die Häkchen unten,
+          mehr nicht. Alles lässt sich einzeln an- und abwählen, und der Preis
+          ist immer der Grundpreis plus das, was angehakt ist.
         </p>
 
         {/* Immer enthalten */}

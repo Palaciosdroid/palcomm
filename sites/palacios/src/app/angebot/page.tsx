@@ -39,8 +39,8 @@ export default function AngebotSeite() {
               Stell dir zusammen, was du brauchst
             </h1>
             <p className="mt-4 text-lg leading-relaxed text-text-medium">
-              Erst der Umfang, dann das Aussehen, dann die Bestellung. Nichts
-              davon ist endgültig — ergänzen lässt sich alles später.
+              Erst der Umfang, dann die Extras, dann das Aussehen. Nichts davon
+              ist endgültig — ergänzen lässt sich alles später.
             </p>
           </header>
 
@@ -48,10 +48,10 @@ export default function AngebotSeite() {
 
           <p className="mt-12 max-w-3xl text-sm leading-relaxed text-text-light">
             Alle Preise inkl. MwSt. Was auf Anfrage steht, offerieren wir
-            persönlich; es fliesst nicht in die Summe ein. Einzeln gewählt
-            gelten die Einzelpreise — die drei Vorschläge sind günstiger als
-            ihre Teile. CHF {formatiereChf(GRUNDPREIS)} ist der Grundpreis,
-            unter den es nicht geht.
+            persönlich; es fliesst nicht in die Summe ein. Sonst gilt ohne
+            Ausnahme: CHF {formatiereChf(GRUNDPREIS)} Grundpreis plus das,
+            was du anhakst. Die drei Vorschläge setzen nur die Häkchen — einen
+            eigenen Preis haben sie nicht.
           </p>
         </div>
       </main>
