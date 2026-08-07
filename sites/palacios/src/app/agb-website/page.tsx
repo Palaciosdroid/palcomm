@@ -188,6 +188,28 @@ export default function AgbWebsiteSeite() {
           Bestehst du darauf, dürfen wir den Auftrag ablehnen oder den Vertrag
           kündigen; bereits erbrachte Leistungen sind dann zu vergüten.
         </p>
+        {/* Die Lücke, die vorher offen war: Die AGB regelten die INHALTE der
+            Website, aber nicht die Tätigkeit, für die sie wirbt. Genau dort
+            liegt bei einer Therapiepraxis das grössere Risiko — nicht im
+            Text, sondern in der Sitzung. Ohne diesen Absatz stünde bei einer
+            Klage gegen die Therapeutin die Frage im Raum, ob die Agentur,
+            die ihre Versprechen ins Netz gestellt hat, mitverantwortlich
+            ist. */}
+        <p>
+          Ausserdem gilt: <strong>Deine Arbeit mit deinen Klient/innen ist
+          nicht Gegenstand dieses Vertrags.</strong> Wir bauen und betreiben
+          deine Website — wir prüfen weder deine Qualifikation noch deine
+          Methoden, beraten dich nicht fachlich und sind an deiner
+          Behandlungsbeziehung nicht beteiligt. Für dein Angebot, seine
+          Zulässigkeit und seine Ausübung haftest du allein.
+        </p>
+        <p>
+          Unsere Hinweise zu Formulierungen sind ein Beitrag aus der Praxis,{" "}
+          <strong>keine Rechtsberatung</strong>. Wir dürfen sie nicht erbringen
+          und tun es nicht. Ob deine Angaben zu Titel, Verband, Bewilligung
+          und Methode zutreffen und zulässig sind, musst du selbst
+          verantworten — im Zweifel mit deinem Verband oder einer Anwältin.
+        </p>
       </Rechtsabschnitt>
 
       <Rechtsabschnitt titel="7. Betrieb, Verfügbarkeit und Sicherungskopien">

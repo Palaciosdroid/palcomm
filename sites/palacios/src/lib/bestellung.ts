@@ -15,6 +15,24 @@ export const LAENDER = [
 
 export type LandId = (typeof LAENDER)[number]["id"];
 
+/**
+ * Gilt in diesem Land ein gesetzliches Widerrufsrecht für Fernabsatz?
+ *
+ * In der EU ja (§§ 355 ff. BGB, in Österreich das FAGG). In der Schweiz
+ * nein: OR 40a ff. erfassen Haustür- und Telefongeschäfte, nicht aber
+ * Verträge, die jemand selbst auf einer Website abschliesst. Für Schweizer
+ * Bestellungen ist die Einwilligung zum sofortigen Beginn deshalb
+ * gegenstandslos — und ein Kontrollkästchen, das nichts bewirkt, verwirrt
+ * nur und lässt die Bestellung schwerer aussehen, als sie ist.
+ *
+ * ACHTUNG, falls der Verkauf je über abgehende Anrufe läuft: Bei einem am
+ * Telefon geschlossenen Vertrag kann OR 40a doch greifen. Diese Funktion
+ * beschreibt den Weg über das Formular, nicht jeden möglichen Vertragsweg.
+ */
+export function hatWiderrufsrecht(land: LandId | undefined): boolean {
+  return land === "DE" || land === "AT";
+}
+
 export interface Bestellung {
   bausteinIds: string[];
   paletteId: string;
@@ -45,6 +63,19 @@ export interface Bestellung {
    * wurde umsonst gearbeitet.
    */
   sofortBeginnen: boolean;
+  /**
+   * Zustimmung zu AGB und Datenschutzerklärung, verbunden mit der
+   * Kenntnisnahme, dass die Kund/in für Inhalte, Rechte und ihre eigene
+   * Tätigkeit einsteht.
+   *
+   * Pflichtfeld. AGB werden nur Vertragsbestandteil, wenn die Kund/in vor
+   * Vertragsschluss zumutbar von ihnen Kenntnis nehmen konnte (§ 305 Abs. 2
+   * BGB) — ohne diesen Schritt gälten die Haftungsgrenzen aus Abschnitt 10
+   * schlicht nicht, und es bliebe bei der gesetzlichen Haftung.
+   *
+   * Nicht vorbelegt: Eine vorangekreuzte Zustimmung ist keine.
+   */
+  bedingungenAkzeptiert: boolean;
   bemerkungen: string;
 }
 
@@ -74,6 +105,10 @@ export function pruefeBestellung(b: Partial<Bestellung>): PruefErgebnis {
 
   if (!b.land || !LAENDER.some((l) => l.id === b.land))
     fehler.land = "Bitte wähl dein Land.";
+
+  if (!b.bedingungenAkzeptiert)
+    fehler.bedingungenAkzeptiert =
+      "Ohne dein Einverständnis zu den Bedingungen können wir die Bestellung nicht annehmen.";
 
   if (!Array.isArray(b.bausteinIds) || b.bausteinIds.length === 0)
     fehler.bausteinIds = "Es ist keine Auswahl angekommen.";
@@ -107,9 +142,20 @@ export function fasseZusammen(b: Bestellung): { summe: Summe; text: string } {
     b.praxisname ? `Praxis: ${b.praxisname}` : null,
     `${b.email} · ${b.telefon} · ${land}`,
     b.istAbsolventin ? "Absolvent/in einer Palacios-Ausbildung" : null,
-    b.sofortBeginnen
-      ? "Sofortiger Beginn ausdrücklich verlangt (§ 356 Abs. 4 BGB)"
-      : "KEIN sofortiger Beginn verlangt — bei Verbraucher/in aus der EU erst nach 14 Tagen anfangen",
+    // Für die Schweiz gibt es die Frage gar nicht — dort stand das
+    // Kontrollkästchen nie im Formular. Stünde hier trotzdem «KEIN
+    // sofortiger Beginn verlangt», würde die Auftragsabwicklung zwei
+    // Wochen warten, ohne dass es einen Grund dafür gäbe.
+    !hatWiderrufsrecht(b.land)
+      ? "Schweiz: kein Widerrufsrecht bei Fernabsatz — sofort starten"
+      : b.sofortBeginnen
+        ? "Sofortiger Beginn ausdrücklich verlangt (§ 356 Abs. 4 BGB)"
+        : "KEIN sofortiger Beginn verlangt — ERST NACH 14 TAGEN anfangen",
+    // Muss im Auftragsbeleg stehen: Ohne diesen Nachweis lässt sich später
+    // nicht zeigen, dass die AGB überhaupt Vertragsbestandteil wurden.
+    b.bedingungenAkzeptiert
+      ? "AGB, Datenschutz und Eigenverantwortung für Inhalte akzeptiert"
+      : "ACHTUNG: Bedingungen NICHT akzeptiert — nicht ausliefern",
     "",
     `Einmalig: CHF ${summe.einmalig}`,
     `Monatlich: CHF ${summe.proMonat}`,

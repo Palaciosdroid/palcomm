@@ -2,7 +2,12 @@
 
 import Link from "next/link";
 import { Check, Info, Loader2 } from "lucide-react";
-import { LAENDER, type Bestellung, type PruefErgebnis } from "@/lib/bestellung";
+import {
+  LAENDER,
+  hatWiderrufsrecht,
+  type Bestellung,
+  type PruefErgebnis,
+} from "@/lib/bestellung";
 import { formatiereChf, type Summe } from "@/lib/angebot";
 import { palacios } from "@/lib/palacios-content";
 
@@ -191,7 +196,7 @@ export default function SchrittBestellen({
           />
           <span>
             <span className="block font-medium text-text-dark">
-              Ich habe eine Ausbildung bei Palacios abgeschlossen
+              Ich habe eine Ausbildung beim Palacios Institut abgeschlossen
             </span>
             <span className="mt-1 block text-sm leading-snug text-text-medium">
               {bestellen.felder.absolventin}
@@ -212,36 +217,43 @@ export default function SchrittBestellen({
             nicht schöner formuliert.
 
             Vorbelegen wäre unzulässig: Die Zustimmung muss aktiv gesetzt
-            werden. */}
-        <label className="flex cursor-pointer gap-3 rounded-xl border border-base-300 p-4">
-          <input
-            type="checkbox"
-            checked={daten.sofortBeginnen}
-            onChange={(e) => setDaten({ sofortBeginnen: e.target.checked })}
-            className="mt-1 h-4 w-4 shrink-0 accent-[color:var(--brand)]"
-          />
-          <span>
-            <span className="block font-medium text-text-dark">
-              Ihr dürft sofort anfangen
+            werden.
+
+            Nur für DE und AT. Bei einer Schweizer Bestellung über dieses
+            Formular gibt es kein gesetzliches Widerrufsrecht, das Kästchen
+            wäre also folgenlos — und ein folgenloses Kästchen mit vier Zeilen
+            Paragrafendeutsch lässt die Bestellung schwerer aussehen, als sie
+            ist. Die Erklärung dazu steht in hatWiderrufsrecht(). */}
+        {hatWiderrufsrecht(daten.land) && (
+          <label className="flex cursor-pointer gap-3 rounded-xl border border-base-300 p-4">
+            <input
+              type="checkbox"
+              checked={daten.sofortBeginnen}
+              onChange={(e) => setDaten({ sofortBeginnen: e.target.checked })}
+              className="mt-1 h-4 w-4 shrink-0 accent-[color:var(--brand)]"
+            />
+            <span>
+              <span className="block font-medium text-text-dark">
+                Ihr dürft sofort anfangen
+              </span>
+              <span className="mt-1 block text-sm leading-snug text-text-medium">
+                Ich verlange ausdrücklich, dass ihr vor Ablauf der
+                Widerrufsfrist mit der Arbeit beginnt. Mir ist bekannt, dass
+                ich mein Widerrufsrecht verliere, sobald ihr die Leistung
+                vollständig erbracht habt, und dass ich bei einem Widerruf
+                davor den Wert der bis dahin erbrachten Arbeit zu ersetzen
+                habe. Einzelheiten in der{" "}
+                <Link href="/widerruf" className="text-brand underline">
+                  Widerrufsbelehrung
+                </Link>
+                .
+              </span>
+              <span className="mt-2 block text-sm leading-snug text-text-light">
+                Ohne dieses Häkchen fangen wir erst in vierzehn Tagen an.
+              </span>
             </span>
-            <span className="mt-1 block text-sm leading-snug text-text-medium">
-              Ich verlange ausdrücklich, dass ihr vor Ablauf der Widerrufsfrist
-              mit der Arbeit beginnt. Mir ist bekannt, dass ich mein
-              Widerrufsrecht verliere, sobald ihr die Leistung vollständig
-              erbracht habt, und dass ich bei einem Widerruf davor den Wert der
-              bis dahin erbrachten Arbeit zu ersetzen habe. Einzelheiten in der{" "}
-              <Link href="/widerruf" className="text-brand underline">
-                Widerrufsbelehrung
-              </Link>
-              .
-            </span>
-            <span className="mt-2 block text-sm leading-snug text-text-light">
-              Ohne dieses Häkchen fangen wir erst in vierzehn Tagen an. Wohnst
-              du in der Schweiz, spielt es keine Rolle — dort gibt es kein
-              gesetzliches Widerrufsrecht bei Dienstleistungen.
-            </span>
-          </span>
-        </label>
+          </label>
+        )}
 
         <Feld
           name="bemerkungen"
@@ -272,7 +284,59 @@ export default function SchrittBestellen({
           </p>
         </div>
 
+        {/* Zustimmung zu den Bedingungen. Steht bewusst unmittelbar vor dem
+            Knopf und nicht bei den anderen Kästchen weiter oben: An dieser
+            Stelle ist die Bestellung fertig, und was hier zugestimmt wird,
+            gilt für alles darüber.
+
+            Die Formulierung nennt beim Namen, wofür die Kund/in einsteht —
+            Inhalte, Bildrechte, eigene Tätigkeit. Ein blosses «Ich akzeptiere
+            die AGB» erfüllt zwar § 305 Abs. 2 BGB, aber niemand liest die
+            AGB; diese drei Zeilen liest sie. */}
+        <label
+          id="bedingungenAkzeptiert"
+          className={`flex cursor-pointer gap-3 rounded-xl border p-4 ${
+            fehler.bedingungenAkzeptiert ? "border-red-400 bg-red-50" : "border-base-300"
+          }`}
+        >
+          <input
+            type="checkbox"
+            checked={daten.bedingungenAkzeptiert}
+            onChange={(e) => setDaten({ bedingungenAkzeptiert: e.target.checked })}
+            className="mt-1 h-4 w-4 shrink-0 accent-[color:var(--brand)]"
+            aria-invalid={Boolean(fehler.bedingungenAkzeptiert)}
+          />
+          <span>
+            <span className="block font-medium text-text-dark">
+              Bedingungen und Verantwortung für die Inhalte
+            </span>
+            <span className="mt-1 block text-sm leading-snug text-text-medium">
+              Ich bin mit den{" "}
+              <Link href="/agb-website" className="text-brand underline">
+                AGB
+              </Link>{" "}
+              und der{" "}
+              <Link href="/datenschutz" className="text-brand underline">
+                Datenschutzerklärung
+              </Link>{" "}
+              einverstanden. Mir ist klar: Für die Inhalte meiner Website bin
+              ich selbst verantwortlich — für die Richtigkeit meiner Angaben zu
+              Titel, Ausbildung und Methode, für die Rechte an Bildern und
+              Texten, die ich schicke, und für mein eigenes Angebot. Palacios
+              baut und betreibt die Website; für meine Arbeit mit meinen
+              Klient/innen hafte ich allein. Hinweise zu Formulierungen sind
+              Erfahrung aus der Praxis, keine Rechtsberatung.
+            </span>
+          </span>
+        </label>
+
         <div className="border-t border-base-200 pt-6">
+          {fehler.bedingungenAkzeptiert && (
+            <p role="alert" className="mb-4 text-sm text-red-700">
+              {fehler.bedingungenAkzeptiert}
+            </p>
+          )}
+
           <p className="mb-4 text-sm leading-relaxed text-text-medium">
             {bestellen.vorDemKnopf}
           </p>

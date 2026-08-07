@@ -55,6 +55,7 @@ const LEERE_BESTELLUNG: Bestellung = {
   praxisname: "",
   istAbsolventin: false,
   sofortBeginnen: false,
+  bedingungenAkzeptiert: false,
   bemerkungen: "",
 };
 
