@@ -158,15 +158,26 @@ export const bausteine: Baustein[] = [
    * 12.90 kostete ein Postfach 43 % des ganzen Website-Abos; die
    * Proportion macht entweder die Mail teuer oder die 29.90 billig.
    *
-   * Einrichtung CHF 190 einmalig: nicht fürs Anlegen des Postfachs (fünf
-   * Minuten), sondern für MX-, SPF-, DKIM- und DMARC-Einträge und das
-   * Einrichten auf Telefon und Computer der Kund/in — bei dieser
-   * Zielgruppe gut eine Stunde.
+   * Einrichtung CHF 90 einmalig — bewusst UNTER dem Aufwand im schlechten
+   * Fall. Der Aufwand schwankt stark: Die DNS-Einträge (MX, SPF, DKIM,
+   * DMARC) sind schnell gesetzt, weil wir die Domain ohnehin verwalten,
+   * und moderne Mail-Programme richten sich über die Autoconfig des
+   * Anbieters selbst ein — dann sind es zwanzig Minuten. Braucht die
+   * Kund/in Begleitung durch Outlook und iPhone, wird es eine Stunde.
    *
-   * DIE STELLE, DIE WEHTUN KANN: Auch 6.87 decken wenig Support. Ein
-   * Anruf «ich komme nicht an meine Mails» von zwanzig Minuten (~65
-   * Franken) frisst zehn Monate Marge. Der Riegel ist die Supportregel,
-   * nicht der Preis.
+   * Deshalb nicht die 190, die eine Stunde ergäbe: Eine Einrichtungsgebühr
+   * von 190 neben einer Website für 980 liest sich absurd — 19 % des
+   * Website-Preises für eine E-Mail-Adresse — und verhindert genau die
+   * Abschlüsse, an denen wir verdienen wollen. Denn der Ertrag liegt hier
+   * im Abo, nicht in der Einrichtung: 6.87 im Monat sind über fünf Jahre
+   * rund 410 Franken, und niemand wechselt seine E-Mail-Adresse. Der
+   * schlechte Einrichtungsfall ist nach gut einem Jahr Abo eingespielt.
+   *
+   * DIE STELLE, DIE WEHTUN KANN: 6.87 decken wenig Support. Ein Anruf
+   * «ich komme nicht an meine Mails» von zwanzig Minuten (~65 Franken)
+   * frisst zehn Monate Marge. Der Riegel ist die Supportregel, nicht der
+   * Preis — genau deshalb steht im Hinweis, dass das Postfach auch im
+   * Browser läuft: Das ist der Weg, der nie kaputtgeht.
    *
    * ABHÄNGIGKEIT: «Schweizer Server» unten gilt für Infomaniak. Wird der
    * Anbieter gewechselt, muss der Satz mitwandern — er steht auch in den
@@ -179,10 +190,10 @@ export const bausteine: Baustein[] = [
     name: "E-Mail-Adresse mit deinem Praxisnamen",
     beschreibung:
       "info@deine-praxis.ch statt einer Adresse bei GMX, Bluewin oder Gmail — zum Empfangen und zum Antworten. Wir richten sie ein und stellen sie dir auf Telefon und Computer bereit, damit du deine Mails dort liest, wo du sie heute schon liest.",
-    preis: 190,
+    preis: 90,
     proMonat: 9.9,
     hinweis:
-      "Eine Adresse, unbegrenzter Speicher, auf Schweizer Servern. Wenn du deine Mails lieber weiterhin bei Gmail liest, richten wir dir stattdessen kostenlos eine Weiterleitung ein — antworten würdest du dann aber weiterhin von deiner alten Adresse aus.",
+      "Eine Adresse, unbegrenzter Speicher, auf Schweizer Servern — abrufbar in deinem gewohnten Mail-Programm oder einfach im Browser. Wenn du deine Mails lieber weiterhin bei Gmail liest, richten wir dir stattdessen kostenlos eine Weiterleitung ein; antworten würdest du dann aber weiterhin von deiner alten Adresse aus.",
   },
 
   // --- Auftritt ---
